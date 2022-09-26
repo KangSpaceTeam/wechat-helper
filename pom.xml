@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.kangspace.wechat</groupId>
+    <artifactId>wechat-helper</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <description></description>
+
+    <contributors>
+        <contributor>
+            <name>Will Kang</name>
+            <email>kango2gler@gmail.com</email>
+            <organization>KangSpace</organization>
+            <organizationUrl>https://kangspace.org</organizationUrl>
+            <timezone>Asia/Shanghai</timezone>
+        </contributor>
+    </contributors>
+    <modules>
+        <module>wechat-core</module>
+        <module>wechat-mp</module>
+        <module>wechat-work</module>
+        <module>wechat-open</module>
+        <module>wechat-platform</module>
+        <module>wechat-package</module>
+        <module>wechat-monitor</module>
+        <module>wechat-pay</module>
+    </modules>
+</project>
