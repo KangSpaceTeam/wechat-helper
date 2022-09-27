@@ -32,7 +32,7 @@
         <module>wechat-work</module>
         <module>wechat-open</module>
         <module>wechat-platform</module>
-        <module>wechat-package</module>
+        <module>wechat-bom</module>
         <module>wechat-monitor</module>
         <module>wechat-pay</module>
     </modules>

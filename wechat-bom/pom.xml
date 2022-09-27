@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
-    <artifactId>wechat-package</artifactId>
+    <artifactId>wechat-bom</artifactId>
     <description>微信开发助手-SDK模块集合</description>
 
     <properties>
