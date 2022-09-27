@@ -4,13 +4,13 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>wechat-helper</artifactId>
-        <groupId>org.kangspace.wechat</groupId>
+        <groupId>org.kangspace.wechat.helper</groupId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wechat-core</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <description></description>
+    <description>微信开发助手-公共代码模块</description>
 
 
 </project>
