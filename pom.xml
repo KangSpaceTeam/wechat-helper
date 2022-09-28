@@ -23,8 +23,13 @@
     </contributors>
 
     <distributionManagement></distributionManagement>
+
     <repositories></repositories>
 
+    <properties>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+    </properties>
 
     <modules>
         <module>wechat-core</module>
@@ -35,6 +40,7 @@
         <module>wechat-bom</module>
         <module>wechat-monitor</module>
         <module>wechat-pay</module>
+        <module>wechat-miniapp</module>
     </modules>
 
     <dependencyManagement>
@@ -68,6 +74,15 @@
                 <groupId>org.kangspace.wechat.helper</groupId>
                 <artifactId>wechat-monitor</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+
+            <!-- Reactor -->
+            <dependency>
+                <groupId>io.projectreactor</groupId>
+                <artifactId>reactor-bom</artifactId>
+                <version>2020.0.23</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

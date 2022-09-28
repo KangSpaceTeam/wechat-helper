@@ -13,8 +13,6 @@
     <description>微信开发助手-开放平台相关模块</description>
 
     <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
 </project>

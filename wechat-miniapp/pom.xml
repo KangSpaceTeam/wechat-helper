@@ -8,19 +8,11 @@
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>wechat-core</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
-    <description>微信开发助手-公共代码模块</description>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.reactivestreams</groupId>
-            <artifactId>reactive-streams</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>io.projectreactor</groupId>
-            <artifactId>reactor-core</artifactId>
-        </dependency>
-    </dependencies>
+    <artifactId>wechat-miniapp</artifactId>
+    <description>微信开发助手-微信小程序相关模块</description>
+
+    <properties>
+    </properties>
 
 </project>

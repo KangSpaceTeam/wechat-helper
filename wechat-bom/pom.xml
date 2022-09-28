@@ -3,8 +3,8 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>wechat-helper</artifactId>
         <groupId>org.kangspace.wechat.helper</groupId>
+        <artifactId>wechat-helper</artifactId>
         <version>1.0.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -18,30 +18,32 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>org.kangspace.wechat.helper</groupId>
-            <artifactId>wechat-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.kangspace.wechat.helper</groupId>
-            <artifactId>wechat-mp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.kangspace.wechat.helper</groupId>
-            <artifactId>wechat-work</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.kangspace.wechat.helper</groupId>
-            <artifactId>wechat-open</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.kangspace.wechat.helper</groupId>
-            <artifactId>wechat-pay</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.kangspace.wechat.helper</groupId>
-            <artifactId>wechat-monitor</artifactId>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.kangspace.wechat.helper</groupId>
+                <artifactId>wechat-core</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.kangspace.wechat.helper</groupId>
+                <artifactId>wechat-mp</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.kangspace.wechat.helper</groupId>
+                <artifactId>wechat-work</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.kangspace.wechat.helper</groupId>
+                <artifactId>wechat-open</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.kangspace.wechat.helper</groupId>
+                <artifactId>wechat-pay</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.kangspace.wechat.helper</groupId>
+                <artifactId>wechat-monitor</artifactId>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 </project>
