@@ -29,6 +29,11 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <lombok.version>1.18.12</lombok.version>
+        <common-lang3.version>3.8.1</common-lang3.version>
+        <gson.version>2.9.0</gson.version>
+        <log4j-to-slf4j.version>2.13.3</log4j-to-slf4j.version>
+        <logback-classic.version>1.2.3</logback-classic.version>
     </properties>
 
     <modules>
@@ -76,6 +81,39 @@
                 <version>${project.version}</version>
             </dependency>
 
+            <!--lombok-->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+
+            <!-- apache commons-->
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${common-lang3.version}</version>
+            </dependency>
+
+            <!-- gson-->
+            <dependency>
+                <groupId>com.google.code.gson</groupId>
+                <artifactId>gson</artifactId>
+                <version>${gson.version}</version>
+            </dependency>
+
+            <!-- log -->
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-to-slf4j</artifactId>
+                <version>${log4j-to-slf4j.version}</version>
+            </dependency>
+
             <!-- Reactor -->
             <dependency>
                 <groupId>io.projectreactor</groupId>
@@ -84,6 +122,9 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+
+
+
         </dependencies>
     </dependencyManagement>
 </project>

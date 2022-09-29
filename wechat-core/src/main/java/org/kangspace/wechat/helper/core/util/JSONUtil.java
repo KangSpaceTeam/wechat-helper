@@ -1,0 +1,20 @@
+package org.kangspace.wechat.helper.core.util;
+
+import com.google.gson.GsonBuilder;
+
+/**
+ * Gson工具类
+ * @author kango2gler@gmail.com
+ * @date 2022/9/29
+ */
+public class JSONUtil {
+
+    /**
+     * 对象转换为Json字符串
+     * @param jsonObj 对象
+     * @return Json字符串
+     */
+    public String toJsonString(Object jsonObj) {
+        return new GsonBuilder().create().toJson(jsonObj);
+    }
+}
