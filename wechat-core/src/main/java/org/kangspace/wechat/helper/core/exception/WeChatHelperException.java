@@ -1,7 +1,7 @@
 package org.kangspace.wechat.helper.core.exception;
 
 /**
- * 微信助手统一异常类
+ * 微信开发助手统一异常类
  * @author kango2gler@gmail.com
  * @date 2022/9/29
  */

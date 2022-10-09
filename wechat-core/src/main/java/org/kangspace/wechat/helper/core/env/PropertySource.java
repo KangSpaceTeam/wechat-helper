@@ -1,15 +1,17 @@
 package org.kangspace.wechat.helper.core.env;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
- * 配置源抽象类
+ * 可排序的配置源抽象类
  *
  * @author kango2gler@gmail.com
  * @date 2022/9/29
  */
 @Getter
-public abstract class PropertySource<T> {
+@Setter
+public abstract class PropertySource<T> implements Comparable<PropertySource> {
     /**
      * 配置源名称
      */
@@ -19,9 +21,20 @@ public abstract class PropertySource<T> {
      */
     private T source;
 
+    /**
+     * 排序号, 多个property获取配置是,按此顺序加载
+     * @see PropertySources
+     */
+    private Integer order = Integer.MAX_VALUE;
+
     public PropertySource(String name, T source) {
         this.name = name;
         this.source = source;
+    }
+    public PropertySource(String name, T source, Integer order) {
+        this.name = name;
+        this.source = source;
+        this.order = order;
     }
 
     /**
@@ -56,4 +69,8 @@ public abstract class PropertySource<T> {
         return getProperty(key) != null;
     }
 
+    @Override
+    public int compareTo(PropertySource o) {
+        return o != null? this.getOrder().compareTo(o.getOrder()) - o.getOrder(): -1;
+    }
 }

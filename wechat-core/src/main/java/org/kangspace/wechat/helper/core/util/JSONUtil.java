@@ -14,7 +14,7 @@ public class JSONUtil {
      * @param jsonObj 对象
      * @return Json字符串
      */
-    public String toJsonString(Object jsonObj) {
+    public static String toJsonString(Object jsonObj) {
         return new GsonBuilder().create().toJson(jsonObj);
     }
 }

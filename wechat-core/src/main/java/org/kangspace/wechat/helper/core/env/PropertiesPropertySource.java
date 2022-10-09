@@ -6,6 +6,7 @@ import java.util.Properties;
 
 /**
  * Properties配置源
+ *
  * @author kango2gler@gmail.com
  * @date 2022/9/29
  */
@@ -20,13 +21,13 @@ public class PropertiesPropertySource extends PropertySource<Properties> {
     }
 
     @Override
-    public Object getProperty(String name) {
-        return this.getSource().get(name);
+    public Object getProperty(String key) {
+        return this.getSource().get(key);
     }
 
     @Override
-    public String getProperty(String name, String defaultVal) {
-        return this.getSource().getProperty(name, defaultVal);
+    public String getProperty(String key, String defaultVal) {
+        return this.getSource().getProperty(key, defaultVal);
     }
 
 }

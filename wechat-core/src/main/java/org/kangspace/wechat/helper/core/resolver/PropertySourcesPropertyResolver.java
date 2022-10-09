@@ -2,8 +2,11 @@ package org.kangspace.wechat.helper.core.resolver;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.env.MultiPropertySources;
 import org.kangspace.wechat.helper.core.env.PropertySource;
 import org.kangspace.wechat.helper.core.env.PropertySources;
+
+import java.util.ArrayList;
 
 /**
  * Properties配置文件解析类
@@ -16,6 +19,9 @@ import org.kangspace.wechat.helper.core.env.PropertySources;
 public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
     private PropertySources propertySources;
 
+    public PropertySourcesPropertyResolver() {
+        this.propertySources = new MultiPropertySources();
+    }
     public PropertySourcesPropertyResolver(PropertySources propertySources) {
         this.propertySources = propertySources;
     }
@@ -38,7 +44,7 @@ public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
     @Override
     public <T> T getProperty(String key, Class<T> targetType, T defaultValue) {
         if (hasPropertySources()) {
-            PropertySource<?> propertySource = this.propertySources.stream().filter(t -> t.contain(key)).findFirst().orElse(null);
+            PropertySource<?> propertySource = this.propertySources.streamOrdered().filter(t -> t.contain(key)).findFirst().orElse(null);
             if (propertySource != null) {
                 if (String.class.equals(targetType)) {
                     return (T) propertySource.getProperty(key, (String) defaultValue);

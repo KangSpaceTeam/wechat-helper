@@ -3,9 +3,7 @@ package org.kangspace.wechat.helper.core.env;
 import lombok.Getter;
 import org.kangspace.wechat.helper.core.util.CollectionUtil;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Spliterator;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
@@ -15,7 +13,7 @@ import java.util.function.Consumer;
  * @date 2022/9/29
  */
 @Getter
-public class MultiPropertySources implements PropertySources{
+public class MultiPropertySources implements PropertySources {
     /**
      * PropertySources集合
      */
@@ -23,6 +21,9 @@ public class MultiPropertySources implements PropertySources{
 
     public MultiPropertySources() {
         this.propertySources = new CopyOnWriteArrayList<>();
+    }
+    public MultiPropertySources(PropertySource... propertySources) {
+        this(Arrays.asList(propertySources));
     }
 
     public MultiPropertySources(List<PropertySource<?>> propertySources) {
@@ -62,4 +63,6 @@ public class MultiPropertySources implements PropertySources{
     public Spliterator<PropertySource<?>> spliterator() {
         return propertySources.spliterator();
     }
+
+
 }
