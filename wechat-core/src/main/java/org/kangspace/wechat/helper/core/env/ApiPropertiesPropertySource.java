@@ -6,8 +6,9 @@ import java.util.Properties;
 
 /**
  * API Properties配置源
+ *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
 public abstract class ApiPropertiesPropertySource extends PropertiesPropertySource {
 
@@ -31,6 +32,7 @@ public abstract class ApiPropertiesPropertySource extends PropertiesPropertySour
 
     /**
      * 获取API基础路径
+     *
      * @return API基础路径
      */
     public abstract String getApiBasePath();

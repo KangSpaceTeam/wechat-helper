@@ -18,6 +18,7 @@ import static org.kangspace.wechat.helper.core.constant.WeChatConstant.API_BASE_
  *  OPENID: 微信OPENID
  *  LANG: 微信获取用户信息的国家地区语言版本
  * </pre>
+ *
  * @author kango2gler@gmail.com
  * @since 2022/10/2
  */
@@ -26,7 +27,7 @@ public enum WeChatMpApiPathMapping {
     /**
      * 企业微信基础API路径前缀
      */
-    API_BASE_PATH(API_BASE_PATH_NAME,"https://qyapi.weixin.qq.com/cgi-bin/"),
+    API_BASE_PATH(API_BASE_PATH_NAME, "https://qyapi.weixin.qq.com/cgi-bin/"),
     ;
 
     private String pathName;
@@ -37,20 +38,21 @@ public enum WeChatMpApiPathMapping {
         this.value = value;
     }
 
+    /**
+     * 通过路径名称获取枚举
+     *
+     * @param pathName 路径名称 {@link  #name}
+     * @return {@link  WeChatMpApiPathMapping}
+     */
+    public static WeChatMpApiPathMapping parse(String pathName) {
+        return Arrays.stream(values()).filter(t -> t.getPathName().equals(pathName)).findFirst().orElse(null);
+    }
+
     public String getPathName() {
         return pathName;
     }
 
     public String getValue() {
         return value;
-    }
-
-    /**
-     * 通过路径名称获取枚举
-     * @param pathName 路径名称 {@link  #name}
-     * @return {@link  WeChatMpApiPathMapping}
-     */
-    public static WeChatMpApiPathMapping parse(String pathName) {
-        return Arrays.stream(values()).filter(t -> t.getPathName().equals(pathName)).findFirst().orElse(null);
     }
 }

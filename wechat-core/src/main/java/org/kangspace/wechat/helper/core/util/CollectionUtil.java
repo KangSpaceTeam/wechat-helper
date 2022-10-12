@@ -7,7 +7,7 @@ import java.util.Map;
  * 集合工具类
  *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
 public class CollectionUtil {
 

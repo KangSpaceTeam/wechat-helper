@@ -6,13 +6,11 @@ import org.kangspace.wechat.helper.core.env.MultiPropertySources;
 import org.kangspace.wechat.helper.core.env.PropertySource;
 import org.kangspace.wechat.helper.core.env.PropertySources;
 
-import java.util.ArrayList;
-
 /**
  * Properties配置文件解析类
  *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
 @Slf4j
 @Getter
@@ -22,6 +20,7 @@ public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
     public PropertySourcesPropertyResolver() {
         this.propertySources = new MultiPropertySources();
     }
+
     public PropertySourcesPropertyResolver(PropertySources propertySources) {
         this.propertySources = propertySources;
     }

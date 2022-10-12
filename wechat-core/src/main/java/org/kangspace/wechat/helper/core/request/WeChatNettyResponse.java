@@ -4,6 +4,7 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.cookie.Cookie;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.util.CollectionUtil;
 
@@ -17,9 +18,10 @@ import java.util.stream.Collectors;
  * @since 2022/10/1
  */
 @Slf4j
+@ToString
 @Getter
 @Setter
-public class WeChatNettyResponse<T> extends AbstractWeChatResponse<T> {
+public class WeChatNettyResponse<T> extends AbstractWeChatResponse {
     private int status;
     private Map<String, String> headers;
     private Map<String, Set<String>> cookies;
@@ -39,30 +41,6 @@ public class WeChatNettyResponse<T> extends AbstractWeChatResponse<T> {
         this.headers = headers;
         this.cookies = cookies;
         this.content = content;
-    }
-
-    @Override
-    public int status() {
-        return status;
-    }
-
-    @Override
-    public T getContent() {
-        return content;
-    }
-
-    @Override
-    public Map<String, String> headers() {
-        return headers;
-    }
-
-    @Override
-    public Map<String, Set<String>> cookies() {
-        return cookies;
-    }
-
-    public String getContentString(){
-        return content != null? content.toString():;
     }
 
     /**
@@ -97,5 +75,29 @@ public class WeChatNettyResponse<T> extends AbstractWeChatResponse<T> {
             cookiesMap.put(k.toString(), Arrays.stream(v.toArray()).map(Object::toString).collect(Collectors.toSet()));
         });
         return cookiesMap;
+    }
+
+    @Override
+    public int status() {
+        return status;
+    }
+
+    @Override
+    public T getContent() {
+        return content;
+    }
+
+    @Override
+    public Map<String, String> headers() {
+        return headers;
+    }
+
+    @Override
+    public Map<String, Set<String>> cookies() {
+        return cookies;
+    }
+
+    public String getContentString() {
+        return content != null ? content.toString() : null;
     }
 }

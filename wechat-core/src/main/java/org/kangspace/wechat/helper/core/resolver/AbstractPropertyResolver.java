@@ -2,10 +2,11 @@ package org.kangspace.wechat.helper.core.resolver;
 
 /**
  * Property处理器抽象实现
+ *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
-public abstract class AbstractPropertyResolver implements PropertyResolver{
+public abstract class AbstractPropertyResolver implements PropertyResolver {
 
     @Override
     public boolean containsProperty(String key) {

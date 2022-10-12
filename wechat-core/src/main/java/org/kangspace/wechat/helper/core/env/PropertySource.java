@@ -7,7 +7,7 @@ import lombok.Setter;
  * 可排序的配置源抽象类
  *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
 @Getter
 @Setter
@@ -23,6 +23,7 @@ public abstract class PropertySource<T> implements Comparable<PropertySource> {
 
     /**
      * 排序号, 多个property获取配置是,按此顺序加载
+     *
      * @see PropertySources
      */
     private Integer order = Integer.MAX_VALUE;
@@ -31,6 +32,7 @@ public abstract class PropertySource<T> implements Comparable<PropertySource> {
         this.name = name;
         this.source = source;
     }
+
     public PropertySource(String name, T source, Integer order) {
         this.name = name;
         this.source = source;
@@ -39,14 +41,17 @@ public abstract class PropertySource<T> implements Comparable<PropertySource> {
 
     /**
      * 获取配置值
+     *
      * @param key 配置项
      * @return Object
      */
-    public String getPropertyString(String key){
-        return getProperty(key,null);
+    public String getPropertyString(String key) {
+        return getProperty(key, null);
     }
+
     /**
      * 获取配置值
+     *
      * @param key 配置项
      * @return Object
      */
@@ -54,14 +59,16 @@ public abstract class PropertySource<T> implements Comparable<PropertySource> {
 
     /**
      * 获取配置值,配置不存在时返回默认值
-     * @param key 配置项
+     *
+     * @param key        配置项
      * @param defaultVal 默认值
      * @return Object
      */
-    public abstract String getProperty(String key,String defaultVal);
+    public abstract String getProperty(String key, String defaultVal);
 
     /**
      * 配置是否存在
+     *
      * @param key 配置项
      * @return boolean
      */
@@ -71,6 +78,6 @@ public abstract class PropertySource<T> implements Comparable<PropertySource> {
 
     @Override
     public int compareTo(PropertySource o) {
-        return o != null? this.getOrder().compareTo(o.getOrder()) - o.getOrder(): -1;
+        return o != null ? this.getOrder().compareTo(o.getOrder()) - o.getOrder() : -1;
     }
 }

@@ -8,7 +8,7 @@ import java.util.Properties;
  * Properties配置源
  *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
 public class PropertiesPropertySource extends PropertySource<Properties> {
 

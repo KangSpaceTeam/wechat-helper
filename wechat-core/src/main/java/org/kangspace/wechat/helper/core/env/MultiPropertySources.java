@@ -3,14 +3,18 @@ package org.kangspace.wechat.helper.core.env;
 import lombok.Getter;
 import org.kangspace.wechat.helper.core.util.CollectionUtil;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Spliterator;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
 /**
  * 多PropertySource集合
+ *
  * @author kango2gler@gmail.com
- * @date 2022/9/29
+ * @since 2022/9/29
  */
 @Getter
 public class MultiPropertySources implements PropertySources {
@@ -22,6 +26,7 @@ public class MultiPropertySources implements PropertySources {
     public MultiPropertySources() {
         this.propertySources = new CopyOnWriteArrayList<>();
     }
+
     public MultiPropertySources(PropertySource... propertySources) {
         this(Arrays.asList(propertySources));
     }
@@ -32,6 +37,7 @@ public class MultiPropertySources implements PropertySources {
             propertySources.forEach(this.propertySources::add);
         }
     }
+
     public MultiPropertySources(PropertySource<?> propertySource) {
         this();
         add(propertySource);
@@ -39,10 +45,11 @@ public class MultiPropertySources implements PropertySources {
 
     /**
      * 添加新的propertySource
+     *
      * @param propertySource 配置源
      * @return {@link MultiPropertySources}
      */
-    public MultiPropertySources add(PropertySource<?> propertySource){
+    public MultiPropertySources add(PropertySource<?> propertySource) {
         if (propertySource != null) {
             this.propertySources.add(propertySource);
         }

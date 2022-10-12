@@ -16,6 +16,7 @@ import java.util.Properties;
 
 /**
  * 企业微信Service
+ *
  * @author kango2gler@gmail.com
  * @since 2022/10/3
  */
@@ -25,13 +26,14 @@ public class WeComService implements WeChatService {
     private PropertyResolver apiPropertyResolver;
 
     public WeComService(WeComConfig weComConfig) {
-        Objects.requireNonNull(weComConfig,"weComConfig must be not null!");
+        Objects.requireNonNull(weComConfig, "weComConfig must be not null!");
         this.weComConfig = weComConfig;
         this.apiPropertyResolver = initApiPropertyResolver(weComConfig);
     }
 
     /**
      * 初始化配置处理器
+     *
      * @param weComConfig
      * @return
      */
@@ -46,16 +48,17 @@ public class WeComService implements WeChatService {
 
     /**
      * 初始化自定义api 配置
+     *
      * @param weComConfig {@link WeComConfig}
      * @return {@link  PropertySource}
      */
     private PropertySource initCustomApiProperties(WeComConfig weComConfig) {
-        if(weComConfig.getApiPathMapping() ==null || weComConfig.getApiPathMapping().size() < 1){
+        if (weComConfig.getApiPathMapping() == null || weComConfig.getApiPathMapping().size() < 1) {
             return null;
         }
         Properties apiProperties = new Properties();
         apiProperties.putAll(weComConfig.getApiPathMapping());
-        return new WeComApiPropertiesPropertySource("customApiProperties",apiProperties);
+        return new WeComApiPropertiesPropertySource("customApiProperties", apiProperties);
     }
 
 

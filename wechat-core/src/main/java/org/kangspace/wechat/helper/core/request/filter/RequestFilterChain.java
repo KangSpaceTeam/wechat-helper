@@ -7,18 +7,21 @@ import java.util.List;
 
 /**
  * 请求过滤器链
+ *
  * @author kango2gler@gmail.com
  * @since 2022/10/3
  */
 public interface RequestFilterChain {
     /**
      * 获取过滤器链
+     *
      * @return List-{@link RequestFilter}
      */
     List<RequestFilter> getRequestFilters();
 
     /**
      * 执行过滤器,代理过滤器链中的next {@link RequestFilter}
+     *
      * @param request request
      * @return Mono
      */

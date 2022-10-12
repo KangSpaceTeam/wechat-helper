@@ -14,11 +14,11 @@ public enum WeChatLang {
     ZH_TW("zh_TW"),
     EN("en");
 
+    private final String lang;
+
     WeChatLang(String lang) {
         this.lang = lang;
     }
-
-    private String lang;
 
     public String getLang() {
         return lang;

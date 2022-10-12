@@ -7,6 +7,7 @@ import java.util.HashMap;
 
 /**
  * 微信配置
+ *
  * @author kango2gler@gmail.com
  * @since 2022/10/3
  */
@@ -24,7 +25,7 @@ public class WeChatConfig {
     }
 
     @Getter
-    public static class RequestConfig{
+    public static class RequestConfig {
         /**
          * 是否压缩, default: true
          */
