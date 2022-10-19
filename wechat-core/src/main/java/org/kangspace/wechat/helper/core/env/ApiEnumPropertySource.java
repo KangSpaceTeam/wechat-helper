@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.core.env;
 
-import static org.kangspace.wechat.helper.core.constant.WeChatConstant.API_BASE_PATH_NAME;
+import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 
 /**
  * 枚举配置源
@@ -8,7 +8,7 @@ import static org.kangspace.wechat.helper.core.constant.WeChatConstant.API_BASE_
  * @author kango2gler@gmail.com
  * @since 2022/9/29
  */
-public abstract class ApiEnumPropertySource<T extends Enum> extends EnumPropertySource<T> {
+public abstract class ApiEnumPropertySource<T extends Enum<T>> extends EnumPropertySource<T> {
     private static final String NAME = "apiEnumPropertySource";
 
     public ApiEnumPropertySource(Class<T> enumClass) {
@@ -20,7 +20,7 @@ public abstract class ApiEnumPropertySource<T extends Enum> extends EnumProperty
     }
 
     public String getApiBasePath() {
-        return getPropertyString(API_BASE_PATH_NAME);
+        return getPropertyString(WeChatConstant.API_BASE_PATH_NAME);
     }
 
     /**

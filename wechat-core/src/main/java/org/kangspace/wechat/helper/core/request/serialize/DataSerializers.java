@@ -12,15 +12,15 @@ import java.util.stream.StreamSupport;
  * @author kango2gler@gmail.com
  * @since 2022/10/11
  */
-public class DataSerializers implements Iterator<DataSerializer>, Iterable {
-    private List<DataSerializer> dataSerializers;
-    private Iterator<DataSerializer> it;
+public class DataSerializers implements Iterator<DataSerializer<Object>>, Iterable {
+    private final List<DataSerializer<Object>> dataSerializers;
+    private final Iterator<DataSerializer<Object>> it;
 
     public DataSerializers() {
         this(Collections.emptyList());
     }
 
-    public DataSerializers(List<DataSerializer> dataSerializers) {
+    public DataSerializers(List<DataSerializer<Object>> dataSerializers) {
         Objects.requireNonNull(dataSerializers, "dataSerializers is not null!");
         dataSerializers.sort(Comparator.comparing(DataSerializer::getOrder));
         this.dataSerializers = dataSerializers;
@@ -33,7 +33,7 @@ public class DataSerializers implements Iterator<DataSerializer>, Iterable {
     }
 
     @Override
-    public DataSerializer next() {
+    public DataSerializer<Object> next() {
         return it.next();
     }
 
@@ -43,21 +43,21 @@ public class DataSerializers implements Iterator<DataSerializer>, Iterable {
     }
 
     @Override
-    public void forEachRemaining(Consumer<? super DataSerializer> action) {
+    public void forEachRemaining(Consumer<? super DataSerializer<Object>> action) {
         it.forEachRemaining(action);
     }
 
-    public List<DataSerializer> getDataSerializers() {
+    public List<DataSerializer<Object>> getDataSerializers() {
         return dataSerializers;
     }
 
     /**
      * 通过scope获取序列化对象
      *
-     * @param scope
+     * @param scope {@link DataSerializerScope}
      * @return List&lt;{@link DataSerializer}&gt;
      */
-    public List<DataSerializer> getDataSerializers(DataSerializerScope scope) {
+    public List<DataSerializer<Object>> getDataSerializers(DataSerializerScope scope) {
         return this.dataSerializers.stream().filter(t -> t.isSupport(scope)).collect(Collectors.toList());
     }
 
@@ -67,7 +67,7 @@ public class DataSerializers implements Iterator<DataSerializer>, Iterable {
      *
      * @return steam
      */
-    Stream<DataSerializer> stream() {
+    Stream<DataSerializer<Object>> stream() {
         return StreamSupport.stream(this.spliterator(), false);
     }
 
@@ -76,12 +76,12 @@ public class DataSerializers implements Iterator<DataSerializer>, Iterable {
      *
      * @return steam
      */
-    Stream<DataSerializer> streamOrdered() {
+    Stream<DataSerializer<Object>> streamOrdered() {
         return this.stream().sorted();
     }
 
     @Override
-    public Iterator iterator() {
+    public Iterator<DataSerializer<Object>> iterator() {
         return this.it;
     }
 
@@ -91,7 +91,7 @@ public class DataSerializers implements Iterator<DataSerializer>, Iterable {
     }
 
     @Override
-    public Spliterator spliterator() {
+    public Spliterator<DataSerializer<Object>> spliterator() {
         return this.dataSerializers.spliterator();
     }
 }

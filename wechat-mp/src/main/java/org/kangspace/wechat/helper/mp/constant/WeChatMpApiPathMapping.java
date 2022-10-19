@@ -2,7 +2,7 @@ package org.kangspace.wechat.helper.mp.constant;
 
 import java.util.Arrays;
 
-import static org.kangspace.wechat.helper.core.constant.WeChatConstant.API_BASE_PATH_NAME;
+import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 
 /**
  * API路径映射类
@@ -27,11 +27,11 @@ public enum WeChatMpApiPathMapping {
     /**
      * 企业微信基础API路径前缀
      */
-    API_BASE_PATH(API_BASE_PATH_NAME, "https://qyapi.weixin.qq.com/cgi-bin/"),
+    API_BASE_PATH(WeChatConstant.API_BASE_PATH_NAME, "https://qyapi.weixin.qq.com/cgi-bin/"),
     ;
 
-    private String pathName;
-    private String value;
+    private final String pathName;
+    private final String value;
 
     WeChatMpApiPathMapping(String pathName, String value) {
         this.pathName = pathName;
@@ -41,7 +41,7 @@ public enum WeChatMpApiPathMapping {
     /**
      * 通过路径名称获取枚举
      *
-     * @param pathName 路径名称 {@link  #name}
+     * @param pathName 路径名称 {@link #name()}
      * @return {@link  WeChatMpApiPathMapping}
      */
     public static WeChatMpApiPathMapping parse(String pathName) {

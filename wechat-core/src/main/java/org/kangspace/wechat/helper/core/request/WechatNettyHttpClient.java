@@ -32,11 +32,11 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     /**
      * 请求配置
      */
-    private WeChatConfig.RequestConfig requestConfig;
+    private final WeChatConfig.RequestConfig requestConfig;
     /**
      * 数据序列化列表
      */
-    private DataSerializers dataSerializers;
+    private final DataSerializers dataSerializers;
 
 
     public WechatNettyHttpClient() {
@@ -52,6 +52,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     public <RequestBody, ResponseBody> Mono<WeChatResponse<ResponseBody>> executeAsync(String uri, HttpMethod httpMethod, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass) {
         HttpClient client = newClientWithConfig(httpHeaders);
         HttpClient.RequestSender requestSender = client.request(httpMethod).uri(uri);
+        log.debug("WechatNettyHttpClient executeAsync: uri:{}, method:{}", uri, httpMethod);
         if (requestBody != null) {
             // 请求序列化类
             requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(requestBody));
@@ -89,11 +90,11 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @return {@link ByteBufMono}
      */
     private ByteBufMono requestDataSerialize(Object requestBody) {
-        List<DataSerializer> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.REQUEST);
-        Iterator<DataSerializer> iterator = serializers.iterator();
+        List<DataSerializer<Object>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.REQUEST);
+        Iterator<DataSerializer<Object>> iterator = serializers.iterator();
         String buf;
         while (iterator.hasNext()) {
-            DataSerializer dataSerializer = iterator.next();
+            DataSerializer<Object> dataSerializer = iterator.next();
             if ((buf = dataSerializer.serialize(requestBody)) != null) {
                 return ByteBufMono.fromString(Mono.just(buf));
             }
@@ -109,8 +110,8 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @return {@link Object}
      */
     private <ResponseBody> ResponseBody responseDataSerialize(String responseData, Class<ResponseBody> responseClass) {
-        List<DataSerializer> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.RESPONSE);
-        Iterator<DataSerializer> iterator = serializers.iterator();
+        List<DataSerializer<Object>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.RESPONSE);
+        Iterator<DataSerializer<Object>> iterator = serializers.iterator();
         ResponseBody data;
         while (iterator.hasNext()) {
             DataSerializer dataSerializer = iterator.next();
@@ -118,6 +119,6 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
                 return data;
             }
         }
-        return (ResponseBody) responseData;
+        return responseClass.equals(String.class)? (ResponseBody) responseData : null;
     }
 }
