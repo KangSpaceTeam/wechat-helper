@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.mp.constant;
 
-import java.util.Arrays;
-
 import org.kangspace.wechat.helper.core.constant.WeChatConstant;
+
+import java.util.Arrays;
 
 /**
  * API路径映射类

@@ -36,18 +36,19 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     /**
      * 数据序列化列表
      */
-    private final DataSerializers dataSerializers;
+    private final DataSerializers<?> dataSerializers;
 
 
     public WechatNettyHttpClient() {
-        this(null, DataSerializerFactory.defaultJSONSerializers());
+        this(null, DataSerializerFactory.defaultJsonSerializers());
     }
 
-    public WechatNettyHttpClient(WeChatConfig weChatConfig, DataSerializers dataSerializers) {
+    public WechatNettyHttpClient(WeChatConfig weChatConfig, DataSerializers<?> dataSerializers) {
         this.requestConfig = weChatConfig != null ? weChatConfig.getRequest() : new WeChatConfig.RequestConfig();
-        this.dataSerializers = dataSerializers != null ? dataSerializers : new DataSerializers();
+        this.dataSerializers = dataSerializers != null ? dataSerializers : new DataSerializers<>();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <RequestBody, ResponseBody> Mono<WeChatResponse<ResponseBody>> executeAsync(String uri, HttpMethod httpMethod, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass) {
         HttpClient client = newClientWithConfig(httpHeaders);
@@ -89,9 +90,10 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @param requestBody 请求体
      * @return {@link ByteBufMono}
      */
+    @SuppressWarnings("unchecked")
     private ByteBufMono requestDataSerialize(Object requestBody) {
-        List<DataSerializer<Object>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.REQUEST);
-        Iterator<DataSerializer<Object>> iterator = serializers.iterator();
+        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.REQUEST);
+        Iterator<DataSerializer<Object>> iterator = (Iterator<DataSerializer<Object>>) serializers.iterator();
         String buf;
         while (iterator.hasNext()) {
             DataSerializer<Object> dataSerializer = iterator.next();
@@ -109,13 +111,14 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @param responseData 请求体
      * @return {@link Object}
      */
+    @SuppressWarnings("unchecked")
     private <ResponseBody> ResponseBody responseDataSerialize(String responseData, Class<ResponseBody> responseClass) {
-        List<DataSerializer<Object>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.RESPONSE);
-        Iterator<DataSerializer<Object>> iterator = serializers.iterator();
+        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.RESPONSE);
+        Iterator<DataSerializer<ResponseBody>> iterator = (Iterator<DataSerializer<ResponseBody>>) serializers.iterator();
         ResponseBody data;
         while (iterator.hasNext()) {
-            DataSerializer dataSerializer = iterator.next();
-            if ((data = (ResponseBody) dataSerializer.deserialize(responseData, responseClass)) != null) {
+            DataSerializer<ResponseBody> dataSerializer = iterator.next();
+            if ((data = dataSerializer.deserialize(responseData, responseClass)) != null) {
                 return data;
             }
         }

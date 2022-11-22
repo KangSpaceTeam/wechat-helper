@@ -8,5 +8,5 @@ import org.kangspace.wechat.helper.core.request.serialize.ResponseDataSerializer
  * @author kango2gler@gmail.com
  * @since 2022/10/11
  */
-public class XMLResponseDataSerializer extends ResponseDataSerializer {
+public class XmlResponseDataSerializer extends ResponseDataSerializer<Object> {
 }

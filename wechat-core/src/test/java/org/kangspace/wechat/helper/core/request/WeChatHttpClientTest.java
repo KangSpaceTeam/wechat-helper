@@ -11,6 +11,8 @@ import org.junit.runners.JUnit4;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufMono;
 
+import java.util.Optional;
+
 /**
  * WeChatHttpClient Test
  *
@@ -21,11 +23,19 @@ import reactor.netty.ByteBufMono;
 @RunWith(JUnit4.class)
 public class WeChatHttpClientTest {
 
+    /**
+     * Json请求响应HttpClient
+     */
     private WeChatHttpClient weChatHttpClient;
+    /**
+     * 字符串请求响应HttpClient
+     */
+    private WeChatHttpClient stringWeChatHttpClient;
 
     @Before
     public void initWeChatHttpClient() {
         weChatHttpClient = new DefaultWeChatHttpClient();
+        stringWeChatHttpClient = new StringWeChatHttpClient();
     }
 
     /**
@@ -37,8 +47,8 @@ public class WeChatHttpClientTest {
         String url = "http://ip.kangspace.org";
         HttpMethod method = HttpMethod.GET;
         WeChatResponse<String> response = client.execute(url, method, null, null);
-        log.info("url:{}", url);
-        log.info("response:src:{}, string:{}", response.getContent(), ((WeChatNettyResponse<ByteBufMono>) response).getContentString());
+        log.info("url: {}", url);
+        log.info("response:src: {}, string: {}", response.getContent(), ((WeChatNettyResponse<ByteBufMono>) response).getContentString());
     }
 
     /**
@@ -47,11 +57,11 @@ public class WeChatHttpClientTest {
     @Test
     public void executeWithResponseDataTest() {
         WeChatHttpClient client = weChatHttpClient;
-        String url = "http://ip.kangspace.org?type=json";
+        String url = "https://ip.kangspace.org?type=json";
         HttpMethod method = HttpMethod.GET;
         WeChatResponse<IpResponseDataBean> response = client.execute(url, method, null, null, IpResponseDataBean.class);
-        log.info("url:{}", url);
-        log.info("response:src:{}, string:{}", response.getContent(), ((WeChatNettyResponse<ByteBufMono>) response).getContentString());
+        log.info("url: {}", url);
+        log.info("response:src: {}, string:{}", response.getContent(), ((WeChatNettyResponse<ByteBufMono>) response).getContentString());
 
     }
 
@@ -60,19 +70,13 @@ public class WeChatHttpClientTest {
      */
     @Test
     public void executeAsyncTest() {
-        WeChatHttpClient client = weChatHttpClient;
-        String url = "http://ip.kangspace.org";
+        WeChatHttpClient client = stringWeChatHttpClient;
+        String url = "http://ip.kangspace.org?type=json";
         HttpMethod method = HttpMethod.GET;
         Mono<WeChatResponse<String>> response = client.executeAsync(url, method, null, null);
-        log.info("url:{}", url);
-        log.info("response:src:{}, decode:{}", response.block());
-    }
-
-    /**
-     * Get请求测试
-     */
-    public void getTest() {
-
+        WeChatResponse<String> responseStr = response.block();
+        log.info("url: {}", url);
+        log.info("response:src: {}", Optional.ofNullable(responseStr).get().getContent());
     }
 
     /**

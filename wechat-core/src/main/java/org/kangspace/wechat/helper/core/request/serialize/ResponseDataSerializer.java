@@ -6,7 +6,7 @@ package org.kangspace.wechat.helper.core.request.serialize;
  * @author kango2gler@gmail.com
  * @since 2022/10/11
  */
-public class ResponseDataSerializer extends AbstractDataSerializer {
+public class ResponseDataSerializer<FROM> extends AbstractDataSerializer<FROM> {
 
 
     @Override
