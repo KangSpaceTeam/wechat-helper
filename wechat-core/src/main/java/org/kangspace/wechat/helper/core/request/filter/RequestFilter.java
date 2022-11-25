@@ -18,7 +18,7 @@ public interface RequestFilter {
      * @param chain   过滤器链
      * @return Mono
      */
-    Mono<Void> doFilter(WeChatRequest request, RequestFilterChain chain);
+    <Req,Resp> Mono<Resp> doFilter(WeChatRequest<Req,Resp> request, RequestFilterChain chain);
 
     /**
      * 是否支持过滤器
@@ -26,5 +26,11 @@ public interface RequestFilter {
      * @param request 请求客户端
      * @return boolean
      */
-    boolean isSupported(WeChatRequest request);
+    <Req,Resp> boolean isSupported(WeChatRequest<Req,Resp>  request);
+
+    /**
+     * 过滤器执行顺序,执行顺序:从小到大
+     * @return int
+     */
+    default int order(){ return 0;}
 }

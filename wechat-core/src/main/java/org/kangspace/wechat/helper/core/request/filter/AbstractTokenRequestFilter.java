@@ -8,10 +8,10 @@ import org.kangspace.wechat.helper.core.request.WeChatRequest;
  * @author kango2gler@gmail.com
  * @since 2022/10/3
  */
-public abstract class AbstractAccessTokenRequestFilter implements RequestFilter {
+public abstract class AbstractTokenRequestFilter implements RequestFilter {
 
     @Override
-    public boolean isSupported(WeChatRequest request) {
+    public <Req,Resp>  boolean isSupported(WeChatRequest<Req,Resp>  request) {
         return request != null && request.isNeedAccessToken();
     }
 }

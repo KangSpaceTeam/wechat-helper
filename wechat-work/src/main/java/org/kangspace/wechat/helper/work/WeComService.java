@@ -2,12 +2,15 @@ package org.kangspace.wechat.helper.work;
 
 import lombok.Getter;
 import org.kangspace.wechat.helper.core.WeChatService;
+import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.env.MultiPropertySources;
 import org.kangspace.wechat.helper.core.env.PropertySource;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
+import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.resolver.PropertyResolver;
 import org.kangspace.wechat.helper.core.resolver.PropertySourcesPropertyResolver;
-import org.kangspace.wechat.helper.work.constant.WeComConfig;
+import org.kangspace.wechat.helper.core.token.WeChatTokenService;
+import org.kangspace.wechat.helper.work.constant.WeComRequestConfig;
 import org.kangspace.wechat.helper.work.env.WeComApiEnumPropertySource;
 import org.kangspace.wechat.helper.work.env.WeComApiPropertiesPropertySource;
 
@@ -22,10 +25,10 @@ import java.util.Properties;
  */
 @Getter
 public class WeComService implements WeChatService {
-    private WeComConfig weComConfig;
-    private PropertyResolver apiPropertyResolver;
+    private final WeComRequestConfig weComConfig;
+    private final PropertyResolver apiPropertyResolver;
 
-    public WeComService(WeComConfig weComConfig) {
+    public WeComService(WeComRequestConfig weComConfig) {
         Objects.requireNonNull(weComConfig, "weComConfig must be not null!");
         this.weComConfig = weComConfig;
         this.apiPropertyResolver = initApiPropertyResolver(weComConfig);
@@ -35,9 +38,9 @@ public class WeComService implements WeChatService {
      * 初始化配置处理器
      *
      * @param weComConfig
-     * @return
+     * @return {@link PropertyResolver}
      */
-    private PropertyResolver initApiPropertyResolver(WeComConfig weComConfig) {
+    private PropertyResolver initApiPropertyResolver(WeComRequestConfig weComConfig) {
         MultiPropertySources multiPropertySources = new MultiPropertySources(new WeComApiEnumPropertySource());
         PropertySource customApiProperties = initCustomApiProperties(weComConfig);
         if (customApiProperties != null) {
@@ -49,10 +52,10 @@ public class WeComService implements WeChatService {
     /**
      * 初始化自定义api 配置
      *
-     * @param weComConfig {@link WeComConfig}
+     * @param weComConfig {@link WeComRequestConfig}
      * @return {@link  PropertySource}
      */
-    private PropertySource initCustomApiProperties(WeComConfig weComConfig) {
+    private PropertySource initCustomApiProperties(WeComRequestConfig weComConfig) {
         if (weComConfig.getApiPathMapping() == null || weComConfig.getApiPathMapping().size() < 1) {
             return null;
         }
@@ -61,9 +64,23 @@ public class WeComService implements WeChatService {
         return new WeComApiPropertiesPropertySource("customApiProperties", apiProperties);
     }
 
+    @Override
+    public WeChatHttpClient getWeChatHttpClient() {
+        return null;
+    }
 
     @Override
-    public WeChatHttpClient getWeChatRequestClient() {
+    public WeChatConfig getWeChatConfig() {
+        return null;
+    }
+
+    @Override
+    public RequestFilterChain getRequestFilterChain() {
+        return null;
+    }
+
+    @Override
+    public WeChatTokenService getWeChatTokenService() {
         return null;
     }
 }

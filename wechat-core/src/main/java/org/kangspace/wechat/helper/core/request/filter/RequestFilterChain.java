@@ -25,6 +25,6 @@ public interface RequestFilterChain {
      * @param request request
      * @return Mono
      */
-    Mono<Void> doFilter(WeChatRequest request);
+    <Req,Resp> Mono<Resp> doFilter(WeChatRequest<Req,Resp> request);
 
 }

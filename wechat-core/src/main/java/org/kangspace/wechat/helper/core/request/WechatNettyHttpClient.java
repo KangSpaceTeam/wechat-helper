@@ -6,7 +6,7 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.kangspace.wechat.helper.core.env.WeChatConfig;
+import org.kangspace.wechat.helper.core.config.WeChatRequestConfig;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializer;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerFactory;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
@@ -32,7 +32,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     /**
      * 请求配置
      */
-    private final WeChatConfig.RequestConfig requestConfig;
+    private final WeChatRequestConfig.RequestConfig requestConfig;
     /**
      * 数据序列化列表
      */
@@ -43,8 +43,8 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
         this(null, DataSerializerFactory.defaultJsonSerializers());
     }
 
-    public WechatNettyHttpClient(WeChatConfig weChatConfig, DataSerializers<?> dataSerializers) {
-        this.requestConfig = weChatConfig != null ? weChatConfig.getRequest() : new WeChatConfig.RequestConfig();
+    public WechatNettyHttpClient(WeChatRequestConfig weChatRequestConfig, DataSerializers<?> dataSerializers) {
+        this.requestConfig = weChatRequestConfig != null ? weChatRequestConfig.getRequest() : new WeChatRequestConfig.RequestConfig();
         this.dataSerializers = dataSerializers != null ? dataSerializers : new DataSerializers<>();
     }
 

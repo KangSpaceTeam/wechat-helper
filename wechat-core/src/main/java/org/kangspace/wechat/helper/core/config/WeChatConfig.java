@@ -1,31 +1,25 @@
-package org.kangspace.wechat.helper.core.env;
+package org.kangspace.wechat.helper.core.config;
 
 import lombok.Data;
-import lombok.Getter;
-
-import java.util.HashMap;
 
 /**
- * 微信配置
- *
+ * 微信基本配置接口(包括AppId等)
  * @author kango2gler@gmail.com
- * @since 2022/10/3
+ * @since 2022/11/24
  */
-@Data
-public class WeChatConfig {
-    private ApiPathMapping apiPathMapping;
-
-    private RequestConfig request;
-
+public interface WeChatConfig {
 
     /**
-     * 自定义ApiPathMapping
+     * Http相关请求配置
+     * @return {@link RequestConfig}
      */
-    public static class ApiPathMapping extends HashMap<String, String> {
-    }
+    RequestConfig requestConfig();
 
-    @Getter
-    public static class RequestConfig {
+    /**
+     * 请求配置
+     */
+    @Data
+    class RequestConfig {
         /**
          * 是否压缩, default: true
          */

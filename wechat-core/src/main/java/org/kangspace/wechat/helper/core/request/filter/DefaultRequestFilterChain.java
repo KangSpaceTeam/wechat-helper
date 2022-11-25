@@ -5,6 +5,7 @@ import org.kangspace.wechat.helper.core.request.WeChatRequest;
 import reactor.core.publisher.Mono;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -23,8 +24,11 @@ public class DefaultRequestFilterChain implements RequestFilterChain {
     public DefaultRequestFilterChain() {
         this(Collections.emptyList());
     }
-
+    public DefaultRequestFilterChain(RequestFilter filter) {
+        this(Collections.singletonList(filter));
+    }
     public DefaultRequestFilterChain(List<RequestFilter> filters) {
+        filters.sort(Comparator.comparingInt(RequestFilter::order));
         this.filters = Collections.unmodifiableList(filters);
         DefaultRequestFilterChain chain = initChain(this.filters);
         this.chain = chain.getChain();
@@ -40,9 +44,18 @@ public class DefaultRequestFilterChain implements RequestFilterChain {
      */
     private DefaultRequestFilterChain(List<RequestFilter> filters,
                                       RequestFilter currentFilter, DefaultRequestFilterChain chain) {
+        sortFilters(filters);
         this.filters = filters;
         this.currentFilter = currentFilter;
         this.chain = chain;
+    }
+
+    private void sortFilters(List<RequestFilter> filters) {
+        try {
+            filters.sort(Comparator.comparingInt(RequestFilter::order));
+        } catch (Exception e) {
+            // 无法排序时忽略
+        }
     }
 
     /**
@@ -65,14 +78,26 @@ public class DefaultRequestFilterChain implements RequestFilterChain {
     }
 
     @Override
-    public Mono<Void> doFilter(WeChatRequest request) {
+    public <Req,Resp> Mono<Resp> doFilter(WeChatRequest<Req,Resp> request) {
         return Mono.defer(() ->
                 this.currentFilter != null && this.chain != null ?
                         invokeFilter(this.currentFilter, this.chain, request) : Mono.empty());
     }
 
-    private Mono<Void> invokeFilter(RequestFilter current, DefaultRequestFilterChain chain, WeChatRequest request) {
+    /**
+     * 执行过滤器
+     * @param current 当前过滤器
+     * @param chain 过滤器链
+     * @param request 请求
+     * @param <Req> 请求对象类型
+     * @param <Resp> 响应对象类型
+     * @return Resp
+     */
+    private <Req,Resp> Mono<Resp> invokeFilter(RequestFilter current, DefaultRequestFilterChain chain, WeChatRequest<Req,Resp> request) {
         String currentName = current.getClass().getName();
-        return current.doFilter(request, chain).checkpoint(currentName + " [DefaultRequestFilterChain]");
+        if (current.isSupported(request)) {
+            return current.doFilter(request, chain).checkpoint(currentName + " [DefaultRequestFilterChain]");
+        }
+        return chain.doFilter(request).checkpoint(currentName + " [DefaultRequestFilterChain]");
     }
 }

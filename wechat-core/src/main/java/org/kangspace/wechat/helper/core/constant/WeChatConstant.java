@@ -13,4 +13,19 @@ public interface WeChatConstant {
      */
     String API_BASE_PATH_NAME = "api_base_path";
 
+    /**
+     * oAuth认证GrateType枚举
+     */
+    enum OAuthGrantType{
+        /**
+         * 客户端认证模式
+         */
+        CLIENT_CREDENTIAL,
+        ;
+
+        @Override
+        public String toString() {
+            return super.toString().toLowerCase();
+        }
+    }
 }
