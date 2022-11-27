@@ -30,14 +30,21 @@ public class RequestFilterChainFactory {
     public static RequestFilterChain defaultRequestChain(RequestFilter... requestFilters) {
         List<RequestFilter> filterList = new ArrayList<>(requestFilters.length);
         boolean containRequestExecuteFilter = false;
+        boolean containRequestExecuteRetryFilter = false;
         for (RequestFilter requestFilter : requestFilters) {
             filterList.add(requestFilter);
-            if (!containRequestExecuteFilter && requestFilter instanceof RequestExecuteFilter) {
+            if (requestFilter instanceof RequestExecuteFilter) {
                 containRequestExecuteFilter = true;
+            }
+            if (requestFilter instanceof RequestExecuteRetryFilter) {
+                containRequestExecuteRetryFilter = true;
             }
         }
         if (!containRequestExecuteFilter) {
             filterList.add(new RequestExecuteFilter());
+        }
+        if (!containRequestExecuteRetryFilter) {
+            filterList.add(new RequestExecuteRetryFilter());
         }
         return new DefaultRequestFilterChain(filterList);
     }

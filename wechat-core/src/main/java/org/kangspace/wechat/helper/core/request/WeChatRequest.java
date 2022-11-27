@@ -68,6 +68,12 @@ public interface WeChatRequest<Req, Resp> {
     boolean isNeedAccessToken();
 
     /**
+     * 最大请求重试次数,默认3次(含第一次请求);
+     * @return boolean
+     */
+    int getMaxRetryCount();
+
+    /**
      * 获取请求客户端
      *
      * @return {@link WeChatHttpClient}

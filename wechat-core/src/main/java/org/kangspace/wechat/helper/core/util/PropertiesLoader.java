@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.core.util;
 
-import org.kangspace.wechat.helper.core.exception.WeChatHelperException;
+import org.kangspace.wechat.helper.core.exception.WeChatException;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +26,7 @@ public class PropertiesLoader {
         try {
             properties.load(inputStream);
         } catch (IOException e) {
-            throw new WeChatHelperException(e);
+            throw new WeChatException(e);
         }
         return properties;
     }

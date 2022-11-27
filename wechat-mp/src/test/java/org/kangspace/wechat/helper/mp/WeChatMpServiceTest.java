@@ -32,6 +32,25 @@ public class WeChatMpServiceTest {
         mpServerService = new DefaultWeChatMpServerService(weChatMpConfig, weChatMpAccessTokenService);
     }
 
+    /**
+     * 连接超时重试测试
+     */
+    @Test
+    public void requestExecuteRetryConnectTimeoutTest() {
+        String mustConnectTimeoutUrl = "https://google.com";
+        String result = mpServerService.get(mustConnectTimeoutUrl, String.class);
+        log.info("url: {}", mustConnectTimeoutUrl);
+        log.info("result: {}", result);
+    }
+
+    /**
+     * 502重试设置
+     */
+    @Test
+    public void requestExecuteRetry502Test() {
+        // TODO xxx
+    }
+
     @Test
     public void getTokenTest() {
         log.info("weChatConfig: {}", weChatMpAccessTokenService.getWeChatConfig());

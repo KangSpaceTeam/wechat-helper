@@ -43,8 +43,9 @@ public class WeChatHttpClientTest {
      */
     @Test
     public void executeTest() {
-        WeChatHttpClient client = weChatHttpClient;
-        String url = "http://ip.kangspace.org";
+        WeChatHttpClient client = stringWeChatHttpClient;
+        String url = "https://kangspace.org/100";
+//        String url = "https://google.com";
         HttpMethod method = HttpMethod.GET;
         WeChatResponse<String> response = client.execute(url, method, null, null);
         log.info("url: {}", url);

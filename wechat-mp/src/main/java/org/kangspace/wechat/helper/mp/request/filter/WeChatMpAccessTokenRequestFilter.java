@@ -10,6 +10,13 @@ import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
 import reactor.core.publisher.Mono;
 
 /**
+ * 微信公众号AccessToken处理过滤器
+ * <p>
+ * 作用:
+ * 1. 补充需要AccessToken的URL
+ * 2. 替换请求URL中失效的AccessToken
+ * 3. AccessToken过期时刷新AccessToken
+ * </p>
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
@@ -18,6 +25,7 @@ public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter
     @Override
     public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
         checkAndReplaceUrl(request);
+        // TODO
         return chain.doFilter(request);
     }
 

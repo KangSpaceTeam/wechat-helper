@@ -20,7 +20,7 @@ public class WeChatMpResponseEntity extends WeChatResponseEntity {
      * 错误码
      */
     @JsonProperty("errcode")
-    private String errCode;
+    private Integer errCode;
 
     /**
      * 错误消息

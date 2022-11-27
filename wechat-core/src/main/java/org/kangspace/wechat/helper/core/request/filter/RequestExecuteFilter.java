@@ -24,6 +24,6 @@ public class RequestExecuteFilter implements RequestFilter {
 
     @Override
     public int order() {
-        return Integer.MAX_VALUE;
+        return RequestFilterOrder.REQUEST_EXECUTE_FILTER.getOrder();
     }
 }

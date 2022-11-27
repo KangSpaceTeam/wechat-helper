@@ -4,7 +4,12 @@ import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.bean.WeChatResponseEntity;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
+import org.kangspace.wechat.helper.core.constant.WeChatResponseCode;
+import org.kangspace.wechat.helper.core.exception.WeChatException;
+import org.kangspace.wechat.helper.core.exception.WeChatHttpFaultException;
+import org.kangspace.wechat.helper.core.exception.WeChatServerErrorException;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
 import reactor.core.publisher.Mono;
@@ -67,6 +72,11 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
      * 是否需要AccessToken
      */
     private boolean needAccessToken = true;
+
+    /**
+     * 最大请求重试次数,默认3次(含第一次请求);
+     */
+    private int maxRetryCount = 3;
 
     public AbstractWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain) {
         this.url = url;
@@ -137,6 +147,11 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
     }
 
     @Override
+    public int getMaxRetryCount() {
+        return maxRetryCount;
+    }
+
+    @Override
     public WeChatHttpClient getWeChatHttpClient() {
         return weChatHttpClient;
     }
@@ -166,16 +181,38 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
     public Resp doExecute() {
         // TODO 添加执行日志
         HttpMethod method = getHttpMethod();
+        WeChatResponse<Resp> response;
         if (HttpMethod.GET.equals(method)) {
-            return get(getUrl(), getHttpHeaders(), getResponseClass());
+            response = get(getUrl(), getHttpHeaders(), getResponseClass());
+        }else if (HttpMethod.POST.equals(method)) {
+            response = post(getUrl(), getHttpHeaders(), getRequestBody(), getResponseClass());
+        }else if (HttpMethod.PUT.equals(method)) {
+            response = put(getUrl(), getHttpHeaders(), getRequestBody(), getResponseClass());
+        }else {
+            throw new WeChatException("Request HttpMethod: " + method + " not support!");
         }
-        if (HttpMethod.POST.equals(method)) {
-            return post(getUrl(), getHttpHeaders(), getRequestBody(), getResponseClass());
+        // 非200/201时抛出异常
+        if (!HttpUtil.isSuccess(response.status())) {
+            throw new WeChatHttpFaultException(response);
         }
-        if (HttpMethod.PUT.equals(method)) {
-            return put(getUrl(), getHttpHeaders(), getRequestBody(), getResponseClass());
+        Resp resp = response.getContent();
+        // 检查响应内容为微信服务异常时抛出异常
+        throwExceptionOnWeChatServerError(resp);
+        return resp;
+    }
+
+    /**
+     * 检查响应内容为微信服务异常时抛出异常
+     * @param resp {@link Resp}
+     */
+    private void throwExceptionOnWeChatServerError(Resp resp) {
+        WeChatResponseEntity serverError;
+        if (resp instanceof WeChatResponseEntity) {
+            boolean isWeChatServerError = WeChatResponseCode.CODE_NE_1.getCode().equals((serverError = (WeChatResponseEntity) resp).getErrCode());
+            if (isWeChatServerError) {
+                throw new WeChatServerErrorException(serverError.getErrCode(), serverError.getErrMsg());
+            }
         }
-        return null;
     }
 
     /**
@@ -184,9 +221,8 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
      * @param url url
      * @return responseClass
      */
-    Resp get(String url, HttpHeaders httpHeaders, Class<Resp> responseClass) {
-        WeChatResponse<Resp> response = getWeChatHttpClient().get(url, httpHeaders, responseClass);
-        return response.getContent();
+    WeChatResponse<Resp> get(String url, HttpHeaders httpHeaders, Class<Resp> responseClass) {
+        return getWeChatHttpClient().get(url, httpHeaders, responseClass);
     }
 
     /**
@@ -198,9 +234,8 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
      * @param responseClass 响应体对象类型
      * @return Resp
      */
-    Resp post(String url, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass) {
-        WeChatResponse<Resp> response = getWeChatHttpClient().post(url, httpHeaders, requestBody, responseClass);
-        return response.getContent();
+    WeChatResponse<Resp> post(String url, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass) {
+        return getWeChatHttpClient().post(url, httpHeaders, requestBody, responseClass);
     }
 
     /**
@@ -212,8 +247,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
      * @param responseClass 响应体对象类型
      * @return Resp
      */
-    Resp put(String url, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass) {
-        WeChatResponse<Resp> response = getWeChatHttpClient().post(url, httpHeaders, requestBody, responseClass);
-        return response.getContent();
+    WeChatResponse<Resp> put(String url, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass) {
+        return getWeChatHttpClient().post(url, httpHeaders, requestBody, responseClass);
     }
 }
