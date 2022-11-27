@@ -5,7 +5,7 @@ import org.kangspace.wechat.helper.core.cache.SimpleLocalCache;
 /**
  * 微信token存储对象接口
  *
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2022/11/27
  */
 public class DefaultLocalWeChatTokenStorage<T> implements WeChatTokenStorage<T> {

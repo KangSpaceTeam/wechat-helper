@@ -7,7 +7,7 @@ import org.kangspace.wechat.helper.core.request.filter.RequestFilterChainFactory
 
 /**
  * 微信公众号RequestFilterChainFactory
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2022/11/27
  */
 public class WeChatMpRequestFilterChainFactory {

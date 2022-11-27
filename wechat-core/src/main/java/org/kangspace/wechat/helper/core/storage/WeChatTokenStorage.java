@@ -2,7 +2,7 @@ package org.kangspace.wechat.helper.core.storage;
 
 /**
  * 微信token存储对象接口
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2022/11/27
  */
 public interface WeChatTokenStorage<T> {
