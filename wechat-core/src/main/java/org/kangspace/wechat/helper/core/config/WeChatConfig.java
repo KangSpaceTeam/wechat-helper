@@ -1,9 +1,16 @@
 package org.kangspace.wechat.helper.core.config;
 
 import lombok.Data;
+import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
+import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 
 /**
- * 微信基本配置接口(包括AppId等)
+ * 微信基本配置接口(包括AppId等),包括:
+ * <pre>
+ * 1. AppId,AppSecret,由子类实现
+ * 2. {@link WeChatTokenStorage} Token存储器
+ * 3. {@link org.kangspace.wechat.helper.core.config.WeChatRequestConfig.RequestConfig} Http请求相关配置
+ * </pre>
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
@@ -14,6 +21,18 @@ public interface WeChatConfig {
      * @return {@link RequestConfig}
      */
     RequestConfig requestConfig();
+
+    /**
+     * 获取Token存储器
+     * @return {@link WeChatTokenStorage}
+     */
+    <TokenVal> WeChatTokenStorage<TokenVal> getWeChatTokenStorage();
+
+    /**
+     * 获取HttpClient
+     * @return {@link WeChatHttpClient}
+     */
+    WeChatHttpClient getWeChatHttpClient();
 
     /**
      * 请求配置

@@ -36,12 +36,14 @@ public interface WeChatRequest<Req, Resp> {
 
     /**
      * 请求体
+     *
      * @return requestBody
      */
     Req getRequestBody();
 
     /**
      * 响应对象
+     *
      * @return 响应对象
      */
     Class<Resp> getResponseClass();
@@ -68,7 +70,8 @@ public interface WeChatRequest<Req, Resp> {
     boolean isNeedAccessToken();
 
     /**
-     * 最大请求重试次数,默认3次(含第一次请求);
+     * 最大请求重试次数,默认3次(不含第一次请求);
+     *
      * @return boolean
      */
     int getMaxRetryCount();
@@ -89,18 +92,21 @@ public interface WeChatRequest<Req, Resp> {
 
     /**
      * 获取Token相关Service
+     *
      * @return {@link WeChatTokenService}
      */
     WeChatTokenService getWeChatTokenService();
 
     /**
      * 执行请求
+     *
      * @return Resp
      */
     Resp execute();
 
     /**
      * 执行请求具体操作(不经过{@link org.kangspace.wechat.helper.core.request.filter.RequestFilter}等操作)
+     *
      * @return Resp
      */
     Resp doExecute();

@@ -16,3 +16,9 @@
 | [wechat-platform](wechat-platform) | 微信开发相关管理端相关包 | 微信开发相关管理端,web定义包       |
 
 
+## 2. 特性
+## 
+
+
+
+

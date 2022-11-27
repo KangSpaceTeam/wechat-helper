@@ -1,9 +1,7 @@
 package org.kangspace.wechat.helper.mp.token;
 
-import org.kangspace.wechat.helper.core.cache.SimpleLocalCache;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
-import org.kangspace.wechat.helper.core.constant.TimeConstant;
-import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
+import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.mp.AbstractWeChatMpService;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenRequest;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenResponse;
@@ -18,31 +16,13 @@ import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
  */
 public class DefaultWeChatMpAccessTokenService extends AbstractWeChatMpService implements WeChatMpAccessTokenService {
     /**
-     * AccessToken 缓存对象
+     * AccessToken 存储器
      */
-    private static volatile  SimpleLocalCache<WeChatMpAccessTokenResponse> accessTokenCache;
+    private final WeChatTokenStorage<WeChatMpAccessTokenResponse> weChatTokenStorage;
+
     public DefaultWeChatMpAccessTokenService(WeChatMpConfig weChatConfig) {
-        super(weChatConfig);
-    }
-
-    public DefaultWeChatMpAccessTokenService(WeChatMpConfig weChatConfig, WeChatHttpClient weChatHttpClient) {
-        super(weChatConfig, weChatHttpClient);
-    }
-
-    /**
-     * 获取当前token
-     *
-     * @return {@link WeChatMpAccessTokenResponse}
-     */
-    @Override
-    public WeChatMpAccessTokenResponse token() {
-        return tokenRefresh();
-    }
-
-    @Override
-    public WeChatMpAccessTokenResponse token(boolean forceRefresh) {
-        return forceRefresh ? tokenRefresh() : token();
-
+        super(weChatConfig, null);
+        this.weChatTokenStorage = weChatConfig.getWeChatTokenStorage();
     }
 
     @Override
@@ -59,15 +39,7 @@ public class DefaultWeChatMpAccessTokenService extends AbstractWeChatMpService i
     }
 
     @Override
-    public void setAccessTokenCache(WeChatMpAccessTokenResponse accessTokenResponse) {
-        if (accessTokenResponse != null && accessTokenResponse.getAccessToken() != null) {
-            accessTokenCache = new SimpleLocalCache<>(accessTokenResponse,
-                    Long.parseLong(accessTokenResponse.getExpiresIn()) * TimeConstant.MillisSecond.ONE_SECOND);
-        }
-    }
-
-    @Override
-    public WeChatMpAccessTokenResponse getAccessTokenCache() {
-        return accessTokenCache != null?accessTokenCache.getCache():null;
+    public WeChatTokenStorage<WeChatMpAccessTokenResponse> getWeChatTokenStorage() {
+        return this.weChatTokenStorage;
     }
 }

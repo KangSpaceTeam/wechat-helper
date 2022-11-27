@@ -6,9 +6,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.wechat.helper.core.constant.StringLiteral;
+import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenRequest;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
+import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 
 /**
@@ -20,14 +23,14 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 @Slf4j
 @RunWith(JUnit4.class)
 public class WeChatMpServiceTest {
+    private final String appId = "wx84285874067fd860";
+    private final String appSecret = "f0827da32acfd93375beb8f971e3bbf7";
     private WeChatMpServerService mpServerService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
-        String appId = "xxx";
-        String appSecret = "xx";
-        WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret, null);
+        WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
         mpServerService = new DefaultWeChatMpServerService(weChatMpConfig, weChatMpAccessTokenService);
     }
@@ -48,14 +51,42 @@ public class WeChatMpServiceTest {
      */
     @Test
     public void requestExecuteRetry502Test() {
-        // TODO xxx
+        String must502Url = "https://kangspace.org/502";
+        String result = mpServerService.get(must502Url, String.class, false);
+        log.info("url: {}", must502Url);
+        log.info("result: {}", result);
+
     }
 
+    /**
+     * 获取AccessToken测试
+     */
     @Test
     public void getTokenTest() {
         log.info("weChatConfig: {}", weChatMpAccessTokenService.getWeChatConfig());
         WeChatMpAccessTokenResponse response = weChatMpAccessTokenService.token();
         log.info("response: {}", response);
+    }
+
+    /**
+     * 业务接口token自动刷新
+     */
+    @Test
+    public void tokenRefreshTest() {
+        // 1. 获取token,并缓存
+        WeChatMpAccessTokenResponse token = weChatMpAccessTokenService.token();
+        log.info("获取token,并缓存: token: {}", token);
+        try {
+            Thread.sleep(1000L);
+        } catch (InterruptedException e) {
+        }
+        // 2. http获取新token
+        String param = WeChatMpAccessTokenRequest.toQueryString(appId, appSecret);
+        String newTokenUrl = WeChatMpApiPaths.TOKEN + StringLiteral.QUESTION_MARK + param;
+        String result = mpServerService.get(newTokenUrl, String.class, false);
+        log.info("http获取新token: token: {}", result);
+        // 3. 旧token失效, 请求业务接口,token自动刷新
+        this.getApiDomainIpTest();
     }
 
     /**

@@ -26,6 +26,7 @@ public class SimpleLocalCache<T> {
     public SimpleLocalCache(T cache, long ttlMs) {
         this.cache = cache;
         this.ttlMs = ttlMs;
+        this.createTime = System.currentTimeMillis();
     }
 
     /**
@@ -45,5 +46,9 @@ public class SimpleLocalCache<T> {
      */
     private boolean isValid() {
         return System.currentTimeMillis() - createTime <= ttlMs;
+    }
+
+    private void setCreateTime(long createTime) {
+        this.createTime = createTime;
     }
 }

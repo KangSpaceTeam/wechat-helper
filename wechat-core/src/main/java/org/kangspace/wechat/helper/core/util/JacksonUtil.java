@@ -39,6 +39,9 @@ public class JacksonUtil {
      */
     public static String toJsonString(Object jsonObj) {
         try {
+            if (jsonObj instanceof String) {
+                return (String) jsonObj;
+            }
             return MAPPER.writeValueAsString(jsonObj);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
@@ -52,8 +55,12 @@ public class JacksonUtil {
      * @param targetClass 目标类型
      * @return T
      */
+    @SuppressWarnings("unchecked")
     public static <T> T parse(String jsonString, Class<T> targetClass) {
         try {
+            if (targetClass.equals(String.class)) {
+                return (T) jsonString;
+            }
             return MAPPER.readValue(jsonString, targetClass);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);

@@ -1,12 +1,11 @@
 package org.kangspace.wechat.helper.mp;
 
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
-import org.kangspace.wechat.helper.core.request.WeChatHttpClientFactory;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
-import org.kangspace.wechat.helper.core.request.filter.RequestFilterChainFactory;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.request.filter.WeChatMpAccessTokenRequestFilter;
+import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
 
@@ -21,28 +20,23 @@ import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
  */
 public class AbstractWeChatMpService implements WeChatMpService {
     private final WeChatMpConfig weChatConfig;
-    private final WeChatMpAccessTokenService weChatMpAccessTokenService;
     private final WeChatHttpClient weChatHttpClient;
-
     private final RequestFilterChain requestFilterChain;
+    private final WeChatMpAccessTokenService weChatMpAccessTokenService;
 
     public AbstractWeChatMpService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, null, null, null);
-    }
-
-    public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatHttpClient weChatHttpClient) {
-        this(weChatConfig, null, weChatHttpClient, null);
+        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
     }
 
     public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, null, null);
+        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
     }
 
-    public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain requestFilterChain) {
+    public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
         this.weChatConfig = weChatConfig;
-        this.weChatMpAccessTokenService = weChatMpAccessTokenService != null ? weChatMpAccessTokenService : (!(this instanceof WeChatTokenService) ? new DefaultWeChatMpAccessTokenService(weChatConfig) : null);
-        this.weChatHttpClient = weChatHttpClient != null ? weChatHttpClient : WeChatHttpClientFactory.defaultHttpClient();
-        this.requestFilterChain = requestFilterChain != null ? requestFilterChain : RequestFilterChainFactory.defaultRequestChain(new WeChatMpAccessTokenRequestFilter());
+        this.weChatHttpClient = weChatConfig.getWeChatHttpClient();
+        this.requestFilterChain = requestFilterChain;
+        this.weChatMpAccessTokenService = weChatMpAccessTokenService != null && !(this instanceof WeChatTokenService) ? weChatMpAccessTokenService : null;
     }
 
 

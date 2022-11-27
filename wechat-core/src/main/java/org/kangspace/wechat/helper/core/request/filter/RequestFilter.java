@@ -10,6 +10,10 @@ import reactor.core.publisher.Mono;
  * @since 2022/10/2
  */
 public interface RequestFilter {
+    /**
+     * 无效token重试次数
+     */
+    int INVALID_TOKEN_RETRY_COUNT = 1;
 
     /**
      * 执行过滤器

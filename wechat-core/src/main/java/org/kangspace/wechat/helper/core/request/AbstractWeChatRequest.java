@@ -74,7 +74,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
     private boolean needAccessToken = true;
 
     /**
-     * 最大请求重试次数,默认3次(含第一次请求);
+     * 最大请求重试次数,默认3次(不含第一次请求);
      */
     private int maxRetryCount = 3;
 
