@@ -19,6 +19,7 @@ public class JacksonUtil {
      *
      */
     static final ObjectMapper MAPPER;
+
     static {
         MAPPER = new ObjectMapper();
         //在反序列化时忽略在 json 中存在但 Java 对象不存在的属性
@@ -70,7 +71,7 @@ public class JacksonUtil {
     /**
      * JSON字符串转换为对象
      *
-     * @param jsonString  JSON字符串
+     * @param jsonString    JSON字符串
      * @param typeReference 目标类型
      * @return T
      */

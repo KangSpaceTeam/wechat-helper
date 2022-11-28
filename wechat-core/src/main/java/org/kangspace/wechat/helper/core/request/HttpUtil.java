@@ -1,5 +1,8 @@
 package org.kangspace.wechat.helper.core.request;
 
+import io.netty.handler.codec.http.HttpHeaders;
+import reactor.netty.http.client.HttpClientResponse;
+
 /**
  * Http工具类
  *
@@ -27,6 +30,10 @@ public class HttpUtil {
      * GATEWAY_TIMEOUT 504状态码
      */
     public static int GATEWAY_TIMEOUT_CODE = 504;
+    /**
+     * Content-Type名称
+     */
+    public static String CONTENT_TYPE_NAME = "Content-type";
 
     /**
      * 是否成功请求(200/201)
@@ -50,5 +57,24 @@ public class HttpUtil {
      */
     public static boolean isRetryHttpStatus(int statusCode) {
         return BAD_GATEWAY_CODE == statusCode || SERVICE_UNAVAILABLE_CODE == statusCode || GATEWAY_TIMEOUT_CODE == statusCode;
+    }
+
+
+    /**
+     * 获取ContentType
+     *
+     * @return contentType contentType
+     */
+    public static String getContentType(HttpClientResponse response) {
+        return response != null ? response.responseHeaders().get(CONTENT_TYPE_NAME) : null;
+    }
+
+    /**
+     * 获取ContentType
+     *
+     * @return contentType contentType
+     */
+    public static String getContentType(HttpHeaders httpHeaders) {
+        return httpHeaders != null ? httpHeaders.get(CONTENT_TYPE_NAME) : null;
     }
 }

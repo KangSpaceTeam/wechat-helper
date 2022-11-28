@@ -8,6 +8,6 @@ import org.kangspace.wechat.helper.core.WeChatService;
  * @author kango2gler@gmail.com
  * @since 2022/10/3
  */
-public interface WeChatMpService extends WeChatService{
+public interface WeChatMpService extends WeChatService {
 
 }

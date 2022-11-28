@@ -14,5 +14,6 @@ public enum DataSerializerScope {
     /**
      * 响应
      */
-    RESPONSE
+    RESPONSE,
+    ;
 }

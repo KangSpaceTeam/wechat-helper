@@ -16,7 +16,7 @@ public interface WeChatConstant {
     /**
      * oAuth认证GrateType枚举
      */
-    enum OAuthGrantType{
+    enum OAuthGrantType {
         /**
          * 客户端认证模式
          */

@@ -57,6 +57,7 @@ public class WeChatMpAccessTokenRequest {
 
     /**
      * 转换为Url QueryString
+     *
      * @return queryString
      */
     public static String toQueryString(String appId, String secret) {

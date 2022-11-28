@@ -6,13 +6,14 @@ import reactor.core.publisher.Mono;
 
 /**
  * 执行Http请求过滤器
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
 @Slf4j
 public class RequestExecuteFilter implements RequestFilter {
     @Override
-    public <Req,Resp> Mono<Resp> doFilter(WeChatRequest<Req,Resp> request, RequestFilterChain chain) {
+    public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
         // 执行Http请求
         return Mono.just(request.doExecute());
     }

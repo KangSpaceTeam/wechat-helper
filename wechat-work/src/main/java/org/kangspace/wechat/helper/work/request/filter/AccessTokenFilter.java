@@ -17,7 +17,7 @@ public class AccessTokenFilter extends AbstractTokenRequestFilter {
     private static final String NAME = AccessTokenFilter.class.getName();
 
     @Override
-    public <Req,Resp> Mono<Resp> doFilter(WeChatRequest<Req,Resp> request, RequestFilterChain chain) {
+    public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
         log.trace("{} doFilter: request:{}", NAME, request);
         return chain.doFilter(request);
     }

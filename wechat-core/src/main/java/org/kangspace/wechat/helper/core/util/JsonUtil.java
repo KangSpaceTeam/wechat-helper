@@ -12,7 +12,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 public class JsonUtil {
 
 
-
     /**
      * 对象转换为Json字符串
      *
@@ -27,7 +26,7 @@ public class JsonUtil {
     /**
      * JSON字符串转换为对象
      *
-     * @param jsonString JSON字符串
+     * @param jsonString  JSON字符串
      * @param targetClass 目标类型
      * @return T
      */
@@ -38,7 +37,7 @@ public class JsonUtil {
     /**
      * JSON字符串转换为对象
      *
-     * @param jsonString JSON字符串
+     * @param jsonString    JSON字符串
      * @param typeReference 目标类型
      * @return T
      */

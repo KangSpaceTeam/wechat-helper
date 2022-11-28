@@ -42,13 +42,14 @@ public class AbstractWeChatConfig implements WeChatConfig {
         return requestConfig;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> WeChatTokenStorage<T> getWeChatTokenStorage() {
         return this.weChatTokenStorage;
     }
 
     @Override
-    public WeChatHttpClient getWeChatHttpClient(){
+    public WeChatHttpClient getWeChatHttpClient() {
         return weChatHttpClient;
     }
 }

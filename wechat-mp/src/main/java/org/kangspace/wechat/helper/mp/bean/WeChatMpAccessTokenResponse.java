@@ -9,12 +9,13 @@ import lombok.ToString;
  * <pre>
  * 如: {"access_token":"ACCESS_TOKEN","expires_in":7200}
  * </pre>
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
 @ToString(callSuper = true)
 @Data
-public class WeChatMpAccessTokenResponse extends WeChatMpResponseEntity{
+public class WeChatMpAccessTokenResponse extends WeChatMpResponseEntity {
     /**
      * AccessToken
      */

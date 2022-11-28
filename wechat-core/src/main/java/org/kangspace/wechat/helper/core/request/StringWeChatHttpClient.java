@@ -9,7 +9,7 @@ import org.kangspace.wechat.helper.core.request.serialize.DataSerializerFactory;
  * @since 2022/10/4
  */
 public class StringWeChatHttpClient extends WechatNettyHttpClient {
-    
+
     public StringWeChatHttpClient() {
         super(null, DataSerializerFactory.defaultStringSerializers());
     }

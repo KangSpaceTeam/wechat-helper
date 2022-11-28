@@ -11,7 +11,7 @@ import org.kangspace.wechat.helper.core.request.WeChatRequest;
 public abstract class AbstractTokenRequestFilter implements RequestFilter {
 
     @Override
-    public <Req,Resp>  boolean isSupported(WeChatRequest<Req,Resp>  request) {
+    public <Req, Resp> boolean isSupported(WeChatRequest<Req, Resp> request) {
         return request != null && request.isNeedAccessToken();
     }
 }

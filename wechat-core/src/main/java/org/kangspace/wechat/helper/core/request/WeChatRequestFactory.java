@@ -40,7 +40,7 @@ public class WeChatRequestFactory {
      * @param needAccessToken  是否需要token
      * @return {@link WeChatRequest}
      */
-    public static <Req, Resp> WeChatRequest<Req, Resp> get(String url, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService,  WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain, boolean needAccessToken) {
+    public static <Req, Resp> WeChatRequest<Req, Resp> get(String url, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain, boolean needAccessToken) {
         return new DefaultWeChatRequest<>(url, null, responseClass, wechatConfig, weChatTokenService, weChatHttpClient, filterChain, needAccessToken);
     }
 

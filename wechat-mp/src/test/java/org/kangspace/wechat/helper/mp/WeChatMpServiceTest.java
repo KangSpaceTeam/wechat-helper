@@ -23,8 +23,8 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 @Slf4j
 @RunWith(JUnit4.class)
 public class WeChatMpServiceTest {
-    private final String appId = "wx84285874067fd860";
-    private final String appSecret = "f0827da32acfd93375beb8f971e3bbf7";
+    private final String appId = "";
+    private final String appSecret = "";
     private WeChatMpServerService mpServerService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 

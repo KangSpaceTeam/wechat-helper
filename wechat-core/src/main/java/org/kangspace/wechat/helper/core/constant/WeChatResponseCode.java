@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 /**
  * 微信公共响应码
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/26
  */

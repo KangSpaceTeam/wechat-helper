@@ -184,11 +184,11 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         WeChatResponse<Resp> response;
         if (HttpMethod.GET.equals(method)) {
             response = get(getUrl(), getHttpHeaders(), getResponseClass());
-        }else if (HttpMethod.POST.equals(method)) {
+        } else if (HttpMethod.POST.equals(method)) {
             response = post(getUrl(), getHttpHeaders(), getRequestBody(), getResponseClass());
-        }else if (HttpMethod.PUT.equals(method)) {
+        } else if (HttpMethod.PUT.equals(method)) {
             response = put(getUrl(), getHttpHeaders(), getRequestBody(), getResponseClass());
-        }else {
+        } else {
             throw new WeChatException("Request HttpMethod: " + method + " not support!");
         }
         // 非200/201时抛出异常
@@ -203,6 +203,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
 
     /**
      * 检查响应内容为微信服务异常时抛出异常
+     *
      * @param resp {@link Resp}
      */
     private void throwExceptionOnWeChatServerError(Resp resp) {

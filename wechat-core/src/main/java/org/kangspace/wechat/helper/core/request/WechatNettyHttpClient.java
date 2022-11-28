@@ -1,6 +1,8 @@
 package org.kangspace.wechat.helper.core.request;
 
 import io.netty.channel.ChannelOption;
+import io.netty.handler.codec.http.HttpHeaderNames;
+import io.netty.handler.codec.http.HttpHeaderValues;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.timeout.ReadTimeoutHandler;
@@ -14,6 +16,7 @@ import org.kangspace.wechat.helper.core.request.serialize.DataSerializers;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufMono;
 import reactor.netty.http.client.HttpClient;
+import reactor.netty.http.client.HttpClientResponse;
 import reactor.netty.resources.ConnectionProvider;
 
 import java.util.Iterator;
@@ -36,33 +39,51 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     /**
      * 数据序列化列表
      */
-    private final DataSerializers<?> dataSerializers;
+    private final DataSerializers dataSerializers;
 
 
     public WechatNettyHttpClient() {
-        this(null, DataSerializerFactory.defaultJsonSerializers());
+        this(null, DataSerializerFactory.defaultSerializers());
     }
 
-    public WechatNettyHttpClient(WeChatRequestConfig weChatRequestConfig, DataSerializers<?> dataSerializers) {
+    public WechatNettyHttpClient(WeChatRequestConfig weChatRequestConfig, DataSerializers dataSerializers) {
         this.requestConfig = weChatRequestConfig != null ? weChatRequestConfig.getRequest() : new WeChatRequestConfig.RequestConfig();
-        this.dataSerializers = dataSerializers != null ? dataSerializers : new DataSerializers<>();
+        this.dataSerializers = dataSerializers != null ? dataSerializers : new DataSerializers();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public <RequestBody, ResponseBody> Mono<WeChatResponse<ResponseBody>> executeAsync(String uri, HttpMethod httpMethod, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass) {
+        contentTypeRequestHeaderAutoSet(httpHeaders, requestBody);
         HttpClient client = newClientWithConfig(httpHeaders);
         HttpClient.RequestSender requestSender = client.request(httpMethod).uri(uri);
         log.debug("WechatNettyHttpClient executeAsync: uri:{}, method:{}", uri, httpMethod);
         if (requestBody != null) {
             // 请求序列化类
-            requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(requestBody));
+            requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(HttpUtil.getContentType(httpHeaders), requestBody));
         }
         return requestSender.responseSingle((response, byteBufMono) ->
                 byteBufMono.asString().map(resp -> new WeChatNettyResponse<>(response.status().code(),
-                        responseDataSerialize(resp, responseClass),
+                        responseDataSerialize(response, resp, responseClass),
                         WeChatNettyResponse.toHeaders(response.responseHeaders()),
                         WeChatNettyResponse.toCookies(response.cookies()))));
+    }
+
+    /**
+     * ContentType自动设置
+     *
+     * @param httpHeaders 请求头
+     * @param requestBody 请求体
+     */
+    public <RequestBody> void contentTypeRequestHeaderAutoSet(HttpHeaders httpHeaders, RequestBody requestBody) {
+        if (requestBody == null || HttpUtil.getContentType(httpHeaders) == null) {
+            return;
+        }
+        String contentType = HttpHeaderValues.TEXT_PLAIN.toString();
+        if (!(requestBody instanceof String)) {
+            contentType = HttpHeaderValues.APPLICATION_JSON.toString();
+        }
+        httpHeaders.add(HttpHeaderNames.CONTENT_TYPE, contentType);
     }
 
     /**
@@ -91,8 +112,8 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @return {@link ByteBufMono}
      */
     @SuppressWarnings("unchecked")
-    private ByteBufMono requestDataSerialize(Object requestBody) {
-        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.REQUEST);
+    private ByteBufMono requestDataSerialize(String contentType, Object requestBody) {
+        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.REQUEST);
         Iterator<DataSerializer<Object>> iterator = (Iterator<DataSerializer<Object>>) serializers.iterator();
         String buf;
         while (iterator.hasNext()) {
@@ -112,8 +133,8 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @return {@link Object}
      */
     @SuppressWarnings("unchecked")
-    private <ResponseBody> ResponseBody responseDataSerialize(String responseData, Class<ResponseBody> responseClass) {
-        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(DataSerializerScope.RESPONSE);
+    private <ResponseBody> ResponseBody responseDataSerialize(HttpClientResponse response, String responseData, Class<ResponseBody> responseClass) {
+        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(HttpUtil.getContentType(response), DataSerializerScope.RESPONSE);
         Iterator<DataSerializer<ResponseBody>> iterator = (Iterator<DataSerializer<ResponseBody>>) serializers.iterator();
         ResponseBody data;
         while (iterator.hasNext()) {
@@ -122,6 +143,6 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
                 return data;
             }
         }
-        return responseClass.equals(String.class)? (ResponseBody) responseData : null;
+        return responseClass.equals(String.class) ? (ResponseBody) responseData : null;
     }
 }

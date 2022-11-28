@@ -9,6 +9,7 @@ import lombok.Data;
  * 1. 各模块(wechat-mp,wechat-work等)需继承该超类
  * 2. 子类需自行重写errCode和errMsg
  * </pre>
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */

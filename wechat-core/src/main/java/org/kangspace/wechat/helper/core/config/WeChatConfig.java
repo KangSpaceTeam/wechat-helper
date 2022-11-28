@@ -11,6 +11,7 @@ import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
  * 2. {@link WeChatTokenStorage} Token存储器
  * 3. {@link org.kangspace.wechat.helper.core.config.WeChatRequestConfig.RequestConfig} Http请求相关配置
  * </pre>
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
@@ -18,18 +19,21 @@ public interface WeChatConfig {
 
     /**
      * Http相关请求配置
+     *
      * @return {@link RequestConfig}
      */
     RequestConfig requestConfig();
 
     /**
      * 获取Token存储器
+     *
      * @return {@link WeChatTokenStorage}
      */
     <TokenVal> WeChatTokenStorage<TokenVal> getWeChatTokenStorage();
 
     /**
      * 获取HttpClient
+     *
      * @return {@link WeChatHttpClient}
      */
     WeChatHttpClient getWeChatHttpClient();

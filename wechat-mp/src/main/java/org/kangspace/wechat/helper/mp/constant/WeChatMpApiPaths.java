@@ -2,6 +2,7 @@ package org.kangspace.wechat.helper.mp.constant;
 
 /**
  * 微信公众号API路径常量类
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */

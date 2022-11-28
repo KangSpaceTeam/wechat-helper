@@ -4,6 +4,7 @@ import lombok.Data;
 
 /**
  * 简单的本地缓存
+ *
  * @author kango2gler@gmail.com
  * @since 2022/11/25
  */
@@ -34,14 +35,16 @@ public class SimpleLocalCache<T> {
      * <p>
      * 当缓存超时时,返回null
      * </p>
+     *
      * @return T
      */
     public T getCache() {
-        return isValid()? cache : null;
+        return isValid() ? cache : null;
     }
 
     /**
      * 缓存是否在有效期内
+     *
      * @return boolean
      */
     private boolean isValid() {

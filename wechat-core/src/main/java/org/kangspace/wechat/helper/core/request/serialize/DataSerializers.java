@@ -12,15 +12,15 @@ import java.util.stream.StreamSupport;
  * @author kango2gler@gmail.com
  * @since 2022/10/11
  */
-public class DataSerializers<DataType> implements Iterator<DataSerializer<DataType>>, Iterable<DataSerializer<DataType>> {
-    private final List<DataSerializer<DataType>> dataSerializers;
-    private final Iterator<DataSerializer<DataType>> it;
+public class DataSerializers implements Iterator<DataSerializer<?>>, Iterable<DataSerializer<?>> {
+    private final List<DataSerializer<?>> dataSerializers;
+    private final Iterator<DataSerializer<?>> it;
 
     public DataSerializers() {
         this(Collections.emptyList());
     }
 
-    public DataSerializers(List<DataSerializer<DataType>> dataSerializers) {
+    public DataSerializers(List<DataSerializer<?>> dataSerializers) {
         Objects.requireNonNull(dataSerializers, "dataSerializers is not null!");
         dataSerializers.sort(Comparator.comparing(DataSerializer::getOrder));
         this.dataSerializers = dataSerializers;
@@ -33,7 +33,7 @@ public class DataSerializers<DataType> implements Iterator<DataSerializer<DataTy
     }
 
     @Override
-    public DataSerializer<DataType> next() {
+    public DataSerializer<?> next() {
         return it.next();
     }
 
@@ -43,22 +43,23 @@ public class DataSerializers<DataType> implements Iterator<DataSerializer<DataTy
     }
 
     @Override
-    public void forEachRemaining(Consumer<? super DataSerializer<DataType>> action) {
+    public void forEachRemaining(Consumer<? super DataSerializer<?>> action) {
         it.forEachRemaining(action);
     }
 
-    public List<DataSerializer<DataType>> getDataSerializers() {
+    public List<DataSerializer<?>> getDataSerializers() {
         return dataSerializers;
     }
 
     /**
-     * 通过scope获取序列化对象
+     * 通过contentType,scope获取序列化对象
      *
-     * @param scope {@link DataSerializerScope}
+     * @param contentType contentType
+     * @param scope       {@link DataSerializerScope}
      * @return List&lt;{@link DataSerializer}&gt;
      */
-    public List<DataSerializer<DataType>> getDataSerializers(DataSerializerScope scope) {
-        return this.dataSerializers.stream().filter(t -> t.isSupport(scope)).collect(Collectors.toList());
+    public List<DataSerializer<?>> getDataSerializers(String contentType, DataSerializerScope scope) {
+        return this.dataSerializers.stream().filter(t -> t.isSupport(contentType, scope)).collect(Collectors.toList());
     }
 
 
@@ -67,7 +68,7 @@ public class DataSerializers<DataType> implements Iterator<DataSerializer<DataTy
      *
      * @return steam
      */
-    Stream<DataSerializer<DataType>> stream() {
+    Stream<DataSerializer<?>> stream() {
         return StreamSupport.stream(this.spliterator(), false);
     }
 
@@ -76,22 +77,22 @@ public class DataSerializers<DataType> implements Iterator<DataSerializer<DataTy
      *
      * @return steam
      */
-    Stream<DataSerializer<DataType>> streamOrdered() {
+    Stream<DataSerializer<?>> streamOrdered() {
         return this.stream().sorted();
     }
 
     @Override
-    public Iterator<DataSerializer<DataType>> iterator() {
+    public Iterator<DataSerializer<?>> iterator() {
         return this.it;
     }
 
     @Override
-    public void forEach(Consumer<? super DataSerializer<DataType>> action) {
+    public void forEach(Consumer<? super DataSerializer<?>> action) {
         this.dataSerializers.forEach(action);
     }
 
     @Override
-    public Spliterator<DataSerializer<DataType>> spliterator() {
+    public Spliterator<DataSerializer<?>> spliterator() {
         return this.dataSerializers.spliterator();
     }
 }

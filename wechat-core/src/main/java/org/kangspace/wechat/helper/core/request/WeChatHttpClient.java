@@ -110,25 +110,27 @@ public interface WeChatHttpClient {
 
     /**
      * 同步Post请求
-     * @param uri url
-     * @param httpHeaders {@link HttpHeaders}
-     * @param requestBody 请求体
+     *
+     * @param uri           url
+     * @param httpHeaders   {@link HttpHeaders}
+     * @param requestBody   请求体
      * @param responseClass 响应体对象
      * @return {@link WeChatResponse}
      */
-    default <RequestBody,ResponseBody> WeChatResponse<ResponseBody> post(String uri, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass){
+    default <RequestBody, ResponseBody> WeChatResponse<ResponseBody> post(String uri, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass) {
         return this.execute(uri, HttpMethod.POST, httpHeaders, requestBody, responseClass);
     }
 
     /**
      * 同步Put请求
-     * @param uri url
-     * @param httpHeaders {@link HttpHeaders}
-     * @param requestBody 请求体
+     *
+     * @param uri           url
+     * @param httpHeaders   {@link HttpHeaders}
+     * @param requestBody   请求体
      * @param responseClass 响应体对象
      * @return {@link WeChatResponse}
      */
-    default <RequestBody,ResponseBody> WeChatResponse<ResponseBody> put(String uri, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass){
+    default <RequestBody, ResponseBody> WeChatResponse<ResponseBody> put(String uri, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass) {
         return this.execute(uri, HttpMethod.PUT, httpHeaders, requestBody, responseClass);
     }
 }

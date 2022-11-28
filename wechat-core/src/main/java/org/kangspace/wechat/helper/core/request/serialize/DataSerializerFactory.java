@@ -1,11 +1,8 @@
 package org.kangspace.wechat.helper.core.request.serialize;
 
-import org.kangspace.wechat.helper.core.request.serialize.json.JsonRequestDataSerializer;
-import org.kangspace.wechat.helper.core.request.serialize.json.JsonResponseDataSerializer;
-import org.kangspace.wechat.helper.core.request.serialize.string.StringRequestDataSerializer;
-import org.kangspace.wechat.helper.core.request.serialize.string.StringResponseDataSerializer;
-import org.kangspace.wechat.helper.core.request.serialize.xml.XmlRequestDataSerializer;
-import org.kangspace.wechat.helper.core.request.serialize.xml.XmlResponseDataSerializer;
+import org.kangspace.wechat.helper.core.request.serialize.json.JsonRequestResponseDataSerializer;
+import org.kangspace.wechat.helper.core.request.serialize.string.StringRequestResponseDataSerializer;
+import org.kangspace.wechat.helper.core.request.serialize.xml.XmlRequestResponseDataSerializer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,16 +14,30 @@ import java.util.List;
  * @since 2022/10/11
  */
 public class DataSerializerFactory {
+
+
     /**
      * 默认JSON请求,响应序列化
      *
      * @return List&lt;{@link DataSerializer}&gt;
      */
-    public static DataSerializers<Object> defaultJsonSerializers() {
-        List<DataSerializer<Object>> list = new ArrayList<>();
-        list.add(new JsonRequestDataSerializer());
-        list.add(new JsonResponseDataSerializer());
-        return new DataSerializers<>(list);
+    public static DataSerializers defaultSerializers() {
+        List<DataSerializer<?>> list = new ArrayList<>();
+        list.add(new JsonRequestResponseDataSerializer());
+        list.add(new XmlRequestResponseDataSerializer());
+        list.add(new StringRequestResponseDataSerializer());
+        return new DataSerializers(list);
+    }
+
+    /**
+     * 默认JSON请求,响应序列化
+     *
+     * @return List&lt;{@link DataSerializer}&gt;
+     */
+    public static DataSerializers defaultJsonSerializers() {
+        List<DataSerializer<?>> list = new ArrayList<>();
+        list.add(new JsonRequestResponseDataSerializer());
+        return new DataSerializers(list);
     }
 
     /**
@@ -34,11 +45,10 @@ public class DataSerializerFactory {
      *
      * @return List&lt;{@link DataSerializer}&gt;
      */
-    public static DataSerializers<Object> defaultXmlSerializers() {
-        List<DataSerializer<Object>> list = new ArrayList<>();
-        list.add(new XmlRequestDataSerializer());
-        list.add(new XmlResponseDataSerializer());
-        return new DataSerializers<>(list);
+    public static DataSerializers defaultXmlSerializers() {
+        List<DataSerializer<?>> list = new ArrayList<>();
+        list.add(new XmlRequestResponseDataSerializer());
+        return new DataSerializers(list);
     }
 
     /**
@@ -46,10 +56,9 @@ public class DataSerializerFactory {
      *
      * @return List&lt;{@link DataSerializer}&gt;
      */
-    public static DataSerializers<String> defaultStringSerializers() {
-        List<DataSerializer<String>> list = new ArrayList<>();
-        list.add(new StringRequestDataSerializer());
-        list.add(new StringResponseDataSerializer());
-        return new DataSerializers<>(list);
+    public static DataSerializers defaultStringSerializers() {
+        List<DataSerializer<?>> list = new ArrayList<>();
+        list.add(new StringRequestResponseDataSerializer());
+        return new DataSerializers(list);
     }
 }

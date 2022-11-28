@@ -27,10 +27,11 @@ public interface DataSerializer<FROM> {
     /**
      * 是否支持该序列化
      *
-     * @param scope {@link DataSerializerScope}
+     * @param contentType MIME ContentType类型
+     * @param scope       {@link DataSerializerScope}
      * @return boolean
      */
-    boolean isSupport(DataSerializerScope scope);
+    boolean isSupport(String contentType, DataSerializerScope scope);
 
     /**
      * 获取处理顺序

@@ -8,9 +8,8 @@ package org.kangspace.wechat.helper.core.request.serialize;
  */
 public class ResponseDataSerializer<FROM> extends AbstractDataSerializer<FROM> {
 
-
     @Override
-    public boolean isSupport(DataSerializerScope scope) {
-        return DataSerializerScope.RESPONSE.equals(scope);
+    public boolean isSupport(String contentType, DataSerializerScope scope) {
+        return false;
     }
 }

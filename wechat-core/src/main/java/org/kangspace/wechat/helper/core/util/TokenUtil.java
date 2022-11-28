@@ -67,7 +67,7 @@ public class TokenUtil {
                 accessTokenLength = url.length() - accessTokenIndex;
             }
             if (accessTokenLength > 0) {
-                 url = url.substring(0, accessTokenIndex) + replaceAccessToken + url.substring(accessTokenIndex + accessTokenLength);
+                url = url.substring(0, accessTokenIndex) + replaceAccessToken + url.substring(accessTokenIndex + accessTokenLength);
             }
         }
         return url;
@@ -76,7 +76,8 @@ public class TokenUtil {
 
     /**
      * 为Url添加token
-     * @param url url
+     *
+     * @param url         url
      * @param accessToken accessToken
      * @return 带access_token的url
      */
@@ -98,7 +99,7 @@ public class TokenUtil {
         System.out.println(getAccessToken(url));
         url = "https://kangspace.org?access_token=123&a=x&b=1";
         System.out.println(getAccessToken(url));
-        System.out.println(replaceAccessToken(url,"345?"));
+        System.out.println(replaceAccessToken(url, "345?"));
     }
 
 }
