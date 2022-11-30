@@ -57,7 +57,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
         contentTypeRequestHeaderAutoSet(httpHeaders, requestBody);
         HttpClient client = newClientWithConfig(httpHeaders);
         HttpClient.RequestSender requestSender = client.request(httpMethod).uri(uri);
-        log.debug("WechatNettyHttpClient executeAsync: uri:{}, method:{}", uri, httpMethod);
+        log.debug("HttpClient executeAsync: uri:{}, method: {}, httpHeaders: {}, requestBody: {}, responseClass: {}", uri, httpMethod, httpHeaders, requestBody, responseClass);
         if (requestBody != null) {
             // 请求序列化类
             requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(HttpUtil.getContentType(httpHeaders), requestBody));
@@ -114,15 +114,18 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     @SuppressWarnings("unchecked")
     private ByteBufMono requestDataSerialize(String contentType, Object requestBody) {
         List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.REQUEST);
+        log.debug("Request dataSerializes:  contentType: {}, serializers: {}", contentType, serializers);
         Iterator<DataSerializer<Object>> iterator = (Iterator<DataSerializer<Object>>) serializers.iterator();
         String buf;
         while (iterator.hasNext()) {
             DataSerializer<Object> dataSerializer = iterator.next();
             if ((buf = dataSerializer.serialize(requestBody)) != null) {
+                log.debug("Request serializes result: {}", buf);
                 return ByteBufMono.fromString(Mono.just(buf));
             }
         }
         buf = requestBody instanceof String ? (String) requestBody : requestBody.toString();
+        log.debug("Request serializes result: {}", buf);
         return ByteBufMono.fromString(Mono.just(buf));
     }
 
@@ -134,7 +137,9 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      */
     @SuppressWarnings("unchecked")
     private <ResponseBody> ResponseBody responseDataSerialize(HttpClientResponse response, String responseData, Class<ResponseBody> responseClass) {
-        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(HttpUtil.getContentType(response), DataSerializerScope.RESPONSE);
+        String contentType = HttpUtil.getContentType(response);
+        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.RESPONSE);
+        log.debug("Response dataSerializes:  contentType: {}, serializers: {}", contentType, serializers);
         Iterator<DataSerializer<ResponseBody>> iterator = (Iterator<DataSerializer<ResponseBody>>) serializers.iterator();
         ResponseBody data;
         while (iterator.hasNext()) {

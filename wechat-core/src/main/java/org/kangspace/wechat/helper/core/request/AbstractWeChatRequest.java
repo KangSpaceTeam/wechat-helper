@@ -9,6 +9,7 @@ import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.constant.WeChatResponseCode;
 import org.kangspace.wechat.helper.core.exception.WeChatException;
 import org.kangspace.wechat.helper.core.exception.WeChatHttpFaultException;
+import org.kangspace.wechat.helper.core.exception.WeChatRequestException;
 import org.kangspace.wechat.helper.core.exception.WeChatServerErrorException;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
@@ -168,8 +169,10 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
 
     @Override
     public Resp execute() {
+        log.debug("Request execute: request: {}", this);
         // http的执行操作,过滤器执行等
         RequestFilterChain requestFilterChain = getRequestFilterChain();
+        log.debug("Request execute filter chain: {}", requestFilterChain);
         if (requestFilterChain != null) {
             Mono<Resp> result = requestFilterChain.doFilter(this);
             return result.block();
@@ -179,7 +182,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
 
     @Override
     public Resp doExecute() {
-        // TODO 添加执行日志
+        log.debug("Request doExecute: url: {}, method: {}, httpHeader: {}, requestBody: {}, responseClass: {}", getUrl(), getHttpMethod(), getHttpHeaders(), getRequestBody(), getResponseClass());
         HttpMethod method = getHttpMethod();
         WeChatResponse<Resp> response;
         if (HttpMethod.GET.equals(method)) {
@@ -191,6 +194,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         } else {
             throw new WeChatException("Request HttpMethod: " + method + " not support!");
         }
+        log.debug("Request doExecute: response: {}", response);
         // 非200/201时抛出异常
         if (!HttpUtil.isSuccess(response.status())) {
             throw new WeChatHttpFaultException(response);
@@ -211,7 +215,13 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         if (resp instanceof WeChatResponseEntity) {
             boolean isWeChatServerError = WeChatResponseCode.CODE_NE_1.getCode().equals((serverError = (WeChatResponseEntity) resp).getErrCode());
             if (isWeChatServerError) {
+                log.warn("Request response: wechat server error, response: {}", resp);
                 throw new WeChatServerErrorException(serverError.getErrCode(), serverError.getErrMsg());
+            }
+            boolean isNotSuccessResponse = !(serverError.getErrCode() == null || WeChatResponseCode.SUCCESS.getCode().equals(serverError.getErrCode()));
+            if (isNotSuccessResponse) {
+                log.warn("Request response: wechat request not success, response: {}", resp);
+                throw new WeChatRequestException(serverError.getErrCode(), serverError.getErrMsg());
             }
         }
     }

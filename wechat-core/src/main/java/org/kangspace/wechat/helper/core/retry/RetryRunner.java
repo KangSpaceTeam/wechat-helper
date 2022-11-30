@@ -37,7 +37,7 @@ public class RetryRunner {
                 if (currRetryCount > maxRetryCount) {
                     throw e;
                 }
-                log.debug("run retry: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
+                log.debug("RetryRunner run retry: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
             }
         } while (retryCount++ < maxRetryCount);
         return null;
@@ -63,7 +63,7 @@ public class RetryRunner {
             if (currRetryCount > maxRetryCount) {
                 return runWithResult;
             }
-            log.debug("run runWithResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
+            log.debug("RetryRunner run runWithResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
         } while (retryCount++ < maxRetryCount);
         return runWithResult;
     }
@@ -90,7 +90,7 @@ public class RetryRunner {
             if (currRetryCount > maxRetryCount) {
                 return resultMono;
             }
-            log.debug("run runWithResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
+            log.debug("RetryRunner run runWithMonoResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
         } while (retryCount++ < maxRetryCount);
         return resultMono;
     }

@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.core.storage;
 
+import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.cache.SimpleLocalCache;
 
 /**
@@ -8,6 +9,7 @@ import org.kangspace.wechat.helper.core.cache.SimpleLocalCache;
  * @author kango2gler@gmail.com
  * @since 2022/11/27
  */
+@Slf4j
 public class DefaultLocalWeChatTokenStorage<T> implements WeChatTokenStorage<T> {
     /**
      * Token缓存
@@ -17,6 +19,7 @@ public class DefaultLocalWeChatTokenStorage<T> implements WeChatTokenStorage<T> 
     @Override
     public void setToken(T tokenObject, long ttlMillis) {
         synchronized (this) {
+            log.debug("Default local wechat token storage: save token: {}, ttlMillis: {}", tokenObject, ttlMillis);
             tokenCache = new SimpleLocalCache<>(tokenObject, ttlMillis);
         }
     }

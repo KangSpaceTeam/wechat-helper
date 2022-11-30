@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.mp.request.filter;
 
+import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.request.AbstractWeChatRequest;
 import org.kangspace.wechat.helper.core.request.WeChatRequest;
 import org.kangspace.wechat.helper.core.request.filter.AbstractTokenRequestFilter;
@@ -24,6 +25,7 @@ import reactor.core.publisher.Mono;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
+@Slf4j
 public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter {
 
     /**
@@ -35,11 +37,12 @@ public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter
      */
     @Override
     public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
+        log.debug("WeChatMpAccessTokenRequestFilter run.");
         return RetryRunner.runWithMonoResult((isRetry) -> {
                     tokenCheckAndReplaceInUrl(request, isRetry);
                     return chain.doFilter(request);
                 }, INVALID_TOKEN_RETRY_COUNT,
-                (monoResp) -> monoResp != null && monoResp instanceof WeChatMpResponseEntity
+                (monoResp) -> monoResp instanceof WeChatMpResponseEntity
                         && WeChatMpResponseCode.CODE_40014.getCode().equals(((WeChatMpResponseEntity) monoResp).getErrCode()));
     }
 
@@ -53,6 +56,7 @@ public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter
     private <Req, Resp> void tokenCheckAndReplaceInUrl(WeChatRequest<Req, Resp> request, boolean forceRefreshToken) {
         // 检查URL中是否包含Token
         String url = request.getUrl();
+        log.debug("WeChatMpAccessTokenRequestFilter run: raw url: {}", url);
         WeChatMpAccessTokenService weChatMpAccessTokenService = (WeChatMpAccessTokenService) request.getWeChatTokenService();
         // 获取token
         WeChatMpAccessTokenResponse token = weChatMpAccessTokenService.token(forceRefreshToken);
@@ -64,6 +68,7 @@ public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter
             url = TokenUtil.appendAccessToken(url, currAccessToken);
         }
         ((AbstractWeChatRequest<Req, Resp>) request).setUrl(url);
+        log.debug("WeChatMpAccessTokenRequestFilter run: final url: {}", url);
     }
 
     @Override

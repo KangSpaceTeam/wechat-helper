@@ -44,7 +44,7 @@ public class WeChatRequestConfig {
          */
         private Integer connectionTimeout = 3000;
         /**
-         * 读取超时时间时间, default: 3000
+         * 读取超时时间, default: 3000
          */
         private Long readTimeout = 3000L;
     }

@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.exception;
 
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * 微信请求相关异常类,含请求错误码和原始响应数据
@@ -9,6 +10,7 @@ import lombok.Data;
  * @since 2022/11/26
  */
 @Data
+@ToString(callSuper = true)
 public class WeChatRequestException extends WeChatException {
     /**
      * 微信错误码
@@ -30,10 +32,5 @@ public class WeChatRequestException extends WeChatException {
         super(rawErrorMessage);
         this.errorCode = errorCode;
         this.rawErrorMessage = rawErrorMessage;
-    }
-
-    @Override
-    public String toString() {
-        return (errorCode != null ? ("errorCode= " + errorCode) : "") + super.toString();
     }
 }
