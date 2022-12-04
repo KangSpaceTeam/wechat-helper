@@ -10,7 +10,7 @@ public interface StringLiteral {
     /**
      * 等于号
      */
-    String EQUAL = "=";
+    String EQUALS = "=";
     /**
      * 加号
      */
@@ -23,4 +23,12 @@ public interface StringLiteral {
      * 问号
      */
     String QUESTION_MARK = "?";
+    /**
+     * 冒号
+     */
+    String COLON = ":";
+    /**
+     * 分号
+     */
+    String SEMICOLON = ";";
 }

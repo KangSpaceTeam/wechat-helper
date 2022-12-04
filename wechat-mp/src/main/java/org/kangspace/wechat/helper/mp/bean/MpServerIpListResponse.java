@@ -24,7 +24,7 @@ import java.util.List;
  */
 @Data
 @ToString(callSuper = true)
-public class WeChatMpServerIpListResponse extends WeChatMpResponseEntity {
+public class MpServerIpListResponse extends WeChatMpResponseEntity {
 
     /**
      * 服务器Ip列表

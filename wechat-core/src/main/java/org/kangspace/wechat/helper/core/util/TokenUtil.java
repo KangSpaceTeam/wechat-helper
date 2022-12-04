@@ -16,7 +16,7 @@ public class TokenUtil {
     /**
      * AccessToken参数名+"="
      */
-    public static final String ACCESS_TOKEN_PARAM_EQUAL = ACCESS_TOKEN_PARAM + StringLiteral.EQUAL;
+    public static final String ACCESS_TOKEN_PARAM_EQUAL = ACCESS_TOKEN_PARAM + StringLiteral.EQUALS;
 
     /**
      * 校验请求中是否包含accessToken

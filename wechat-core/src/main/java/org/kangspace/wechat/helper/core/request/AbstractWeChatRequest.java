@@ -74,33 +74,19 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
      */
     private boolean needAccessToken = true;
 
-    /**
-     * 最大请求重试次数,默认3次(不含第一次请求);
-     */
-    private int maxRetryCount = 3;
-
-    public AbstractWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain) {
-        this.url = url;
-        this.httpHeaders = httpHeaders;
-        this.responseClass = responseClass;
-        this.wechatConfig = wechatConfig;
-        this.weChatTokenService = weChatTokenService;
-        this.weChatHttpClient = weChatHttpClient;
-        this.filterChain = filterChain;
+    public AbstractWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain) {
+        this(url, httpHeaders, responseClass, wechatConfig, weChatTokenService, filterChain, true);
     }
 
-    public AbstractWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain, boolean needAccessToken) {
-        this.url = url;
-        this.httpHeaders = httpHeaders;
-        this.responseClass = responseClass;
-        this.wechatConfig = wechatConfig;
-        this.weChatTokenService = weChatTokenService;
-        this.weChatHttpClient = weChatHttpClient;
-        this.filterChain = filterChain;
-        this.needAccessToken = needAccessToken;
+    public AbstractWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain, boolean needAccessToken) {
+        this(url, HttpMethod.GET, httpHeaders, null, responseClass, wechatConfig, weChatTokenService, filterChain, needAccessToken);
     }
 
-    public AbstractWeChatRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain) {
+    public AbstractWeChatRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain) {
+        this(url, httpMethod, httpHeaders, requestBody, responseClass, wechatConfig, weChatTokenService, filterChain, true);
+    }
+
+    public AbstractWeChatRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain, boolean needAccessToken) {
         this.url = url;
         this.httpMethod = httpMethod;
         this.httpHeaders = httpHeaders;
@@ -108,8 +94,9 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         this.responseClass = responseClass;
         this.wechatConfig = wechatConfig;
         this.weChatTokenService = weChatTokenService;
-        this.weChatHttpClient = weChatHttpClient;
+        this.weChatHttpClient = wechatConfig.getWeChatHttpClient();
         this.filterChain = filterChain;
+        this.needAccessToken = needAccessToken;
     }
 
     @Override
@@ -145,11 +132,6 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
     @Override
     public boolean isNeedAccessToken() {
         return needAccessToken;
-    }
-
-    @Override
-    public int getMaxRetryCount() {
-        return maxRetryCount;
     }
 
     @Override

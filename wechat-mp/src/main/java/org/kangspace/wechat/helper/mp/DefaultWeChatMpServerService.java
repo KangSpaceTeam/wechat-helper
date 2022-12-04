@@ -1,11 +1,15 @@
 package org.kangspace.wechat.helper.mp;
 
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
-import org.kangspace.wechat.helper.mp.bean.WeChatMpServerIpListResponse;
+import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckParam;
+import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckResponse;
+import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
+
+import java.util.Objects;
 
 /**
  * <p>
@@ -30,15 +34,21 @@ public class DefaultWeChatMpServerService extends AbstractWeChatMpService implem
     }
 
     @Override
-    public WeChatMpServerIpListResponse getApiDomainIp() {
+    public MpServerIpListResponse getApiDomainIp() {
         String url = WeChatMpApiPaths.GET_API_DOMAIN_IP;
-        return get(url, WeChatMpServerIpListResponse.class);
+        return get(url, MpServerIpListResponse.class);
     }
 
     @Override
-    public WeChatMpServerIpListResponse getCallbackIp() {
+    public MpServerIpListResponse getCallbackIp() {
         String url = WeChatMpApiPaths.GET_CALLBACK_IP;
-        return get(url, WeChatMpServerIpListResponse.class);
+        return get(url, MpServerIpListResponse.class);
     }
 
+    @Override
+    public MpCallbackCheckResponse callbackCheck(MpCallbackCheckParam param) {
+        Objects.requireNonNull(param, "MpCallbackCheckParam must be not null");
+        String url = WeChatMpApiPaths.CALLBACK_CHECK;
+        return post(url, param, MpCallbackCheckResponse.class);
+    }
 }

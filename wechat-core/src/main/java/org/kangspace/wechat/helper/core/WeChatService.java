@@ -1,7 +1,6 @@
 package org.kangspace.wechat.helper.core;
 
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
-import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.request.WeChatRequestFactory;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
@@ -13,12 +12,6 @@ import org.kangspace.wechat.helper.core.token.WeChatTokenService;
  * @since 2022/10/3
  */
 public interface WeChatService {
-    /**
-     * 获取HttpClient
-     *
-     * @return {@link WeChatHttpClient}
-     */
-    WeChatHttpClient getWeChatHttpClient();
 
     /**
      * 获取微信配置对象
@@ -42,6 +35,24 @@ public interface WeChatService {
      */
     WeChatTokenService getWeChatTokenService();
 
+    /**
+     * 获取token
+     *
+     * @return token
+     */
+    default String getToken() {
+        return getWeChatTokenService().token().getToken();
+    }
+
+    /**
+     * 是否需要AccessToken
+     *
+     * @return boolean
+     */
+    default boolean isNeedAccessToken() {
+        return true;
+    }
+
 
     /**
      * Get请求
@@ -49,11 +60,10 @@ public interface WeChatService {
      * @param url             url
      * @param responseClass   响应对象类型
      * @param needAccessToken 是否需要token
-     * @param <Resp>
      * @return Resp
      */
     default <Resp> Resp get(String url, Class<Resp> responseClass, boolean needAccessToken) {
-        return WeChatRequestFactory.get(url, responseClass, getWeChatConfig(), getWeChatTokenService(), getWeChatHttpClient(), getRequestFilterChain(), needAccessToken).execute();
+        return WeChatRequestFactory.get(url, responseClass, getWeChatConfig(), getWeChatTokenService(), getRequestFilterChain(), needAccessToken).execute();
     }
 
     /**
@@ -64,6 +74,31 @@ public interface WeChatService {
      * @return Resp
      */
     default <Resp> Resp get(String url, Class<Resp> responseClass) {
-        return WeChatRequestFactory.get(url, responseClass, getWeChatConfig(), getWeChatTokenService(), getWeChatHttpClient(), getRequestFilterChain()).execute();
+        return get(url, responseClass, true);
+    }
+
+    /**
+     * Post请求
+     *
+     * @param url             url
+     * @param requestBody     请求体
+     * @param responseClass   响应对象类型
+     * @param needAccessToken 是否需要AccessToken
+     * @return Resp
+     */
+    default <Req, Resp> Resp post(String url, Req requestBody, Class<Resp> responseClass, boolean needAccessToken) {
+        return WeChatRequestFactory.post(url, requestBody, responseClass, getWeChatConfig(), getWeChatTokenService(), getRequestFilterChain(), needAccessToken).execute();
+    }
+
+    /**
+     * Post请求
+     *
+     * @param url           url
+     * @param requestBody   请求体
+     * @param responseClass 响应对象类型
+     * @return Resp
+     */
+    default <Req, Resp> Resp post(String url, Req requestBody, Class<Resp> responseClass) {
+        return post(url, requestBody, responseClass, true);
     }
 }

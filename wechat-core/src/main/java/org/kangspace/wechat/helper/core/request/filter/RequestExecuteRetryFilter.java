@@ -43,7 +43,7 @@ public class RequestExecuteRetryFilter implements RequestFilter {
     @Override
     public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
         log.debug("Request execute retry filter run.");
-        Resp resp = RetryRunner.run(request::doExecute, request.getMaxRetryCount(), (exception) -> {
+        Resp resp = RetryRunner.run(request::doExecute, request.getWechatConfig().requestConfig().getMaxRetryCount(), (exception) -> {
             // 1. 请求异常
             boolean isHttpConnectExceptionRetry = isRetryException(exception) || isRetryException(exception.getCause());
             if (isHttpConnectExceptionRetry) {

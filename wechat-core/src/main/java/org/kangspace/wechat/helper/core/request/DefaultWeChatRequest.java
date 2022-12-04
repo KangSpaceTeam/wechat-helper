@@ -17,16 +17,19 @@ import org.kangspace.wechat.helper.core.token.WeChatTokenService;
  */
 @Getter
 public class DefaultWeChatRequest<Req, Resp> extends AbstractWeChatRequest<Req, Resp> {
-
-    public DefaultWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain) {
-        super(url, httpHeaders, responseClass, wechatConfig, weChatTokenService, weChatHttpClient, filterChain);
+    public DefaultWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain, boolean needAccessToken) {
+        super(url, httpHeaders, responseClass, wechatConfig, weChatTokenService, filterChain, needAccessToken);
     }
 
-    public DefaultWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain, boolean needAccessToken) {
-        super(url, httpHeaders, responseClass, wechatConfig, weChatTokenService, weChatHttpClient, filterChain, needAccessToken);
+    public DefaultWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain) {
+        super(url, httpHeaders, responseClass, wechatConfig, weChatTokenService, filterChain);
     }
 
-    public DefaultWeChatRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, WeChatHttpClient weChatHttpClient, RequestFilterChain filterChain) {
-        super(url, httpMethod, httpHeaders, requestBody, responseClass, wechatConfig, weChatTokenService, weChatHttpClient, filterChain);
+    public DefaultWeChatRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain) {
+        super(url, httpMethod, httpHeaders, requestBody, responseClass, wechatConfig, weChatTokenService, filterChain);
+    }
+
+    public DefaultWeChatRequest(String url, HttpMethod httpMethod, HttpHeaders httpHeaders, Req requestBody, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain, boolean needAccessToken) {
+        super(url, httpMethod, httpHeaders, requestBody, responseClass, wechatConfig, weChatTokenService, filterChain, needAccessToken);
     }
 }

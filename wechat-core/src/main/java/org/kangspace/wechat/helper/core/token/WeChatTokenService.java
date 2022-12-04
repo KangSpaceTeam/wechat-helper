@@ -11,9 +11,23 @@ import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 public interface WeChatTokenService {
 
     /**
+     * 获取Token
+     *
+     * @return {@link WeChatToken}
+     */
+    WeChatToken token();
+
+    /**
+     * 刷新token
+     *
+     * @return {@link WeChatToken}
+     */
+    WeChatToken tokenRefresh();
+
+    /**
      * 获取Token存储器
      *
      * @return {@link WeChatTokenStorage}
      */
-    <T> WeChatTokenStorage<T> getWeChatTokenStorage();
+    <T extends WeChatToken> WeChatTokenStorage<T> getWeChatTokenStorage();
 }

@@ -1,0 +1,78 @@
+package org.kangspace.wechat.helper.mp;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
+import org.kangspace.wechat.helper.mp.bean.MpOpenApiQuotaGetResponse;
+import org.kangspace.wechat.helper.mp.bean.MpOpenApiRidGetResponse;
+import org.kangspace.wechat.helper.mp.bean.WeChatMpResponseEntity;
+import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
+import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
+
+/**
+ * 微信公众号openApi管理相关Service测试类
+ *
+ * @author kango2gler@gmail.com
+ * @see WeChatMpOpenApiService
+ * @since 2022/11/24
+ */
+@Slf4j
+@RunWith(JUnit4.class)
+public class WeChatMpOpenApiServiceTest {
+    private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
+    private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
+    private WeChatMpOpenApiService mpOpenApiService;
+    private WeChatMpService weChatMpService;
+    private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
+
+    private String mpAccessToken;
+
+    @Before
+    public void before() {
+        WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
+        weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+        mpOpenApiService = new DefaultWeChatMpOpenApiService(weChatMpConfig, weChatMpAccessTokenService);
+        mpAccessToken = mpOpenApiService.getToken();
+    }
+
+    /**
+     * 查询 openAPI 调用quota测试
+     */
+    @Test
+    public void quotaGetTest() {
+        log.info("查询 openAPI 调用quota: mpOpenApiService.quotaGet(accessToken, cgiPath)");
+        String accessToken = mpAccessToken;
+        String cgiPath = "/cgi-bin/token";
+        MpOpenApiQuotaGetResponse response = mpOpenApiService.quotaGet(accessToken, cgiPath);
+        Assert.assertTrue("获取失败!", response != null);
+        log.info("response: {}", response);
+    }
+
+    /**
+     * 查询 openAPI 调用quota测试
+     */
+    @Test
+    public void clearQuotaTest() {
+        log.info("查询 openAPI 调用quota: mpOpenApiService.clearQuota(accessToken, appId)");
+        String accessToken = mpAccessToken;
+        WeChatMpResponseEntity response = mpOpenApiService.clearQuota(accessToken, appId);
+        Assert.assertTrue("获取失败!", response != null);
+        log.info("response: {}", response);
+    }
+
+    /**
+     * 查询rid信息
+     */
+    @Test
+    public void ridGetTest() {
+        log.info("查询rid信息: mpOpenApiService.ridGet(accessToken, rid)");
+        String accessToken = mpAccessToken;
+        String rid = "638b3bb7-2aad7a58-2054bfe8";
+        MpOpenApiRidGetResponse response = mpOpenApiService.ridGet(accessToken, rid);
+        Assert.assertTrue("获取失败!", response != null);
+        log.info("response: {}", response);
+    }
+}

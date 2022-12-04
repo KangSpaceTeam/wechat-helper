@@ -6,31 +6,74 @@
 
     <groupId>org.kangspace.wechat.helper</groupId>
     <artifactId>wechat-helper</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <url>https://github.com/KangSpaceTeam/wechat-helper</url>
     <description>
-        💬微信开发助手🛠️，通过整合微信公众号、服务号、微信开放平台和企业微信的开发API，提供统一微信API调用SDK、OPEN-API和微信应用的管理平台
+        🛠 微信开发助手️，通过整合微信公众号、服务号、微信开放平台和企业微信的开发API，提供统一微信API调用SDK、OPEN-API和微信应用的管理平台。
     </description>
 
-    <contributors>
-        <contributor>
+    <developers>
+        <developer>
             <name>Will Kang</name>
             <email>kango2gler@gmail.com</email>
             <organization>KangSpace</organization>
             <organizationUrl>https://kangspace.org</organizationUrl>
             <timezone>Asia/Shanghai</timezone>
-        </contributor>
-    </contributors>
+        </developer>
+    </developers>
 
-    <distributionManagement></distributionManagement>
+    <scm>
+        <connection>scm:git@github.com:KangSpaceTeam/wechat-helper.git</connection>
+        <developerConnection>scm:git@github.com:KangSpaceTeam/wechat-helper.git</developerConnection>
+        <url>https://github.com/KangSpaceTeam/wechat-helper</url>
+    </scm>
 
-    <repositories></repositories>
+    <issueManagement>
+        <system>GitHub Issues</system>
+        <url>https://github.com/KangSpaceTeam/wechat-helper</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>oss.sonatype.org</id>
+            <name>oss.sonatype.org</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>oss.sonatype.org</id>
+            <name>oss.sonatype.org</name>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
+    <repositories>
+        <repository>
+            <id>aliyunmaven</id>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <maven.complier.plugin.version>3.8.1</maven.complier.plugin.version>
+        <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
+        <maven.javadoc.plugin.version>3.4.0</maven.javadoc.plugin.version>
+        <maven.javadoc.plugin.version>3.4.0</maven.javadoc.plugin.version>
+        <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
+        <maven.gpg.plugin.version>3.0.1</maven.gpg.plugin.version>
+        <maven.release.plugin>2.5.3</maven.release.plugin>
+
+        <java.version>1.8</java.version>
+        <project.encoding>UTF-8</project.encoding>
         <lombok.version>1.18.24</lombok.version>
         <common-lang3.version>3.8.1</common-lang3.version>
         <gson.version>2.9.0</gson.version>
@@ -38,6 +81,8 @@
         <log4j-to-slf4j.version>2.13.3</log4j-to-slf4j.version>
         <logback-classic.version>1.2.3</logback-classic.version>
         <junit.version>4.13.2</junit.version>
+        <reactor.version>2020.0.23</reactor.version>
+        <jsr305.version>3.0.2</jsr305.version>
     </properties>
 
     <modules>
@@ -142,12 +187,107 @@
             <dependency>
                 <groupId>io.projectreactor</groupId>
                 <artifactId>reactor-bom</artifactId>
-                <version>2020.0.23</version>
+                <version>${reactor.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
 
+            <!--JSR 305-->
+            <dependency>
+                <groupId>com.google.code.findbugs</groupId>
+                <artifactId>jsr305</artifactId>
+                <version>${jsr305.version}</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven.complier.plugin.version}</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>${project.encoding}</encoding>
+                </configuration>
+            </plugin>
+
+            <!-- Source -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- Javadoc -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${maven.javadoc.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+
+            <!--junit自动测试-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.plugin.version}</version>
+                <configuration>
+                    <skipTests>true</skipTests>
+                    <includes>
+                        <include>*</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven.gpg.plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <!-- mvn release -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>${maven.release.plugin}</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagNameFormat>tag@{project.version}</tagNameFormat>
+                    <generateReleasePoms>false</generateReleasePoms>
+                    <arguments>-DskipTests</arguments>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

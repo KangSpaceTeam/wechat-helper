@@ -10,30 +10,7 @@ import reactor.netty.http.client.HttpClientResponse;
  * @since 2022/11/26
  */
 public class HttpUtil {
-    /**
-     * OK 200状态码
-     */
-    public static int OK_CODE = 200;
-    /**
-     * CREATED 201状态码
-     */
-    public static int CREATED_CODE = 201;
-    /**
-     * BAD_GATEWAY 502状态码
-     */
-    public static int BAD_GATEWAY_CODE = 502;
-    /**
-     * SERVICE_UNAVAILABLE 503状态码
-     */
-    public static int SERVICE_UNAVAILABLE_CODE = 503;
-    /**
-     * GATEWAY_TIMEOUT 504状态码
-     */
-    public static int GATEWAY_TIMEOUT_CODE = 504;
-    /**
-     * Content-Type名称
-     */
-    public static String CONTENT_TYPE_NAME = "Content-type";
+
 
     /**
      * 是否成功请求(200/201)
@@ -42,7 +19,7 @@ public class HttpUtil {
      * @return boolean
      */
     public static boolean isSuccess(int statusCode) {
-        return OK_CODE == statusCode || CREATED_CODE == statusCode;
+        return HttpConstant.OK_CODE == statusCode || HttpConstant.CREATED_CODE == statusCode;
     }
 
     /**
@@ -56,7 +33,7 @@ public class HttpUtil {
      * @return boolean
      */
     public static boolean isRetryHttpStatus(int statusCode) {
-        return BAD_GATEWAY_CODE == statusCode || SERVICE_UNAVAILABLE_CODE == statusCode || GATEWAY_TIMEOUT_CODE == statusCode;
+        return HttpConstant.BAD_GATEWAY_CODE == statusCode || HttpConstant.SERVICE_UNAVAILABLE_CODE == statusCode || HttpConstant.GATEWAY_TIMEOUT_CODE == statusCode;
     }
 
 
@@ -66,7 +43,7 @@ public class HttpUtil {
      * @return contentType contentType
      */
     public static String getContentType(HttpClientResponse response) {
-        return response != null ? response.responseHeaders().get(CONTENT_TYPE_NAME) : null;
+        return response != null ? response.responseHeaders().get(HttpConstant.CONTENT_TYPE_NAME) : null;
     }
 
     /**
@@ -75,6 +52,16 @@ public class HttpUtil {
      * @return contentType contentType
      */
     public static String getContentType(HttpHeaders httpHeaders) {
-        return httpHeaders != null ? httpHeaders.get(CONTENT_TYPE_NAME) : null;
+        return httpHeaders != null ? httpHeaders.get(HttpConstant.CONTENT_TYPE_NAME) : null;
+    }
+
+    /**
+     * 请求头设置{@link HttpConstant#CONTENT_TYPE_NAME}
+     *
+     * @param httpHeaders 请求头
+     * @param value       值
+     */
+    public static void setContentType(HttpHeaders httpHeaders, String value) {
+        httpHeaders.set(HttpConstant.CONTENT_TYPE_NAME, value);
     }
 }

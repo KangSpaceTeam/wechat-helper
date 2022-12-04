@@ -1,6 +1,5 @@
 package org.kangspace.wechat.helper.mp;
 
-import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
@@ -20,7 +19,6 @@ import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
  */
 public class AbstractWeChatMpService implements WeChatMpService {
     private final WeChatMpConfig weChatConfig;
-    private final WeChatHttpClient weChatHttpClient;
     private final RequestFilterChain requestFilterChain;
     private final WeChatMpAccessTokenService weChatMpAccessTokenService;
 
@@ -34,15 +32,8 @@ public class AbstractWeChatMpService implements WeChatMpService {
 
     public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
         this.weChatConfig = weChatConfig;
-        this.weChatHttpClient = weChatConfig.getWeChatHttpClient();
         this.requestFilterChain = requestFilterChain;
         this.weChatMpAccessTokenService = weChatMpAccessTokenService != null && !(this instanceof WeChatTokenService) ? weChatMpAccessTokenService : null;
-    }
-
-
-    @Override
-    public WeChatHttpClient getWeChatHttpClient() {
-        return weChatHttpClient;
     }
 
     @Override

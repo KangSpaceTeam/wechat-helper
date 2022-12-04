@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.core.config;
 import lombok.Data;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
+import org.kangspace.wechat.helper.core.token.WeChatToken;
 
 /**
  * 微信基本配置接口(包括AppId等),包括:
@@ -29,7 +30,7 @@ public interface WeChatConfig {
      *
      * @return {@link WeChatTokenStorage}
      */
-    <TokenVal> WeChatTokenStorage<TokenVal> getWeChatTokenStorage();
+    <TokenVal extends WeChatToken> WeChatTokenStorage<TokenVal> getWeChatTokenStorage();
 
     /**
      * 获取HttpClient
@@ -63,5 +64,11 @@ public interface WeChatConfig {
          * 读取超时时间时间, default: 3000
          */
         private Long readTimeout = 3000L;
+        /**
+         * 请求最大重试次数(不含第一次请求)
+         *
+         * @see org.kangspace.wechat.helper.core.request.filter.RequestExecuteRetryFilter
+         */
+        private int maxRetryCount = 3;
     }
 }

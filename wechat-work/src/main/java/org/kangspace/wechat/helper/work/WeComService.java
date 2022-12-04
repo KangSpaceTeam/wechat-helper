@@ -5,7 +5,6 @@ import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.env.MultiPropertySources;
 import org.kangspace.wechat.helper.core.env.PropertySource;
-import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.resolver.PropertyResolver;
 import org.kangspace.wechat.helper.core.resolver.PropertySourcesPropertyResolver;
@@ -37,7 +36,7 @@ public class WeComService implements WeChatService {
     /**
      * 初始化配置处理器
      *
-     * @param weComConfig
+     * @param weComConfig {@link WeComRequestConfig}
      * @return {@link PropertyResolver}
      */
     private PropertyResolver initApiPropertyResolver(WeComRequestConfig weComConfig) {
@@ -62,11 +61,6 @@ public class WeComService implements WeChatService {
         Properties apiProperties = new Properties();
         apiProperties.putAll(weComConfig.getApiPathMapping());
         return new WeComApiPropertiesPropertySource("customApiProperties", apiProperties);
-    }
-
-    @Override
-    public WeChatHttpClient getWeChatHttpClient() {
-        return null;
     }
 
     @Override

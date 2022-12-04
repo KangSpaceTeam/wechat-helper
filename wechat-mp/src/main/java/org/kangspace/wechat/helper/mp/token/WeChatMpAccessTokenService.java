@@ -3,7 +3,7 @@ package org.kangspace.wechat.helper.mp.token;
 import org.kangspace.wechat.helper.core.constant.TimeConstant;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
-import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenResponse;
+import org.kangspace.wechat.helper.mp.bean.MpAccessTokenResponse;
 
 /**
  * 微信公众号AccessTokenService
@@ -15,9 +15,10 @@ public interface WeChatMpAccessTokenService extends WeChatTokenService {
     /**
      * 微信公众号获取Access token
      *
-     * @return {@link WeChatMpAccessTokenResponse}
+     * @return {@link MpAccessTokenResponse}
      */
-    default WeChatMpAccessTokenResponse token() {
+    @Override
+    default MpAccessTokenResponse token() {
         return this.token(false);
     }
 
@@ -25,14 +26,14 @@ public interface WeChatMpAccessTokenService extends WeChatTokenService {
      * 微信公众号获取Access token
      *
      * @param forceRefresh 是否强制刷新
-     * @return {@link WeChatMpAccessTokenResponse}
+     * @return {@link MpAccessTokenResponse}
      */
-    default WeChatMpAccessTokenResponse token(boolean forceRefresh) {
-        WeChatMpAccessTokenResponse cache = getWeChatTokenStorage().getToken();
+    default MpAccessTokenResponse token(boolean forceRefresh) {
+        MpAccessTokenResponse cache = getWeChatTokenStorage().getWeChatToken();
         if (cache == null || forceRefresh) {
             synchronized (this) {
                 cache = this.tokenRefresh();
-                getWeChatTokenStorage().setToken(cache, Long.parseLong(cache.getExpiresIn()) * TimeConstant.MillisSecond.ONE_SECOND);
+                getWeChatTokenStorage().setWeChatToken(cache, cache.getExpiresIn() * TimeConstant.MillisSecond.ONE_SECOND);
             }
         }
         return cache;
@@ -41,25 +42,26 @@ public interface WeChatMpAccessTokenService extends WeChatTokenService {
     /**
      * 刷新token
      *
-     * @return {@link WeChatMpAccessTokenResponse}
+     * @return {@link MpAccessTokenResponse}
      */
-    WeChatMpAccessTokenResponse tokenRefresh();
+    @Override
+    MpAccessTokenResponse tokenRefresh();
 
     /**
      * 微信公众号获取Access token
      *
      * @param appId  appId
      * @param secret appSecret
-     * @return {@link WeChatMpAccessTokenResponse}
+     * @return {@link MpAccessTokenResponse}
      */
-    WeChatMpAccessTokenResponse token(String appId, String secret);
+    MpAccessTokenResponse token(String appId, String secret);
 
     /**
      * 获取微信公众号Token存储器
      *
-     * @return {@link WeChatTokenStorage},{@link WeChatMpAccessTokenResponse}
+     * @return {@link WeChatTokenStorage},{@link MpAccessTokenResponse}
      */
     @SuppressWarnings("unchecked")
     @Override
-    WeChatTokenStorage<WeChatMpAccessTokenResponse> getWeChatTokenStorage();
+    WeChatTokenStorage<MpAccessTokenResponse> getWeChatTokenStorage();
 }

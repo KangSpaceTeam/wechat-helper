@@ -7,9 +7,10 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
-import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenRequest;
-import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenResponse;
-import org.kangspace.wechat.helper.mp.bean.WeChatMpServerIpListResponse;
+import org.kangspace.wechat.helper.core.storage.redis.RedisWeChatTokenStorage;
+import org.kangspace.wechat.helper.mp.bean.MpAccessTokenParam;
+import org.kangspace.wechat.helper.mp.bean.MpAccessTokenResponse;
+import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
@@ -23,9 +24,10 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 @Slf4j
 @RunWith(JUnit4.class)
 public class WeChatMpServiceTest {
-    private final String appId = "";
-    private final String appSecret = "";
+    private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
+    private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private WeChatMpServerService mpServerService;
+    private RedisWeChatTokenStorage mpServerServiceWithRedisStorage;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
@@ -33,6 +35,11 @@ public class WeChatMpServiceTest {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
         mpServerService = new DefaultWeChatMpServerService(weChatMpConfig, weChatMpAccessTokenService);
+
+        WeChatMpConfig weChatMpConfigWithRedis = new WeChatMpConfig(appId, appSecret);
+        mpServerServiceWithRedisStorage = new RedisWeChatTokenStorage();
+        weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
+
     }
 
     /**
@@ -64,7 +71,7 @@ public class WeChatMpServiceTest {
     @Test
     public void getTokenTest() {
         log.info("weChatConfig: {}", weChatMpAccessTokenService.getWeChatConfig());
-        WeChatMpAccessTokenResponse response = weChatMpAccessTokenService.token();
+        MpAccessTokenResponse response = weChatMpAccessTokenService.token();
         log.info("response: {}", response);
     }
 
@@ -74,14 +81,14 @@ public class WeChatMpServiceTest {
     @Test
     public void tokenRefreshTest() {
         // 1. 获取token,并缓存
-        WeChatMpAccessTokenResponse token = weChatMpAccessTokenService.token();
+        MpAccessTokenResponse token = weChatMpAccessTokenService.token();
         log.info("获取token,并缓存: token: {}", token);
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
         }
         // 2. http获取新token
-        String param = WeChatMpAccessTokenRequest.toQueryString(appId, appSecret);
+        String param = MpAccessTokenParam.toQueryString(appId, appSecret);
         String newTokenUrl = WeChatMpApiPaths.TOKEN + StringLiteral.QUESTION_MARK + param;
         String result = mpServerService.get(newTokenUrl, String.class, false);
         log.info("http获取新token: token: {}", result);
@@ -94,17 +101,7 @@ public class WeChatMpServiceTest {
      */
     @Test
     public void getApiDomainIpTest() {
-        WeChatMpServerIpListResponse response = mpServerService.getApiDomainIp();
-        Assert.assertTrue("获取失败!", response != null);
-        log.info("response: {}", response);
-    }
-
-    /**
-     * 获取微信callback IP地址
-     */
-    @Test
-    public void getCallbackIp() {
-        WeChatMpServerIpListResponse response = mpServerService.getCallbackIp();
+        MpServerIpListResponse response = mpServerService.getApiDomainIp();
         Assert.assertTrue("获取失败!", response != null);
         log.info("response: {}", response);
     }

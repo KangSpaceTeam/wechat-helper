@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.bean;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
+import org.kangspace.wechat.helper.core.token.WeChatToken;
 
 /**
  * 微信公众号AccessToken响应
@@ -15,7 +16,7 @@ import lombok.ToString;
  */
 @ToString(callSuper = true)
 @Data
-public class WeChatMpAccessTokenResponse extends WeChatMpResponseEntity {
+public class MpAccessTokenResponse extends WeChatMpResponseEntity implements WeChatToken {
     /**
      * AccessToken
      */
@@ -26,6 +27,15 @@ public class WeChatMpAccessTokenResponse extends WeChatMpResponseEntity {
      * 超时时间,单位s,默认: 2小时
      */
     @JsonProperty("expires_in")
-    private String expiresIn;
+    private Long expiresIn;
 
+    @Override
+    public String getToken() {
+        return this.accessToken;
+    }
+
+    @Override
+    public Long getExpiresIn() {
+        return this.expiresIn;
+    }
 }

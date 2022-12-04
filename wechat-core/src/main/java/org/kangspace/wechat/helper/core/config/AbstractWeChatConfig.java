@@ -4,6 +4,7 @@ import lombok.Data;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClientFactory;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
+import org.kangspace.wechat.helper.core.token.WeChatToken;
 
 /**
  * 微信配置抽象类
@@ -27,11 +28,11 @@ public class AbstractWeChatConfig implements WeChatConfig {
     public AbstractWeChatConfig() {
     }
 
-    public <T> AbstractWeChatConfig(RequestConfig requestConfig, WeChatTokenStorage<T> weChatTokenStorage) {
+    public <T extends WeChatToken> AbstractWeChatConfig(RequestConfig requestConfig, WeChatTokenStorage<T> weChatTokenStorage) {
         this(requestConfig, weChatTokenStorage, WeChatHttpClientFactory.defaultHttpClient());
     }
 
-    public <T> AbstractWeChatConfig(RequestConfig requestConfig, WeChatTokenStorage<T> weChatTokenStorage, WeChatHttpClient weChatHttpClient) {
+    public <T extends WeChatToken> AbstractWeChatConfig(RequestConfig requestConfig, WeChatTokenStorage<T> weChatTokenStorage, WeChatHttpClient weChatHttpClient) {
         this.requestConfig = requestConfig;
         this.weChatTokenStorage = weChatTokenStorage;
         this.weChatHttpClient = weChatHttpClient;
@@ -44,7 +45,7 @@ public class AbstractWeChatConfig implements WeChatConfig {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T> WeChatTokenStorage<T> getWeChatTokenStorage() {
+    public <T extends WeChatToken> WeChatTokenStorage<T> getWeChatTokenStorage() {
         return this.weChatTokenStorage;
     }
 

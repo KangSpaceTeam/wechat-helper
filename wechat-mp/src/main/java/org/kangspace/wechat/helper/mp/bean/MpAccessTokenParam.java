@@ -12,7 +12,7 @@ import org.kangspace.wechat.helper.core.constant.WeChatConstant;
  * @since 2022/11/24
  */
 @Data
-public class WeChatMpAccessTokenRequest {
+public class MpAccessTokenParam {
     /**
      * AppId参数名
      */
@@ -47,10 +47,10 @@ public class WeChatMpAccessTokenRequest {
      */
     private String secret;
 
-    public WeChatMpAccessTokenRequest() {
+    public MpAccessTokenParam() {
     }
 
-    public WeChatMpAccessTokenRequest(String appId, String secret) {
+    public MpAccessTokenParam(String appId, String secret) {
         this.appId = appId;
         this.secret = secret;
     }
@@ -61,7 +61,7 @@ public class WeChatMpAccessTokenRequest {
      * @return queryString
      */
     public static String toQueryString(String appId, String secret) {
-        return APP_ID_PARAM + StringLiteral.EQUAL + (appId != null ? appId : "") + StringLiteral.AND + SECRET_PARAM + StringLiteral.EQUAL + (secret != null ? secret : "")
-                + StringLiteral.AND + GRANT_TYPE_PARAM + StringLiteral.EQUAL + WeChatConstant.OAuthGrantType.CLIENT_CREDENTIAL;
+        return APP_ID_PARAM + StringLiteral.EQUALS + (appId != null ? appId : "") + StringLiteral.AND + SECRET_PARAM + StringLiteral.EQUALS + (secret != null ? secret : "")
+                + StringLiteral.AND + GRANT_TYPE_PARAM + StringLiteral.EQUALS + WeChatConstant.OAuthGrantType.CLIENT_CREDENTIAL;
     }
 }
