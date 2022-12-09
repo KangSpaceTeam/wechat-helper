@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  */
 @Data
 @ToString(callSuper = true)
-public class MpCallbackCheckParam extends WeChatMpResponseEntity {
+public class CallbackCheckRequest extends WeChatMpResponseEntity {
     /**
      * 执行的检测动作，允许的值：dns（做域名解析）、ping（做 ping 检测）、all（dns和 ping 都做）,
      * 必填
@@ -37,10 +37,10 @@ public class MpCallbackCheckParam extends WeChatMpResponseEntity {
     @JsonProperty("check_operator")
     private CheckOperator checkOperator;
 
-    public MpCallbackCheckParam() {
+    public CallbackCheckRequest() {
     }
 
-    public MpCallbackCheckParam(Action action, CheckOperator checkOperator) {
+    public CallbackCheckRequest(Action action, CheckOperator checkOperator) {
         this.action = action;
         this.checkOperator = checkOperator;
     }

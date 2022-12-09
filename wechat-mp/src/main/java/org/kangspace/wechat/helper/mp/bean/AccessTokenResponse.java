@@ -16,7 +16,7 @@ import org.kangspace.wechat.helper.core.token.WeChatToken;
  */
 @ToString(callSuper = true)
 @Data
-public class MpAccessTokenResponse extends WeChatMpResponseEntity implements WeChatToken {
+public class AccessTokenResponse extends WeChatMpResponseEntity implements WeChatToken {
     /**
      * AccessToken
      */

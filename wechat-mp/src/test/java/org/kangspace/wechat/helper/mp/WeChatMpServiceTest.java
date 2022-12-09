@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.storage.redis.RedisWeChatTokenStorage;
-import org.kangspace.wechat.helper.mp.bean.MpAccessTokenParam;
-import org.kangspace.wechat.helper.mp.bean.MpAccessTokenResponse;
+import org.kangspace.wechat.helper.mp.bean.AccessTokenRequest;
+import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
@@ -71,7 +71,7 @@ public class WeChatMpServiceTest {
     @Test
     public void getTokenTest() {
         log.info("weChatConfig: {}", weChatMpAccessTokenService.getWeChatConfig());
-        MpAccessTokenResponse response = weChatMpAccessTokenService.token();
+        AccessTokenResponse response = weChatMpAccessTokenService.token();
         log.info("response: {}", response);
     }
 
@@ -81,14 +81,14 @@ public class WeChatMpServiceTest {
     @Test
     public void tokenRefreshTest() {
         // 1. 获取token,并缓存
-        MpAccessTokenResponse token = weChatMpAccessTokenService.token();
+        AccessTokenResponse token = weChatMpAccessTokenService.token();
         log.info("获取token,并缓存: token: {}", token);
         try {
             Thread.sleep(1000L);
         } catch (InterruptedException e) {
         }
         // 2. http获取新token
-        String param = MpAccessTokenParam.toQueryString(appId, appSecret);
+        String param = AccessTokenRequest.toQueryString(appId, appSecret);
         String newTokenUrl = WeChatMpApiPaths.TOKEN + StringLiteral.QUESTION_MARK + param;
         String result = mpServerService.get(newTokenUrl, String.class, false);
         log.info("http获取新token: token: {}", result);

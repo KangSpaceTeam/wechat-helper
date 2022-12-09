@@ -3,8 +3,8 @@ package org.kangspace.wechat.helper.mp.token;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.mp.AbstractWeChatMpService;
-import org.kangspace.wechat.helper.mp.bean.MpAccessTokenParam;
-import org.kangspace.wechat.helper.mp.bean.MpAccessTokenResponse;
+import org.kangspace.wechat.helper.mp.bean.AccessTokenRequest;
+import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
@@ -18,7 +18,7 @@ public class DefaultWeChatMpAccessTokenService extends AbstractWeChatMpService i
     /**
      * AccessToken 存储器
      */
-    private final WeChatTokenStorage<MpAccessTokenResponse> weChatTokenStorage;
+    private final WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage;
 
     public DefaultWeChatMpAccessTokenService(WeChatMpConfig weChatConfig) {
         super(weChatConfig, null);
@@ -26,20 +26,20 @@ public class DefaultWeChatMpAccessTokenService extends AbstractWeChatMpService i
     }
 
     @Override
-    public MpAccessTokenResponse tokenRefresh() {
+    public AccessTokenResponse tokenRefresh() {
         WeChatMpConfig weChatMpConfig = getWeChatConfig();
         return token(weChatMpConfig.getAppId(), weChatMpConfig.getAppSecret());
     }
 
     @Override
-    public MpAccessTokenResponse token(String appId, String secret) {
-        String param = MpAccessTokenParam.toQueryString(appId, secret);
+    public AccessTokenResponse token(String appId, String secret) {
+        String param = AccessTokenRequest.toQueryString(appId, secret);
         String url = WeChatMpApiPaths.TOKEN + StringLiteral.QUESTION_MARK + param;
-        return get(url, MpAccessTokenResponse.class, false);
+        return get(url, AccessTokenResponse.class, false);
     }
 
     @Override
-    public WeChatTokenStorage<MpAccessTokenResponse> getWeChatTokenStorage() {
+    public WeChatTokenStorage<AccessTokenResponse> getWeChatTokenStorage() {
         return this.weChatTokenStorage;
     }
 }

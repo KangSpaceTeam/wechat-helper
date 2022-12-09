@@ -10,14 +10,14 @@ import lombok.Data;
  * @since 2022/12/4
  */
 @Data
-public class MpOpenApiClearQuotaParam {
+public class OpenApiClearQuotaRequest {
     @JsonProperty("appid")
     private String appId;
 
-    public MpOpenApiClearQuotaParam() {
+    public OpenApiClearQuotaRequest() {
     }
 
-    public MpOpenApiClearQuotaParam(String appId) {
+    public OpenApiClearQuotaRequest(String appId) {
         this.appId = appId;
     }
 }

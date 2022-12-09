@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.mp;
 
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
-import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckParam;
-import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckResponse;
+import org.kangspace.wechat.helper.mp.bean.CallbackCheckRequest;
+import org.kangspace.wechat.helper.mp.bean.CallbackCheckResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
@@ -46,9 +46,9 @@ public class DefaultWeChatMpServerService extends AbstractWeChatMpService implem
     }
 
     @Override
-    public MpCallbackCheckResponse callbackCheck(MpCallbackCheckParam param) {
+    public CallbackCheckResponse callbackCheck(CallbackCheckRequest param) {
         Objects.requireNonNull(param, "MpCallbackCheckParam must be not null");
         String url = WeChatMpApiPaths.CALLBACK_CHECK;
-        return post(url, param, MpCallbackCheckResponse.class);
+        return post(url, param, CallbackCheckResponse.class);
     }
 }

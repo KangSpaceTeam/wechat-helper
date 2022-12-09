@@ -45,7 +45,7 @@ import java.util.List;
  */
 @Data
 @ToString(callSuper = true)
-public class MpCallbackCheckResponse extends WeChatMpResponseEntity {
+public class CallbackCheckResponse extends WeChatMpResponseEntity {
 
     /**
      * dns结果列表

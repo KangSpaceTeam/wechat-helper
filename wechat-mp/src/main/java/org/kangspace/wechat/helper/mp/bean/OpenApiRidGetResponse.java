@@ -25,7 +25,7 @@ import lombok.Data;
  * @since 2022/12/4
  */
 @Data
-public class MpOpenApiRidGetResponse {
+public class OpenApiRidGetResponse {
     /**
      * 该 rid 对应的请求详情
      */

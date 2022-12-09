@@ -3,7 +3,7 @@ package org.kangspace.wechat.helper.mp.token;
 import org.kangspace.wechat.helper.core.constant.TimeConstant;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
-import org.kangspace.wechat.helper.mp.bean.MpAccessTokenResponse;
+import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
 
 /**
  * 微信公众号AccessTokenService
@@ -15,10 +15,10 @@ public interface WeChatMpAccessTokenService extends WeChatTokenService {
     /**
      * 微信公众号获取Access token
      *
-     * @return {@link MpAccessTokenResponse}
+     * @return {@link AccessTokenResponse}
      */
     @Override
-    default MpAccessTokenResponse token() {
+    default AccessTokenResponse token() {
         return this.token(false);
     }
 
@@ -26,10 +26,10 @@ public interface WeChatMpAccessTokenService extends WeChatTokenService {
      * 微信公众号获取Access token
      *
      * @param forceRefresh 是否强制刷新
-     * @return {@link MpAccessTokenResponse}
+     * @return {@link AccessTokenResponse}
      */
-    default MpAccessTokenResponse token(boolean forceRefresh) {
-        MpAccessTokenResponse cache = getWeChatTokenStorage().getWeChatToken();
+    default AccessTokenResponse token(boolean forceRefresh) {
+        AccessTokenResponse cache = getWeChatTokenStorage().getWeChatToken();
         if (cache == null || forceRefresh) {
             synchronized (this) {
                 cache = this.tokenRefresh();
@@ -42,26 +42,26 @@ public interface WeChatMpAccessTokenService extends WeChatTokenService {
     /**
      * 刷新token
      *
-     * @return {@link MpAccessTokenResponse}
+     * @return {@link AccessTokenResponse}
      */
     @Override
-    MpAccessTokenResponse tokenRefresh();
+    AccessTokenResponse tokenRefresh();
 
     /**
      * 微信公众号获取Access token
      *
      * @param appId  appId
      * @param secret appSecret
-     * @return {@link MpAccessTokenResponse}
+     * @return {@link AccessTokenResponse}
      */
-    MpAccessTokenResponse token(String appId, String secret);
+    AccessTokenResponse token(String appId, String secret);
 
     /**
      * 获取微信公众号Token存储器
      *
-     * @return {@link WeChatTokenStorage},{@link MpAccessTokenResponse}
+     * @return {@link WeChatTokenStorage},{@link AccessTokenResponse}
      */
     @SuppressWarnings("unchecked")
     @Override
-    WeChatTokenStorage<MpAccessTokenResponse> getWeChatTokenStorage();
+    WeChatTokenStorage<AccessTokenResponse> getWeChatTokenStorage();
 }

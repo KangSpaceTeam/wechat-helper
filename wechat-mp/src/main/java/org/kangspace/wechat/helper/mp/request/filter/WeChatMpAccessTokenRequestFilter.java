@@ -7,7 +7,7 @@ import org.kangspace.wechat.helper.core.request.filter.AbstractTokenRequestFilte
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.retry.RetryRunner;
 import org.kangspace.wechat.helper.core.util.TokenUtil;
-import org.kangspace.wechat.helper.mp.bean.MpAccessTokenResponse;
+import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpResponseEntity;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpResponseCode;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
@@ -59,7 +59,7 @@ public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter
         log.debug("WeChatMpAccessTokenRequestFilter run: raw url: {}", url);
         WeChatMpAccessTokenService weChatMpAccessTokenService = (WeChatMpAccessTokenService) request.getWeChatTokenService();
         // 获取token
-        MpAccessTokenResponse token = weChatMpAccessTokenService.token(forceRefreshToken);
+        AccessTokenResponse token = weChatMpAccessTokenService.token(forceRefreshToken);
         String currAccessToken = token.getAccessToken();
         String oldAccessToken;
         if (TokenUtil.containAccessToken(url) && (oldAccessToken = TokenUtil.getAccessToken(url)) != null && !oldAccessToken.equals(currAccessToken)) {

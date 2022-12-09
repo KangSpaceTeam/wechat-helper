@@ -1,7 +1,7 @@
 package org.kangspace.wechat.helper.mp;
 
-import org.kangspace.wechat.helper.mp.bean.MpOpenApiQuotaGetResponse;
-import org.kangspace.wechat.helper.mp.bean.MpOpenApiRidGetResponse;
+import org.kangspace.wechat.helper.mp.bean.OpenApiQuotaGetResponse;
+import org.kangspace.wechat.helper.mp.bean.OpenApiRidGetResponse;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpResponseEntity;
 
 /**
@@ -44,10 +44,10 @@ public interface WeChatMpOpenApiService extends WeChatMpService {
      * </pre>
      *
      * @param accessToken 依据需要查询的接口属于的账号类型不同而使用不同的token，详情查看注上述注意事项
-     * @param cgiPath     api的请求地址，例如"/cgi-bin/message/custom/send";不要前缀“https://api.weixin.qq.com” ，也不要漏了"/",否则都会76003的报错
-     * @return {@link MpOpenApiQuotaGetResponse}
+     * @param cgiPath     api的请求地址，例如"/cgi-bin/message/custom/send";不要前缀"https://api.weixin.qq.com" ，也不要漏了"/",否则都会76003的报错
+     * @return {@link OpenApiQuotaGetResponse}
      */
-    MpOpenApiQuotaGetResponse quotaGet(String accessToken, String cgiPath);
+    OpenApiQuotaGetResponse quotaGet(String accessToken, String cgiPath);
 
     /**
      * 查询rid信息 <br>
@@ -63,7 +63,7 @@ public interface WeChatMpOpenApiService extends WeChatMpService {
      *
      * @param accessToken 依据需要查询的接口属于的账号类型不同而使用不同的token，详情查看注上述注意事项
      * @param rid         调用接口报错返回的rid
-     * @return {@link MpOpenApiQuotaGetResponse}
+     * @return {@link OpenApiQuotaGetResponse}
      */
-    MpOpenApiRidGetResponse ridGet(String accessToken, String rid);
+    OpenApiRidGetResponse ridGet(String accessToken, String rid);
 }

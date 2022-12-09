@@ -34,28 +34,28 @@ public class DefaultWeChatMpOpenApiService extends AbstractWeChatMpService imple
         Objects.requireNonNull(appId, "appId must be not null");
         String url = WeChatMpApiPaths.CLEAR_QUOTA;
         url = TokenUtil.appendAccessToken(url, accessToken);
-        MpOpenApiClearQuotaParam param = new MpOpenApiClearQuotaParam(appId);
+        OpenApiClearQuotaRequest param = new OpenApiClearQuotaRequest(appId);
         return post(url, param, WeChatMpResponseEntity.class, isNeedAccessToken());
     }
 
     @Override
-    public MpOpenApiQuotaGetResponse quotaGet(String accessToken, String cgiPath) {
+    public OpenApiQuotaGetResponse quotaGet(String accessToken, String cgiPath) {
         Objects.requireNonNull(accessToken, "accessToken must be not null");
         Objects.requireNonNull(cgiPath, "cgiPath must be not null");
         String url = WeChatMpApiPaths.OPENAPI_QUOTA_GET;
         url = TokenUtil.appendAccessToken(url, accessToken);
-        MpOpenApiQuotaGetParam param = new MpOpenApiQuotaGetParam(cgiPath);
-        return post(url, param, MpOpenApiQuotaGetResponse.class, isNeedAccessToken());
+        OpenApiQuotaGetRequest param = new OpenApiQuotaGetRequest(cgiPath);
+        return post(url, param, OpenApiQuotaGetResponse.class, isNeedAccessToken());
     }
 
     @Override
-    public MpOpenApiRidGetResponse ridGet(String accessToken, String rid) {
+    public OpenApiRidGetResponse ridGet(String accessToken, String rid) {
         Objects.requireNonNull(accessToken, "accessToken must be not null");
         Objects.requireNonNull(rid, "rid must be not null");
         String url = WeChatMpApiPaths.OPENAPI_RID_GET;
         url = TokenUtil.appendAccessToken(url, accessToken);
-        MpOpenApiRidGetParam param = new MpOpenApiRidGetParam(rid);
-        return post(url, param, MpOpenApiRidGetResponse.class, isNeedAccessToken());
+        OpenApiRidGetRequest param = new OpenApiRidGetRequest(rid);
+        return post(url, param, OpenApiRidGetResponse.class, isNeedAccessToken());
     }
 
     @Override

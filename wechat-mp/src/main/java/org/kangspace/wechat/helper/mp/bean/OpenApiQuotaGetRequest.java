@@ -10,14 +10,14 @@ import lombok.Data;
  * @since 2022/12/4
  */
 @Data
-public class MpOpenApiQuotaGetParam {
+public class OpenApiQuotaGetRequest {
     @JsonProperty("cgi_path")
     private String cgiPath;
 
-    public MpOpenApiQuotaGetParam() {
+    public OpenApiQuotaGetRequest() {
     }
 
-    public MpOpenApiQuotaGetParam(String cgiPath) {
+    public OpenApiQuotaGetRequest(String cgiPath) {
         this.cgiPath = cgiPath;
     }
 }

@@ -1,7 +1,7 @@
 package org.kangspace.wechat.helper.mp;
 
-import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckParam;
-import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckResponse;
+import org.kangspace.wechat.helper.mp.bean.CallbackCheckRequest;
+import org.kangspace.wechat.helper.mp.bean.CallbackCheckResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 
 /**
@@ -41,8 +41,8 @@ public interface WeChatMpServerService extends WeChatMpService {
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Network_Detection.html">https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Network_Detection.html</a>
      * </p>
      *
-     * @param param 请求参数 {@link MpCallbackCheckParam}
-     * @return {@link MpCallbackCheckResponse}
+     * @param param 请求参数 {@link CallbackCheckRequest}
+     * @return {@link CallbackCheckResponse}
      */
-    MpCallbackCheckResponse callbackCheck(MpCallbackCheckParam param);
+    CallbackCheckResponse callbackCheck(CallbackCheckRequest param);
 }

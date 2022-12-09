@@ -23,7 +23,7 @@ import lombok.ToString;
  */
 @Data
 @ToString(callSuper = true)
-public class MpOpenApiQuotaGetResponse extends WeChatMpResponseEntity {
+public class OpenApiQuotaGetResponse extends WeChatMpResponseEntity {
     @JsonProperty("quota")
     private Quota quota;
 

@@ -12,7 +12,7 @@ import org.kangspace.wechat.helper.core.constant.WeChatConstant;
  * @since 2022/11/24
  */
 @Data
-public class MpAccessTokenParam {
+public class AccessTokenRequest {
     /**
      * AppId参数名
      */
@@ -47,10 +47,10 @@ public class MpAccessTokenParam {
      */
     private String secret;
 
-    public MpAccessTokenParam() {
+    public AccessTokenRequest() {
     }
 
-    public MpAccessTokenParam(String appId, String secret) {
+    public AccessTokenRequest(String appId, String secret) {
         this.appId = appId;
         this.secret = secret;
     }

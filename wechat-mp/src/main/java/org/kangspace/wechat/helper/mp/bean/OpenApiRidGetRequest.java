@@ -9,13 +9,13 @@ import lombok.Data;
  * @since 2022/12/4
  */
 @Data
-public class MpOpenApiRidGetParam {
+public class OpenApiRidGetRequest {
     private String rid;
 
-    public MpOpenApiRidGetParam() {
+    public OpenApiRidGetRequest() {
     }
 
-    public MpOpenApiRidGetParam(String rid) {
+    public OpenApiRidGetRequest(String rid) {
         this.rid = rid;
     }
 }

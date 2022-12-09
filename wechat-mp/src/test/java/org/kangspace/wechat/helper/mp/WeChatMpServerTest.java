@@ -6,8 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckParam;
-import org.kangspace.wechat.helper.mp.bean.MpCallbackCheckResponse;
+import org.kangspace.wechat.helper.mp.bean.CallbackCheckRequest;
+import org.kangspace.wechat.helper.mp.bean.CallbackCheckResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
@@ -62,8 +62,8 @@ public class WeChatMpServerTest {
     @Test
     public void callbackCheckTest() {
         log.info("网络检测: mpServerService.callbackCheck()");
-        MpCallbackCheckParam param = new MpCallbackCheckParam(MpCallbackCheckParam.Action.ALL, MpCallbackCheckParam.CheckOperator.DEFAULT);
-        MpCallbackCheckResponse response = mpServerService.callbackCheck(param);
+        CallbackCheckRequest param = new CallbackCheckRequest(CallbackCheckRequest.Action.ALL, CallbackCheckRequest.CheckOperator.DEFAULT);
+        CallbackCheckResponse response = mpServerService.callbackCheck(param);
         Assert.assertTrue("获取失败!", response != null);
         log.info("response: {}", response);
     }
