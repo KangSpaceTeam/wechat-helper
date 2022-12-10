@@ -139,7 +139,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     private <ResponseBody> ResponseBody responseDataSerialize(HttpClientResponse response, String responseData, Class<ResponseBody> responseClass) {
         String contentType = HttpUtil.getContentType(response);
         List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.RESPONSE);
-        log.debug("Response dataSerializes:  contentType: {}, serializers: {}", contentType, serializers);
+        log.debug("Response dataSerializes: contentType: {}, serializers: {}, responseData: {}", contentType, serializers, responseData);
         Iterator<DataSerializer<ResponseBody>> iterator = (Iterator<DataSerializer<ResponseBody>>) serializers.iterator();
         ResponseBody data;
         while (iterator.hasNext()) {

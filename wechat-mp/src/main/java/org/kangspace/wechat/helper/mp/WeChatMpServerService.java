@@ -6,7 +6,7 @@ import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 
 /**
  * <p>
- * 微信公众号服务器相关Service
+ * 微信公众号"服务器"相关Service
  * </p>
  *
  * @author kango2gler@gmail.com

@@ -5,7 +5,7 @@ import org.kangspace.wechat.helper.mp.bean.OpenApiRidGetResponse;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpResponseEntity;
 
 /**
- * 微信公众号openApi管理相关Service
+ * 微信公众号"openApi管理"相关Service
  *
  * @author kango2gler@gmail.com
  * @since 2022/12/4

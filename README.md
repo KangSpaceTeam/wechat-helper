@@ -22,11 +22,11 @@
 
 ### 3.1 微信公众号
 
-见 [微信公众号(wechat-mp).Readme](wechat-mp/Readme.md)
+见 [微信公众号(wechat-mp)](wechat-mp/README.md)
 
 ### 3.2 企业微信
 
-见 [企微微信(wechat-work).Readme](wechat-mp/Readme.md)
+见 [企微微信(wechat-work)](wechat-work/README.md)
 
 ## T. TODO
 

@@ -13,7 +13,7 @@ import java.util.Objects;
 
 /**
  * <p>
- * 微信公众号服务器相关Service默认实现
+ * 微信公众号"服务器"相关Service默认实现
  * </p>
  *
  * @author kango2gler@gmail.com

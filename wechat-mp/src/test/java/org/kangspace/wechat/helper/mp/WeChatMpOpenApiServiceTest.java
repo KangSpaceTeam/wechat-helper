@@ -25,7 +25,6 @@ public class WeChatMpOpenApiServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private WeChatMpOpenApiService mpOpenApiService;
-    private WeChatMpService weChatMpService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     private String mpAccessToken;
