@@ -14,6 +14,8 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
+ * 微信公众号"自定义菜单"相关Service测试
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */

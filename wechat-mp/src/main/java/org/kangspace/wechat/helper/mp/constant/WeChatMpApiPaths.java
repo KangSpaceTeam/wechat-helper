@@ -100,9 +100,9 @@ public interface WeChatMpApiPaths {
      * 创建接口<br>
      * 自定义菜单能够帮助公众号丰富界面，让用户更好更快地理解公众号的功能。<br>
      * 请注意：<br>
-     *  1. 自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。<br>
-     *  2. 一级菜单最多4个汉字，二级菜单最多8个汉字，多出来的部分将会以“...”代替。<br>
-     *  3. 创建自定义菜单后，菜单的刷新策略是，在用户进入公众号会话页或公众号 profile 页时，如果发现上一次拉取菜单的请求在5分钟以前，就会拉取一下菜单，如果菜单有更新，就会刷新客户端的菜单。测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果。<br>
+     * 1. 自定义菜单最多包括3个一级菜单，每个一级菜单最多包含5个二级菜单。<br>
+     * 2. 一级菜单最多4个汉字，二级菜单最多8个汉字，多出来的部分将会以“...”代替。<br>
+     * 3. 创建自定义菜单后，菜单的刷新策略是，在用户进入公众号会话页或公众号 profile 页时，如果发现上一次拉取菜单的请求在5分钟以前，就会拉取一下菜单，如果菜单有更新，就会刷新客户端的菜单。测试时可以尝试取消关注公众账号后再次关注，则可以看到创建后的效果。<br>
      * </p>
      *
      * <p>
@@ -183,7 +183,6 @@ public interface WeChatMpApiPaths {
     /**
      * <p>
      * 测试个性化菜单匹配结果<br>
-     *
      * </p>
      * <p>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Personalized_menu_interface.html">https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Personalized_menu_interface.html</a><br>
@@ -192,5 +191,75 @@ public interface WeChatMpApiPaths {
      */
     String MENU_TRY_MATCH = BASE_PATH + "/menu/trymatch";
 
+    /**
+     * <p>
+     * 模板消息-设置所属行业<br>
+     * 设置行业可在微信公众平台后台完成，每月可修改行业1次，帐号仅可使用所属行业中相关的模板，为方便第三方开发者，提供通过接口调用的方式来修改账号所属行业。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/template/api_set_industry?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TEMPLATE_API_SET_INDUSTRY = BASE_PATH + "/template/api_set_industry";
+
+    /**
+     * <p>
+     * 模板消息-获取设置的行业信息<br>
+     * 获取帐号设置的行业信息。可登录微信公众平台，在公众号后台中查看行业信息。为方便第三方开发者，提供通过接口调用的方式来获取帐号所设置的行业信息。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html</a><br>
+     * HTTP GET请求: https://api.weixin.qq.com/cgi-bin/template/get_industry?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TEMPLATE_GET_INDUSTRY = BASE_PATH + "/template/get_industry";
+
+    /**
+     * <p>
+     * 模板消息-获得模板ID<br>
+     * 从行业模板库选择模板到帐号后台，获得模板 ID 的过程可在微信公众平台后台完成。为方便第三方开发者，提供通过接口调用的方式来获取模板ID。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/template/api_add_template?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TEMPLATE_API_ADD_TEMPLATE = BASE_PATH + "/template/api_add_template";
+
+    /**
+     * <p>
+     * 模板消息-获取模板列表<br>
+     * 获取已添加至帐号下所有模板列表，可在微信公众平台后台中查看模板列表信息。为方便第三方开发者，提供通过接口调用的方式来获取帐号下所有模板信息。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html</a><br>
+     * HTTP GET请求: https://api.weixin.qq.com/cgi-bin/template/get_all_private_template?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TEMPLATE_GET_ALL_PRIVATE_TEMPLATE = BASE_PATH + "/template/get_all_private_template";
+
+    /**
+     * <p>
+     * 模板消息-删除模板<br>
+     * 删除模板可在微信公众平台后台完成，为方便第三方开发者，提供通过接口调用的方式来删除某帐号下的模板。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/template/del_private_template?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TEMPLATE_DEL_PRIVATE_TEMPLATE = BASE_PATH + "/template/del_private_template";
+
+    /**
+     * <p>
+     * 模板消息-发送模板消息<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String MESSAGE_TEMPLATE_SEND = BASE_PATH + "/message/template/send";
 
 }

@@ -27,18 +27,30 @@
 ## 4. 测试用例
 
 ## 5. TODO
+
 1. 自定义菜单事件推送
+2. 基础消息能力事件推送,接收消息,模版消息事件推送
 
 ## 附录
 
 ### 1. 微信公众号官方文档
+
 #### 公众平台开发文档
+
 [https://developers.weixin.qq.com/doc/offiaccount/Getting_Started](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Overview.html)
+
 #### 公众平台更新日志
+
 [https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Update_log.html](https://developers.weixin.qq.com/doc/offiaccount/Getting_Started/Update_log.html)
+
 #### 公众平台接入指南
+
 [https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html](https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html)
+
 #### 微信公众平台接口测试帐号系统
+
 [https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login](https://mp.weixin.qq.com/debug/cgi-bin/sandbox?t=sandbox/login)
+
 #### 微信公众平台接口调试工具
+
 [https://mp.weixin.qq.com/debug/cgi-bin/apiinfo](https://mp.weixin.qq.com/debug/cgi-bin/apiinfo)
