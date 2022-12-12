@@ -52,4 +52,10 @@ public class DefaultWeChatMpMessageService extends AbstractWeChatMpService imple
         String url = WeChatMpApiPaths.MESSAGE_TEMPLATE_SEND;
         return post(url, request, MessageTemplateSendResponse.class);
     }
+
+    @Override
+    public GetCurrentAutoReplyInfoResponse getCurrentAutoReplyInfo() {
+        String url = WeChatMpApiPaths.GET_CURRENT_AUTOREPLY_INFO;
+        return get(url, GetCurrentAutoReplyInfoResponse.class);
+    }
 }

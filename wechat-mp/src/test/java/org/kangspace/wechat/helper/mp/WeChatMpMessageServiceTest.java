@@ -129,4 +129,13 @@ public class WeChatMpMessageServiceTest {
         MessageTemplateSendResponse response = messageService.messageTemplateSend(request);
         log.info("response: {}", response);
     }
+
+    /**
+     * 获取公众号的自动回复规则 测试
+     */
+    @Test
+    public void getCurrentAutoReplyInfoTest() {
+        GetCurrentAutoReplyInfoResponse response = messageService.getCurrentAutoReplyInfo();
+        log.info("response: {}", response);
+    }
 }

@@ -137,34 +137,6 @@ public interface CustomMenuConstant {
             return String.valueOf(getValue());
         }
     }
-    /**
-     * 是否显示封面，0为不显示，1为显示
-     */
-    enum ShowCover{
-        /**
-         * 不显示
-         */
-        NO(0),
-        /**
-         * 显示
-         */
-        YES(1),
-        ;
-        private final int value;
-
-        ShowCover(int value) {
-            this.value = value;
-        }
-        @JsonValue
-        public int getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(getValue());
-        }
-    }
 
     /**
      * 客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)
@@ -183,7 +155,7 @@ public interface CustomMenuConstant {
          */
         Others("3")
         ;
-        private String value;
+        private final String value;
 
         ClientPlatformType(String value) {
             this.value = value;

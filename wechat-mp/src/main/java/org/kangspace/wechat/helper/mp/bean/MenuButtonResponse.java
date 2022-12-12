@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.bean;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
+import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 import org.kangspace.wechat.helper.mp.constant.CustomMenuConstant;
 
 import java.util.List;
@@ -108,7 +109,7 @@ public class MenuButtonResponse {
          * 	是否显示封面，0为不显示，1为显示
          */
         @JsonProperty("show_cover")
-        private CustomMenuConstant.ShowCover showCover;
+        private WeChatConstant.ShowCover showCover;
         /**
          * 	封面图片的URL
          */
