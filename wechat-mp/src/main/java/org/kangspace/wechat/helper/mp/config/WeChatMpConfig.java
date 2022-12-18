@@ -29,7 +29,8 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
 
 
     public WeChatMpConfig(String appId, String appSecret) {
-        this(appId, appSecret, new RequestConfig(), new DefaultLocalWeChatTokenStorage<>());
+        this(appId, appSecret, new RequestConfig(), null);
+        this.setWeChatTokenStorage(new DefaultLocalWeChatTokenStorage<>(this));
     }
 
     public WeChatMpConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage) {

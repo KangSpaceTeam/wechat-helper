@@ -37,7 +37,6 @@ public interface WeChatService {
 
     /**
      * 获取token
-     *
      * @return token
      */
     default String getToken() {

@@ -4,6 +4,7 @@ import lombok.Data;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.WeChatToken;
+import org.redisson.api.RedissonClient;
 
 /**
  * 微信基本配置接口(包括AppId等),包括:
@@ -17,6 +18,12 @@ import org.kangspace.wechat.helper.core.token.WeChatToken;
  * @since 2022/11/24
  */
 public interface WeChatConfig {
+
+    /**
+     * 应用ID
+     * @return appId
+     */
+    String getAppId();
 
     /**
      * Http相关请求配置
@@ -38,6 +45,18 @@ public interface WeChatConfig {
      * @return {@link WeChatHttpClient}
      */
     WeChatHttpClient getWeChatHttpClient();
+
+    /**
+     * 获取Redis配置
+     * @return {@link WeChatRedisConfig}
+     */
+    WeChatRedisConfig getRedisConfig();
+
+    /**
+     * 根据 {@link WeChatRedisConfig}获取RedissonClient
+     * @return {@link RedissonClient}
+     */
+    RedissonClient getRedissonClient();
 
     /**
      * 请求配置

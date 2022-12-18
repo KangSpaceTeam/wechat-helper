@@ -6,6 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.wechat.helper.core.config.WeChatRedisConfig;
+import org.kangspace.wechat.helper.core.config.WeChatRedisConfigFactory;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.storage.redis.RedisWeChatTokenStorage;
 import org.kangspace.wechat.helper.mp.bean.AccessTokenRequest;
@@ -16,58 +18,31 @@ import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 
 /**
- * 微信公众号相关Service测试类
+ * 微信公众号相关Service(使用Redis)测试类
  *
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
 @Slf4j
 @RunWith(JUnit4.class)
-public class WeChatMpServiceTest {
+public class WeChatMpServiceWithRedisTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private WeChatMpServerService mpServerService;
-    private RedisWeChatTokenStorage mpServerServiceWithRedisStorage;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
-        WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-        weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpServerService = new DefaultWeChatMpServerService(weChatMpConfig, weChatMpAccessTokenService);
-    }
+        String redisAddress = "redis://127.0.0.1:6379";
+        Integer database = 0;
 
-    /**
-     * 连接超时重试测试
-     */
-    @Test
-    public void requestExecuteRetryConnectTimeoutTest() {
-        String mustConnectTimeoutUrl = "https://google.com";
-        String result = mpServerService.get(mustConnectTimeoutUrl, String.class);
-        log.info("url: {}", mustConnectTimeoutUrl);
-        log.info("result: {}", result);
-    }
+        WeChatMpConfig weChatMpConfigWithRedis = new WeChatMpConfig(appId, appSecret);
+        weChatMpConfigWithRedis.setRedisConfig(WeChatRedisConfigFactory.newConfig(WeChatRedisConfig.ServerType.SingleServer, redisAddress, database));
+        RedisWeChatTokenStorage mpServerServiceWithRedisStorage = new RedisWeChatTokenStorage(weChatMpConfigWithRedis);
+        weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
 
-    /**
-     * 502重试设置
-     */
-    @Test
-    public void requestExecuteRetry502Test() {
-        String must502Url = "https://kangspace.org/502";
-        String result = mpServerService.get(must502Url, String.class, false);
-        log.info("url: {}", must502Url);
-        log.info("result: {}", result);
-
-    }
-
-    /**
-     * 获取AccessToken测试
-     */
-    @Test
-    public void getTokenTest() {
-        log.info("weChatConfig: {}", weChatMpAccessTokenService.getWeChatConfig());
-        AccessTokenResponse response = weChatMpAccessTokenService.token();
-        log.info("response: {}", response);
+        weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfigWithRedis);
+        mpServerService = new DefaultWeChatMpServerService(weChatMpConfigWithRedis, weChatMpAccessTokenService);
     }
 
     /**

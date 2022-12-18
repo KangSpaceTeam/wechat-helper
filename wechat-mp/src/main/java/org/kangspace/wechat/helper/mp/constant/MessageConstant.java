@@ -235,4 +235,49 @@ public interface MessageConstant {
             return color;
         }
     }
+
+    /**
+     * 消息类型
+     */
+    enum MessageType{
+        /**
+         * 事件消息: event
+         */
+        EVENT,
+        /**
+         * 文本消息: text
+         */
+        TEXT,
+        /**
+         * 图片消息: image
+         */
+        IMAGE,
+        /**
+         * 语音消息: voice
+         */
+        VOICE,
+        /**
+         * 视频消息: video
+         */
+        VIDEO,
+        /**
+         * 小视频消息:shortvideo
+         */
+        SHORTVIDEO,
+        /**
+         * 地理位置消息: location
+         */
+        LOCATION,
+        /**
+         * 链接消息: link
+         */
+        LINK,
+        ;
+
+        @JsonValue
+        public String getValue() {
+            return this.name().toLowerCase();
+        }
+
+    }
 }

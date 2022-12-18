@@ -260,7 +260,7 @@ public interface WeChatMpApiPaths {
      * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
      * </p>
      */
-    String MESSAGE_TEMPLATE_SEND = BASE_PATH + "/message/template/send";
+    String MESSAGE_TEMPLATE_SEND = BASE_PATH + "/org/kangspace/wechat/helper/mp/message/template/send";
     /**
      * <p>
      * 获取公众号的自动回复规则<br>

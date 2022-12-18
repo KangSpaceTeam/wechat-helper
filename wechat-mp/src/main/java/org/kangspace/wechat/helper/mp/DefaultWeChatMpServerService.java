@@ -7,6 +7,7 @@ import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
+import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
 
 import java.util.Objects;
@@ -22,7 +23,7 @@ import java.util.Objects;
 public class DefaultWeChatMpServerService extends AbstractWeChatMpService implements WeChatMpServerService {
 
     public DefaultWeChatMpServerService(WeChatMpConfig weChatConfig) {
-        super(weChatConfig);
+        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
     }
 
     public DefaultWeChatMpServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {

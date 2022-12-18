@@ -83,6 +83,7 @@
         <junit.version>4.13.2</junit.version>
         <reactor.version>2020.0.23</reactor.version>
         <jsr305.version>3.0.2</jsr305.version>
+        <redisson.version>3.17.5</redisson.version>
     </properties>
 
     <modules>
@@ -162,6 +163,11 @@
                 <artifactId>jackson-databind</artifactId>
                 <version>${jackson.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson.dataformat</groupId>
+                <artifactId>jackson-dataformat-xml</artifactId>
+                <version>${jackson.version}</version>
+            </dependency>
 
             <!-- log -->
             <dependency>
@@ -197,6 +203,13 @@
                 <groupId>com.google.code.findbugs</groupId>
                 <artifactId>jsr305</artifactId>
                 <version>${jsr305.version}</version>
+            </dependency>
+
+            <!-- redisson -->
+            <dependency>
+                <groupId>org.redisson</groupId>
+                <artifactId>redisson</artifactId>
+                <version>${redisson.version}</version>
             </dependency>
 
         </dependencies>

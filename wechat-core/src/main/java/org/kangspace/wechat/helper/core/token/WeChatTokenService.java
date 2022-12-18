@@ -12,14 +12,12 @@ public interface WeChatTokenService {
 
     /**
      * 获取Token
-     *
      * @return {@link WeChatToken}
      */
     WeChatToken token();
 
     /**
      * 刷新token
-     *
      * @return {@link WeChatToken}
      */
     WeChatToken tokenRefresh();

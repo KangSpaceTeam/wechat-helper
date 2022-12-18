@@ -10,6 +10,7 @@ import java.util.HashMap;
  * @author kango2gler@gmail.com
  * @since 2022/10/3
  */
+@Deprecated
 @Data
 public class WeChatRequestConfig {
 

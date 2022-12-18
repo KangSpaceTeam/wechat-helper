@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.core.storage;
 
+import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.token.WeChatToken;
 
 /**
@@ -10,6 +11,12 @@ import org.kangspace.wechat.helper.core.token.WeChatToken;
  */
 public interface WeChatTokenStorage<T extends WeChatToken> {
     /**
+     * 获取WeChatConfig
+     * @return {@link WeChatConfig}
+     */
+    WeChatConfig getWeChatConfig();
+
+    /**
      * 设置缓存
      *
      * @param tokenObject {@link T}
@@ -19,7 +26,6 @@ public interface WeChatTokenStorage<T extends WeChatToken> {
 
     /**
      * 获取缓存
-     *
      * @return {@link T}
      */
     T getWeChatToken();

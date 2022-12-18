@@ -31,4 +31,8 @@ public interface StringLiteral {
      * 分号
      */
     String SEMICOLON = ";";
+    /**
+     * 逗号
+     */
+    String COMMA = ",";
 }
