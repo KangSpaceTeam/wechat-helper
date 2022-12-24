@@ -21,6 +21,7 @@ public interface WeChatConfig {
 
     /**
      * 应用ID
+     *
      * @return appId
      */
     String getAppId();
@@ -48,12 +49,14 @@ public interface WeChatConfig {
 
     /**
      * 获取Redis配置
+     *
      * @return {@link WeChatRedisConfig}
      */
     WeChatRedisConfig getRedisConfig();
 
     /**
      * 根据 {@link WeChatRedisConfig}获取RedissonClient
+     *
      * @return {@link RedissonClient}
      */
     RedissonClient getRedissonClient();

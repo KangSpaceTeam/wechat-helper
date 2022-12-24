@@ -37,6 +37,7 @@ public interface WeChatService {
 
     /**
      * 获取token
+     *
      * @return token
      */
     default String getToken() {
@@ -51,6 +52,13 @@ public interface WeChatService {
     default boolean isNeedAccessToken() {
         return true;
     }
+
+    /**
+     * 将当前{@link WeChatService}转换为其他Service
+     * @param toWeChatService 需要转换的目标WeChatService
+     * @return {@link T}
+     */
+    <T extends WeChatService> T of(Class<T> toWeChatService);
 
 
     /**

@@ -37,7 +37,7 @@ public interface WeChatConstant {
     /**
      * 开启状态，0代表未开启，1代表开启
      */
-    enum OpenStatus{
+    enum OpenStatus {
         /**
          * 未开启
          */
@@ -52,6 +52,7 @@ public interface WeChatConstant {
         OpenStatus(int value) {
             this.value = value;
         }
+
         @JsonValue
         public int getValue() {
             return this.value;
@@ -59,6 +60,7 @@ public interface WeChatConstant {
 
         /**
          * 通过value获取 IsMenuOpen
+         *
          * @param value value
          * @return {@link OpenStatus}
          */
@@ -76,7 +78,7 @@ public interface WeChatConstant {
     /**
      * 是否显示封面，0为不显示，1为显示
      */
-    enum ShowCover{
+    enum ShowCover {
         /**
          * 不显示
          */
@@ -91,6 +93,7 @@ public interface WeChatConstant {
         ShowCover(int value) {
             this.value = value;
         }
+
         @JsonValue
         public int getValue() {
             return value;

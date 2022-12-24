@@ -10,6 +10,7 @@ import java.util.List;
 
 /**
  * 自定义菜单-按钮响应
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */
@@ -22,7 +23,7 @@ public class MenuButtonResponse {
      */
     @Data
     @ToString(callSuper = true)
-    public static class CurrentSelfMenuButton extends Button{
+    public static class CurrentSelfMenuButton extends Button {
         /**
          * 子菜单
          */
@@ -35,7 +36,7 @@ public class MenuButtonResponse {
      */
     @Data
     @ToString(callSuper = true)
-    public static class MenuButton extends Button{
+    public static class MenuButton extends Button {
         /**
          * 子菜单
          */
@@ -47,7 +48,7 @@ public class MenuButtonResponse {
      * 菜单按钮
      */
     @Data
-    public static class Button{
+    public static class Button {
         /**
          * 菜单的类型，公众平台官网上能够设置的菜单类型有view（跳转网页）、text（返回文本，下同）、img、photo、video、voice。使用 API 设置的则有8种，详见《自定义菜单创建接口》
          */
@@ -76,7 +77,7 @@ public class MenuButtonResponse {
      * 图文消息的信息
      */
     @Data
-    public static class SubButtons{
+    public static class SubButtons {
         List<Button> list;
     }
 
@@ -84,7 +85,7 @@ public class MenuButtonResponse {
      * 图文消息的信息
      */
     @Data
-    public static class NewsInfos{
+    public static class NewsInfos {
         List<NewsInfo> list;
     }
 
@@ -92,36 +93,36 @@ public class MenuButtonResponse {
      * 图文消息的信息详情
      */
     @Data
-    public static class NewsInfo{
+    public static class NewsInfo {
         /**
-         * 	图文消息的标题
+         * 图文消息的标题
          */
         private String title;
         /**
-         * 	摘要
+         * 摘要
          */
         private String digest;
         /**
-         * 	作者
+         * 作者
          */
         private String author;
         /**
-         * 	是否显示封面，0为不显示，1为显示
+         * 是否显示封面，0为不显示，1为显示
          */
         @JsonProperty("show_cover")
         private WeChatConstant.ShowCover showCover;
         /**
-         * 	封面图片的URL
+         * 封面图片的URL
          */
         @JsonProperty("cover_url")
         private String coverUrl;
         /**
-         * 	正文的URL
+         * 正文的URL
          */
         @JsonProperty("content_url")
         private String contentUrl;
         /**
-         * 	原文的URL，若置空则无查看原文入口
+         * 原文的URL，若置空则无查看原文入口
          */
         @JsonProperty("source_url")
         private String sourceUrl;

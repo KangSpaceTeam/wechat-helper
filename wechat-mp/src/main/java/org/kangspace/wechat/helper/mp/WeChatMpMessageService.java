@@ -68,6 +68,7 @@ public interface WeChatMpMessageService extends WeChatMpService {
 
     /**
      * 获取公众号的自动回复规则
+     *
      * @return {@link GetCurrentAutoReplyInfoResponse}
      */
     GetCurrentAutoReplyInfoResponse getCurrentAutoReplyInfo();

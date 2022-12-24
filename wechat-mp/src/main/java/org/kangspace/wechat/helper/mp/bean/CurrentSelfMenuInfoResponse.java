@@ -83,7 +83,7 @@ import java.util.List;
  * @since 2022/12/10
  */
 @Data
-public class CurrentSelfMenuInfoResponse extends WeChatMpResponseEntity{
+public class CurrentSelfMenuInfoResponse extends WeChatMpResponseEntity {
     /**
      * 菜单是否开启，0代表未开启，1代表开启
      */
@@ -99,7 +99,7 @@ public class CurrentSelfMenuInfoResponse extends WeChatMpResponseEntity{
      * 菜单信息
      */
     @Data
-    public static class SelfMenuInfo{
+    public static class SelfMenuInfo {
         /**
          * 菜单按钮
          */

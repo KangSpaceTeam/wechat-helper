@@ -12,8 +12,8 @@ import java.util.function.Function;
  * Redis配置
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/17
  * @see WeChatRedisConfigFactory
+ * @since 2022/12/17
  */
 @Data
 @Accessors(chain = true)

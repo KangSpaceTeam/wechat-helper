@@ -46,8 +46,8 @@ import java.util.List;
  * </pre>
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/10
  * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_CREATE
+ * @since 2022/12/10
  */
 @NoArgsConstructor
 @AllArgsConstructor

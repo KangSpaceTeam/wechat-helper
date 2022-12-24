@@ -16,6 +16,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 创建接口
+     *
      * @param request {@link MenuCreateRequest}
      * @return {@link WeChatMpResponseEntity}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_CREATE
@@ -24,6 +25,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 获取自定义菜单配置
+     *
      * @return {@link MenuGetResponse}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_GET
      */
@@ -31,6 +33,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 删除接口(删除当前的自定义菜单)
+     *
      * @return {@link WeChatMpResponseEntity}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_DELETE
      */
@@ -38,6 +41,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 查询自定义菜单的配置接口
+     *
      * @return {@link CurrentSelfMenuInfoResponse}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#GET_CURRENT_SELFMENU_INFO
      */
@@ -45,6 +49,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 创建个性化菜单
+     *
      * @param request {@link MenuAddConditionalRequest}
      * @return {@link MenuAddConditionalResponse}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_ADD_CONDITIONAL
@@ -53,6 +58,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 删除个性化菜单
+     *
      * @param request {@link MenuDelConditionalRequest}
      * @return {@link WeChatMpResponseEntity}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_DEL_CONDITIONAL
@@ -61,6 +67,7 @@ public interface WeChatMpCustomMenusService extends WeChatMpService {
 
     /**
      * 测试个性化菜单匹配结果
+     *
      * @param request {@link MenuTryMatchRequest}
      * @return {@link MenuTryMatchResponse}
      * @see org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths#MENU_TRY_MATCH

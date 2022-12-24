@@ -77,4 +77,9 @@ public class WeComService implements WeChatService {
     public WeChatTokenService getWeChatTokenService() {
         return null;
     }
+
+    @Override
+    public <T extends WeChatService> T of(Class<T> wechatService) {
+        return null;
+    }
 }

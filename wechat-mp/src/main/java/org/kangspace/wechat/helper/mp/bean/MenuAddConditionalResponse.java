@@ -5,11 +5,12 @@ import lombok.Data;
 
 /**
  * 创建个性化菜单 响应参数
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */
 @Data
-public class MenuAddConditionalResponse extends WeChatMpResponseEntity{
+public class MenuAddConditionalResponse extends WeChatMpResponseEntity {
     /**
      * 菜单Id
      */

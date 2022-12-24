@@ -239,7 +239,7 @@ public interface MessageConstant {
     /**
      * 消息类型
      */
-    enum MessageType{
+    enum MessageType {
         /**
          * 事件消息: event
          */

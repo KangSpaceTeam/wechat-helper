@@ -8,11 +8,12 @@ import java.util.List;
 
 /**
  * 获取自定义菜单配置响应
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */
 @Data
-public class MenuGetResponse extends WeChatMpResponseEntity{
+public class MenuGetResponse extends WeChatMpResponseEntity {
     /**
      * 默认菜单
      */
@@ -27,7 +28,7 @@ public class MenuGetResponse extends WeChatMpResponseEntity{
      * 默认菜单
      */
     @Data
-    public static class Menu{
+    public static class Menu {
         @JsonProperty("menuid")
         private String menuId;
 
@@ -42,7 +43,7 @@ public class MenuGetResponse extends WeChatMpResponseEntity{
      */
     @Data
     @ToString(callSuper = true)
-    public static class ConditionalMenu extends Menu{
+    public static class ConditionalMenu extends Menu {
         /**
          * 菜单匹配规则。
          * 必填: 是

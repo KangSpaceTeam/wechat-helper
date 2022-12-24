@@ -6,6 +6,7 @@ import java.util.Arrays;
 
 /**
  * 自定义菜单常量
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */
@@ -18,7 +19,7 @@ public interface CustomMenuConstant {
      * 使用 API 设置的则有8种，详见《自定义菜单创建接口》<br>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Creating_Custom-Defined_Menu.html">https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Creating_Custom-Defined_Menu.html</a>
      */
-    enum ButtonType{
+    enum ButtonType {
         /**
          * 1. click：点击推事件用户点击 click 类型按钮后，微信服务器会通过消息接口推送消息类型为 event 的结构给开发者（参考消息接口指南），并且带上按钮中开发者填写的 key 值，开发者可以通过自定义的 key 值与用户进行交互；
          */
@@ -87,8 +88,8 @@ public interface CustomMenuConstant {
         /**
          * 语音
          */
-        VOICE
-        ;
+        VOICE;
+
         @JsonValue
         public String getValue() {
             return this.name().toLowerCase();
@@ -103,7 +104,7 @@ public interface CustomMenuConstant {
     /**
      * 菜单是否开启，0代表未开启，1代表开启
      */
-    enum IsMenuOpen{
+    enum IsMenuOpen {
         /**
          * 未开启
          */
@@ -118,6 +119,7 @@ public interface CustomMenuConstant {
         IsMenuOpen(int value) {
             this.value = value;
         }
+
         @JsonValue
         public int getValue() {
             return this.value;
@@ -125,6 +127,7 @@ public interface CustomMenuConstant {
 
         /**
          * 通过value获取 IsMenuOpen
+         *
          * @param value value
          * @return {@link IsMenuOpen}
          */
@@ -141,7 +144,7 @@ public interface CustomMenuConstant {
     /**
      * 客户端版本，当前只具体到系统型号：IOS(1), Android(2),Others(3)
      */
-    enum ClientPlatformType{
+    enum ClientPlatformType {
         /**
          * iOS
          */
@@ -153,13 +156,13 @@ public interface CustomMenuConstant {
         /**
          * 其他
          */
-        Others("3")
-        ;
+        Others("3");
         private final String value;
 
         ClientPlatformType(String value) {
             this.value = value;
         }
+
         @JsonValue
         public String getValue() {
             return value;

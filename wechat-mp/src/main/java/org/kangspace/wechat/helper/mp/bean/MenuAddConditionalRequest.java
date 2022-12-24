@@ -8,6 +8,7 @@ import java.util.List;
 
 /**
  * 创建个性化菜单 请求参数
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */

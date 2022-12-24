@@ -9,6 +9,7 @@ import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 
 /**
  * 微信公众号基础XML消息实体
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/12
  */
@@ -42,4 +43,14 @@ public class WeChatMpXmlMessage implements WeChatMpMessage, WeChatXmlMessage {
     @JacksonXmlProperty(localName = "CreateTime")
     @JacksonXmlCData
     private Long createTime;
+
+    /**
+     * 原始消息
+     */
+    private String raw;
+
+    @Override
+    public String getRaw() {
+        return this.raw;
+    }
 }

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 删除个性化菜单 请求参数
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */

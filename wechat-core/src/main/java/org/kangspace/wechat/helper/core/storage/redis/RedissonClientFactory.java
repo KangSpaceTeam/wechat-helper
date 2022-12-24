@@ -82,7 +82,7 @@ public class RedissonClientFactory {
                 commonMasterSlaveServersConfigWithDataBase.accept(serverConfig);
                 break;
             default:
-                throw new IllegalStateException("serverType:"+serverType+" is not supported!!");
+                throw new IllegalStateException("serverType:" + serverType + " is not supported!!");
         }
         return Redisson.create(config);
     }

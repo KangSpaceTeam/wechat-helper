@@ -6,6 +6,7 @@ import org.kangspace.wechat.helper.mp.constant.CustomMenuConstant;
 
 /**
  * 菜单匹配规则
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */

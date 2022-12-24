@@ -18,13 +18,11 @@ import java.util.concurrent.TimeUnit;
  */
 @Data
 public class RedisWeChatTokenStorage<T extends WeChatToken> implements WeChatTokenStorage<T> {
-    private String cacheKeyPrefix = "";
-
     /**
      * Token格式: wechat-helper:appId
      */
     private static final String REDIS_TOKEN_KEY = "wechat-helper:{0}";
-
+    private String cacheKeyPrefix;
     private WeChatConfig weChatConfig;
     private RedissonClient redissonClient;
 

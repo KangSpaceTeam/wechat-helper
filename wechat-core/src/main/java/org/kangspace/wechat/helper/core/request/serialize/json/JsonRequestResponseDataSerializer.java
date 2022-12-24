@@ -3,7 +3,7 @@ package org.kangspace.wechat.helper.core.request.serialize.json;
 import io.netty.handler.codec.http.HttpHeaderValues;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
 import org.kangspace.wechat.helper.core.request.serialize.RequestResponseDataSerializer;
-import org.kangspace.wechat.helper.core.util.JsonUtil;
+import org.kangspace.wechat.helper.core.util.JsonParser;
 
 /**
  * JSON 请求序列化
@@ -14,12 +14,12 @@ import org.kangspace.wechat.helper.core.util.JsonUtil;
 public class JsonRequestResponseDataSerializer extends RequestResponseDataSerializer<Object> {
     @Override
     public String serialize(Object data) {
-        return JsonUtil.toJsonString(data);
+        return JsonParser.toJsonString(data);
     }
 
     @Override
     public Object deserialize(String data, Class<Object> targetClass) {
-        return JsonUtil.parse(data, targetClass);
+        return JsonParser.parse(data, targetClass);
     }
 
     @Override

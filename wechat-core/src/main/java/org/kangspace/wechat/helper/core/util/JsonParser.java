@@ -9,7 +9,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
  * @author kango2gler@gmail.com
  * @since 2022/9/29
  */
-public class JsonUtil {
+public class JsonParser {
 
 
     /**
@@ -19,7 +19,7 @@ public class JsonUtil {
      * @return Json字符串
      */
     public static String toJsonString(Object jsonObj) {
-        return JacksonUtil.toJsonString(jsonObj);
+        return JacksonParser.getInstance().toJsonString(jsonObj);
     }
 
 
@@ -31,7 +31,7 @@ public class JsonUtil {
      * @return T
      */
     public static <T> T parse(String jsonString, Class<T> targetClass) {
-        return JacksonUtil.parse(jsonString, targetClass);
+        return JacksonParser.getInstance().parse(jsonString, targetClass);
     }
 
     /**
@@ -42,6 +42,6 @@ public class JsonUtil {
      * @return T
      */
     public static <T> T parse(String jsonString, TypeReference<T> typeReference) {
-        return JacksonUtil.parse(jsonString, typeReference);
+        return JacksonParser.getInstance().parse(jsonString, typeReference);
     }
 }
