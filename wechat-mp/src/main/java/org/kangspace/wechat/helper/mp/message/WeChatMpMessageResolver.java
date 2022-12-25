@@ -1,9 +1,13 @@
 package org.kangspace.wechat.helper.mp.message;
 
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatMessageResolverException;
+import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.AbstractWeChatMessageResolver;
 import org.kangspace.wechat.helper.core.message.MessageFormat;
+import org.kangspace.wechat.helper.core.message.MessageSignature;
+import org.kangspace.wechat.helper.core.util.DigestUtil;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 
@@ -24,6 +28,38 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
 
     public WeChatMpMessageResolver(WeChatMpService wechatService, List<WeChatMpMessageHandler> weChatMessageHandlers) {
         super(wechatService, weChatMessageHandlers);
+    }
+
+    /**
+     * 微信公众号微信服务器消息签名校验<br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html">https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Access_Overview.html</a><br>
+     * 说明:
+     * <pre>
+     * 原样返回 echostr 参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：
+     * 1）将token、timestamp、nonce三个参数进行字典序排序
+     * 2）将三个参数字符串拼接成一个字符串进行sha1加密
+     * 3）开发者获得加密后的字符串可与 signature 对比，标识该请求来源于微信
+     * </pre>
+     *
+     * @param signature {@link MessageSignature}
+     * @return 验证成功后返回echoStr, 验证失败抛出 TODO xxxx
+     */
+    @Override
+    public String checkSignature(MessageSignature signature) {
+        log.debug("checkSignature: signature: {}", signature);
+        WeChatConfig config = getWeChatService().getWeChatConfig();
+        String signatureStr = signature.getSignature();
+        String echoStr = signature.getEchoStr();
+        String nonce = signature.getNonce();
+        String timestamp = signature.getTimestamp();
+        String token = config.getToken();
+        String sha1 = DigestUtil.sha1(token, timestamp, nonce);
+        log.debug("checkSignature: sha1: {}", sha1);
+        if (!signatureStr.equals(sha1)) {
+            log.debug("checkSignature: checkSignature failed");
+            throw new WeChatSignatureException("checkSignature failed");
+        }
+        return echoStr;
     }
 
     @Override

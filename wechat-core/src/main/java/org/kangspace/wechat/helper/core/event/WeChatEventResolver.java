@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.event;
 
 import org.kangspace.wechat.helper.core.WeChatService;
+import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.core.message.WeChatMessageResolver;
 
 import java.util.List;
@@ -37,4 +38,15 @@ public interface WeChatEventResolver<Service extends WeChatService, Handler exte
      */
     @Override
     void addWeChatHandler(Handler eventHandler);
+
+    /**
+     * EventResolver不支持该方法
+     *
+     * @param signature {@link MessageSignature}
+     * @return empty
+     */
+    @Override
+    default String checkSignature(MessageSignature signature) {
+        throw new IllegalStateException("EventResolver不支持该方法!");
+    }
 }

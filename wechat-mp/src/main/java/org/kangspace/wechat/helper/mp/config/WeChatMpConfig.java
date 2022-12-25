@@ -26,6 +26,10 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
      * appSecret
      */
     private String appSecret;
+    /**
+     * 签名Token
+     */
+    private String token;
 
 
     public WeChatMpConfig(String appId, String appSecret) {
@@ -43,4 +47,13 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
         this.appSecret = appSecret;
     }
 
+    @Override
+    public String getSecret() {
+        return this.appSecret;
+    }
+
+    @Override
+    public String getToken() {
+        return this.token;
+    }
 }

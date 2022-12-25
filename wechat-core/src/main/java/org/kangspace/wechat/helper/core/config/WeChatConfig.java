@@ -27,6 +27,22 @@ public interface WeChatConfig {
     String getAppId();
 
     /**
+     * 获取应用Secret
+     *
+     * @return secret
+     */
+    String getSecret();
+
+    /**
+     * 获取应用签名的Token
+     *
+     * @return 签名Token
+     */
+    default String getToken() {
+        return null;
+    }
+
+    /**
      * Http相关请求配置
      *
      * @return {@link RequestConfig}

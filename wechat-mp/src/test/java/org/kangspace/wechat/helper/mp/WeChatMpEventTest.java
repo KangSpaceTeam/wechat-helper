@@ -10,7 +10,7 @@ import org.kangspace.wechat.helper.mp.event.WeChatMpEventResolver;
 /**
  * 微信公众号事件测试
  *
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
 @Slf4j

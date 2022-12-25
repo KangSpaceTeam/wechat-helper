@@ -42,6 +42,14 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
     Service getWeChatService();
 
     /**
+     * 签名检查
+     *
+     * @param signature {@link MessageSignature}
+     * @return String
+     */
+    String checkSignature(MessageSignature signature);
+
+    /**
      * 处理消息
      *
      * @param messageFormat 消息类型{@link MessageFormat}

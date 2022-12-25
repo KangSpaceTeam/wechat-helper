@@ -4,7 +4,8 @@ import org.kangspace.wechat.helper.core.exception.WeChatException;
 
 /**
  * 微信公众号异常
- * @author kangxuefeng
+ *
+ * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
 public class WeChatMpException extends WeChatException {
