@@ -18,6 +18,11 @@ public class WeChatMpAppConstant {
      */
     public static String GLOBAL_APPSECRET = "";
 
+    /**
+     * 全局验证TOKEN
+     */
+    public static String GLOBAL_TOKEN = "";
+
     static {
         Objects.requireNonNull(GLOBAL_APPID, "请指定AppId");
         Objects.requireNonNull(GLOBAL_APPSECRET, "请指定AppSecret");
