@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.platform.controller;
 
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.message.GetMessageSignature;
 import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.springframework.web.bind.annotation.*;
@@ -23,11 +24,11 @@ public class WeChatMpMessageController {
     /**
      * 响应微信发送的Token验证
      *
-     * @param messageSignature {@link MessageSignature}
+     * @param messageSignature {@link GetMessageSignature}
      * @return string
      */
     @GetMapping("")
-    public String checkSignature(MessageSignature messageSignature, @RequestParam("echostr") String echostr) {
+    public String checkSignature(GetMessageSignature messageSignature, @RequestParam("echostr") String echostr) {
         messageSignature.setEchoStr(echostr);
         return weChatMpMessageResolver.checkSignature(messageSignature);
     }
@@ -39,8 +40,11 @@ public class WeChatMpMessageController {
      * @return String
      */
     @PostMapping("")
-    public String messageHandle(@RequestBody String body) {
-        log.info("微信消息: \n{}\n", body);
+    public String messageHandle(@RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce,
+                                @RequestParam("msg_signature") String msgSignature, @RequestParam("encrypt_type") String encryptType,
+                                @RequestBody String body) {
+        MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce, encryptType, msgSignature);
+        log.info("微信消息: messageSignature:{} \n{}\n", messageSignature, body);
         return "";
     }
 }

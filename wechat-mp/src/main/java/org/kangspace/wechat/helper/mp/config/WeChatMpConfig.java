@@ -31,6 +31,11 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
      */
     private String token;
 
+    /**
+     * 公众号第三方平台的 EncodingAESKey
+     */
+    private String encodingAESKey;
+
 
     public WeChatMpConfig(String appId, String appSecret) {
         this(appId, appSecret, new RequestConfig(), null);
@@ -55,5 +60,10 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
     @Override
     public String getToken() {
         return this.token;
+    }
+
+    @Override
+    public String getEncodingAESKey() {
+        return encodingAESKey;
     }
 }

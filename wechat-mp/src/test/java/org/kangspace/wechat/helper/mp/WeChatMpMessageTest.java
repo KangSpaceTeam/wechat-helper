@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.kangspace.wechat.helper.core.message.MessageSignature;
+import org.kangspace.wechat.helper.core.message.GetMessageSignature;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 
@@ -42,7 +42,7 @@ public class WeChatMpMessageTest {
         String echoStr = "4011207248104127935";
         String nonce = "747722185";
         String timestamp = "1671953598";
-        MessageSignature messageSignature = new MessageSignature(signatureStr, timestamp, nonce, echoStr);
+        GetMessageSignature messageSignature = new GetMessageSignature(signatureStr, timestamp, nonce, echoStr);
         String resultEchoStr = resolver.checkSignature(messageSignature);
         log.info("echoStr: {}", resultEchoStr);
         Assert.assertTrue(resultEchoStr != null);

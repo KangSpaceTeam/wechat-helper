@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.event.AbstractWeChatEventResolver;
 import org.kangspace.wechat.helper.core.exception.WeChatMessageResolverException;
 import org.kangspace.wechat.helper.core.message.MessageFormat;
+import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 
@@ -27,8 +28,8 @@ public class WeChatMpEventResolver extends AbstractWeChatEventResolver<WeChatMpS
     }
 
     @Override
-    public void resolve(MessageFormat messageFormat, String eventMessage) {
-        log.debug("微信公众号事件处理: 消息类型: {}, 事件消息: {}", messageFormat, eventMessage);
+    public void resolve(MessageFormat messageFormat, MessageSignature messageSignature, String eventMessage) {
+        log.debug("微信公众号事件处理: 消息类型: {}, messageSignature: {}, 事件消息: {}", messageFormat, messageSignature, eventMessage);
         // TODO xx
         switch (messageFormat) {
             case XML:

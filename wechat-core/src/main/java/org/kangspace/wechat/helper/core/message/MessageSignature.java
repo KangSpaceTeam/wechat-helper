@@ -6,7 +6,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 消息签名信息
+ * POST消息签名信息 <br>
+ * 接口文档: <a href="https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Message_encryption_and_decryption.html">https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Message_encryption_and_decryption.html</a> <br>
  *
  * @author kango2gler@gmail.com
  * @since 2022/12/25
@@ -14,22 +15,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class MessageSignature {
+public class MessageSignature extends BaseMessageSignature {
     /**
-     * 微信加密签名，signature结合了开发者填写的 token 参数和请求中的 timestamp 参数、nonce参数。
+     * 加密类型，为 aes
+     *
+     * @see org.kangspace.wechat.helper.core.constant.WeChatConstant.EncryptType#AES
      */
-    private String signature;
+    @JsonProperty("encrypt_type")
+    private String encryptType;
+
     /**
-     * 时间戳
+     * 消息体签名，用于验证消息体的正确性
      */
-    private String timestamp;
+    @JsonProperty("msg_signature")
+    private String msgSignature;
+
+    public MessageSignature(String signature, String timestamp, String nonce, String encryptType, String msgSignature) {
+        super(signature, timestamp, nonce);
+        this.encryptType = encryptType;
+        this.msgSignature = msgSignature;
+    }
+
     /**
-     * 随机数
+     * 是否加密消息
+     * @return boolean
      */
-    private String nonce;
-    /**
-     * 随机字符串(echostr)
-     */
-    @JsonProperty("echostr")
-    private String echoStr;
+    public boolean isEncrypt() {
+        return this.getEncryptType() != null && this.getMsgSignature() != null;
+    }
 }

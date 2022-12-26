@@ -4,13 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatMessageResolverException;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
-import org.kangspace.wechat.helper.core.message.AbstractWeChatMessageResolver;
-import org.kangspace.wechat.helper.core.message.MessageFormat;
-import org.kangspace.wechat.helper.core.message.MessageSignature;
+import org.kangspace.wechat.helper.core.message.*;
 import org.kangspace.wechat.helper.core.util.DigestUtil;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,13 +20,14 @@ import java.util.List;
  */
 @Slf4j
 public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler, WeChatMpMessage> {
-
+    private MessageDecrypt messageDecrypt;
     public WeChatMpMessageResolver(WeChatMpService wechatService) {
-        super(wechatService);
+        this(wechatService, new ArrayList<>());
     }
 
     public WeChatMpMessageResolver(WeChatMpService wechatService, List<WeChatMpMessageHandler> weChatMessageHandlers) {
         super(wechatService, weChatMessageHandlers);
+        this.messageDecrypt = new MessageDecrypt(wechatService.getWeChatConfig().getEncodingAESKey());
     }
 
     /**
@@ -41,11 +41,11 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
      * 3）开发者获得加密后的字符串可与 signature 对比，标识该请求来源于微信
      * </pre>
      *
-     * @param signature {@link MessageSignature}
+     * @param signature {@link BaseMessageSignature}
      * @return 验证成功后返回echoStr, 验证失败抛出 TODO xxxx
      */
     @Override
-    public String checkSignature(MessageSignature signature) {
+    public String checkSignature(GetMessageSignature signature) {
         log.debug("checkSignature: signature: {}", signature);
         WeChatConfig config = getWeChatService().getWeChatConfig();
         String signatureStr = signature.getSignature();
@@ -63,11 +63,11 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     }
 
     @Override
-    public void resolve(MessageFormat messageFormat, String message) {
-        log.debug("微信公众号消息处理: 消息类型: {}, 事件消息: {}", messageFormat, message);
+    public void resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
+        log.debug("微信公众号消息处理: 消息类型: {}, messageSignature: {}, 事件消息: {}", messageFormat, messageSignature, message);
         switch (messageFormat) {
             case XML:
-                xmlMessageResolve(message);
+                xmlMessageResolve(messageSignature, message);
                 break;
             default:
                 throw new WeChatMessageResolverException("messageType :" + messageFormat + " not supported!");
@@ -77,10 +77,17 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     /**
      * XML消息处理
      *
-     * @param rawMessage 消息
+     * @param messageSignature 消息签名
+     * @param rawMessage       消息
      */
-    private void xmlMessageResolve(String rawMessage) {
-        log.debug("微信公众号消息处理: XML消息处理: {}", rawMessage);
+    private void xmlMessageResolve(MessageSignature messageSignature, String rawMessage) {
+        log.debug("微信公众号消息处理: XML消息处理: messageSignature: {}, rawMessage: {}", messageSignature, rawMessage);
+        if (messageSignature.isEncrypt()) {
+            // TODO 加密消息
+
+        }else{
+
+        }
         WeChatMpXmlMessage message = XmlParser.parse(rawMessage, WeChatMpXmlMessage.class);
         message.setRaw(rawMessage);
         // TODO xxx 需实现转换哪个Message类

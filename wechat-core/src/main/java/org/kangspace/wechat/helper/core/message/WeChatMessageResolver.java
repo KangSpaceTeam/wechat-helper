@@ -44,25 +44,27 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
     /**
      * 签名检查
      *
-     * @param signature {@link MessageSignature}
+     * @param signature {@link BaseMessageSignature}
      * @return String
      */
-    String checkSignature(MessageSignature signature);
+    String checkSignature(GetMessageSignature signature);
 
     /**
      * 处理消息
      *
-     * @param messageFormat 消息类型{@link MessageFormat}
-     * @param message       消息
+     * @param messageFormat    消息类型{@link MessageFormat}
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
      */
-    void resolve(MessageFormat messageFormat, String message);
+    void resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message);
 
     /**
      * 处理消息(默认XML消息)
      *
-     * @param message 消息
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
      */
-    default void resolve(String message) {
-        this.resolve(MessageFormat.XML, message);
+    default void resolve(MessageSignature messageSignature, String message) {
+        this.resolve(MessageFormat.XML, messageSignature, message);
     }
 }

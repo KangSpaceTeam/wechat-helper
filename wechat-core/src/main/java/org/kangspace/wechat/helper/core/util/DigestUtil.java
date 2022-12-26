@@ -21,13 +21,13 @@ public class DigestUtil {
      * sha1摘要<br>
      * 说明: 将参数按字典序排序后,拼接为新的字符串,再进行sh1摘要<br>
      *
-     * @param raws 需要摘要的字符串
+     * @param strings 需要摘要的字符串
      * @return 摘要结果
      */
-    public static String sha1(String... raws) {
-        List<String> rawList = Arrays.asList(raws);
+    public static String sha1(String... strings) {
+        List<String> rawList = Arrays.asList(strings);
         String sortedRaw = rawList.stream().sorted().collect(Collectors.joining());
-        log.debug("sha1: raws: {}, sortedRaw: {}", raws, sortedRaw);
+        log.debug("sha1: strings: {}, sortedRaw: {}", strings, sortedRaw);
         return sha1(sortedRaw);
     }
 

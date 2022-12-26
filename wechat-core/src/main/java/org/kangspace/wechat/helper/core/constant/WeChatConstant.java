@@ -104,4 +104,18 @@ public interface WeChatConstant {
             return String.valueOf(getValue());
         }
     }
+
+    /**
+     * 加密类型
+     */
+    enum EncryptType{
+        /**
+         * AES
+         */
+        AES;
+        @JsonValue
+        public String getValue() {
+            return name().toLowerCase();
+        }
+    }
 }
