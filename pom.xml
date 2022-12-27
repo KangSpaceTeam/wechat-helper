@@ -77,10 +77,14 @@
         <common-lang3.version>3.8.1</common-lang3.version>
         <gson.version>2.9.0</gson.version>
         <jackson.version>2.12.5</jackson.version>
-        <log4j-to-slf4j.version>2.13.3</log4j-to-slf4j.version>
+        <jakarta.xml.bind-api.version>2.3.3</jakarta.xml.bind-api.version>
+        <yaml.version>1.27</yaml.version>
         <logback-classic.version>1.2.3</logback-classic.version>
+        <log4j-to-slf4j.version>2.13.3</log4j-to-slf4j.version>
+        <slf4j.api.version>1.7.30</slf4j.api.version>
         <junit.version>4.13.2</junit.version>
         <reactor.version>2020.0.23</reactor.version>
+        <reactive.streams.version>1.0.4</reactive.streams.version>
         <jsr305.version>3.0.2</jsr305.version>
         <redisson.version>3.17.5</redisson.version>
     </properties>
@@ -188,18 +192,42 @@
                 <version>${jackson.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>jakarta.xml.bind</groupId>
+                <artifactId>jakarta.xml.bind-api</artifactId>
+                <version>${jakarta.xml.bind-api.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.yaml</groupId>
+                <artifactId>snakeyaml</artifactId>
+                <version>${yaml.version}</version>
+            </dependency>
+
             <!-- log -->
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback-classic.version}</version>
             </dependency>
+
             <dependency>
                 <groupId>org.apache.logging.log4j</groupId>
                 <artifactId>log4j-to-slf4j</artifactId>
                 <version>${log4j-to-slf4j.version}</version>
             </dependency>
 
+            <dependency>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-api</artifactId>
+                <version>${log4j-to-slf4j.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j.api.version}</version>
+            </dependency>
 
             <dependency>
                 <groupId>junit</groupId>
@@ -216,6 +244,11 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
+            <dependency>
+                <groupId>org.reactivestreams</groupId>
+                <artifactId>reactive-streams</artifactId>
+                <version>${reactive.streams.version}</version>
+            </dependency>
 
             <!--JSR 305-->
             <dependency>
@@ -229,8 +262,21 @@
                 <groupId>org.redisson</groupId>
                 <artifactId>redisson</artifactId>
                 <version>${redisson.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>io.netty</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.reactivestreams</groupId>
+                        <artifactId>*</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.bytebuddy</groupId>
+                        <artifactId>byte-buddy</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
 

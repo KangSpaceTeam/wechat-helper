@@ -6,7 +6,7 @@ import java.util.Objects;
 
 /**
  * 消息解码器
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2022/12/26
  */
 @Data
