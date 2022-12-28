@@ -42,7 +42,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
      * </pre>
      *
      * @param signature {@link BaseMessageSignature}
-     * @return 验证成功后返回echoStr, 验证失败抛出 TODO xxxx
+     * @return 验证成功后返回echoStr, 验证失败抛出 {@link WeChatSignatureException}
      */
     @Override
     public String checkSignature(GetMessageSignature signature) {
@@ -57,7 +57,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         log.debug("checkSignature: sha1: {}", sha1);
         if (!signatureStr.equals(sha1)) {
             log.debug("checkSignature: checkSignature failed");
-            throw new WeChatSignatureException("checkSignature failed");
+            throw new WeChatSignatureException(sha1,"signature checked failed");
         }
         return echoStr;
     }
@@ -83,10 +83,8 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     private void xmlMessageResolve(MessageSignature messageSignature, String rawMessage) {
         log.debug("微信公众号消息处理: XML消息处理: messageSignature: {}, rawMessage: {}", messageSignature, rawMessage);
         if (messageSignature.isEncrypt()) {
-            // TODO 加密消息
-
-        }else{
-
+            // TODO 加密消息处理
+            rawMessage = messageDecrypt.decrypt(messageSignature, rawMessage, WeChatMpEncryptXmlMessage.class);
         }
         WeChatMpXmlMessage message = XmlParser.parse(rawMessage, WeChatMpXmlMessage.class);
         message.setRaw(rawMessage);

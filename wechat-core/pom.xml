@@ -14,6 +14,13 @@
     <description>微信开发助手-公共代码模块</description>
 
     <dependencies>
+        <!--lombok-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+        </dependency>
+
         <dependency>
             <groupId>io.projectreactor.netty</groupId>
             <artifactId>reactor-netty-core</artifactId>
