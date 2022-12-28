@@ -20,14 +20,18 @@ import java.util.List;
  */
 @Slf4j
 public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler, WeChatMpMessage> {
-    private MessageDecrypt messageDecrypt;
+    /**
+     * 消息加解密对象
+     */
+    private MessageCipher messageCipher;
+
     public WeChatMpMessageResolver(WeChatMpService wechatService) {
         this(wechatService, new ArrayList<>());
     }
 
     public WeChatMpMessageResolver(WeChatMpService wechatService, List<WeChatMpMessageHandler> weChatMessageHandlers) {
         super(wechatService, weChatMessageHandlers);
-        this.messageDecrypt = new MessageDecrypt(wechatService.getWeChatConfig().getEncodingAESKey());
+        this.messageCipher = new MessageCipher(wechatService.getWeChatConfig());
     }
 
     /**
@@ -57,7 +61,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         log.debug("checkSignature: sha1: {}", sha1);
         if (!signatureStr.equals(sha1)) {
             log.debug("checkSignature: checkSignature failed");
-            throw new WeChatSignatureException(sha1,"signature checked failed");
+            throw new WeChatSignatureException(sha1, "signature checked failed");
         }
         return echoStr;
     }
@@ -65,12 +69,10 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     @Override
     public void resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
         log.debug("微信公众号消息处理: 消息类型: {}, messageSignature: {}, 事件消息: {}", messageFormat, messageSignature, message);
-        switch (messageFormat) {
-            case XML:
-                xmlMessageResolve(messageSignature, message);
-                break;
-            default:
-                throw new WeChatMessageResolverException("messageType :" + messageFormat + " not supported!");
+        if (messageFormat == MessageFormat.XML) {
+            xmlMessageResolve(messageSignature, message);
+        } else {
+            throw new WeChatMessageResolverException("messageType :" + messageFormat + " not supported!");
         }
     }
 
@@ -82,15 +84,21 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
      */
     private void xmlMessageResolve(MessageSignature messageSignature, String rawMessage) {
         log.debug("微信公众号消息处理: XML消息处理: messageSignature: {}, rawMessage: {}", messageSignature, rawMessage);
-        if (messageSignature.isEncrypt()) {
-            // TODO 加密消息处理
-            rawMessage = messageDecrypt.decrypt(messageSignature, rawMessage, WeChatMpEncryptXmlMessage.class);
+        boolean isEncrypt;
+        if ((isEncrypt = messageSignature.isEncrypt())) {
+            // 加密消息处理
+            rawMessage = messageCipher.decrypt(messageSignature, rawMessage, WeChatMpEncryptXmlMessage.class);
         }
+        MessageResolverContext context = new MessageResolverContext(isEncrypt, getMessageCipher());
         WeChatMpXmlMessage message = XmlParser.parse(rawMessage, WeChatMpXmlMessage.class);
         message.setRaw(rawMessage);
-        // TODO xxx 需实现转换哪个Message类
+        // TODO xxx 需实现转换哪个Message类, 或Event类
         List<WeChatMpMessageHandler> messageHandlers = getWeChatHandlers(message);
         log.debug("微信公众号消息处理: 已知的消息处理器: {}", messageHandlers);
-        messageHandlers.forEach(handler -> handler.handle(getWeChatService(), message));
+        messageHandlers.forEach(handler -> handler.handle(getWeChatService(), message, context));
+    }
+
+    public MessageCipher getMessageCipher() {
+        return messageCipher;
     }
 }

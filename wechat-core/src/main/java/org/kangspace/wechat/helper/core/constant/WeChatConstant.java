@@ -108,11 +108,12 @@ public interface WeChatConstant {
     /**
      * 加密类型
      */
-    enum EncryptType{
+    enum EncryptType {
         /**
          * AES
          */
         AES;
+
         @JsonValue
         public String getValue() {
             return name().toLowerCase();

@@ -10,8 +10,8 @@ import java.util.List;
  * 微信事件解析器, 同微信消息解析器
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/24
  * @see WeChatMessageResolver
+ * @since 2022/12/24
  */
 public interface WeChatEventResolver<Service extends WeChatService, Handler extends WeChatEventHandler<Service, Event>, Event extends WeChatEvent> extends WeChatMessageResolver<Service, Handler, Event> {
 

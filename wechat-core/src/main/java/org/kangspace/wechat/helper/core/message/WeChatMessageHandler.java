@@ -25,8 +25,9 @@ public interface WeChatMessageHandler<Service extends WeChatService, Message ext
      *
      * @param service       {@link WeChatService}
      * @param weChatMessage {@link WeChatMessage}
+     * @param context       {@link MessageResolverContext} 消息处理上下文对象
      */
-    void handle(Service service, Message weChatMessage);
+    void handle(Service service, Message weChatMessage, MessageResolverContext context);
 
     /**
      * 支持的类型

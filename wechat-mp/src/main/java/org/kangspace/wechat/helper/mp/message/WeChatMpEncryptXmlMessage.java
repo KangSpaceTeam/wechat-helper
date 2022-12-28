@@ -5,7 +5,6 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
 import org.kangspace.wechat.helper.core.message.WeChatXmlMessage;
-import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 
 /**
  * 微信公众号基础加密XML消息实体
@@ -35,5 +34,10 @@ public class WeChatMpEncryptXmlMessage implements WeChatMpEncryptMessage, WeChat
     @Override
     public String getEncrypt() {
         return encrypt;
+    }
+
+    @Override
+    public void setEncrypt(String encrypt) {
+        this.encrypt = encrypt;
     }
 }

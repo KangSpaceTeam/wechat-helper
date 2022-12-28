@@ -44,6 +44,7 @@ public interface WeChatConfig {
 
     /**
      * 公众号第三方平台的 EncodingAESKey
+     *
      * @return EncodingAESKey
      */
     default String getEncodingAESKey() {

@@ -16,7 +16,7 @@ public class XmlParser {
      * @return Json字符串
      */
     public static String toXmlString(Object object) {
-        return JacksonParser.getInstance().toJacksonString(object);
+        return JacksonXmlParser.getInstance().toJacksonString(object);
     }
 
     /**

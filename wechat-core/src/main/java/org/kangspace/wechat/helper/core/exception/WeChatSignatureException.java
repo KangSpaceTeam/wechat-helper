@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.exception;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 签名异常
@@ -8,9 +9,11 @@ import lombok.Data;
  * @author kango2gler@gmail.com
  * @since 2022/12/25
  */
-@Data
+@Setter
+@Getter
 public class WeChatSignatureException extends WeChatException {
     private String signature;
+
     public WeChatSignatureException() {
     }
 
@@ -31,5 +34,12 @@ public class WeChatSignatureException extends WeChatException {
     public WeChatSignatureException(String signature, Throwable cause) {
         super(cause);
         this.signature = signature;
+    }
+
+    @Override
+    public String toString() {
+        return "WeChatSignatureException{" +
+                "signature='" + signature + '\'' +
+                "} " + super.toString();
     }
 }

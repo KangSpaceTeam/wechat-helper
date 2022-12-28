@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.mp.event;
 
 import org.kangspace.wechat.helper.core.event.WeChatEventHandler;
+import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 
 /**
@@ -15,7 +16,8 @@ public interface WeChatMpEventHandler extends WeChatEventHandler<WeChatMpService
      *
      * @param service {@link WeChatMpService}
      * @param event   {@link WeChatMpEvent}
+     * @param context {@link MessageResolverContext} 消息处理上下文对象
      */
     @Override
-    void handle(WeChatMpService service, WeChatMpEvent event);
+    void handle(WeChatMpService service, WeChatMpEvent event, MessageResolverContext context);
 }

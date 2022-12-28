@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * GET消息签名信息
@@ -14,7 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class GetMessageSignature extends BaseMessageSignature{
+@ToString(callSuper = true)
+public class GetMessageSignature extends BaseMessageSignature {
     /**
      * 随机字符串(echostr)
      */

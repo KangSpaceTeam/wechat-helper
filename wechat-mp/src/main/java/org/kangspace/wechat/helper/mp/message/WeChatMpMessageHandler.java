@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.mp.message;
 
+import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.core.message.WeChatMessage;
 import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
@@ -16,7 +17,8 @@ public interface WeChatMpMessageHandler extends WeChatMessageHandler<WeChatMpSer
      *
      * @param service {@link WeChatMpService}
      * @param message {@link WeChatMessage}
+     * @param context {@link MessageResolverContext} 消息处理上下文对象
      */
     @Override
-    void handle(WeChatMpService service, WeChatMpMessage message);
+    void handle(WeChatMpService service, WeChatMpMessage message, MessageResolverContext context);
 }

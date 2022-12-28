@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.exception;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 微信请求相关异常类,含请求错误码和原始响应数据
@@ -8,7 +9,8 @@ import lombok.Data;
  * @author kango2gler@gmail.com
  * @since 2022/11/26
  */
-@Data
+@Getter
+@Setter
 public class WeChatRequestException extends WeChatException {
     /**
      * 微信错误码

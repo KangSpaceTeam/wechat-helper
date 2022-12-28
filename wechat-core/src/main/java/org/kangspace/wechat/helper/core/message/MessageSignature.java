@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * POST消息签名信息 <br>
@@ -15,6 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@ToString(callSuper = true)
 public class MessageSignature extends BaseMessageSignature {
     /**
      * 加密类型，为 aes
@@ -30,6 +32,11 @@ public class MessageSignature extends BaseMessageSignature {
     @JsonProperty("msg_signature")
     private String msgSignature;
 
+    public MessageSignature(String timestamp, String nonce, String encryptType) {
+        super(null, timestamp, nonce);
+        this.encryptType = encryptType;
+    }
+
     public MessageSignature(String signature, String timestamp, String nonce, String encryptType, String msgSignature) {
         super(signature, timestamp, nonce);
         this.encryptType = encryptType;
@@ -38,6 +45,7 @@ public class MessageSignature extends BaseMessageSignature {
 
     /**
      * 是否加密消息
+     *
      * @return boolean
      */
     public boolean isEncrypt() {

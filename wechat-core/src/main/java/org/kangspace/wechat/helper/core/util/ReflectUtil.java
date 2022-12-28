@@ -29,6 +29,16 @@ public class ReflectUtil {
     /**
      * 创建新实例
      *
+     * @param instanceClass 需要实例化的类
+     * @return {@link T}
+     */
+    public static <T> T newInstance(Class<T> instanceClass) {
+        return newInstance(instanceClass, null);
+    }
+
+    /**
+     * 创建新实例
+     *
      * @param instanceClass         需要实例化的类
      * @param constructorArgClasses 构造方法参数类型数组
      * @param constructorArgs       构造方法参数
@@ -39,7 +49,7 @@ public class ReflectUtil {
             Constructor<T> instanceClassConstructor = instanceClass.getConstructor(constructorArgClasses);
             return instanceClassConstructor.newInstance(constructorArgs);
         } catch (NoSuchMethodException | InstantiationException | IllegalAccessException |
-                 InvocationTargetException e) {
+                InvocationTargetException e) {
             throw new WeChatException("实例创建失败: error: " + e.getMessage(), e);
         }
     }
