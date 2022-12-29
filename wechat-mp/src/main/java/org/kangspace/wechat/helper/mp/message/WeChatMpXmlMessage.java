@@ -24,6 +24,13 @@ public class WeChatMpXmlMessage implements WeChatMpMessage, WeChatXmlMessage {
     private MessageConstant.MessageType msgType;
 
     /**
+     * 若为event时,event类型
+     */
+    @JacksonXmlProperty(localName = "Event")
+    @JacksonXmlCData
+    private String event;
+
+    /**
      * 开发者微信号
      */
     @JacksonXmlProperty(localName = "ToUserName")
@@ -43,6 +50,13 @@ public class WeChatMpXmlMessage implements WeChatMpMessage, WeChatXmlMessage {
     @JacksonXmlProperty(localName = "CreateTime")
     @JacksonXmlCData
     private Long createTime;
+
+    /**
+     * 消息id，64位整型
+     */
+    @JacksonXmlProperty(localName = "MsgId")
+    @JacksonXmlCData
+    private Long msgId;
 
     /**
      * 原始消息

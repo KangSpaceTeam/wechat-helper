@@ -1,7 +1,8 @@
 package org.kangspace.wechat.helper.core.message;
 
 /**
- * 微信加密消息接口
+ * 微信加密消息接口<br>
+ * 接口文档: <a href="https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Message_encryption_and_decryption.html">https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Message_encryption_and_decryption.html</a>
  *
  * @author kango2gler@gmail.com
  * @since 2022/12/12

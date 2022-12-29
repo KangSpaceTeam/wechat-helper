@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.event;
 import org.kangspace.wechat.helper.core.event.WeChatEventHandler;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
+import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 
 /**
  * 微信公众号事件处理器
@@ -10,7 +11,7 @@ import org.kangspace.wechat.helper.mp.WeChatMpService;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public interface WeChatMpEventHandler extends WeChatEventHandler<WeChatMpService, WeChatMpEvent> {
+public interface WeChatMpEventHandler extends WeChatEventHandler<WeChatMpService, WeChatMpEvent, WeChatMpEchoMessage> {
     /**
      * 处理消息
      *
@@ -19,5 +20,5 @@ public interface WeChatMpEventHandler extends WeChatEventHandler<WeChatMpService
      * @param context {@link MessageResolverContext} 消息处理上下文对象
      */
     @Override
-    void handle(WeChatMpService service, WeChatMpEvent event, MessageResolverContext context);
+    WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpEvent event, MessageResolverContext context);
 }

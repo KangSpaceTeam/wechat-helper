@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.core.message;
 import lombok.Data;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
+import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
 import org.kangspace.wechat.helper.core.util.ByteGroup;
 import org.kangspace.wechat.helper.core.util.DigestUtil;
 import org.kangspace.wechat.helper.core.util.ReflectUtil;
@@ -122,12 +123,13 @@ public class MessageCipher {
      * @param encryptMessageClass 加密消息处理类
      * @return 编码后的消息
      */
-    public <T extends WeChatEncryptMessage> String encrypt(@Nonnull MessageSignature messageSignature, @Nonnull String message, @Nonnull Class<T> encryptMessageClass) {
+    public <T extends WeChatEncryptEchoMessage> String encrypt(@Nonnull MessageSignature messageSignature, @Nonnull String message, @Nonnull Class<T> encryptMessageClass) {
         // 原始消息加密
         String encodedMessage = encrypt(message);
         // 转换为加密消息类
         T encryptMessageObject = ReflectUtil.newInstance(encryptMessageClass);
         encryptMessageObject.setEncrypt(encodedMessage);
+        // TODO xxx, 消息签名处理
         // 返回XML字符串
         return XmlParser.toXmlString(encryptMessageObject);
     }

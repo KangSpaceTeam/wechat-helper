@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.message;
 
 import org.kangspace.wechat.helper.core.WeChatService;
+import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,8 @@ import java.util.stream.Collectors;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public abstract class AbstractWeChatMessageResolver<Service extends WeChatService, Handler extends WeChatMessageHandler<Service, Message>, Message extends WeChatMessage> implements WeChatMessageResolver<Service, Handler, Message> {
+public abstract class AbstractWeChatMessageResolver<Service extends WeChatService, Handler extends WeChatMessageHandler<Service, Message, EchoMessage>, Message extends WeChatMessage, EchoMessage extends WeChatEchoMessage>
+        implements WeChatMessageResolver<Service, Handler, Message, EchoMessage> {
     private final Service wechatService;
     /**
      * 事件处理器

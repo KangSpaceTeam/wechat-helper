@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.core.event;
 import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.message.GetMessageSignature;
 import org.kangspace.wechat.helper.core.message.WeChatMessageResolver;
+import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @see WeChatMessageResolver
  * @since 2022/12/24
  */
-public interface WeChatEventResolver<Service extends WeChatService, Handler extends WeChatEventHandler<Service, Event>, Event extends WeChatEvent> extends WeChatMessageResolver<Service, Handler, Event> {
+public interface WeChatEventResolver<Service extends WeChatService, Handler extends WeChatEventHandler<Service, Event, EchoMessage>, Event extends WeChatEvent, EchoMessage extends WeChatEchoMessage> extends WeChatMessageResolver<Service, Handler, Event, EchoMessage> {
 
     /**
      * 获取所有订阅的事件处理器
@@ -48,6 +49,6 @@ public interface WeChatEventResolver<Service extends WeChatService, Handler exte
      */
     @Override
     default String checkSignature(GetMessageSignature signature) {
-        throw new IllegalStateException("EventResolver不支持该方法!");
+        throw new UnsupportedOperationException("EventResolver不支持该方法!");
     }
 }
