@@ -16,13 +16,13 @@ import java.util.List;
  * @since 2022/12/24
  */
 @Slf4j
-public class WeChatMpEventResolver extends AbstractWeChatEventResolver<WeChatMpService, WeChatMpEventHandler, WeChatMpEvent, WeChatMpEchoMessage> {
+public class WeChatMpEventResolver extends AbstractWeChatEventResolver<WeChatMpService, WeChatMpEventHandler<WeChatMpEvent>, WeChatMpEvent, WeChatMpEchoMessage> {
 
     public WeChatMpEventResolver(WeChatMpService wechatService) {
         super(wechatService);
     }
 
-    public WeChatMpEventResolver(WeChatMpService wechatService, List<WeChatMpEventHandler> weChatEventHandlers) {
+    public WeChatMpEventResolver(WeChatMpService wechatService, List<WeChatMpEventHandler<WeChatMpEvent>> weChatEventHandlers) {
         super(wechatService, weChatEventHandlers);
     }
 

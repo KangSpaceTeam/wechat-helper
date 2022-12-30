@@ -1,6 +1,5 @@
 package org.kangspace.wechat.helper.core.message;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -11,7 +10,6 @@ import lombok.NoArgsConstructor;
  * @since 2022/12/25
  */
 @NoArgsConstructor
-@AllArgsConstructor
 @Data
 public class BaseMessageSignature {
     /**
@@ -26,4 +24,15 @@ public class BaseMessageSignature {
      * 随机数
      */
     private String nonce;
+
+    public BaseMessageSignature(String timestamp, String nonce) {
+        this.timestamp = timestamp;
+        this.nonce = nonce;
+    }
+
+    public BaseMessageSignature(String signature, String timestamp, String nonce) {
+        this.signature = signature;
+        this.timestamp = timestamp;
+        this.nonce = nonce;
+    }
 }

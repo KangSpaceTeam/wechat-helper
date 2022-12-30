@@ -29,35 +29,32 @@
 ### 文本信息
 
 明文:
-> POST /wechat-platform/message?signature=812895b1f140e1397f4576452383be3b3271b1f2&timestamp=1672033292&nonce=1313676274&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
+> POST /wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
 
 ```xml
-
-<xml>
-    <ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
-    <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
-    <CreateTime>1672033292</CreateTime>
-    <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[1]]></Content>
-    <MsgId>23937761304782045</MsgId>
+<xml><ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
+<FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>
+<CreateTime>1672369434</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[1]]></Content>
+<MsgId>23942570635195977</MsgId>
 </xml>
 ```
 
 混合:
-> POST /wechat-platform/message?signature=4531152dfaa32d83bda1451595b434eedbaee8c6&timestamp=1672062037&nonce=924856700&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=3fae3477f04d2805bb2f647d67f98ead14fc5f6e
+> POST /wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361
 
 ```xml
-
 <xml>
     <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
     <FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>
-    <CreateTime>1672062036</CreateTime>
+    <CreateTime>1672368682</CreateTime>
     <MsgType><![CDATA[text]]></MsgType>
     <Content><![CDATA[1]]></Content>
-    <MsgId>23938173794149768</MsgId>
-    <Encrypt>
-        <![CDATA[tybon2345ToFXFumMtSoJ0i6F5PGT6BIJudVM+TIkPjfR9o9hrsyVa7yGcWIBpeaK57/mDXfYSNSgjmzfk5AecAMvDb7blMwc1wNEGwvOsh7LkfX+8jT/8SyQ3o5BvUi/0maQBtuQQ9L5REk829Oj0zpXsxwaCEX2kQrJ3AMA7/wwom+u9UXstEQzIbMyC20zxlx9/kzGQEqmME3xhBhBvBH5TCQO7foUMTb+7xZNNbzraBMWwsz+orXNvNMliqiAPcJIRJBeh7OCwi5wssrO2ujtiTrG5uln0/0uNBaIWTKSR7yI1Ddnfd4c7gR1Q2N/Uyz0+TRGDeJsnd/jB5Qn6Ur10eAEyxL+uwHbjXemMntHRHad3CtsD2+3wV3VQL4jBC6bCYJp9TrEiCsYn/eqrSceDLWu54li8iN+RS7B4U=]]></Encrypt>
+    <MsgId>23942564675277696</MsgId>
+    <Encrypt><![CDATA[lfg8C3BexN3OZky0BeFDydz2YwQZxvRkJCHTjnhGvLnaSl/Whb4mLWehqGME/klOCbMyisJQ6atP9ujmZCV5Suu/tdKg9P2WHNkWVxxFpvWMHA/bG7nIF+4TnlLPIaxdpisZHZ2cxbrceIkWQCJaOJ8LWTU4tyXsuuugdLA3juYrMNtJZgN6iIZExuLY4D3vooxVu4234ve5XK3foK0zAGTDBdUvJXBC2FX4eOcal/0fDBw9kjzmP+5brEimi6MMnoqMMPHBD1izvm97ovov5Mg0qqkKfVD1wf/JeQo38O8xTy3S+Dg+Cs8l7fyMu1/g6qucsQ3Iveo7rZa4qZpdMh9EA5V9/bLLJHoxj00Fq0dqrxHC9+SW+2f5oXukjqyxCcdVVEZgk7vJVJfh4SyVO9RE1cudgQVv0Ay0iCmuUcE=]]></Encrypt>
 </xml>
+
 ```
 
 ### 事件

@@ -12,14 +12,23 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public interface WeChatMpMessageHandler extends WeChatMessageHandler<WeChatMpService, WeChatMpMessage, WeChatMpEchoMessage> {
+public interface WeChatMpMessageHandler<Message extends WeChatMpMessage> extends WeChatMessageHandler<WeChatMpService, Message, WeChatMpEchoMessage> {
     /**
      * 处理消息
      *
      * @param service {@link WeChatMpService}
      * @param message {@link WeChatMessage}
      * @param context {@link MessageResolverContext} 消息处理上下文对象
+     * @return {@link WeChatMpEchoMessage}
      */
     @Override
-    WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpMessage message, MessageResolverContext context);
+    default WeChatMpEchoMessage handle(WeChatMpService service, Message message, MessageResolverContext context) {
+        execute(service, message, context);
+        return null;
+    }
+
+    @Override
+    default void execute(WeChatMpService service, Message weChatMessage, MessageResolverContext context) {
+        WeChatMessageHandler.super.execute(service, weChatMessage, context);
+    }
 }

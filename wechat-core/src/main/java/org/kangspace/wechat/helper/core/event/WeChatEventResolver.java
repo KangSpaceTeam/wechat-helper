@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.event;
 
 import org.kangspace.wechat.helper.core.WeChatService;
+import org.kangspace.wechat.helper.core.message.BaseMessageSignature;
 import org.kangspace.wechat.helper.core.message.GetMessageSignature;
 import org.kangspace.wechat.helper.core.message.WeChatMessageResolver;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
@@ -48,7 +49,7 @@ public interface WeChatEventResolver<Service extends WeChatService, Handler exte
      * @return empty
      */
     @Override
-    default String checkSignature(GetMessageSignature signature) {
+    default boolean checkSignature(BaseMessageSignature signature) {
         throw new UnsupportedOperationException("EventResolver不支持该方法!");
     }
 }

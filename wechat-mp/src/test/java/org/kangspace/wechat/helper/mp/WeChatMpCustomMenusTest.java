@@ -51,7 +51,7 @@ public class WeChatMpCustomMenusTest {
     public void menuCreateTest() {
         MenuCreateRequest request = new MenuCreateRequest();
         List<MenuCreateRequest.Button> buttonList = new ArrayList<>();
-        MenuCreateRequest.Button button = MenuCreateRequest.Button.builder().name("API菜单").key("API_MENU_P_1").subButton(
+        MenuCreateRequest.Button button = MenuCreateRequest.Button.builder().name("API菜单").type(CustomMenuConstant.ButtonType.TEXT).key("API_MENU_P_1").subButton(
                 Arrays.asList(MenuCreateRequest.Button.builder().name("KangSpace").type(CustomMenuConstant.ButtonType.VIEW).url("https://kangspace.org").key("API_MENU_P_1_C_1").build())
         ).build();
         MenuCreateRequest.Button button2 = MenuCreateRequest.Button.builder().type(CustomMenuConstant.ButtonType.CLICK).name("赞👍🏻").key("API_MENU_P_2").build();

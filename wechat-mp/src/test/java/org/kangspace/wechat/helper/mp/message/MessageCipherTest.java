@@ -57,7 +57,7 @@ public class MessageCipherTest {
         String encryptType = "aes";
         String msgSignature = "3fae3477f04d2805bb2f647d67f98ead14fc5f6e";
         log.info("raw: {}", rawMessage);
-        MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce, encryptType, msgSignature);
+        MessageSignature messageSignature = new MessageSignature(msgSignature, timestamp, nonce, encryptType);
         String message = messageCipher.decrypt(messageSignature, rawMessage, WeChatMpEncryptXmlMessage.class);
         log.info("{}", message);
         Assert.assertNotNull(message);
@@ -81,7 +81,7 @@ public class MessageCipherTest {
         String nonce = "924856700";
         String encryptType = "aes";
         String exceptEncryptMessage = "<Encrypt><![CDATA[tybon2345ToFXFumMtSoJ0i6F5PGT6BIJudVM+TIkPjfR9o9hrsyVa7yGcWIBpeaK57/mDXfYSNSgjmzfk5AecAMvDb7blMwc1wNEGwvOsh7LkfX+8jT/8SyQ3o5BvUi/0maQBtuQQ9L5REk829Oj0zpXsxwaCEX2kQrJ3AMA7/wwom+u9UXstEQzIbMyC20zxlx9/kzGQEqmME3xhBhBvBH5TCQO7foUMTb+7xZNNbzraBMWwsz+orXNvNMliqiAPcJIRJBeh7OCwi5wssrO2ujtiTrG5uln0/0uNBaIWTKSR7yI1Ddnfd4c7gR1Q2N/Uyz0+TRGDeJsnd/jB5Qn6Ur10eAEyxL+uwHbjXemMntHRHad3CtsD2+3wV3VQL4jBC6bCYJp9TrEiCsYn/eqrSceDLWu54li8iN+RS7B4U=]]></Encrypt>";
-        MessageSignature messageSignature = new MessageSignature(timestamp, nonce, encryptType);
+        MessageSignature messageSignature = new MessageSignature(timestamp, nonce);
         String encrypt = messageCipher.encrypt(messageSignature, rawMessage, WeChatMpEncryptEchoXmlMessage.class);
         log.info("{}", encrypt);
         Assert.assertTrue(encrypt != null && encrypt.contains(exceptEncryptMessage));

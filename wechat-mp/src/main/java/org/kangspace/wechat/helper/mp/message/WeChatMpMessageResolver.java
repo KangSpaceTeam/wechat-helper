@@ -22,7 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * @since 2022/12/24
  */
 @Slf4j
-public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler, WeChatMpMessage, WeChatMpEchoMessage> {
+public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> {
     /**
      * 消息加解密对象
      */
@@ -32,7 +32,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         this(wechatService, new ArrayList<>());
     }
 
-    public WeChatMpMessageResolver(WeChatMpService wechatService, List<WeChatMpMessageHandler> weChatMessageHandlers) {
+    public WeChatMpMessageResolver(WeChatMpService wechatService, List<WeChatMpMessageHandler<WeChatMpMessage>> weChatMessageHandlers) {
         super(wechatService, weChatMessageHandlers);
         this.messageCipher = new MessageCipher(wechatService.getWeChatConfig());
     }
@@ -52,21 +52,20 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
      * @return 验证成功后返回echoStr, 验证失败抛出 {@link WeChatSignatureException}
      */
     @Override
-    public String checkSignature(GetMessageSignature signature) {
+    public boolean checkSignature(BaseMessageSignature signature) {
         log.debug("checkSignature: signature: {}", signature);
         WeChatConfig config = getWeChatService().getWeChatConfig();
         String signatureStr = signature.getSignature();
-        String echoStr = signature.getEchoStr();
         String nonce = signature.getNonce();
         String timestamp = signature.getTimestamp();
         String token = config.getToken();
         String sha1 = DigestUtil.sha1(token, timestamp, nonce);
         log.debug("checkSignature: sha1: {}", sha1);
         if (!signatureStr.equals(sha1)) {
-            log.debug("checkSignature: checkSignature failed");
-            throw new WeChatSignatureException(sha1, "signature checked failed");
+            log.debug("checkSignature: checkSignature failed, sha1: {}", sha1);
+            return false;
         }
-        return echoStr;
+        return true;
     }
 
     @Override
@@ -93,7 +92,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
             rawMessage = messageCipher.decrypt(messageSignature, rawMessage, WeChatMpEncryptXmlMessage.class);
         } else {
             // 校验消息签名
-            messageCipher.checkSignature(messageSignature, rawMessage);
+            this.checkSignatureThrows(messageSignature);
         }
         MessageResolverContext context = new MessageResolverContext(isEncrypt, getMessageCipher());
         WeChatMpXmlMessage message = XmlParser.parse(rawMessage, WeChatMpXmlMessage.class);
@@ -111,7 +110,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
      * @return {@link WeChatMpEchoMessage} 输出的原始响应对象(未加密)
      */
     private WeChatMpEchoMessage executeHandlers(WeChatMpXmlMessage message, MessageResolverContext context) {
-        List<WeChatMpMessageHandler> messageHandlers = getWeChatHandlers(message);
+        List<WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers = getWeChatHandlers(message);
         log.debug("微信公众号消息处理: 已知的消息处理器: {}", messageHandlers);
         // 若同一个消息存在多个处理器, 返回第一个有返回值的处理器的返回值; 若存在异步执行器,则返回所有执行器中最先执行完的有返回值的处理器的返回值.
         List<CompletableFuture<WeChatMpEchoMessage>> completableFutures = new ArrayList<>();
@@ -145,5 +144,11 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
 
     public MessageCipher getMessageCipher() {
         return messageCipher;
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public void addWeChatHandler(WeChatMpMessageHandler messageHandler) {
+        super.addWeChatHandler(messageHandler);
     }
 }

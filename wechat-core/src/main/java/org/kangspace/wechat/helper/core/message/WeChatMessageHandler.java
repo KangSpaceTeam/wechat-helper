@@ -28,6 +28,7 @@ public interface WeChatMessageHandler<Service extends WeChatService, Message ext
      * @param service       {@link WeChatService}
      * @param weChatMessage {@link WeChatMessage}
      * @param context       {@link MessageResolverContext} 消息处理上下文对象
+     * @return {@link EchoMessage}
      */
     default EchoMessage handle(Service service, Message weChatMessage, MessageResolverContext context) {
         this.execute(service, weChatMessage, context);

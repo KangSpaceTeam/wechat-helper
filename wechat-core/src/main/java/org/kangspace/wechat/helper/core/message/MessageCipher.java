@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.message;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
@@ -24,6 +25,7 @@ import java.util.Objects;
  * @author kango2gler@gmail.com
  * @since 2022/12/26
  */
+@Slf4j
 @Data
 public class MessageCipher {
     /**
@@ -71,7 +73,12 @@ public class MessageCipher {
         String token = getToken();
         String timestamp = Objects.requireNonNull(messageSignature.getTimestamp(), "timestamp must be not null");
         String nonce = Objects.requireNonNull(messageSignature.getNonce(), "nonce must be not null");
-        String msgSignature = Objects.requireNonNull(messageSignature.getMsgSignature(), "msgSignature must be not null");
+        String msgSignature;
+        if (messageSignature.isEncrypt()) {
+            msgSignature = Objects.requireNonNull(messageSignature.getMsgSignature(), "msgSignature must be not null");
+        } else {
+            msgSignature = Objects.requireNonNull(messageSignature.getSignature(), "signature must be not null");
+        }
         String calcMsgSignature = DigestUtil.sha1(token, timestamp, nonce, msgEncrypt);
         if (!msgSignature.equals(calcMsgSignature)) {
             throw new WeChatSignatureException(calcMsgSignature, "msg_signature check failed!");

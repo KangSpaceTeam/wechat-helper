@@ -2,7 +2,10 @@ package org.kangspace.wechat.helper.mp.event;
 
 import org.kangspace.wechat.helper.core.event.WeChatEventHandler;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
+import org.kangspace.wechat.helper.core.message.WeChatMessage;
+import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
+import org.kangspace.wechat.helper.mp.message.WeChatMpMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 
 /**
@@ -11,14 +14,24 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public interface WeChatMpEventHandler extends WeChatEventHandler<WeChatMpService, WeChatMpEvent, WeChatMpEchoMessage> {
+public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeChatEventHandler<WeChatMpService, Event, WeChatMpEchoMessage> {
+
     /**
-     * 处理消息
+     * 处理事件消息
      *
      * @param service {@link WeChatMpService}
-     * @param event   {@link WeChatMpEvent}
+     * @param message {@link WeChatMpEvent}
      * @param context {@link MessageResolverContext} 消息处理上下文对象
+     * @return {@link WeChatMpEchoMessage}
      */
     @Override
-    WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpEvent event, MessageResolverContext context);
+    default WeChatMpEchoMessage handle(WeChatMpService service, Event message, MessageResolverContext context) {
+        execute(service, message, context);
+        return null;
+    }
+
+    @Override
+    default void execute(WeChatMpService service, Event weChatMessage, MessageResolverContext context) {
+        WeChatEventHandler.super.execute(service, weChatMessage, context);
+    }
 }

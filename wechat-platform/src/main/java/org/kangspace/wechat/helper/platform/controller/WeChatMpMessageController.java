@@ -30,7 +30,8 @@ public class WeChatMpMessageController {
     @GetMapping("")
     public String checkSignature(GetMessageSignature messageSignature, @RequestParam("echostr") String echostr) {
         messageSignature.setEchoStr(echostr);
-        return weChatMpMessageResolver.checkSignature(messageSignature);
+        weChatMpMessageResolver.checkSignatureThrows(messageSignature);
+        return echostr;
     }
 
     /**

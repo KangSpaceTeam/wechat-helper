@@ -1,7 +1,6 @@
 package org.kangspace.wechat.helper.core.message;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 
@@ -12,7 +11,6 @@ import lombok.ToString;
  * @author kango2gler@gmail.com
  * @since 2022/12/25
  */
-@AllArgsConstructor
 @Data
 @ToString(callSuper = true)
 public class MessageSignature extends BaseMessageSignature {
@@ -33,8 +31,18 @@ public class MessageSignature extends BaseMessageSignature {
     public MessageSignature() {
     }
 
+    public MessageSignature(String timestamp, String nonce) {
+        super(timestamp, nonce);
+    }
+
     public MessageSignature(String signature, String timestamp, String nonce) {
         super(signature, timestamp, nonce);
+    }
+
+    public MessageSignature(String msgSignature, String timestamp, String nonce, String encryptType) {
+        super(msgSignature, timestamp, nonce);
+        this.encryptType = encryptType;
+        this.msgSignature = msgSignature;
     }
 
     public MessageSignature(String signature, String timestamp, String nonce, String encryptType, String msgSignature) {

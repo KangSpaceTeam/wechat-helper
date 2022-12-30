@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.message;
 
 import org.kangspace.wechat.helper.core.WeChatService;
+import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 
@@ -53,9 +54,19 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * 签名检查
      *
      * @param signature {@link BaseMessageSignature}
-     * @return String
+     * @return boolean
      */
-    String checkSignature(GetMessageSignature signature);
+    boolean checkSignature(BaseMessageSignature signature);
+
+    /**
+     * 签名检查(不通过时抛出异常)
+     * @param signature {@link BaseMessageSignature}
+     */
+    default void checkSignatureThrows(BaseMessageSignature signature){
+        if (!checkSignature(signature)) {
+            throw new WeChatSignatureException("signature checked failed!");
+        }
+    }
 
     /**
      * 处理消息(无返回值)

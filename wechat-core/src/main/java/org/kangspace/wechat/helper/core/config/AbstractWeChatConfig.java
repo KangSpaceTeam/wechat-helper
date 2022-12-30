@@ -67,7 +67,7 @@ public abstract class AbstractWeChatConfig implements WeChatConfig {
 
     @Override
     public RedissonClient getRedissonClient() {
-        if (this.redissonClient == null) {
+        if (this.redissonClient == null && getRedisConfig() != null) {
             synchronized (this) {
                 if (this.redissonClient == null) {
                     this.redissonClient = RedissonClientFactory.newRedisson(getRedisConfig());
