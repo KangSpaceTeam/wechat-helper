@@ -6,20 +6,28 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * 文本消息
+ * 图片消息<br>
  * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_standard_messages.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_standard_messages.html</a>
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/29
+ * @since 2023/01/01
  */
 @Data
 @ToString(callSuper = true)
-public class TextMessage extends StandardMessage {
+public class ImageMessage extends StandardMessage {
 
     /**
-     * 文本消息内容
+     * 图片链接（由系统生成）
      */
-    @JacksonXmlProperty(localName = "Content")
+    @JacksonXmlProperty(localName = "PicUrl")
     @JacksonXmlCData
-    private String content;
+    private String picUrl;
+
+    /**
+     * 图片消息媒体id，可以调用获取临时素材接口拉取数据。
+     */
+    @JacksonXmlProperty(localName = "MediaId")
+    @JacksonXmlCData
+    private String mediaId;
+
 }

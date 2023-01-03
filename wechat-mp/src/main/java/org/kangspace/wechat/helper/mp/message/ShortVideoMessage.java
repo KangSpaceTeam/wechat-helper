@@ -1,25 +1,17 @@
 package org.kangspace.wechat.helper.mp.message;
 
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 import lombok.ToString;
 
 /**
- * 文本消息
+ * 小视频消息<br>
  * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_standard_messages.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_standard_messages.html</a>
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/29
+ * @since 2023/01/01
  */
 @Data
 @ToString(callSuper = true)
-public class TextMessage extends StandardMessage {
+public class ShortVideoMessage extends VideoMessage {
 
-    /**
-     * 文本消息内容
-     */
-    @JacksonXmlProperty(localName = "Content")
-    @JacksonXmlCData
-    private String content;
 }

@@ -15,28 +15,46 @@ public enum WeChatMpMessages {
     /**
      * 文本消息
      */
-    TEXT(MessageConstant.MessageType.TEXT, TextMessage.class);
+    Text(MessageConstant.MessageType.TEXT, TextMessage.class),
+    /**
+     * 图片消息
+     */
+    Image(MessageConstant.MessageType.IMAGE, ImageMessage.class),
+    /**
+     * 语音消息
+     */
+    Voice(MessageConstant.MessageType.VOICE, VoiceMessage.class),
+    /**
+     * 视频消息
+     */
+    Video(MessageConstant.MessageType.VIDEO, VideoMessage.class),
+    /**
+     * 小视频消息
+     */
+    ShortVideo(MessageConstant.MessageType.SHORTVIDEO, ShortVideoMessage.class),
+    /**
+     * 地理位置消息
+     */
+    Location(MessageConstant.MessageType.LOCATION, LocationMessage.class),
+    /**
+     * 链接消息
+     */
+    Link(MessageConstant.MessageType.LINK, LinkMessage.class),
+
+    ;
 
     /**
      * 消息类型
      */
-    private MessageConstant.MessageType msgType;
+    private final MessageConstant.MessageType msgType;
     /**
      * 事件映射的对象
      */
-    private Class<? extends WeChatMpXmlMessage> mappingClass;
+    private final Class<? extends WeChatMpXmlMessage> mappingClass;
 
     WeChatMpMessages(MessageConstant.MessageType msgType, Class<? extends WeChatMpXmlMessage> mappingClass) {
         this.msgType = msgType;
         this.mappingClass = mappingClass;
-    }
-
-    public MessageConstant.MessageType getMsgType() {
-        return msgType;
-    }
-
-    public Class<? extends WeChatMpXmlMessage> getMappingClass() {
-        return mappingClass;
     }
 
     /**
@@ -48,5 +66,13 @@ public enum WeChatMpMessages {
     public static Class<? extends WeChatMpXmlMessage> getMappingClassByMsgType(MessageConstant.MessageType msgType) {
         Class<? extends WeChatMpXmlMessage> mappingClass = Arrays.stream(values()).filter(t -> t.getMsgType().equals(msgType)).map(WeChatMpMessages::getMappingClass).findFirst().orElse(null);
         return mappingClass != null ? mappingClass : WeChatMpXmlMessage.class;
+    }
+
+    public MessageConstant.MessageType getMsgType() {
+        return msgType;
+    }
+
+    public Class<? extends WeChatMpXmlMessage> getMappingClass() {
+        return mappingClass;
     }
 }

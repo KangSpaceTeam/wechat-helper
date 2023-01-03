@@ -9,4 +9,5 @@ import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessag
  * @since 2022/12/29
  */
 public interface WeChatMpEncryptEchoMessage extends WeChatEncryptEchoMessage {
+
 }

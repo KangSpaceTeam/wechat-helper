@@ -41,8 +41,9 @@ public abstract class AbstractWeChatMessageResolver<Service extends WeChatServic
     }
 
     @Override
-    public void addWeChatHandler(Handler messageHandler) {
+    public AbstractWeChatMessageResolver addWeChatHandler(Handler messageHandler) {
         this.weChatMessageHandlers.add(messageHandler);
+        return this;
     }
 
     @Override

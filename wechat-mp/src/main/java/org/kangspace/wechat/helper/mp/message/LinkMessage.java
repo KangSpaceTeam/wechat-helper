@@ -6,20 +6,34 @@ import lombok.Data;
 import lombok.ToString;
 
 /**
- * 文本消息
+ * 链接消息<br>
  * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_standard_messages.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Receiving_standard_messages.html</a>
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/29
+ * @since 2023/01/01
  */
 @Data
 @ToString(callSuper = true)
-public class TextMessage extends StandardMessage {
+public class LinkMessage extends StandardMessage {
 
     /**
-     * 文本消息内容
+     * 消息标题
      */
-    @JacksonXmlProperty(localName = "Content")
+    @JacksonXmlProperty(localName = "Title")
     @JacksonXmlCData
-    private String content;
+    private String title;
+
+    /**
+     * 消息描述
+     */
+    @JacksonXmlProperty(localName = "Description")
+    @JacksonXmlCData
+    private String description;
+
+    /**
+     * 消息链接
+     */
+    @JacksonXmlProperty(localName = "Url")
+    @JacksonXmlCData
+    private String url;
 }

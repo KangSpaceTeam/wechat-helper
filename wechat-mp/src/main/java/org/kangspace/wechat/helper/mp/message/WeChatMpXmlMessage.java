@@ -63,6 +63,25 @@ public class WeChatMpXmlMessage implements WeChatMpMessage, WeChatXmlMessage {
      */
     private String raw;
 
+    public WeChatMpXmlMessage() {
+    }
+
+    public WeChatMpXmlMessage(String toUser, String fromUser, Long createTime, Long msgId) {
+        this.toUser = toUser;
+        this.fromUser = fromUser;
+        this.createTime = createTime;
+        this.msgId = msgId;
+    }
+
+    public WeChatMpXmlMessage(MessageConstant.MessageType msgType, String event, String toUser, String fromUser, Long createTime, Long msgId) {
+        this.msgType = msgType;
+        this.event = event;
+        this.toUser = toUser;
+        this.fromUser = fromUser;
+        this.createTime = createTime;
+        this.msgId = msgId;
+    }
+
     @Override
     public String getRaw() {
         return this.raw;

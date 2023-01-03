@@ -9,6 +9,7 @@ import org.kangspace.wechat.helper.core.util.DigestUtil;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
+import org.kangspace.wechat.helper.mp.message.response.WeChatMpEncryptEchoXmlMessage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     /**
      * 消息加解密对象
      */
-    private MessageCipher messageCipher;
+    private final MessageCipher messageCipher;
 
     public WeChatMpMessageResolver(WeChatMpService wechatService) {
         this(wechatService, new ArrayList<>());
@@ -68,6 +69,13 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         return true;
     }
 
+    @SuppressWarnings("unchecked")
+    @Override
+    public WeChatMpEncryptEchoXmlMessage encryptEcho(WeChatMpEchoMessage echoMessage) {
+        String echoMessageStr = XmlParser.toXmlString(echoMessage);
+        return messageCipher.encrypt(echoMessageStr, WeChatMpEncryptEchoXmlMessage.class);
+    }
+
     @Override
     public WeChatMpEchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
         log.debug("微信公众号消息处理: 消息类型: {}, messageSignature: {}, 事件消息: {}", messageFormat, messageSignature, message);
@@ -86,8 +94,8 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
      */
     private WeChatMpEchoMessage xmlMessageResolve(MessageSignature messageSignature, String rawMessage) {
         log.debug("微信公众号消息处理: XML消息处理: messageSignature: {}, rawMessage: {}", messageSignature, rawMessage);
-        boolean isEncrypt;
-        if ((isEncrypt = messageSignature.isEncrypt())) {
+        boolean isEncrypt = messageSignature.isEncrypt();
+        if (isEncrypt) {
             // 加密消息处理
             rawMessage = messageCipher.decrypt(messageSignature, rawMessage, WeChatMpEncryptXmlMessage.class);
         } else {
@@ -114,7 +122,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         log.debug("微信公众号消息处理: 已知的消息处理器: {}", messageHandlers);
         // 若同一个消息存在多个处理器, 返回第一个有返回值的处理器的返回值; 若存在异步执行器,则返回所有执行器中最先执行完的有返回值的处理器的返回值.
         List<CompletableFuture<WeChatMpEchoMessage>> completableFutures = new ArrayList<>();
-        ConcurrentHashMap<Long, WeChatMpEchoMessage> resultMap = new ConcurrentHashMap<>();
+        ConcurrentHashMap<Long, WeChatMpEchoMessage> resultMap = new ConcurrentHashMap<>(16);
         messageHandlers.forEach(handler -> {
             if (handler.isAsync()) {
                 // 异步执行器处理
@@ -142,13 +150,16 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         return resultMap.size() > 0 ? resultMap.values().stream().findFirst().orElse(null) : null;
     }
 
+    // TODO xx
+
     public MessageCipher getMessageCipher() {
         return messageCipher;
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    public void addWeChatHandler(WeChatMpMessageHandler messageHandler) {
+    public WeChatMpMessageResolver addWeChatHandler(WeChatMpMessageHandler messageHandler) {
         super.addWeChatHandler(messageHandler);
+        return this;
     }
 }

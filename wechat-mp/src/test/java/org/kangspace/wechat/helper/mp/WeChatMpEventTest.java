@@ -24,7 +24,7 @@ public class WeChatMpEventTest {
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         WeChatMpService weChatMpService = new DefaultWeChatMpService(weChatMpConfig);
-        resolver = new WeChatMpEventResolver(weChatMpService);
+//        resolver = new WeChatMpEventResolver(weChatMpService);
     }
 
     public void eventResolveTest() {

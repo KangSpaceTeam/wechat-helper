@@ -272,6 +272,14 @@ public interface MessageConstant {
          * 链接消息: link
          */
         LINK,
+        /**
+         * 音乐消息
+         */
+        MUSIC,
+        /**
+         * 图文消息
+         */
+        NEWS,
         ;
 
         @JsonValue

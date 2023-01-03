@@ -40,7 +40,7 @@ public interface WeChatEventResolver<Service extends WeChatService, Handler exte
      * @param eventHandler {@link Handler}
      */
     @Override
-    void addWeChatHandler(Handler eventHandler);
+    WeChatEventResolver addWeChatHandler(Handler eventHandler);
 
     /**
      * EventResolver不支持该方法

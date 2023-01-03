@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.core.message;
 import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
+import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 
 import java.util.List;
@@ -41,7 +42,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      *
      * @param messageHandler {@link Handler}
      */
-    void addWeChatHandler(Handler messageHandler);
+    WeChatMessageResolver addWeChatHandler(Handler messageHandler);
 
     /**
      * 获取WeChatService
@@ -60,12 +61,23 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
 
     /**
      * 签名检查(不通过时抛出异常)
+     *
      * @param signature {@link BaseMessageSignature}
      */
-    default void checkSignatureThrows(BaseMessageSignature signature){
+    default void checkSignatureThrows(BaseMessageSignature signature) {
         if (!checkSignature(signature)) {
             throw new WeChatSignatureException("signature checked failed!");
         }
+    }
+
+    /**
+     * 加密响应消息
+     *
+     * @param echoMessage 原响应消息
+     * @return {@link T}
+     */
+    default <T extends WeChatEncryptEchoMessage, S extends EchoMessage> T encryptEcho(S echoMessage) {
+        throw new UnsupportedOperationException("need implements encryptEcho method!");
     }
 
     /**
@@ -95,6 +107,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * @param messageFormat    消息类型{@link MessageFormat}
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @return {@link EchoMessage}
      */
     default EchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
         this.solve(messageFormat, messageSignature, message);
@@ -106,6 +119,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      *
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @return {@link EchoMessage}
      */
     default EchoMessage resolve(MessageSignature messageSignature, String message) {
         return this.resolve(MessageFormat.XML, messageSignature, message);
@@ -117,11 +131,15 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * @param messageFormat    消息类型{@link MessageFormat}
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @return 处理消息
      */
     default String resolveEcho(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
         EchoMessage echoMessage = this.resolve(messageFormat, messageSignature, message);
         String echo = "";
         if (echoMessage != null) {
+            if (messageSignature.isEncrypt()) {
+                echoMessage = encryptEcho(echoMessage);
+            }
             echo = XmlParser.toXmlString(echoMessage);
         }
         return echo;
@@ -133,6 +151,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      *
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @return 返回消息
      */
     default String resolveEcho(MessageSignature messageSignature, String message) {
         return this.resolveEcho(MessageFormat.XML, messageSignature, message);

@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.kangspace.wechat.helper.core.message.MessageCipher;
 import org.kangspace.wechat.helper.core.message.MessageSignature;
+import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpAppConstant;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEncryptEchoXmlMessage;
@@ -82,8 +83,11 @@ public class MessageCipherTest {
         String encryptType = "aes";
         String exceptEncryptMessage = "<Encrypt><![CDATA[tybon2345ToFXFumMtSoJ0i6F5PGT6BIJudVM+TIkPjfR9o9hrsyVa7yGcWIBpeaK57/mDXfYSNSgjmzfk5AecAMvDb7blMwc1wNEGwvOsh7LkfX+8jT/8SyQ3o5BvUi/0maQBtuQQ9L5REk829Oj0zpXsxwaCEX2kQrJ3AMA7/wwom+u9UXstEQzIbMyC20zxlx9/kzGQEqmME3xhBhBvBH5TCQO7foUMTb+7xZNNbzraBMWwsz+orXNvNMliqiAPcJIRJBeh7OCwi5wssrO2ujtiTrG5uln0/0uNBaIWTKSR7yI1Ddnfd4c7gR1Q2N/Uyz0+TRGDeJsnd/jB5Qn6Ur10eAEyxL+uwHbjXemMntHRHad3CtsD2+3wV3VQL4jBC6bCYJp9TrEiCsYn/eqrSceDLWu54li8iN+RS7B4U=]]></Encrypt>";
         MessageSignature messageSignature = new MessageSignature(timestamp, nonce);
-        String encrypt = messageCipher.encrypt(messageSignature, rawMessage, WeChatMpEncryptEchoXmlMessage.class);
+        String encrypt = messageCipher.encryptEcho(messageSignature, rawMessage, WeChatMpEncryptEchoXmlMessage.class);
         log.info("{}", encrypt);
-        Assert.assertTrue(encrypt != null && encrypt.contains(exceptEncryptMessage));
+        WeChatMpEncryptEchoXmlMessage srcEncryptXmlEchoMessage = XmlParser.parse(encrypt, WeChatMpEncryptEchoXmlMessage.class);
+        String xmlMessage = messageCipher.decrypt(new MessageSignature(srcEncryptXmlEchoMessage.getMsgSignature(), timestamp, nonce, encryptType), encrypt, WeChatMpEncryptXmlMessage.class);
+        log.info("decrypt xmlMessage: {}", xmlMessage);
+        Assert.assertEquals(rawMessage, xmlMessage);
     }
 }

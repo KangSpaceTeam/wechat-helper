@@ -40,8 +40,9 @@ public abstract class AbstractWeChatEventResolver<Service extends WeChatService,
     }
 
     @Override
-    public void addWeChatHandler(Handler eventHandler) {
+    public AbstractWeChatEventResolver addWeChatHandler(Handler eventHandler) {
         this.weChatEventHandlers.add(eventHandler);
+        return this;
     }
 
     @Override

@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
-import org.kangspace.wechat.helper.core.util.ByteGroup;
-import org.kangspace.wechat.helper.core.util.DigestUtil;
-import org.kangspace.wechat.helper.core.util.ReflectUtil;
-import org.kangspace.wechat.helper.core.util.XmlParser;
+import org.kangspace.wechat.helper.core.util.*;
 
 import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;
@@ -70,19 +67,30 @@ public class MessageCipher {
      * @param msgEncrypt       加密的消息
      */
     public void checkSignature(@Nonnull MessageSignature messageSignature, @Nonnull String msgEncrypt) {
-        String token = getToken();
-        String timestamp = Objects.requireNonNull(messageSignature.getTimestamp(), "timestamp must be not null");
-        String nonce = Objects.requireNonNull(messageSignature.getNonce(), "nonce must be not null");
         String msgSignature;
         if (messageSignature.isEncrypt()) {
             msgSignature = Objects.requireNonNull(messageSignature.getMsgSignature(), "msgSignature must be not null");
         } else {
             msgSignature = Objects.requireNonNull(messageSignature.getSignature(), "signature must be not null");
         }
-        String calcMsgSignature = DigestUtil.sha1(token, timestamp, nonce, msgEncrypt);
+        String calcMsgSignature = signature(messageSignature, msgEncrypt);
         if (!msgSignature.equals(calcMsgSignature)) {
             throw new WeChatSignatureException(calcMsgSignature, "msg_signature check failed!");
         }
+    }
+
+    /**
+     * 消息签名
+     *
+     * @param messageSignature {@link MessageSignature}
+     * @param msgEncrypt       加密消息
+     * @return 消息签名
+     */
+    public String signature(@Nonnull MessageSignature messageSignature, @Nonnull String msgEncrypt) {
+        String token = getToken();
+        String timestamp = Objects.requireNonNull(messageSignature.getTimestamp(), "timestamp must be not null");
+        String nonce = Objects.requireNonNull(messageSignature.getNonce(), "nonce must be not null");
+        return DigestUtil.sha1(token, timestamp, nonce, msgEncrypt);
     }
 
     /**
@@ -123,22 +131,54 @@ public class MessageCipher {
     }
 
     /**
-     * 消息编码
+     * 原始消息处理为加密消息响应对象
      *
-     * @param messageSignature    消息签名
-     * @param message             消息内容
-     * @param encryptMessageClass 加密消息处理类
-     * @return 编码后的消息
+     * @param message             原始消息内容
+     * @param encryptMessageClass 加密对象类型
+     * @return 加密消息响应结果
      */
-    public <T extends WeChatEncryptEchoMessage> String encrypt(@Nonnull MessageSignature messageSignature, @Nonnull String message, @Nonnull Class<T> encryptMessageClass) {
+    public <T extends WeChatEncryptEchoMessage> T encrypt(@Nonnull String message, @Nonnull Class<T> encryptMessageClass) {
+        String timestamp = System.currentTimeMillis() / 1000L + "";
+        String nonce = NonceGenerator.numeric();
+        MessageSignature messageSignature = new MessageSignature(timestamp, nonce);
+        return this.encrypt(messageSignature, message, encryptMessageClass);
+    }
+
+    /**
+     * 原始消息处理为加密消息响应对象
+     *
+     * @param messageSignature    {@link MessageSignature}消息签名
+     * @param message             原始消息内容
+     * @param encryptMessageClass 加密对象类型
+     * @return 加密消息响应结果
+     */
+    public <T extends WeChatEncryptEchoMessage> T encrypt(MessageSignature messageSignature, @Nonnull String message, @Nonnull Class<T> encryptMessageClass) {
+        String timestamp = messageSignature.getTimestamp();
+        String nonce = messageSignature.getNonce();
         // 原始消息加密
         String encodedMessage = encrypt(message);
+        // 消息签名
+        String msgSignature = signature(messageSignature, encodedMessage);
         // 转换为加密消息类
-        T encryptMessageObject = ReflectUtil.newInstance(encryptMessageClass);
-        encryptMessageObject.setEncrypt(encodedMessage);
-        // TODO xxx, 消息签名处理
+        T encryptMessage = ReflectUtil.newInstance(encryptMessageClass);
+        encryptMessage.setEncrypt(encodedMessage);
+        encryptMessage.setTimestamp(timestamp);
+        encryptMessage.setNonce(nonce);
+        encryptMessage.setMsgSignature(msgSignature);
+        return encryptMessage;
+    }
+
+    /**
+     * 原始消息处理为加密消息响应对象
+     *
+     * @param messageSignature    {@link MessageSignature}消息签名
+     * @param message             原始消息内容
+     * @param encryptMessageClass 加密对象类型
+     * @return 加密消息响应结果
+     */
+    public <T extends WeChatEncryptEchoMessage> String encryptEcho(@Nonnull MessageSignature messageSignature, @Nonnull String message, @Nonnull Class<T> encryptMessageClass) {
         // 返回XML字符串
-        return XmlParser.toXmlString(encryptMessageObject);
+        return XmlParser.toXmlString(encrypt(messageSignature, message, encryptMessageClass));
     }
 
     /**
@@ -161,10 +201,7 @@ public class MessageCipher {
             byte[] messageBytes = message.getBytes(CHARSET);
             byte[] messageLengthBytes = ByteBuffer.allocate(4).putInt(messageBytes.length).array();
             byte[] appIdBytes = getAppId().getBytes(CHARSET);
-            byteGroup.addBytes(randomStrBytes)
-                    .addBytes(messageLengthBytes)
-                    .addBytes(messageBytes)
-                    .addBytes(appIdBytes);
+            byteGroup.addBytes(randomStrBytes).addBytes(messageLengthBytes).addBytes(messageBytes).addBytes(appIdBytes);
             byte[] fullBytes = DigestUtil.aesCBCWithPKCS7(byteGroup, aesKey);
             return Base64.getEncoder().encodeToString(fullBytes);
         } catch (Exception e) {

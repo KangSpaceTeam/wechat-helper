@@ -16,11 +16,25 @@ public interface WeChatEncryptEchoMessage {
     String getEncrypt();
 
     /**
+     * 设置加密数据
+     *
+     * @param encrypt encrypt
+     */
+    void setEncrypt(String encrypt);
+
+    /**
      * 获取消息签名
      *
      * @return 消息签名
      */
     String getMsgSignature();
+
+    /**
+     * 设置消息签名
+     *
+     * @param msgSignature msgSignature
+     */
+    void setMsgSignature(String msgSignature);
 
     /**
      * 获取时间戳
@@ -30,6 +44,13 @@ public interface WeChatEncryptEchoMessage {
     String getTimestamp();
 
     /**
+     * 获取时间戳
+     *
+     * @param timestamp timestamp
+     */
+    void setTimestamp(String timestamp);
+
+    /**
      * 获取随机数
      *
      * @return 随机数
@@ -37,22 +58,9 @@ public interface WeChatEncryptEchoMessage {
     String getNonce();
 
     /**
-     * 设置加密数据
-     */
-    void setEncrypt(String encrypt);
-
-    /**
-     * 设置消息签名
-     */
-    void setMsgSignature(String msgSignature);
-
-    /**
-     * 获取时间戳
-     */
-    void setTimestamp(String timestamp);
-
-    /**
      * 获取随机数
+     *
+     * @param nonce nonce
      */
     void setNonce(String nonce);
 }

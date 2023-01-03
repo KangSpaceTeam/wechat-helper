@@ -10,6 +10,7 @@ import java.util.Arrays;
  * @since 2022/12/29
  */
 public enum WeChatMpEvents {
+    // 自定义菜单事件 start
     /**
      * 菜单点击事件
      */
@@ -46,6 +47,25 @@ public enum WeChatMpEvents {
      * pic_weixin：弹出微信相册发图器的事件
      */
     ViewMiniProgram("view_miniprogram", MenuPicWeiXinEvent.class),
+    // 自定义菜单事件 end
+
+    /**
+     * 关注事件
+     */
+    Subscribe("subscribe", SubscribeEvent.class),
+    /**
+     * 取消关注事件
+     */
+    Unsubscribe("unsubscribe", UnsubscribeEvent.class),
+    /**
+     * 用户已关注时的事件推送
+     */
+    Scan("SCAN", ScanEvent.class),
+    /**
+     * 上报地理位置事件
+     */
+    Location("LOCATION", LocationEvent.class),
+
     ;
     /**
      * 事件值
@@ -61,14 +81,6 @@ public enum WeChatMpEvents {
         this.mappingClass = mappingClass;
     }
 
-    public String getEvent() {
-        return event;
-    }
-
-    public Class<? extends WeChatMpXmlEvent> getMappingClass() {
-        return mappingClass;
-    }
-
     /**
      * 通过Event获取事件处理对象(指定事件不存在时,返回{@link WeChatMpXmlEvent})
      *
@@ -78,5 +90,13 @@ public enum WeChatMpEvents {
     public static Class<? extends WeChatMpXmlEvent> getMappingClassByEvent(String event) {
         Class<? extends WeChatMpXmlEvent> mappingClass = Arrays.stream(values()).filter(t -> t.getEvent().equals(event)).map(WeChatMpEvents::getMappingClass).findFirst().orElse(null);
         return mappingClass != null ? mappingClass : WeChatMpXmlEvent.class;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public Class<? extends WeChatMpXmlEvent> getMappingClass() {
+        return mappingClass;
     }
 }

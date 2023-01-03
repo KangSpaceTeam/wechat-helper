@@ -14,6 +14,8 @@ import org.kangspace.wechat.helper.mp.DefaultWeChatMpService;
 import org.kangspace.wechat.helper.mp.WeChatMpAppConstant;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
+import org.kangspace.wechat.helper.mp.event.MenuClickEvent;
+import org.kangspace.wechat.helper.mp.message.response.TextEchoMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoXmlMessage;
 
@@ -29,12 +31,14 @@ public class WeChatMpMessageResolverTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private final String token = WeChatMpAppConstant.GLOBAL_TOKEN;
+    private final String encodingAesKey = WeChatMpAppConstant.GLOBAL_ENCODING_AES_KEY;
     private WeChatMpMessageResolver resolver;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpConfig.setToken(token);
+        weChatMpConfig.setEncodingAESKey(encodingAesKey);
         WeChatMpService weChatMpService = new DefaultWeChatMpService(weChatMpConfig);
         resolver = new WeChatMpMessageResolver(weChatMpService);
     }
@@ -71,10 +75,10 @@ public class WeChatMpMessageResolverTest {
                 "    <MsgId>23938173794149768</MsgId>\n" +
                 "</xml>";
         log.info("rawMessage: {}", rawMessage);
-        String timestamp = "1672062037";
-        String nonce = "924856700";
-        String encryptType = "aes";
-        MessageSignature messageSignature = new MessageSignature(timestamp, nonce, encryptType);
+        String timestamp = "1672033292";
+        String nonce = "1313676274";
+        String signature = "812895b1f140e1397f4576452383be3b3271b1f2";
+        MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce);
         WeChatEchoMessage echoMessage = resolver.resolve(messageSignature, rawMessage);
         String echo = resolver.resolveEcho(messageSignature, rawMessage);
         log.info("echoMessage: {}", echoMessage);
@@ -117,7 +121,7 @@ public class WeChatMpMessageResolverTest {
             @Override
             public WeChatMpEchoMessage handle(WeChatMpService service, TextMessage message, MessageResolverContext context) {
                 log.info("同步处理1, 有返回值: message: {}, context: {}", message, context);
-                return new WeChatMpEchoXmlMessage();
+                return new TextEchoMessage(message.getToUser(), message.getFromUser(), message.getCreateTime(), message.getMsgId(), message.getContent() + "_同步处理1");
             }
 
             @Override
@@ -139,16 +143,16 @@ public class WeChatMpMessageResolverTest {
         });
 
         // 异步消息
-        resolver.addWeChatHandler(new WeChatMpMessageHandler<WeChatMpMessage>() {
+        resolver.addWeChatHandler(new WeChatMpMessageHandler<WeChatMpXmlMessage>() {
             @Override
-            public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpMessage message, MessageResolverContext context) {
+            public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpXmlMessage message, MessageResolverContext context) {
                 log.info("异步处理1, 有返回值: message: {}, context: {}", message, context);
-                return new WeChatMpEchoXmlMessage();
+                return new WeChatMpEchoXmlMessage(message.getToUser(), message.getFromUser(), message.getCreateTime(), message.getMsgId());
             }
 
             @Override
-            public Class<WeChatMpMessage> supportType() {
-                return WeChatMpMessage.class;
+            public Class<WeChatMpXmlMessage> supportType() {
+                return WeChatMpXmlMessage.class;
             }
 
             @Override
@@ -180,16 +184,16 @@ public class WeChatMpMessageResolverTest {
      */
     private void addEventResolvers() {
         // 同步消息
-        resolver.addWeChatHandler(new WeChatMpMessageHandler<TextMessage>() {
+        resolver.addWeChatHandler(new WeChatMpMessageHandler<MenuClickEvent>() {
             @Override
-            public WeChatMpEchoMessage handle(WeChatMpService service, TextMessage message, MessageResolverContext context) {
-                log.info("同步处理1, 有返回值: message: {}, context: {}", message, context);
-                return new WeChatMpEchoXmlMessage();
+            public WeChatMpEchoMessage handle(WeChatMpService service, MenuClickEvent event, MessageResolverContext context) {
+                log.info("同步处理1, 有返回值: message: {}, context: {}", event, context);
+                return new TextEchoMessage(event.getToUser(), event.getFromUser(), event.getCreateTime(), event.getMsgId(), event.getRaw());
             }
 
             @Override
-            public Class<TextMessage> supportType() {
-                return TextMessage.class;
+            public Class<MenuClickEvent> supportType() {
+                return MenuClickEvent.class;
             }
         });
         // 同步消息2
