@@ -34,4 +34,11 @@ public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeCha
     default void execute(WeChatMpService service, Event weChatMessage, MessageResolverContext context) {
         WeChatEventHandler.super.execute(service, weChatMessage, context);
     }
+
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default Class<? extends Event> supportType(){
+        return (Class<? extends Event>) WeChatMpEvent.class;
+    }
 }

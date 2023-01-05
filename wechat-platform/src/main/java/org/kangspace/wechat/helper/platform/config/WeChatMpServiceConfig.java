@@ -8,8 +8,14 @@ import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 微信公众号配置
@@ -20,26 +26,73 @@ import org.springframework.context.annotation.Configuration;
 @Slf4j
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "wechat.mp")
+@ConfigurationProperties(prefix = "wechat.config")
 public class WeChatMpServiceConfig implements InitializingBean {
-    private String appId;
-    private String appSecret;
-    private String token;
+    /**
+     * 应用和WeChatMpService的map <br>
+     * 格式: key: rawId, value: {@link WeChatMpService}
+     */
+    public final static ConcurrentHashMap<String,WeChatMpService> APP_MP_SERVICE_MAP = new ConcurrentHashMap<>(2);
+    /**
+     * 应用和WeChatMpMessageResolver的map
+     * 格式: key: rawId, value: {@link WeChatMpMessageResolver}
+     */
+    public final static ConcurrentHashMap<String, WeChatMpMessageResolver> APP_MP_MESSAGE_RESOLVER_MAP = new ConcurrentHashMap<>(2);
+    /**
+     * 公众号配置列表
+     */
+    private List<MpServiceConfig> mps = new ArrayList<>(0);
 
-    @Bean
-    public WeChatMpService weChatMpService() {
-        WeChatMpConfig config = new WeChatMpConfig(appId, appSecret);
-        config.setToken(token);
-        return new DefaultWeChatMpService(config);
+    /**
+     * 配置信息
+     */
+    @Data
+    public static class MpServiceConfig {
+        @Nonnull
+        private String appId;
+        @Nonnull
+        private String appSecret;
+        private String encodingAESKey;
+        private String token;
+        @Nonnull
+        private String rawId;
     }
 
-    @Bean
-    public WeChatMpMessageResolver weChatMpMessageResolver() {
-        return new WeChatMpMessageResolver(weChatMpService());
+    /**
+     * 配置初始化
+     */
+    public void initConfig() {
+        this.mps.forEach(config ->{
+            String rawId = config.getRawId();
+            WeChatMpConfig mpConfig = new WeChatMpConfig(config.getAppId(), config.getAppSecret());
+            mpConfig.setToken(config.getToken());
+            mpConfig.setEncodingAESKey(config.getEncodingAESKey());
+            WeChatMpService mpService = new DefaultWeChatMpService(mpConfig);
+            WeChatMpMessageResolver mpMessageResolver = new WeChatMpMessageResolver(mpService);
+            APP_MP_SERVICE_MAP.put(rawId, mpService);
+            APP_MP_MESSAGE_RESOLVER_MAP.put(rawId, mpMessageResolver);
+        });
     }
 
     @Override
     public void afterPropertiesSet() {
         log.info("微信公众号配置加载完成: this: {}", this);
+    }
+
+    /**
+     * 通过RawId获取WeChatMpMessageResolver
+     * @param rawId rawId
+     * @return {@link WeChatMpMessageResolver}
+     */
+    public WeChatMpMessageResolver getMessageResolver(String rawId) {
+        return APP_MP_MESSAGE_RESOLVER_MAP.get(rawId);
+    }
+
+    /**
+     * 获取所有消息解析器
+     * @return {@link Collection}&lt;{@link WeChatMpMessageResolver}&gt;
+     */
+    public Collection<WeChatMpMessageResolver> getMessageResolvers() {
+        return APP_MP_MESSAGE_RESOLVER_MAP.values();
     }
 }

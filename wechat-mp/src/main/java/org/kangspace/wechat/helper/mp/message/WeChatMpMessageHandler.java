@@ -31,4 +31,10 @@ public interface WeChatMpMessageHandler<Message extends WeChatMpMessage> extends
     default void execute(WeChatMpService service, Message weChatMessage, MessageResolverContext context) {
         WeChatMessageHandler.super.execute(service, weChatMessage, context);
     }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    default Class<? extends Message> supportType(){
+        return (Class<? extends Message>) WeChatMpMessage.class;
+    }
 }

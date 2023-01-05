@@ -42,7 +42,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      *
      * @param messageHandler {@link Handler}
      */
-    WeChatMessageResolver addWeChatHandler(Handler messageHandler);
+    WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandler(Handler messageHandler);
 
     /**
      * 获取WeChatService
@@ -133,6 +133,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * @param message          消息
      * @return 处理消息
      */
+    @SuppressWarnings("unchecked")
     default String resolveEcho(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
         EchoMessage echoMessage = this.resolve(messageFormat, messageSignature, message);
         String echo = "";
@@ -144,7 +145,6 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
         }
         return echo;
     }
-
 
     /**
      * 处理消息(返回字符串)

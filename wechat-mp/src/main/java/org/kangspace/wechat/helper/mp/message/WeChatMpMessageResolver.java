@@ -162,4 +162,27 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         super.addWeChatHandler(messageHandler);
         return this;
     }
+
+    /**
+     * 提取消息中的ToUserName
+     * @param messageFormat 消息格式{@link MessageFormat}
+     * @param message 消息内容
+     * @return toUserName
+     */
+    public static String extractToUserName(MessageFormat messageFormat, String message) {
+        if (MessageFormat.XML.equals(messageFormat)) {
+            WeChatMpXmlMessage xmlMessage = XmlParser.parse(message, WeChatMpXmlMessage.class);
+            return xmlMessage.getToUser();
+        }
+        return null;
+    }
+
+    /**
+     * 提取消息中的ToUserName
+     * @param message 消息内容
+     * @return toUserName
+     */
+    public static String extractToUserName(String message) {
+        return extractToUserName(MessageFormat.XML, message);
+    }
 }

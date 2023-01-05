@@ -18,4 +18,9 @@ public interface WeChatMpEvent extends WeChatMpMessage, WeChatEvent {
      */
     String getEventKey();
 
+    /**
+     * 获取事件
+     * @return event
+     */
+    String getEvent();
 }

@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.mp.config;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.kangspace.wechat.helper.core.config.AbstractWeChatConfig;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
@@ -16,6 +17,7 @@ import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
  * @since 2022/11/24
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class WeChatMpConfig extends AbstractWeChatConfig {
     /**
@@ -35,6 +37,11 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
      * 公众号第三方平台的 EncodingAESKey
      */
     private String encodingAESKey;
+
+    /**
+     * 原始ID
+     */
+    private String rawId;
 
 
     public WeChatMpConfig(String appId, String appSecret) {

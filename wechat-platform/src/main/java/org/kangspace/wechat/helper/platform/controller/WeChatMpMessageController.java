@@ -4,9 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.message.GetMessageSignature;
 import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
+import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
+import org.kangspace.wechat.helper.platform.config.WeChatMpServiceConfig;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * 微信公众号消息Controller
@@ -19,7 +22,25 @@ import javax.annotation.Resource;
 @RequestMapping("message")
 public class WeChatMpMessageController {
     @Resource
-    private WeChatMpMessageResolver weChatMpMessageResolver;
+    private WeChatMpServiceConfig weChatMpServiceConfig;
+
+    /**
+     * 签名检查,循环配置检查.
+     * @param messageSignature messageSignature
+     */
+    private boolean checkSignature(GetMessageSignature messageSignature) {
+        AtomicBoolean isChecked = new AtomicBoolean(false);
+        weChatMpServiceConfig.getMessageResolvers().forEach(t->{
+            if(!isChecked.get()) {
+                try {
+                    t.checkSignature(messageSignature);
+                    isChecked.set(true);
+                } catch (Exception ignored) {
+                }
+            }
+        });
+        return isChecked.get();
+    }
 
     /**
      * 响应微信发送的Token验证
@@ -28,10 +49,13 @@ public class WeChatMpMessageController {
      * @return string
      */
     @GetMapping("")
-    public String checkSignature(GetMessageSignature messageSignature, @RequestParam("echostr") String echostr) {
-        messageSignature.setEchoStr(echostr);
-        weChatMpMessageResolver.checkSignatureThrows(messageSignature);
-        return echostr;
+    public String checkSignature(GetMessageSignature messageSignature, @RequestParam("echostr") String echoStr) {
+        messageSignature.setEchoStr(echoStr);
+        if (checkSignature(messageSignature)) {
+            return echoStr;
+        }
+        log.error("签名验证失败(checkSignature): messageSignature: {}, echoStr: {}", messageSignature, echoStr);
+        return null;
     }
 
     /**
@@ -46,6 +70,10 @@ public class WeChatMpMessageController {
                                 @RequestBody String body) {
         MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce, encryptType, msgSignature);
         log.info("微信消息: messageSignature:{} \n{}\n", messageSignature, body);
-        return "";
+        String rawId = WeChatMpMessageResolver.extractToUserName(body);
+        WeChatMpMessageResolver resolver = weChatMpServiceConfig.getMessageResolver(rawId);
+        String echoMessage = resolver.resolveEcho(messageSignature, body);
+        log.info("响应消息: {}", echoMessage);
+        return echoMessage!=null? echoMessage : WeChatMpEchoMessage.echoSuccess();
     }
 }
