@@ -6,6 +6,7 @@ import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.platform.config.WeChatMpServiceConfig;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -26,12 +27,13 @@ public class WeChatMpMessageController {
 
     /**
      * 签名检查,循环配置检查.
+     *
      * @param messageSignature messageSignature
      */
     private boolean checkSignature(GetMessageSignature messageSignature) {
         AtomicBoolean isChecked = new AtomicBoolean(false);
-        weChatMpServiceConfig.getMessageResolvers().forEach(t->{
-            if(!isChecked.get()) {
+        weChatMpServiceConfig.getMessageResolvers().forEach(t -> {
+            if (!isChecked.get()) {
                 try {
                     t.checkSignature(messageSignature);
                     isChecked.set(true);
@@ -66,7 +68,8 @@ public class WeChatMpMessageController {
      */
     @PostMapping("")
     public String messageHandle(@RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce,
-                                @RequestParam("msg_signature") String msgSignature, @RequestParam("encrypt_type") String encryptType,
+                                @RequestParam(value = "msg_signature", required = false) String msgSignature,
+                                @RequestParam(value = "encrypt_type", required = false) String encryptType,
                                 @RequestBody String body) {
         MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce, encryptType, msgSignature);
         log.info("微信消息: messageSignature:{} \n{}\n", messageSignature, body);
@@ -74,6 +77,6 @@ public class WeChatMpMessageController {
         WeChatMpMessageResolver resolver = weChatMpServiceConfig.getMessageResolver(rawId);
         String echoMessage = resolver.resolveEcho(messageSignature, body);
         log.info("响应消息: {}", echoMessage);
-        return echoMessage!=null? echoMessage : WeChatMpEchoMessage.echoSuccess();
+        return StringUtils.hasText(echoMessage) ? echoMessage : WeChatMpEchoMessage.echoSuccess();
     }
 }

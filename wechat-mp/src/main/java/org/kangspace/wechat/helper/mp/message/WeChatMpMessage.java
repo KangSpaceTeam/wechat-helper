@@ -37,4 +37,10 @@ public interface WeChatMpMessage extends WeChatMessage {
      * @return 消息创建时间 （整型）
      */
     Long getCreateTime();
+
+    /**
+     * 获取消息ID
+     * @return 消息ID
+     */
+    Long getMsgId();
 }

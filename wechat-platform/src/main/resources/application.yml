@@ -2,3 +2,17 @@ server:
   port: 8080
   servlet:
     context-path: /wechat-platform
+
+wechat:
+  config:
+    mps:
+      - rawId:
+        appId:
+        appSecret:
+        encodingAESKey:
+        token:
+      - rawId:
+        appId:
+        appSecret:
+        encodingAESKey:
+        token:

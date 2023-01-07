@@ -40,6 +40,16 @@
 <MsgId>23942570635195977</MsgId>
 </xml>
 ```
+> POST wechat-platform/message?signature=df7245e129709dfc38a003f029cf2749ff3c0da2&timestamp=1672982088&nonce=1045065514&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
+```
+<xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
+<FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
+<CreateTime>1672982087</CreateTime>
+<MsgType><![CDATA[text]]></MsgType>
+<Content><![CDATA[1]]></Content>
+<MsgId>23951344571027678</MsgId>
+</xml>
+```
 
 混合:
 > POST /wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361

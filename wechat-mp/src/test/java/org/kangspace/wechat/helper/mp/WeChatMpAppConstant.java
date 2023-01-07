@@ -12,21 +12,21 @@ public class WeChatMpAppConstant {
     /**
      * 全局AppId
      */
-    public static String GLOBAL_APPID = "wx5c45e084735f3ba0";
+    public static String GLOBAL_APPID = "";
     /**
      * 全局AppSecret
      */
-    public static String GLOBAL_APPSECRET = "204845ea503a5a409e96ef36ced63cc4";
+    public static String GLOBAL_APPSECRET = "";
 
     /**
      * 全局验证TOKEN
      */
-    public static String GLOBAL_TOKEN = "LTS_TOKEN";
+    public static String GLOBAL_TOKEN = "";
 
     /**
      * 全局encodingAESKey
      */
-    public static String GLOBAL_ENCODING_AES_KEY = "4WJk9nllBCny1LrUwmmpF8jFLYTCO7Tw0jh3dYzJBzs";
+    public static String GLOBAL_ENCODING_AES_KEY = "";
 
     static {
         Objects.requireNonNull(GLOBAL_APPID, "请指定AppId");

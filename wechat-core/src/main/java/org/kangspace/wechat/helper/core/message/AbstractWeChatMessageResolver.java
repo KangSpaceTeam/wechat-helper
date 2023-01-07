@@ -4,6 +4,7 @@ import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,8 +42,14 @@ public abstract class AbstractWeChatMessageResolver<Service extends WeChatServic
     }
 
     @Override
-    public AbstractWeChatMessageResolver addWeChatHandler(Handler messageHandler) {
+    public WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandler(Handler messageHandler) {
         this.weChatMessageHandlers.add(messageHandler);
+        return this;
+    }
+
+    @Override
+    public WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandlers(Collection<? extends Handler> messageHandlers) {
+        this.weChatMessageHandlers.addAll(messageHandlers);
         return this;
     }
 

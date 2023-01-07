@@ -6,6 +6,7 @@ import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -41,8 +42,16 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * 添加事件处理器
      *
      * @param messageHandler {@link Handler}
+     * @return {@link WeChatMessageResolver}
      */
     WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandler(Handler messageHandler);
+
+    /**
+     * 批量添加事件处理器
+     * @param messageHandlers {@link Handler}列表
+     * @return {@link WeChatMessageResolver}
+     */
+    WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandlers(Collection<? extends Handler> messageHandlers);
 
     /**
      * 获取WeChatService

@@ -1,19 +1,24 @@
 package org.kangspace.wechat.helper.platform.config;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.mp.DefaultWeChatMpService;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
+import org.kangspace.wechat.helper.mp.message.WeChatMpMessage;
+import org.kangspace.wechat.helper.mp.message.WeChatMpMessageHandler;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -43,10 +48,15 @@ public class WeChatMpServiceConfig implements InitializingBean {
      */
     private List<MpServiceConfig> mps = new ArrayList<>(0);
 
+    @Resource
+    private List<WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers;
+
     /**
      * 配置信息
      */
     @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class MpServiceConfig {
         @Nonnull
         private String appId;
@@ -69,6 +79,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
             mpConfig.setEncodingAESKey(config.getEncodingAESKey());
             WeChatMpService mpService = new DefaultWeChatMpService(mpConfig);
             WeChatMpMessageResolver mpMessageResolver = new WeChatMpMessageResolver(mpService);
+            mpMessageResolver.addWeChatHandlers(messageHandlers);
             APP_MP_SERVICE_MAP.put(rawId, mpService);
             APP_MP_MESSAGE_RESOLVER_MAP.put(rawId, mpMessageResolver);
         });
@@ -76,6 +87,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() {
+        initConfig();
         log.info("微信公众号配置加载完成: this: {}", this);
     }
 

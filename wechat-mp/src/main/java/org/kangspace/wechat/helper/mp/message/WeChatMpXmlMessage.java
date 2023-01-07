@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.mp.message;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
@@ -61,6 +62,7 @@ public class WeChatMpXmlMessage implements WeChatMpMessage, WeChatXmlMessage {
     /**
      * 原始消息
      */
+    @JsonIgnore
     private String raw;
 
     public WeChatMpXmlMessage() {

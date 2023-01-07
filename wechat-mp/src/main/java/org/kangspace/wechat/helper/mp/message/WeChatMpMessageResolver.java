@@ -12,6 +12,7 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEncryptEchoXmlMessage;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -150,8 +151,6 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         return resultMap.size() > 0 ? resultMap.values().stream().findFirst().orElse(null) : null;
     }
 
-    // TODO xx
-
     public MessageCipher getMessageCipher() {
         return messageCipher;
     }
@@ -160,6 +159,12 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     @Override
     public WeChatMpMessageResolver addWeChatHandler(WeChatMpMessageHandler messageHandler) {
         super.addWeChatHandler(messageHandler);
+        return this;
+    }
+
+    @Override
+    public WeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> addWeChatHandlers(Collection<? extends WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers) {
+        super.addWeChatHandlers(messageHandlers);
         return this;
     }
 
