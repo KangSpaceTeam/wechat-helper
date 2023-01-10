@@ -25,8 +25,9 @@ public class EventResolver implements WeChatMpEventHandler<WeChatMpXmlEvent> {
         log.info("消息解析器: message: {}, context: {}", event, context);
         TextEchoMessage xmlMessage = new TextEchoMessage();
         BeanUtils.copyProperties(event, xmlMessage);
+        xmlMessage.setEvent(null);
         String content = "event: " + event.getEvent() + ", eventKey: " + event.getEventKey();
-        xmlMessage.setContent(event.getEventKey());
+        xmlMessage.setContent(content);
         log.info("消息解析器: 响应消息: {}", xmlMessage);
         return xmlMessage;
     }

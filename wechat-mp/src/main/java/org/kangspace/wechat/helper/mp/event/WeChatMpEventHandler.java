@@ -2,10 +2,8 @@ package org.kangspace.wechat.helper.mp.event;
 
 import org.kangspace.wechat.helper.core.event.WeChatEventHandler;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
-import org.kangspace.wechat.helper.core.message.WeChatMessage;
-import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
-import org.kangspace.wechat.helper.mp.message.WeChatMpMessage;
+import org.kangspace.wechat.helper.mp.message.WeChatMpMessageHandler;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 
 /**
@@ -14,7 +12,7 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeChatEventHandler<WeChatMpService, Event, WeChatMpEchoMessage> {
+public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeChatEventHandler<WeChatMpService, Event, WeChatMpEchoMessage>, WeChatMpMessageHandler<Event> {
 
     /**
      * 处理事件消息
@@ -32,9 +30,8 @@ public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeCha
 
     @Override
     default void execute(WeChatMpService service, Event weChatMessage, MessageResolverContext context) {
-        WeChatEventHandler.super.execute(service, weChatMessage, context);
+        WeChatMpMessageHandler.super.execute(service, weChatMessage, context);
     }
-
 
     @SuppressWarnings("unchecked")
     @Override

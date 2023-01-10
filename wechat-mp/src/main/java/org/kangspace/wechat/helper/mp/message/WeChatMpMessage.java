@@ -43,4 +43,12 @@ public interface WeChatMpMessage extends WeChatMessage {
      * @return 消息ID
      */
     Long getMsgId();
+
+    /**
+     * 是否是事件类型消息
+     * @return boolean
+     */
+    default boolean isEvent(){
+        return MessageConstant.MessageType.EVENT.equals(this.getMsgType());
+    }
 }

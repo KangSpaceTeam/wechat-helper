@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.mp.DefaultWeChatMpService;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
+import org.kangspace.wechat.helper.mp.event.WeChatMpEvent;
+import org.kangspace.wechat.helper.mp.event.WeChatMpEventHandler;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessage;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageHandler;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
@@ -50,6 +51,10 @@ public class WeChatMpServiceConfig implements InitializingBean {
 
     @Resource
     private List<WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers;
+    @Resource
+    private List<WeChatMpEventHandler> eventHandlers;
+    @Resource
+    private List<WeChatMpMessageHandler> allMessageHandlers;
 
     /**
      * 配置信息
@@ -80,6 +85,9 @@ public class WeChatMpServiceConfig implements InitializingBean {
             WeChatMpService mpService = new DefaultWeChatMpService(mpConfig);
             WeChatMpMessageResolver mpMessageResolver = new WeChatMpMessageResolver(mpService);
             mpMessageResolver.addWeChatHandlers(messageHandlers);
+            mpMessageResolver.addWeChatHandlers(eventHandlers);
+            // 或加载所有
+            // mpMessageResolver.addWeChatHandlers(allMessageHandlers);
             APP_MP_SERVICE_MAP.put(rawId, mpService);
             APP_MP_MESSAGE_RESOLVER_MAP.put(rawId, mpMessageResolver);
         });

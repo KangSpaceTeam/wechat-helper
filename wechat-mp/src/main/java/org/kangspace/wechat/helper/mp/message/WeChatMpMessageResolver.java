@@ -8,6 +8,7 @@ import org.kangspace.wechat.helper.core.message.*;
 import org.kangspace.wechat.helper.core.util.DigestUtil;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
+import org.kangspace.wechat.helper.mp.event.WeChatMpEventHandler;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEncryptEchoXmlMessage;
 
@@ -16,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 /**
  * 微信公众号事件处理器
@@ -155,6 +157,16 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         return messageCipher;
     }
 
+
+    @Override
+    public List<WeChatMpMessageHandler<WeChatMpMessage>> getWeChatHandlers(WeChatMpMessage message) {
+        List<WeChatMpMessageHandler<WeChatMpMessage>> list = super.getWeChatHandlers(message);
+        if (message.isEvent()) {
+            return list.stream().filter(t -> t instanceof WeChatMpEventHandler).collect(Collectors.toList());
+        }
+        return list;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public WeChatMpMessageResolver addWeChatHandler(WeChatMpMessageHandler messageHandler) {
@@ -163,15 +175,16 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
     }
 
     @Override
-    public WeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> addWeChatHandlers(Collection<? extends WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers) {
+    public WeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> addWeChatHandlers(Collection messageHandlers) {
         super.addWeChatHandlers(messageHandlers);
         return this;
     }
 
     /**
      * 提取消息中的ToUserName
+     *
      * @param messageFormat 消息格式{@link MessageFormat}
-     * @param message 消息内容
+     * @param message       消息内容
      * @return toUserName
      */
     public static String extractToUserName(MessageFormat messageFormat, String message) {
@@ -184,6 +197,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
 
     /**
      * 提取消息中的ToUserName
+     *
      * @param message 消息内容
      * @return toUserName
      */

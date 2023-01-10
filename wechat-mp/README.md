@@ -67,6 +67,24 @@
 
 ```
 
+1. 位置消息
+
+> signature=dc8716e9b72b8f26d53cafd439dcbce1bf29651a, timestamp=1673229218, nonce=905465750
+
+```
+<xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
+<FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
+<CreateTime>1673229217</CreateTime>
+<MsgType><![CDATA[location]]></MsgType>
+<Location_X>39.956860</Location_X>
+<Location_Y>116.329788</Location_Y>
+<Scale>13</Scale>
+<Label><![CDATA[海淀区学院南路78号]]></Label>
+<MsgId>23954882564720902</MsgId>
+</xml>
+```
+
+
 ### 事件
 
 > POST /wechat-platform/message?signature=2fa6d6663dc078f7580bf82ba68465e63c5342de&timestamp=1672033304&nonce=966813369&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
@@ -82,6 +100,19 @@
     <EventKey><![CDATA[API_MENU_P_2]]></EventKey>
 </xml>
 
+```
+
+1. CLICK事件
+> (signature=fd6a576defb6f521ecc6ee593ea6dbdb31aa04ec, timestamp=1673229375, nonce=493853253), encryptType=null, msgSignature=null)
+
+```xml
+<xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
+<FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
+<CreateTime>1673229375</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[CLICK]]></Event>
+<EventKey><![CDATA[API_MENU_P_2]]></EventKey>
+</xml>
 ```
 
 ## 6. TODO
