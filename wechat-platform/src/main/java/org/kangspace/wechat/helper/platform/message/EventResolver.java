@@ -3,7 +3,6 @@ package org.kangspace.wechat.helper.platform.message;
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
-import org.kangspace.wechat.helper.mp.event.WeChatMpEvent;
 import org.kangspace.wechat.helper.mp.event.WeChatMpEventHandler;
 import org.kangspace.wechat.helper.mp.event.WeChatMpXmlEvent;
 import org.kangspace.wechat.helper.mp.message.response.TextEchoMessage;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 事件消息解析器
+ *
  * @author kango2gler@gmail.com
  * @since 2023/1/5
  */
@@ -28,6 +28,10 @@ public class EventResolver implements WeChatMpEventHandler<WeChatMpXmlEvent> {
         xmlMessage.setEvent(null);
         String content = "event: " + event.getEvent() + ", eventKey: " + event.getEventKey();
         xmlMessage.setContent(content);
+        String toUser = event.getToUser();
+        String fromUser = event.getFromUser();
+        xmlMessage.setFromUser(toUser);
+        xmlMessage.setToUser(fromUser);
         log.info("消息解析器: 响应消息: {}", xmlMessage);
         return xmlMessage;
     }

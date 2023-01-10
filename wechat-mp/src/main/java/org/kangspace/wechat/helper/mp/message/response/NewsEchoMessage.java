@@ -3,7 +3,9 @@ package org.kangspace.wechat.helper.mp.message.response;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 
@@ -52,7 +54,9 @@ public class NewsEchoMessage extends WeChatMpEchoXmlMessage {
      * 图文消息信息，注意，如果图文数超过限制，则将只发限制内的条数
      */
     @Data
-    private static class Article {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Article {
         /**
          * 图文消息标题
          */

@@ -2,7 +2,9 @@ package org.kangspace.wechat.helper.mp.message.response;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 
@@ -41,6 +43,8 @@ public class VoiceEchoMessage extends WeChatMpEchoXmlMessage {
      * 语音消息
      */
     @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Voice {
         /**
          * 通过素材管理中的接口上传多媒体文件，得到的id。

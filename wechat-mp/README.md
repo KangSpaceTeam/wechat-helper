@@ -26,21 +26,26 @@
 
 ## 5. 消息和事件
 
-### 文本信息
+### 消息
 
-明文:
+1. 文本消息 明文:
+
 > POST /wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
 
 ```xml
-<xml><ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
-<FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>
-<CreateTime>1672369434</CreateTime>
-<MsgType><![CDATA[text]]></MsgType>
-<Content><![CDATA[1]]></Content>
-<MsgId>23942570635195977</MsgId>
+
+<xml>
+    <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
+    <FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>
+    <CreateTime>1672369434</CreateTime>
+    <MsgType><![CDATA[text]]></MsgType>
+    <Content><![CDATA[1]]></Content>
+    <MsgId>23942570635195977</MsgId>
 </xml>
 ```
+
 > POST wechat-platform/message?signature=df7245e129709dfc38a003f029cf2749ff3c0da2&timestamp=1672982088&nonce=1045065514&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
+
 ```
 <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
 <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -55,6 +60,7 @@
 > POST /wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361
 
 ```xml
+
 <xml>
     <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
     <FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>
@@ -62,12 +68,36 @@
     <MsgType><![CDATA[text]]></MsgType>
     <Content><![CDATA[1]]></Content>
     <MsgId>23942564675277696</MsgId>
-    <Encrypt><![CDATA[lfg8C3BexN3OZky0BeFDydz2YwQZxvRkJCHTjnhGvLnaSl/Whb4mLWehqGME/klOCbMyisJQ6atP9ujmZCV5Suu/tdKg9P2WHNkWVxxFpvWMHA/bG7nIF+4TnlLPIaxdpisZHZ2cxbrceIkWQCJaOJ8LWTU4tyXsuuugdLA3juYrMNtJZgN6iIZExuLY4D3vooxVu4234ve5XK3foK0zAGTDBdUvJXBC2FX4eOcal/0fDBw9kjzmP+5brEimi6MMnoqMMPHBD1izvm97ovov5Mg0qqkKfVD1wf/JeQo38O8xTy3S+Dg+Cs8l7fyMu1/g6qucsQ3Iveo7rZa4qZpdMh9EA5V9/bLLJHoxj00Fq0dqrxHC9+SW+2f5oXukjqyxCcdVVEZgk7vJVJfh4SyVO9RE1cudgQVv0Ay0iCmuUcE=]]></Encrypt>
+    <Encrypt>
+        <![CDATA[lfg8C3BexN3OZky0BeFDydz2YwQZxvRkJCHTjnhGvLnaSl/Whb4mLWehqGME/klOCbMyisJQ6atP9ujmZCV5Suu/tdKg9P2WHNkWVxxFpvWMHA/bG7nIF+4TnlLPIaxdpisZHZ2cxbrceIkWQCJaOJ8LWTU4tyXsuuugdLA3juYrMNtJZgN6iIZExuLY4D3vooxVu4234ve5XK3foK0zAGTDBdUvJXBC2FX4eOcal/0fDBw9kjzmP+5brEimi6MMnoqMMPHBD1izvm97ovov5Mg0qqkKfVD1wf/JeQo38O8xTy3S+Dg+Cs8l7fyMu1/g6qucsQ3Iveo7rZa4qZpdMh9EA5V9/bLLJHoxj00Fq0dqrxHC9+SW+2f5oXukjqyxCcdVVEZgk7vJVJfh4SyVO9RE1cudgQVv0Ay0iCmuUcE=]]></Encrypt>
 </xml>
 
 ```
 
-1. 位置消息
+2. 图片消息
+
+> signature=695a62925a7a6fcecbf96c2e593cffd2cf11fe57, timestamp=1673317844, nonce=61743237
+
+```xml
+
+<xml>
+    <ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
+    <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
+    <CreateTime>1673317843</CreateTime>
+    <MsgType><![CDATA[image]]></MsgType>
+    <PicUrl>
+        <![CDATA[http://mmbiz.qpic.cn/mmbiz_jpg/ayVWjvWWAxrU8TZticcnGokgvCopm4MtVgeuHiac8qh15dG8xEpqBK1MuSYcebicMUnkdrMo6libOYZF4JuXyP0vYw/0]]></PicUrl>
+    <MsgId>23956154084562088</MsgId>
+    <MediaId><![CDATA[L2Julf9yd3MeCc-JB0EuDIcMs6DHGt04KQcwY35565ME-wL0xS61jLMw9blNu7gX]]></MediaId>
+</xml>
+```
+3. 语音消息
+   
+4. 视频消息
+   
+5. 小视频消息
+
+6. 位置消息
 
 > signature=dc8716e9b72b8f26d53cafd439dcbce1bf29651a, timestamp=1673229218, nonce=905465750
 
@@ -84,6 +114,10 @@
 </xml>
 ```
 
+7. 链接消息
+> 
+```
+```
 
 ### 事件
 
@@ -99,19 +133,21 @@
     <Event><![CDATA[CLICK]]></Event>
     <EventKey><![CDATA[API_MENU_P_2]]></EventKey>
 </xml>
-
 ```
 
 1. CLICK事件
+
 > (signature=fd6a576defb6f521ecc6ee593ea6dbdb31aa04ec, timestamp=1673229375, nonce=493853253), encryptType=null, msgSignature=null)
 
 ```xml
-<xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
-<FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
-<CreateTime>1673229375</CreateTime>
-<MsgType><![CDATA[event]]></MsgType>
-<Event><![CDATA[CLICK]]></Event>
-<EventKey><![CDATA[API_MENU_P_2]]></EventKey>
+
+<xml>
+    <ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
+    <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
+    <CreateTime>1673229375</CreateTime>
+    <MsgType><![CDATA[event]]></MsgType>
+    <Event><![CDATA[CLICK]]></Event>
+    <EventKey><![CDATA[API_MENU_P_2]]></EventKey>
 </xml>
 ```
 
