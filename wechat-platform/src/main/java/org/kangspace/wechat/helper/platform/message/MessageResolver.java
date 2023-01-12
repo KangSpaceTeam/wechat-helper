@@ -62,7 +62,6 @@ public class MessageResolver implements WeChatMpMessageHandler<WeChatMpMessage> 
             ((NewsEchoMessage) xmlMessage).setArticles(articles);
         }
         // 缺少音乐响应消息
-
         else {
             // 返回文本消息
             String content = "msgId: " + message.getMsgId() + ", msgType: {}" + message.getMsgType();
