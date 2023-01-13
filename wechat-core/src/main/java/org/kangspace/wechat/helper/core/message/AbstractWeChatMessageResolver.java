@@ -14,13 +14,16 @@ import java.util.stream.Collectors;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public abstract class AbstractWeChatMessageResolver<Service extends WeChatService, Handler extends WeChatMessageHandler<Service, Message, EchoMessage>, Message extends WeChatMessage, EchoMessage extends WeChatEchoMessage>
+public abstract class AbstractWeChatMessageResolver<Service extends WeChatService,
+        Handler extends WeChatMessageHandler<Service, Message, EchoMessage>,
+        Message extends WeChatMessage,
+        EchoMessage extends WeChatEchoMessage>
         implements WeChatMessageResolver<Service, Handler, Message, EchoMessage> {
     private final Service wechatService;
     /**
      * 事件处理器
      */
-    private final List<Handler> weChatMessageHandlers;
+    private final List<WeChatMessageHandler> weChatMessageHandlers;
 
     public AbstractWeChatMessageResolver(Service wechatService) {
         this(wechatService, new ArrayList<>());
@@ -28,16 +31,17 @@ public abstract class AbstractWeChatMessageResolver<Service extends WeChatServic
 
     public AbstractWeChatMessageResolver(Service wechatService, List<Handler> weChatMessageHandlers) {
         this.wechatService = wechatService;
-        this.weChatMessageHandlers = weChatMessageHandlers;
+        this.weChatMessageHandlers = new ArrayList<>();
+        this.weChatMessageHandlers.addAll(weChatMessageHandlers);
     }
 
     @Override
-    public List<Handler> getWeChatHandlers() {
+    public List<WeChatMessageHandler> getWeChatHandlers() {
         return this.weChatMessageHandlers;
     }
 
     @Override
-    public List<Handler> getWeChatHandlers(Message message) {
+    public List<WeChatMessageHandler> getWeChatHandlers(Message message) {
         return getWeChatHandlers().stream().filter(t -> t.supportType().isAssignableFrom(message.getClass())).sorted().collect(Collectors.toList());
     }
 

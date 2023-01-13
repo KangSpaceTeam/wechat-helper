@@ -21,14 +21,17 @@ import java.util.List;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public interface WeChatMessageResolver<Service extends WeChatService, Handler extends WeChatMessageHandler<Service, Message, EchoMessage>, Message extends WeChatMessage, EchoMessage extends WeChatEchoMessage> {
+public interface WeChatMessageResolver<Service extends WeChatService,
+        Handler extends WeChatMessageHandler<Service, Message, EchoMessage>,
+        Message extends WeChatMessage,
+        EchoMessage extends WeChatEchoMessage> {
 
     /**
      * 获取所有消息的处理器
      *
      * @return {@link List}&lt;{@link Handler}&gt;
      */
-    List<Handler> getWeChatHandlers();
+    List<WeChatMessageHandler> getWeChatHandlers();
 
     /**
      * 根据{@link Message}获取处理器列表
@@ -36,7 +39,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * @param Message {@link Message}
      * @return {@link List}&lt;{@link Handler}&gt;
      */
-    List<Handler> getWeChatHandlers(Message Message);
+    List<WeChatMessageHandler> getWeChatHandlers(Message Message);
 
     /**
      * 添加事件处理器
@@ -48,6 +51,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
 
     /**
      * 批量添加事件处理器
+     *
      * @param messageHandlers {@link Handler}列表
      * @return {@link WeChatMessageResolver}
      */
@@ -85,7 +89,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * @param echoMessage 原响应消息
      * @return {@link T}
      */
-    default <T extends WeChatEncryptEchoMessage, S extends EchoMessage> T encryptEcho(S echoMessage) {
+    default <T extends WeChatEncryptEchoMessage> T encryptEcho(EchoMessage echoMessage) {
         throw new UnsupportedOperationException("need implements encryptEcho method!");
     }
 
@@ -118,7 +122,7 @@ public interface WeChatMessageResolver<Service extends WeChatService, Handler ex
      * @param message          消息
      * @return {@link EchoMessage}
      */
-    default EchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
+    default <EchoMessage extends WeChatEchoMessage> EchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
         this.solve(messageFormat, messageSignature, message);
         return null;
     }

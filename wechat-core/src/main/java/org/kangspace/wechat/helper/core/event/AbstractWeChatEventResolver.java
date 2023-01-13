@@ -13,7 +13,10 @@ import java.util.stream.Collectors;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public abstract class AbstractWeChatEventResolver<Service extends WeChatService, Handler extends WeChatEventHandler<Service, Event, EchoMessage>, Event extends WeChatEvent, EchoMessage extends WeChatEchoMessage> implements WeChatEventResolver<Service, Handler, Event, EchoMessage> {
+public abstract class AbstractWeChatEventResolver<Service extends WeChatService,
+        Handler extends WeChatEventHandler<Service, Event, EchoMessage>,
+        Event extends WeChatEvent, EchoMessage extends WeChatEchoMessage>
+        implements WeChatEventResolver<Service, Handler, Event, EchoMessage> {
     private final Service wechatService;
     /**
      * 事件处理器

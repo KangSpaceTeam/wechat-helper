@@ -1,7 +1,6 @@
 package org.kangspace.wechat.helper.mp.message;
 
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
-import org.kangspace.wechat.helper.core.message.WeChatMessage;
 import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
@@ -17,7 +16,7 @@ public interface WeChatMpMessageHandler<Message extends WeChatMpMessage> extends
      * 处理消息
      *
      * @param service {@link WeChatMpService}
-     * @param message {@link WeChatMessage}
+     * @param message {@link WeChatMpMessage}
      * @param context {@link MessageResolverContext} 消息处理上下文对象
      * @return {@link WeChatMpEchoMessage}
      */
@@ -27,14 +26,20 @@ public interface WeChatMpMessageHandler<Message extends WeChatMpMessage> extends
         return null;
     }
 
-    @Override
-    default void execute(WeChatMpService service, Message weChatMessage, MessageResolverContext context) {
-        WeChatMessageHandler.super.execute(service, weChatMessage, context);
+    /**
+     * 处理消息(无返回值)
+     *
+     * @param service {@link WeChatMpService}
+     * @param message {@link WeChatMpMessage}
+     * @param context {@link MessageResolverContext} 消息处理上下文对象
+     */
+    default void execute(WeChatMpService service, Message message, MessageResolverContext context) {
+        WeChatMessageHandler.super.handle(service, message, context);
     }
 
     @SuppressWarnings("unchecked")
     @Override
-    default Class<? extends Message> supportType(){
+    default Class<? extends Message> supportType() {
         return (Class<? extends Message>) WeChatMpMessage.class;
     }
 }
