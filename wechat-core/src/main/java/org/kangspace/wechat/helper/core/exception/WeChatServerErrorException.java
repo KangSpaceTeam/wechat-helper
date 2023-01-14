@@ -16,6 +16,6 @@ public class WeChatServerErrorException extends WeChatRequestException {
 
     @Override
     public String toString() {
-        return super.toString();
+        return "(WeChatServerErrorException) errorCode: " + super.getErrorCode() + ", errorMessage: " + super.getErrorMessage();
     }
 }

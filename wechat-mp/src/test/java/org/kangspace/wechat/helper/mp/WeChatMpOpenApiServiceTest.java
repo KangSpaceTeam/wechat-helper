@@ -46,7 +46,7 @@ public class WeChatMpOpenApiServiceTest {
         String accessToken = mpAccessToken;
         String cgiPath = "/cgi-bin/token";
         OpenApiQuotaGetResponse response = mpOpenApiService.quotaGet(accessToken, cgiPath);
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 
@@ -58,7 +58,7 @@ public class WeChatMpOpenApiServiceTest {
         log.info("查询 openAPI 调用quota: mpOpenApiService.clearQuota(accessToken, appId)");
         String accessToken = mpAccessToken;
         WeChatMpResponseEntity response = mpOpenApiService.clearQuota(accessToken, appId);
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 
@@ -69,9 +69,9 @@ public class WeChatMpOpenApiServiceTest {
     public void ridGetTest() {
         log.info("查询rid信息: mpOpenApiService.ridGet(accessToken, rid)");
         String accessToken = mpAccessToken;
-        String rid = "638b3bb7-2aad7a58-2054bfe8";
+        String rid = "63c24769-6dbc4593-0b1155b6";
         OpenApiRidGetResponse response = mpOpenApiService.ridGet(accessToken, rid);
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 }

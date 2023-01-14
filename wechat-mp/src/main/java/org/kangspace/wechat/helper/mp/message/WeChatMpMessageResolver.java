@@ -74,17 +74,22 @@ public class WeChatMpMessageResolver
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <EEM extends WeChatEncryptEchoMessage> EEM encryptEcho(WeChatMpEchoMessage echoMessage) {
         String echoMessageStr = XmlParser.toXmlString(echoMessage);
         return (EEM) messageCipher.encrypt(echoMessageStr, WeChatMpEncryptEchoXmlMessage.class);
     }
 
+    @SuppressWarnings("uncheck")
     @Override
-    public WeChatMpEchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
-        log.debug("微信公众号消息处理: 消息类型: {}, messageSignature: {}, 事件消息: {}", messageFormat, messageSignature, message);
+    public WeChatMpEchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message, MessageResolverContext context) {
+        log.debug("微信公众号消息处理: 消息类型: {}, messageSignature: {}, 事件消息: {}, 上下文: {}", messageFormat, messageSignature, message, context);
+        if (context == null) {
+            context = MessageResolverContext.newContext();
+        }
         if (messageFormat == MessageFormat.XML) {
-            return xmlMessageResolve(messageSignature, message);
+            return xmlMessageResolve(messageSignature, message, context);
         } else {
             throw new WeChatMessageResolverException("messageType :" + messageFormat + " not supported!");
         }
@@ -95,8 +100,9 @@ public class WeChatMpMessageResolver
      *
      * @param messageSignature 消息签名
      * @param rawMessage       消息
+     * @param context          {@link MessageResolverContext} 处理器上下文
      */
-    private WeChatMpEchoMessage xmlMessageResolve(MessageSignature messageSignature, String rawMessage) {
+    private WeChatMpEchoMessage xmlMessageResolve(MessageSignature messageSignature, String rawMessage, MessageResolverContext context) {
         log.debug("微信公众号消息处理: XML消息处理: messageSignature: {}, rawMessage: {}", messageSignature, rawMessage);
         boolean isEncrypt = messageSignature.isEncrypt();
         if (isEncrypt) {
@@ -106,7 +112,7 @@ public class WeChatMpMessageResolver
             // 校验消息签名
             this.checkSignatureThrows(messageSignature);
         }
-        MessageResolverContext context = new MessageResolverContext(isEncrypt, getMessageCipher());
+        context.setEncryptMessage(isEncrypt).setMessageCipher(messageCipher);
         WeChatMpXmlMessage message = XmlParser.parse(rawMessage, WeChatMpXmlMessage.class);
         message.setRaw(rawMessage);
         message = MessageMappingClassConverter.convert(message);
@@ -158,7 +164,7 @@ public class WeChatMpMessageResolver
         return messageCipher;
     }
 
-
+    @SuppressWarnings("unchecked")
     @Override
     public List<WeChatMpMessageHandler<WeChatMpMessage>> getWeChatHandlers(WeChatMpMessage message) {
         List<WeChatMpMessageHandler<WeChatMpMessage>> list = (List<WeChatMpMessageHandler<WeChatMpMessage>>) super.getWeChatHandlers(message);

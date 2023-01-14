@@ -3,9 +3,7 @@ package org.kangspace.wechat.helper.core.message;
 import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -51,6 +49,7 @@ public abstract class AbstractWeChatMessageResolver<Service extends WeChatServic
         return getWeChatHandlers().stream().filter(t -> t.supportType().isAssignableFrom(message.getClass())).sorted().collect(Collectors.toList());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <Handle extends WeChatMessageHandler<Service, ?, EchoMessage>,
             Resolver extends WeChatMessageResolver<Service, Message, EchoMessage>> Resolver addWeChatHandler(Handle messageHandler) {
@@ -58,6 +57,7 @@ public abstract class AbstractWeChatMessageResolver<Service extends WeChatServic
         return (Resolver) this;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <Handle extends WeChatMessageHandler<Service, ?, EchoMessage>,
             Resolver extends WeChatMessageResolver<Service, Message, EchoMessage>> Resolver addWeChatHandlers(Collection<? extends Handle> messageHandlers) {

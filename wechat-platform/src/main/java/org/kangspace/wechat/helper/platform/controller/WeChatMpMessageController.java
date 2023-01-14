@@ -2,6 +2,7 @@ package org.kangspace.wechat.helper.platform.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.message.GetMessageSignature;
+import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
@@ -70,12 +71,13 @@ public class WeChatMpMessageController {
     public String messageHandle(@RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce,
                                 @RequestParam(value = "msg_signature", required = false) String msgSignature,
                                 @RequestParam(value = "encrypt_type", required = false) String encryptType,
+                                @RequestParam(value = "openid", required = false) String openId,
                                 @RequestBody String body) {
         MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce, encryptType, msgSignature);
         log.info("微信消息: messageSignature:{} \n{}\n", messageSignature, body);
         String rawId = WeChatMpMessageResolver.extractToUserName(body);
         WeChatMpMessageResolver resolver = weChatMpServiceConfig.getMessageResolver(rawId);
-        String echoMessage = resolver.resolveEcho(messageSignature, body);
+        String echoMessage = resolver.resolveEcho(messageSignature, body, MessageResolverContext.newContext(openId));
         log.info("响应消息: {}", echoMessage);
         return StringUtils.hasText(echoMessage) ? echoMessage : WeChatMpEchoMessage.echoSuccess();
     }

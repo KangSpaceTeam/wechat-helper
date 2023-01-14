@@ -119,4 +119,18 @@ public interface WeChatConstant {
             return name().toLowerCase();
         }
     }
+
+    /**
+     * 公共参数名称
+     */
+    interface Params {
+        /**
+         * OpenId
+         */
+        String OPEN_ID = "openId";
+        /**
+         * appId
+         */
+        String APP_ID = "appId";
+    }
 }

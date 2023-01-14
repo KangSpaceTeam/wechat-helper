@@ -23,4 +23,11 @@ public class WeChatHttpFaultException extends WeChatRequestException {
         super(errorCode, rawErrorMessage);
         this.weChatResponse = weChatResponse;
     }
+
+    @Override
+    public String toString() {
+        return "(WeChatHttpFaultException) errorCode: " + super.getErrorCode() +
+                ", errorMessage: " + super.getErrorMessage() +
+                ", weChatResponse: " + weChatResponse;
+    }
 }

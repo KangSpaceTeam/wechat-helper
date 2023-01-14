@@ -13,4 +13,9 @@ public class WeChatInvalidTokenException extends WeChatRequestException {
     public WeChatInvalidTokenException(Integer errorCode, String message) {
         super(errorCode, message);
     }
+
+    @Override
+    public String toString() {
+        return "(WeChatInvalidTokenException) errorCode: " + super.getErrorCode() + ", errorMessage: " + super.getErrorMessage();
+    }
 }

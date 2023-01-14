@@ -100,9 +100,31 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      * @param messageFormat    消息类型{@link MessageFormat}
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @param context          处理器上下文
+     */
+    default void solve(MessageFormat messageFormat, MessageSignature messageSignature, String message, MessageResolverContext context) {
+        throw new UnsupportedOperationException("need implements solve or resolve method!");
+    }
+
+    /**
+     * 处理消息(无返回值)
+     *
+     * @param messageFormat    消息类型{@link MessageFormat}
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
      */
     default void solve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
-        throw new UnsupportedOperationException("need implements solve or resolve method!");
+        this.solve(messageFormat, messageSignature, message, MessageResolverContext.newContext());
+    }
+
+    /**
+     * 处理消息(无返回值, 默认XML消息)
+     *
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
+     */
+    default void solve(MessageSignature messageSignature, String message, MessageResolverContext context) {
+        this.solve(MessageFormat.XML, messageSignature, message, context);
     }
 
     /**
@@ -112,7 +134,21 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      * @param message          消息
      */
     default void solve(MessageSignature messageSignature, String message) {
-        this.solve(MessageFormat.XML, messageSignature, message);
+        this.solve(messageSignature, message, MessageResolverContext.newContext());
+    }
+
+    /**
+     * 处理消息(带返回值)
+     *
+     * @param messageFormat    消息类型{@link MessageFormat}
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
+     * @param context          {@link MessageResolverContext} 处理器上下文
+     * @return {@link EchoMessage}
+     */
+    default EchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message, MessageResolverContext context) {
+        this.solve(messageFormat, messageSignature, message, context);
+        return null;
     }
 
     /**
@@ -123,9 +159,21 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      * @param message          消息
      * @return {@link EchoMessage}
      */
-    default <EchoMessage extends WeChatEchoMessage> EchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
-        this.solve(messageFormat, messageSignature, message);
+    default EchoMessage resolve(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
+        this.resolve(messageFormat, messageSignature, message, MessageResolverContext.newContext());
         return null;
+    }
+
+    /**
+     * 处理消息(默认XML消息)
+     *
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
+     * @param context          {@link MessageResolverContext} 处理器上下文
+     * @return {@link EchoMessage}
+     */
+    default EchoMessage resolve(MessageSignature messageSignature, String message, MessageResolverContext context) {
+        return this.resolve(MessageFormat.XML, messageSignature, message, context);
     }
 
     /**
@@ -136,7 +184,7 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      * @return {@link EchoMessage}
      */
     default EchoMessage resolve(MessageSignature messageSignature, String message) {
-        return this.resolve(MessageFormat.XML, messageSignature, message);
+        return this.resolve(messageSignature, message, MessageResolverContext.newContext());
     }
 
     /**
@@ -145,11 +193,12 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      * @param messageFormat    消息类型{@link MessageFormat}
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @param context          {@link MessageResolverContext} 处理器上下文
      * @return 处理消息
      */
     @SuppressWarnings("unchecked")
-    default String resolveEcho(MessageFormat messageFormat, MessageSignature messageSignature, String message) {
-        EchoMessage echoMessage = this.resolve(messageFormat, messageSignature, message);
+    default String resolveEcho(MessageFormat messageFormat, MessageSignature messageSignature, String message, MessageResolverContext context) {
+        EchoMessage echoMessage = this.resolve(messageFormat, messageSignature, message, context);
         String echo = "";
         if (echoMessage != null) {
             if (messageSignature.isEncrypt()) {
@@ -165,9 +214,21 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      *
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @param context          {@link MessageResolverContext} 处理器上下文
+     * @return 返回消息
+     */
+    default String resolveEcho(MessageSignature messageSignature, String message, MessageResolverContext context) {
+        return this.resolveEcho(MessageFormat.XML, messageSignature, message, context);
+    }
+
+    /**
+     * 处理消息(返回字符串)
+     *
+     * @param messageSignature {@link MessageSignature}
+     * @param message          消息
      * @return 返回消息
      */
     default String resolveEcho(MessageSignature messageSignature, String message) {
-        return this.resolveEcho(MessageFormat.XML, messageSignature, message);
+        return this.resolveEcho(messageSignature, message, MessageResolverContext.newContext());
     }
 }

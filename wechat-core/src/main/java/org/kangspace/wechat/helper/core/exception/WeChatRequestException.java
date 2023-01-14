@@ -36,6 +36,6 @@ public class WeChatRequestException extends WeChatException {
 
     @Override
     public String toString() {
-        return "WeChatRequestException(errorCode: " + errorCode + ", errorMessage: " + errorMessage + ")";
+        return "(WeChatRequestException) errorCode: " + errorCode + ", errorMessage: " + errorMessage;
     }
 }
