@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * 扫描类型
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/31
  */

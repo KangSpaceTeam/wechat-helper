@@ -21,7 +21,7 @@ import java.util.List;
  */
 @Slf4j
 @Component
-public class MessageResolver implements WeChatMpMessageHandler<WeChatMpMessage> {
+public class MessageHandler implements WeChatMpMessageHandler<WeChatMpMessage> {
 
     @Override
     public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpMessage message, MessageResolverContext context) {
@@ -64,7 +64,7 @@ public class MessageResolver implements WeChatMpMessageHandler<WeChatMpMessage> 
         // 缺少音乐响应消息
         else {
             // 返回文本消息
-            String content = "msgId: " + message.getMsgId() + ", msgType: {}" + message.getMsgType();
+            String content = "msgId: " + message.getMsgId() + ", msgType: " + message.getMsgType();
             xmlMessage = new TextEchoMessage(message.getToUser(), message.getFromUser(), message.getCreateTime(), System.currentTimeMillis(), content);
         }
         String toUser = message.getToUser();

@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class EventResolver implements WeChatMpEventHandler<WeChatMpXmlEvent> {
+public class EventHandler implements WeChatMpEventHandler<WeChatMpXmlEvent> {
 
     @Override
     public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpXmlEvent event, MessageResolverContext context) {

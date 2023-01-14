@@ -16,7 +16,8 @@ import java.util.concurrent.TimeUnit;
  * @author kango2gler@gmail.com
  * @since 2022/12/12
  */
-public interface WeChatMessageHandler<Service extends WeChatService, Message extends WeChatMessage, EchoMessage extends WeChatEchoMessage> extends Comparable<WeChatMessageHandler<Service, Message, EchoMessage>> {
+public interface WeChatMessageHandler<Service extends WeChatService, Message extends WeChatMessage, EchoMessage extends WeChatEchoMessage>
+        extends Comparable<WeChatMessageHandler<Service, Message, EchoMessage>> {
     /**
      * 线程池线程名称前缀
      */
@@ -28,7 +29,7 @@ public interface WeChatMessageHandler<Service extends WeChatService, Message ext
      * @param service       {@link WeChatService}
      * @param weChatMessage {@link WeChatMessage}
      * @param context       {@link MessageResolverContext} 消息处理上下文对象
-     * @return {@link EchoMessage}
+     * @return {@link WeChatEchoMessage}
      */
     default EchoMessage handle(Service service, Message weChatMessage, MessageResolverContext context) {
         this.execute(service, weChatMessage, context);
@@ -42,7 +43,7 @@ public interface WeChatMessageHandler<Service extends WeChatService, Message ext
      * @param weChatMessage {@link WeChatMessage}
      * @param context       {@link MessageResolverContext} 消息处理上下文对象
      */
-    default void execute(Service service, Message weChatMessage, MessageResolverContext context) {
+    default void execute(WeChatService service, WeChatMessage weChatMessage, MessageResolverContext context) {
         throw new UnsupportedOperationException("need implements execute or handle method!");
     }
 
@@ -51,7 +52,7 @@ public interface WeChatMessageHandler<Service extends WeChatService, Message ext
      *
      * @return {@link Class}&lt;{@link WeChatMessage}&gt;
      */
-    Class<? extends Message> supportType();
+    Class<? extends WeChatMessage> supportType();
 
     /**
      * 获取排序值

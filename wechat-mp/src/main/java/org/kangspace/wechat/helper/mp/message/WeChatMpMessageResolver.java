@@ -5,6 +5,7 @@ import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatMessageResolverException;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.*;
+import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
 import org.kangspace.wechat.helper.core.util.DigestUtil;
 import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
@@ -13,7 +14,6 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEncryptEchoXmlMessage;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -26,7 +26,8 @@ import java.util.stream.Collectors;
  * @since 2022/12/24
  */
 @Slf4j
-public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> {
+public class WeChatMpMessageResolver
+        extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessage, WeChatMpEchoMessage> {
     /**
      * 消息加解密对象
      */
@@ -40,6 +41,7 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         super(wechatService, weChatMessageHandlers);
         this.messageCipher = new MessageCipher(wechatService.getWeChatConfig());
     }
+
 
     /**
      * 微信公众号微信服务器消息签名校验<br>
@@ -72,11 +74,10 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
         return true;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public WeChatMpEncryptEchoXmlMessage encryptEcho(WeChatMpEchoMessage echoMessage) {
+    public <EEM extends WeChatEncryptEchoMessage> EEM encryptEcho(WeChatMpEchoMessage echoMessage) {
         String echoMessageStr = XmlParser.toXmlString(echoMessage);
-        return messageCipher.encrypt(echoMessageStr, WeChatMpEncryptEchoXmlMessage.class);
+        return (EEM) messageCipher.encrypt(echoMessageStr, WeChatMpEncryptEchoXmlMessage.class);
     }
 
     @Override
@@ -160,24 +161,11 @@ public class WeChatMpMessageResolver extends AbstractWeChatMessageResolver<WeCha
 
     @Override
     public List<WeChatMpMessageHandler<WeChatMpMessage>> getWeChatHandlers(WeChatMpMessage message) {
-        List<WeChatMpMessageHandler<WeChatMpMessage>> list = super.getWeChatHandlers(message);
+        List<WeChatMpMessageHandler<WeChatMpMessage>> list = (List<WeChatMpMessageHandler<WeChatMpMessage>>) super.getWeChatHandlers(message);
         if (message.isEvent()) {
             return list.stream().filter(t -> t instanceof WeChatMpEventHandler).collect(Collectors.toList());
         }
         return list;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public WeChatMpMessageResolver addWeChatHandler(WeChatMpMessageHandler messageHandler) {
-        super.addWeChatHandler(messageHandler);
-        return this;
-    }
-
-    @Override
-    public WeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> addWeChatHandlers(Collection messageHandlers) {
-        super.addWeChatHandlers(messageHandlers);
-        return this;
     }
 
     /**

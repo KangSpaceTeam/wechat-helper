@@ -24,33 +24,33 @@ public class MenuLocationSelectEvent extends WeChatMpXmlEvent {
      * 发送的位置信息
      */
     @Data
-    public static class SendLocationInfo{
+    public static class SendLocationInfo {
         /**
-         * 	X坐标信息
+         * X坐标信息
          */
         @JacksonXmlProperty(localName = "Location_X")
         @JacksonXmlCData
         private String locationX;
         /**
-         * 	Y坐标信息
+         * Y坐标信息
          */
         @JacksonXmlProperty(localName = "Location_Y")
         @JacksonXmlCData
         private String locationY;
         /**
-         * 	精度，可理解为精度或者比例尺、越精细的话 scale越高
+         * 精度，可理解为精度或者比例尺、越精细的话 scale越高
          */
         @JacksonXmlProperty(localName = "Scale")
         @JacksonXmlCData
         private String scale;
         /**
-         * 	地理位置的字符串信息
+         * 地理位置的字符串信息
          */
         @JacksonXmlProperty(localName = "Label")
         @JacksonXmlCData
         private String label;
         /**
-         * 	朋友圈 POI 的名字，可能为空
+         * 朋友圈 POI 的名字，可能为空
          */
         @JacksonXmlProperty(localName = "Poiname")
         @JacksonXmlCData

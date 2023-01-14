@@ -114,7 +114,7 @@ public class MessageCipher {
             byte[] aesKey = DigestUtil.extractAESKey(getEncodingAESKey());
             byte[] fullBytes = DigestUtil.deAesCBCWithPKCS7(messageBytes, aesKey);
             int fromIdx = 16;
-            // 获取 msgLength
+            // 获取 msgLength(网络字节序)
             byte[] messageLengthBytes = Arrays.copyOfRange(fullBytes, fromIdx, (fromIdx += 4));
             int messageLength = ByteBuffer.wrap(messageLengthBytes).getInt();
             // 获取 msg

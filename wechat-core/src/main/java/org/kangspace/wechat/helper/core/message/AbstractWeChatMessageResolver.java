@@ -14,43 +14,55 @@ import java.util.stream.Collectors;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
-public abstract class AbstractWeChatMessageResolver<Service extends WeChatService, Handler extends WeChatMessageHandler<Service, Message, EchoMessage>, Message extends WeChatMessage, EchoMessage extends WeChatEchoMessage>
-        implements WeChatMessageResolver<Service, Handler, Message, EchoMessage> {
+public abstract class AbstractWeChatMessageResolver<Service extends WeChatService,
+        Message extends WeChatMessage,
+        EchoMessage extends WeChatEchoMessage>
+        implements WeChatMessageResolver<Service, Message, EchoMessage> {
+
     private final Service wechatService;
+
     /**
-     * 事件处理器
+     * 消息处理器
      */
-    private final List<Handler> weChatMessageHandlers;
+    private final List<WeChatMessageHandler<Service, ?, EchoMessage>> weChatMessageHandlers;
 
     public AbstractWeChatMessageResolver(Service wechatService) {
         this(wechatService, new ArrayList<>());
     }
 
-    public AbstractWeChatMessageResolver(Service wechatService, List<Handler> weChatMessageHandlers) {
+    public AbstractWeChatMessageResolver(Service wechatService, List<WeChatMessageHandler<Service, ?, EchoMessage>> weChatMessageHandlers) {
         this.wechatService = wechatService;
         this.weChatMessageHandlers = weChatMessageHandlers;
     }
 
+    public AbstractWeChatMessageResolver(Service wechatService, Collection<? extends WeChatMessageHandler<Service, ?, EchoMessage>> weChatMessageHandlers) {
+        this.wechatService = wechatService;
+        this.weChatMessageHandlers = new ArrayList<>();
+        this.weChatMessageHandlers.addAll(weChatMessageHandlers);
+    }
+
     @Override
-    public List<Handler> getWeChatHandlers() {
+    public List<? extends WeChatMessageHandler<Service, ?, EchoMessage>> getWeChatHandlers() {
         return this.weChatMessageHandlers;
     }
 
     @Override
-    public List<Handler> getWeChatHandlers(Message message) {
+    public List<? extends WeChatMessageHandler<Service, ?, EchoMessage>> getWeChatHandlers(Message message) {
         return getWeChatHandlers().stream().filter(t -> t.supportType().isAssignableFrom(message.getClass())).sorted().collect(Collectors.toList());
     }
 
     @Override
-    public WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandler(Handler messageHandler) {
+    public <Handle extends WeChatMessageHandler<Service, ?, EchoMessage>,
+            Resolver extends WeChatMessageResolver<Service, Message, EchoMessage>> Resolver addWeChatHandler(Handle messageHandler) {
         this.weChatMessageHandlers.add(messageHandler);
-        return this;
+        return (Resolver) this;
     }
 
     @Override
-    public WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandlers(Collection<? extends Handler> messageHandlers) {
+    public <Handle extends WeChatMessageHandler<Service, ?, EchoMessage>,
+            Resolver extends WeChatMessageResolver<Service, Message, EchoMessage>> Resolver addWeChatHandlers(Collection<? extends Handle> messageHandlers) {
         this.weChatMessageHandlers.addAll(messageHandlers);
-        return this;
+        return (Resolver) this;
     }
 
     @Override

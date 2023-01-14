@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.mp.DefaultWeChatMpService;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
-import org.kangspace.wechat.helper.mp.event.WeChatMpEvent;
 import org.kangspace.wechat.helper.mp.event.WeChatMpEventHandler;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessage;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageHandler;
@@ -38,7 +37,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
      * 应用和WeChatMpService的map <br>
      * 格式: key: rawId, value: {@link WeChatMpService}
      */
-    public final static ConcurrentHashMap<String,WeChatMpService> APP_MP_SERVICE_MAP = new ConcurrentHashMap<>(2);
+    public final static ConcurrentHashMap<String, WeChatMpService> APP_MP_SERVICE_MAP = new ConcurrentHashMap<>(2);
     /**
      * 应用和WeChatMpMessageResolver的map
      * 格式: key: rawId, value: {@link WeChatMpMessageResolver}
@@ -77,7 +76,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
      * 配置初始化
      */
     public void initConfig() {
-        this.mps.forEach(config ->{
+        this.mps.forEach(config -> {
             String rawId = config.getRawId();
             WeChatMpConfig mpConfig = new WeChatMpConfig(config.getAppId(), config.getAppSecret());
             mpConfig.setToken(config.getToken());
@@ -101,6 +100,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
 
     /**
      * 通过RawId获取WeChatMpMessageResolver
+     *
      * @param rawId rawId
      * @return {@link WeChatMpMessageResolver}
      */
@@ -110,6 +110,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
 
     /**
      * 获取所有消息解析器
+     *
      * @return {@link Collection}&lt;{@link WeChatMpMessageResolver}&gt;
      */
     public Collection<WeChatMpMessageResolver> getMessageResolvers() {
