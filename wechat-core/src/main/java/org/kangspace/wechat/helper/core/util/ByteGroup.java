@@ -8,6 +8,7 @@ public class ByteGroup {
 
     /**
      * 转换为byte[]
+     *
      * @return byte[]
      */
     public byte[] toBytes() {
@@ -20,6 +21,7 @@ public class ByteGroup {
 
     /**
      * 添加byte[]
+     *
      * @param bytes byte[]
      * @return {@link ByteGroup}
      */
@@ -32,6 +34,7 @@ public class ByteGroup {
 
     /**
      * byte[] 大小
+     *
      * @return int
      */
     public int size() {

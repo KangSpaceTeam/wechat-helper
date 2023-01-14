@@ -12,7 +12,7 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
  * @since 2022/12/24
  */
 @Slf4j
-public abstract class WeChatMpEventResolver extends AbstractWeChatEventResolver<WeChatMpService, WeChatMpEventHandler<WeChatMpEvent>, WeChatMpEvent, WeChatMpEchoMessage> {
+public abstract class WeChatMpEventResolver extends AbstractWeChatEventResolver<WeChatMpService, WeChatMpEvent, WeChatMpEchoMessage> {
     public WeChatMpEventResolver(WeChatMpService wechatService) {
         super(wechatService);
     }

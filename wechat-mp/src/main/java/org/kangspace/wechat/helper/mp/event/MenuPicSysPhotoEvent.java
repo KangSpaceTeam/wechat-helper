@@ -29,7 +29,7 @@ public class MenuPicSysPhotoEvent extends WeChatMpXmlEvent {
      * 发送的图片信息
      */
     @Data
-    public static class SendPicsInfo{
+    public static class SendPicsInfo {
         /**
          * 发送的图片数量
          */
@@ -48,7 +48,7 @@ public class MenuPicSysPhotoEvent extends WeChatMpXmlEvent {
      * 图片列表
      */
     @Data
-    public static class PicItem{
+    public static class PicItem {
         /**
          * 图片的MD5值，开发者若需要，可用于验证接收到图片
          */

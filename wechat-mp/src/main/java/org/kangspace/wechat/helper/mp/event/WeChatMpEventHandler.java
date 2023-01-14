@@ -35,7 +35,7 @@ public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeCha
 
     @SuppressWarnings("unchecked")
     @Override
-    default Class<? extends Event> supportType(){
+    default Class<? extends Event> supportType() {
         return (Class<? extends Event>) WeChatMpEvent.class;
     }
 }

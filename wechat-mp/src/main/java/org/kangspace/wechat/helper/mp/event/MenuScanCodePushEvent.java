@@ -8,6 +8,7 @@ import lombok.ToString;
 /**
  * scancode_push：扫码推事件的事件推送 <br>
  * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Custom_Menu_Push_Events.html">https://developers.weixin.qq.com/doc/offiaccount/Custom_Menus/Custom_Menu_Push_Events.html</a> <br>
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/31
  */

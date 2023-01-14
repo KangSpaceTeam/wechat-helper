@@ -90,7 +90,7 @@
 ```
 
 3. 语音消息
-   
+
 4. 视频消息
 
 > signature=018024858e54cc26566030cd4567a90db161028f, timestamp=1673330366, nonce=1076523229), encryptType=null, msgSignature=null
@@ -172,6 +172,7 @@
 ```
 
 2. 点击菜单跳转链接时的事件推送
+
 > signature=625f3cfc297abbcfb6585d86352312b0fcb4837a, timestamp=1673500355, nonce=589328110
 
 ```
@@ -186,6 +187,7 @@
 ```
 
 3. 关注事件
+
 > signature=a992a0b6be821f557e405d1da614df127d8af938, timestamp=1673501864, nonce=812038915
 
 ```
@@ -199,6 +201,7 @@
 ```
 
 4. 取消关注事件
+
 > signature=17d7519b189b457f93033bd0bdd1d1bc790f6947, timestamp=1673501834, nonce=1093822964
 
 ```

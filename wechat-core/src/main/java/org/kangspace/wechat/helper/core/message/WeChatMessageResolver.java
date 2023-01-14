@@ -22,40 +22,41 @@ import java.util.List;
  * @since 2022/12/24
  */
 public interface WeChatMessageResolver<Service extends WeChatService,
-        Handler extends WeChatMessageHandler<Service, Message, EchoMessage>,
         Message extends WeChatMessage,
         EchoMessage extends WeChatEchoMessage> {
 
     /**
      * 获取所有消息的处理器
      *
-     * @return {@link List}&lt;{@link Handler}&gt;
+     * @return {@link List}&lt;{@link WeChatMessageHandler}&gt;
      */
-    List<WeChatMessageHandler> getWeChatHandlers();
+    List<? extends WeChatMessageHandler<Service, ?, EchoMessage>> getWeChatHandlers();
 
     /**
      * 根据{@link Message}获取处理器列表
      *
      * @param Message {@link Message}
-     * @return {@link List}&lt;{@link Handler}&gt;
+     * @return {@link List}&lt;{@link WeChatMessageHandler}&gt;
      */
-    List<WeChatMessageHandler> getWeChatHandlers(Message Message);
+    List<? extends WeChatMessageHandler<Service, ?, EchoMessage>> getWeChatHandlers(Message Message);
 
     /**
      * 添加事件处理器
      *
-     * @param messageHandler {@link Handler}
+     * @param messageHandler {@link WeChatMessageHandler}
      * @return {@link WeChatMessageResolver}
      */
-    WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandler(Handler messageHandler);
+    <Handle extends WeChatMessageHandler<Service, ?, EchoMessage>,
+            Resolver extends WeChatMessageResolver<Service, Message, EchoMessage>> Resolver addWeChatHandler(Handle messageHandler);
 
     /**
      * 批量添加事件处理器
      *
-     * @param messageHandlers {@link Handler}列表
+     * @param messageHandlers {@link WeChatMessageHandler}列表
      * @return {@link WeChatMessageResolver}
      */
-    WeChatMessageResolver<Service, Handler, Message, EchoMessage> addWeChatHandlers(Collection<? extends Handler> messageHandlers);
+    <Handle extends WeChatMessageHandler<Service, ?, EchoMessage>,
+            Resolver extends WeChatMessageResolver<Service, Message, EchoMessage>> Resolver addWeChatHandlers(Collection<? extends Handle> messageHandlers);
 
     /**
      * 获取WeChatService

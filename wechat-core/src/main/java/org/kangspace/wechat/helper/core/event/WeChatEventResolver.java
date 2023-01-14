@@ -1,7 +1,6 @@
 package org.kangspace.wechat.helper.core.event;
 
 import org.kangspace.wechat.helper.core.WeChatService;
-import org.kangspace.wechat.helper.core.message.WeChatMessageHandler;
 import org.kangspace.wechat.helper.core.message.WeChatMessageResolver;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 
@@ -13,8 +12,7 @@ import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
  * @since 2022/12/24
  */
 public interface WeChatEventResolver<Service extends WeChatService,
-        Handler extends WeChatMessageHandler<Service, Event, EchoMessage>,
         Event extends WeChatEvent,
         EchoMessage extends WeChatEchoMessage>
-        extends WeChatMessageResolver<Service, Handler, Event, EchoMessage> {
+        extends WeChatMessageResolver<Service, Event, EchoMessage> {
 }

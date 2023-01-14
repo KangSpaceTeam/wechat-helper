@@ -14,7 +14,6 @@ import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEncryptEchoXmlMessage;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class WeChatMpMessageResolver
-        extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessageHandler<WeChatMpMessage>, WeChatMpMessage, WeChatMpEchoMessage> {
+        extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessage, WeChatMpEchoMessage> {
     /**
      * 消息加解密对象
      */
@@ -162,24 +161,11 @@ public class WeChatMpMessageResolver
 
     @Override
     public List<WeChatMpMessageHandler<WeChatMpMessage>> getWeChatHandlers(WeChatMpMessage message) {
-        List<WeChatMpMessageHandler<WeChatMpMessage>> list = super.getWeChatHandlers(message);
+        List<WeChatMpMessageHandler<WeChatMpMessage>> list = (List<WeChatMpMessageHandler<WeChatMpMessage>>) super.getWeChatHandlers(message);
         if (message.isEvent()) {
             return list.stream().filter(t -> t instanceof WeChatMpEventHandler).collect(Collectors.toList());
         }
         return list;
-    }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public WeChatMpMessageResolver addWeChatHandler(WeChatMpMessageHandler<WeChatMpMessage> messageHandler) {
-        super.addWeChatHandler(messageHandler);
-        return this;
-    }
-
-    @Override
-    public WeChatMessageResolver addWeChatHandlers(Collection<? extends WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers) {
-        super.addWeChatHandlers(messageHandlers);
-        return this;
     }
 
     /**
