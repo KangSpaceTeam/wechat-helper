@@ -7,7 +7,7 @@ package org.kangspace.wechat.helper.core.message.response;
  * @author kango2gler@gmail.com
  * @since 2022/12/29
  */
-public interface WeChatEncryptEchoMessage {
+public interface WeChatEncryptEchoMessage extends WeChatEchoMessage{
     /**
      * 获取加密数据
      *

@@ -69,19 +69,11 @@ public class MessageCipherTest {
      */
     @Test
     public void encryptTest() {
-        String rawMessage = "<xml>\n" +
-                "    <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>\n" +
-                "    <FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>\n" +
-                "    <CreateTime>1672062036</CreateTime>\n" +
-                "    <MsgType><![CDATA[text]]></MsgType>\n" +
-                "    <Content><![CDATA[1]]></Content>\n" +
-                "    <MsgId>23938173794149768</MsgId>\n" +
-                "</xml>";
+        String rawMessage = "<xml><MsgType><![CDATA[text]]></MsgType><ToUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></ToUserName><FromUserName><![CDATA[gh_84671c4da479]]></FromUserName><CreateTime>1673663595</CreateTime><MsgId>23961098609237432</MsgId><Content><![CDATA[1]]></Content></xml>";
         log.info("rawMessage: {}", rawMessage);
-        String timestamp = "1672062037";
-        String nonce = "924856700";
+        String timestamp = "1673666701";
+        String nonce = "7406789000548055";
         String encryptType = "aes";
-        String exceptEncryptMessage = "<Encrypt><![CDATA[tybon2345ToFXFumMtSoJ0i6F5PGT6BIJudVM+TIkPjfR9o9hrsyVa7yGcWIBpeaK57/mDXfYSNSgjmzfk5AecAMvDb7blMwc1wNEGwvOsh7LkfX+8jT/8SyQ3o5BvUi/0maQBtuQQ9L5REk829Oj0zpXsxwaCEX2kQrJ3AMA7/wwom+u9UXstEQzIbMyC20zxlx9/kzGQEqmME3xhBhBvBH5TCQO7foUMTb+7xZNNbzraBMWwsz+orXNvNMliqiAPcJIRJBeh7OCwi5wssrO2ujtiTrG5uln0/0uNBaIWTKSR7yI1Ddnfd4c7gR1Q2N/Uyz0+TRGDeJsnd/jB5Qn6Ur10eAEyxL+uwHbjXemMntHRHad3CtsD2+3wV3VQL4jBC6bCYJp9TrEiCsYn/eqrSceDLWu54li8iN+RS7B4U=]]></Encrypt>";
         MessageSignature messageSignature = new MessageSignature(timestamp, nonce);
         String encrypt = messageCipher.encryptEcho(messageSignature, rawMessage, WeChatMpEncryptEchoXmlMessage.class);
         log.info("{}", encrypt);

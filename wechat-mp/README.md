@@ -72,6 +72,16 @@
 </xml>
 ```
 
+安全模式:
+
+> signature=af0293fa28d9295bbeed7d14682f33b67b40ac11, timestamp=1673663596, nonce=1010515247, encryptType=aes, msgSignature=7cfc35554d3d386235bf953e0d2ce6e9974eca53) 
+```
+<xml>
+<ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
+<Encrypt><![CDATA[9Pux/NPOnudB7dIiCsAoHuytXARo0YJEnU11nKmhdnsAzV1hM9nRWQbOfgglSgz37eIrGeGDduvKyl7SZ0Dlb1N3chKE7inf/kpl1uirf7ySJgdFWY/TiJkyTRLPoi0Vpbheor1Wc4q91TFtypJ19OUckIL3GTsNHrfzK7dmS2q73paB/IwkPV0xl9NIL4LtM8/+IWuxowkzOrUc41TOoZnDZ/lfI335R6Ywiioptds64exEtIEQCVV0bjSpYUXibdOEfo8TBf0dwRXf2FwfiVhtLnS6EaRye9weNrrlEVrKyM3sAIZ7nUurQiM5/TpHrnQH9xXWa5W1QH9lPUUwWDO00L0Lpf2e/KxYvfE4EZjghNiz2ucZSKeXZG6rD2f5b8299TIcswaeau0lV6qESuJEZPKq06knExoSwx+e8Gw=]]></Encrypt>
+</xml>
+```
+
 2. 图片消息
 
 > signature=695a62925a7a6fcecbf96c2e593cffd2cf11fe57, timestamp=1673317844, nonce=61743237
