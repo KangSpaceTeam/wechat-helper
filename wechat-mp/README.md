@@ -33,7 +33,6 @@
 > POST /wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
 
 ```
-
 <xml>
 <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
 <FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>

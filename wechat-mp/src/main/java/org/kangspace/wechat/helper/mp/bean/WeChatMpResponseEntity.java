@@ -1,7 +1,8 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.kangspace.wechat.helper.core.bean.WeChatResponseEntity;
 
 /**
@@ -13,7 +14,8 @@ import org.kangspace.wechat.helper.core.bean.WeChatResponseEntity;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-@Data
+@Setter
+@Getter
 public class WeChatMpResponseEntity extends WeChatResponseEntity {
 
     /**
@@ -27,4 +29,9 @@ public class WeChatMpResponseEntity extends WeChatResponseEntity {
      */
     @JsonProperty("errmsg")
     private String errMsg;
+
+    @Override
+    public String toString() {
+        return "(WeChatResponseEntity)" + "errCode=" + errCode +", errMsg='" + errMsg + '\'';
+    }
 }

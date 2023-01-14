@@ -2,7 +2,7 @@
 
 [![License](http://img.shields.io/:license-mit-brightgreen.svg)](https://github.com/KangSpaceTeam/wechat-helper/blob/main/LICENSE)
 
-[快速开始](#quick-start) | [文档](wiki) | [Changelog](CHANGELOG.md) | [Report an issue](issues/new)
+[快速开始](#quick-start) | [文档](https://github.com/KangSpaceTeam/wechat-helper/wiki) | [Changelog](CHANGELOG.md) | [Report an issue](https://github.com/KangSpaceTeam/wechat-helper/issues/new)
 
 > 最新版本: 0.0.1-SNAPSHOT
 
@@ -22,7 +22,7 @@
 
 ## 2. 特性
 
-## 3. 快速开始
+## [3. 快速开始](#quick-start)
 
 ### 3.1 微信公众号
 

@@ -1,7 +1,9 @@
 package org.kangspace.wechat.helper.core.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
 
 /**
  * 微信响应实体超类
@@ -13,7 +15,8 @@ import lombok.Data;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-@Data
+@Getter
+@Setter
 public class WeChatResponseEntity {
     /**
      * 错误码
@@ -26,4 +29,25 @@ public class WeChatResponseEntity {
      */
     @JsonProperty("errmsg")
     private String errMsg;
+
+    @Override
+    public String toString() {
+        return "(WeChatResponseEntity)" + "errCode=" + errCode +", errMsg='" + errMsg + '\'';
+    }
+
+    /**
+     * 是否错误响应
+     * @return boolean
+     */
+    public boolean isError() {
+        return errCode != null || errMsg != null;
+    }
+
+    /**
+     * 是否成功响应
+     * @return boolean
+     */
+    public boolean isSuccess() {
+        return !isError();
+    }
 }
