@@ -2,6 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
@@ -143,8 +145,8 @@ import java.util.List;
  * @see WeChatMpApiPaths#GET_CURRENT_AUTOREPLY_INFO
  * @since 2022/12/12
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class GetCurrentAutoReplyInfoResponse extends WeChatMpResponseEntity {
     /**
      * 关注后自动回复是否开启，0代表未开启，1代表开启
@@ -176,6 +178,18 @@ public class GetCurrentAutoReplyInfoResponse extends WeChatMpResponseEntity {
     @JsonProperty("keyword_autoreply_info")
     private KeywordAutoReplyInfos keywordAutoReplyInfo;
 
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "GetCurrentAutoReplyInfoResponse{" +
+                        "isAddFriendReplyOpen=" + isAddFriendReplyOpen +
+                        ", isAutoReplyOpen=" + isAutoReplyOpen +
+                        ", addFriendAutoReplyInfo=" + addFriendAutoReplyInfo +
+                        ", messageDefaultAutoReplyInfo=" + messageDefaultAutoReplyInfo +
+                        ", keywordAutoReplyInfo=" + keywordAutoReplyInfo +
+                        "}"
+        );
+    }
 
     /**
      * 基本自动回复信息
@@ -239,6 +253,7 @@ public class GetCurrentAutoReplyInfoResponse extends WeChatMpResponseEntity {
      * 关键字自动回复信息
      */
     @Data
+    @ToString(callSuper = true)
     public static class KeywordListInfo extends BaseAutoReplyInfo {
         /**
          * 匹配模式，contain代表消息中含有该关键词即可，equal表示消息内容必须和关键词严格相同
@@ -251,6 +266,7 @@ public class GetCurrentAutoReplyInfoResponse extends WeChatMpResponseEntity {
      * 关键字自动回复信息
      */
     @Data
+    @ToString(callSuper = true)
     public static class ReplyListInfo extends BaseAutoReplyInfo {
         /**
          * 图文消息的信息

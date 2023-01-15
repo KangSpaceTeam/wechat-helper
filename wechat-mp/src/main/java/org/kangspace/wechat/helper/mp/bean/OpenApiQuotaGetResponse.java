@@ -2,7 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 /**
  * 微信公众号OpenApi: 查询 openAPI 调用quota响应
@@ -21,11 +22,20 @@ import lombok.ToString;
  * @author kango2gler@gmail.com
  * @since 2022/12/4
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class OpenApiQuotaGetResponse extends WeChatMpResponseEntity {
     @JsonProperty("quota")
     private Quota quota;
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "OpenApiQuotaGetResponse{" +
+                        "quota=" + quota +
+                        "}"
+        );
+    }
 
     @Data
     public static class Quota {

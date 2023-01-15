@@ -2,7 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
 /**
@@ -19,8 +20,8 @@ import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
  * @see WeChatMpApiPaths#TEMPLATE_GET_INDUSTRY
  * @since 2022/12/11
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class TemplateGetIndustryResponse extends WeChatMpResponseEntity {
     /**
      * 帐号设置的主营行业
@@ -33,6 +34,16 @@ public class TemplateGetIndustryResponse extends WeChatMpResponseEntity {
      */
     @JsonProperty("secondary_industry")
     private Industry secondaryIndustry;
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "TemplateGetIndustryResponse{" +
+                        "primaryIndustry=" + primaryIndustry +
+                        ", secondaryIndustry=" + secondaryIndustry +
+                        "}"
+        );
+    }
 
     /**
      * 行业详情

@@ -2,7 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -43,8 +44,8 @@ import java.util.List;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class CallbackCheckResponse extends WeChatMpResponseEntity {
 
     /**
@@ -56,6 +57,15 @@ public class CallbackCheckResponse extends WeChatMpResponseEntity {
      */
     private List<Ping> ping;
 
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "CallbackCheckResponse{" +
+                        "dns=" + dns +
+                        ", ping=" + ping +
+                        "}"
+        );
+    }
 
     @Data
     public static class Dns {
@@ -70,7 +80,6 @@ public class CallbackCheckResponse extends WeChatMpResponseEntity {
         @JsonProperty("real_operator")
         private String realOperator;
     }
-
 
     @Data
     public static class Ping {

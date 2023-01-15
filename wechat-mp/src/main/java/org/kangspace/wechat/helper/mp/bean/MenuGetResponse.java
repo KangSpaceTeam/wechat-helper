@@ -2,6 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import java.util.List;
@@ -12,7 +14,8 @@ import java.util.List;
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */
-@Data
+@Setter
+@Getter
 public class MenuGetResponse extends WeChatMpResponseEntity {
     /**
      * 默认菜单
@@ -23,6 +26,16 @@ public class MenuGetResponse extends WeChatMpResponseEntity {
      */
     @JsonProperty("conditionalmenu")
     private List<ConditionalMenu> conditionalMenu;
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "MenuGetResponse{" +
+                        "menu=" + menu +
+                        ", conditionalMenu=" + conditionalMenu +
+                        "}"
+        );
+    }
 
     /**
      * 默认菜单

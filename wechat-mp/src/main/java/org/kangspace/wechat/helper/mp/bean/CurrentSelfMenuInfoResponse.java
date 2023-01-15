@@ -2,6 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.kangspace.wechat.helper.mp.constant.CustomMenuConstant;
 
 import java.util.List;
@@ -82,7 +84,8 @@ import java.util.List;
  * @author kango2gler@gmail.com
  * @since 2022/12/10
  */
-@Data
+@Getter
+@Setter
 public class CurrentSelfMenuInfoResponse extends WeChatMpResponseEntity {
     /**
      * 菜单是否开启，0代表未开启，1代表开启
@@ -94,6 +97,16 @@ public class CurrentSelfMenuInfoResponse extends WeChatMpResponseEntity {
      */
     @JsonProperty("selfmenu_info")
     private SelfMenuInfo selfMenuInfo;
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "CurrentSelfMenuInfoResponse{" +
+                        "isMenuOpen=" + isMenuOpen +
+                        ", selfMenuInfo=" + selfMenuInfo +
+                        "}"
+        );
+    }
 
     /**
      * 菜单信息

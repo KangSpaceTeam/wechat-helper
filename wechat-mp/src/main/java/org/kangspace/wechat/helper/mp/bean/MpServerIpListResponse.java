@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
@@ -22,8 +22,8 @@ import java.util.List;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class MpServerIpListResponse extends WeChatMpResponseEntity {
 
     /**
@@ -32,4 +32,12 @@ public class MpServerIpListResponse extends WeChatMpResponseEntity {
     @JsonProperty("ip_list")
     private List<String> ipList;
 
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "MpServerIpListResponse{" +
+                        "ipList=" + ipList +
+                        "}"
+        );
+    }
 }

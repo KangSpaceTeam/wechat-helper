@@ -2,7 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
 import java.util.List;
@@ -27,14 +28,23 @@ import java.util.List;
  * @see WeChatMpApiPaths#TEMPLATE_GET_ALL_PRIVATE_TEMPLATE
  * @since 2022/12/11
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class TemplateGetAllPrivateTemplateResponse extends WeChatMpResponseEntity {
     /**
      * 模版列表
      */
     @JsonProperty("template_list")
     private List<Template> templateList;
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "TemplateGetAllPrivateTemplateResponse{" +
+                        "templateList=" + templateList +
+                        "}"
+        );
+    }
 
     /**
      * 模版详情

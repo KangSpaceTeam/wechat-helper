@@ -32,6 +32,6 @@ public class WeChatMpResponseEntity extends WeChatResponseEntity {
 
     @Override
     public String toString() {
-        return "(WeChatResponseEntity)" + "errCode=" + errCode +", errMsg='" + errMsg + '\'';
+        return "WeChatResponseEntity{" + "errCode=" + errCode + ", errMsg='" + errMsg + "'}";
     }
 }

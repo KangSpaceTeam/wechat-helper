@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
 /**
@@ -20,8 +20,8 @@ import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
  * @see WeChatMpApiPaths#TEMPLATE_API_ADD_TEMPLATE
  * @since 2022/12/11
  */
-@Data
-@ToString(callSuper = true)
+@Setter
+@Getter
 public class TemplateApiAddTemplateResponse extends WeChatMpResponseEntity {
 
     /**
@@ -29,4 +29,13 @@ public class TemplateApiAddTemplateResponse extends WeChatMpResponseEntity {
      */
     @JsonProperty("template_id")
     private String templateId;
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "TemplateApiAddTemplateResponse{" +
+                        "templateId='" + templateId + '\'' +
+                        "}"
+        );
+    }
 }

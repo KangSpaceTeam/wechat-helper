@@ -30,24 +30,26 @@ public class WeChatResponseEntity {
     @JsonProperty("errmsg")
     private String errMsg;
 
-    @Override
-    public String toString() {
-        return "(WeChatResponseEntity)" + "errCode=" + errCode +", errMsg='" + errMsg + '\'';
-    }
-
     /**
      * 是否错误响应
+     *
      * @return boolean
      */
     public boolean isError() {
-        return errCode != null || errMsg != null;
+        return this.getErrCode() != null || this.getErrMsg() != null;
     }
 
     /**
      * 是否成功响应
+     *
      * @return boolean
      */
     public boolean isSuccess() {
         return !isError();
+    }
+
+    @Override
+    public String toString() {
+        return "WeChatResponseEntity{" + "errCode=" + this.getErrCode() + ", errMsg='" + this.getErrMsg() + "'}";
     }
 }

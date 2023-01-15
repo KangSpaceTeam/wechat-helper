@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
  */
 @Data
 @ToString(callSuper = true)
-public class CallbackCheckRequest extends WeChatMpResponseEntity {
+public class CallbackCheckRequest {
     /**
      * 执行的检测动作，允许的值：dns（做域名解析）、ping（做 ping 检测）、all（dns和 ping 都做）,
      * 必填
@@ -40,7 +40,7 @@ public class CallbackCheckRequest extends WeChatMpResponseEntity {
     public CallbackCheckRequest() {
     }
 
-    public CallbackCheckRequest(Action action, CheckOperator checkOperator) {
+    public CallbackCheckRequest(@Nonnull Action action, @Nonnull CheckOperator checkOperator) {
         this.action = action;
         this.checkOperator = checkOperator;
     }

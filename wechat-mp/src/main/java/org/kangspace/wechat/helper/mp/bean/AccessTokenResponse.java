@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.ToString;
+import lombok.Getter;
+import lombok.Setter;
 import org.kangspace.wechat.helper.core.token.WeChatToken;
 
 /**
@@ -14,8 +14,8 @@ import org.kangspace.wechat.helper.core.token.WeChatToken;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-@ToString(callSuper = true)
-@Data
+@Setter
+@Getter
 public class AccessTokenResponse extends WeChatMpResponseEntity implements WeChatToken {
     /**
      * AccessToken
@@ -37,5 +37,15 @@ public class AccessTokenResponse extends WeChatMpResponseEntity implements WeCha
     @Override
     public Long getExpiresIn() {
         return this.expiresIn;
+    }
+
+    @Override
+    public String toString() {
+        return super.isError() ? super.toString() : (
+                "AccessTokenResponse{" +
+                        "accessToken='" + accessToken + '\'' +
+                        ", expiresIn=" + expiresIn +
+                        "}"
+        );
     }
 }
