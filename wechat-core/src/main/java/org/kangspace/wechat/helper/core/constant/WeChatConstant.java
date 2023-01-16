@@ -16,6 +16,11 @@ public interface WeChatConstant {
      * Api基础路径前缀名称
      */
     String API_BASE_PATH_NAME = "api_base_path";
+    /**
+     * 成功标记
+     */
+    String SUCCESS_FLAG = "success";
+
 
     /**
      * oAuth认证GrateType枚举
@@ -73,7 +78,6 @@ public interface WeChatConstant {
             return String.valueOf(getValue());
         }
     }
-
 
     /**
      * 是否显示封面，0为不显示，1为显示

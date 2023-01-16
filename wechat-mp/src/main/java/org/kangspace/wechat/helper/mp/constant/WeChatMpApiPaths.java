@@ -1,5 +1,9 @@
 package org.kangspace.wechat.helper.mp.constant;
 
+import org.kangspace.wechat.helper.core.util.UrlUtil;
+
+import java.text.MessageFormat;
+
 /**
  * <p>
  * 微信公众号API路径常量类
@@ -14,6 +18,11 @@ public interface WeChatMpApiPaths {
      * 接口基础路径
      */
     String BASE_PATH = "https://api.weixin.qq.com/cgi-bin";
+
+    /**
+     * 公众号MP C端路径
+     */
+    String MP_BASE_PATH = "https://mp.weixin.qq.com/mp";
 
 
     /**
@@ -260,7 +269,7 @@ public interface WeChatMpApiPaths {
      * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/message/template/send?access_token=ACCESS_TOKEN
      * </p>
      */
-    String MESSAGE_TEMPLATE_SEND = BASE_PATH + "/org/kangspace/wechat/helper/mp/message/template/send";
+    String MESSAGE_TEMPLATE_SEND = BASE_PATH + "/message/template/send";
     /**
      * <p>
      * 获取公众号的自动回复规则<br>
@@ -279,5 +288,41 @@ public interface WeChatMpApiPaths {
      * </p>
      */
     String GET_CURRENT_AUTOREPLY_INFO = BASE_PATH + "/get_current_autoreply_info";
+
+    /**
+     * 公众号一次性订阅消息: 获取授权链接 模版(服务号权限) <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html</a><br>
+     * 变量:
+     * <pre>
+     * {0}: appId: 必填, 公众号的唯一标识
+     * {1}: scene: 必填, 重定向后会带上 scene 参数，开发者可以填0-10000的整型值，用来标识订阅场景值
+     * {2}: template_id: 必填, 订阅消息模板ID，登录公众平台后台，在接口权限列表处可查看订阅模板ID
+     * {3}: redirect_url: 必填, 授权后重定向的回调地址，请使用 UrlEncode 对链接进行处理。 注：要求redirect_url的域名要跟登记的业务域名一致，且业务域名不能带路径。 业务域名需登录公众号，在设置 - 公众号设置 - 功能设置里面对业务域名设置
+     * {4}: reserved: 否, 用于保持请求和回调的状态，授权请后原样带回给第三方。该参数可用于防止 csrf 攻击（跨站请求伪造攻击），建议第三方带上该参数，可设置为简单的随机数加 session 进行校验，开发者可以填写a-zA-Z0-9的参数值，最多128字节，要求做urlencode
+     * </pre>
+     */
+    String MESSAGE_SUBSCRIBE_MSG_URL_PATTERN = MP_BASE_PATH + "/subscribemsg?action=get_confirm&appid={0}&scene={1}&template_id={2}&redirect_url={3}&reserved={4}#wechat_redirect";
+    /**
+     * 公众号一次性订阅消息: 发送订阅消息(服务号权限) <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/One-time_subscription_info.html</a> <br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=ACCESS_TOKEN
+     */
+    String MESSAGE_TEMPLATE_SUBSCRIBE = BASE_PATH + "/message/template/subscribe";
+
+    /**
+     * 公众号一次性订阅消息: 获取授权链接
+     *
+     * @param appId       公众号的唯一标识
+     * @param scene       重定向后会带上 scene 参数，开发者可以填0-10000的整型值，用来标识订阅场景值
+     * @param templateId  订阅消息模板ID，登录公众平台后台，在接口权限列表处可查看订阅模板ID
+     * @param redirectUrl 授权后重定向的回调地址，请使用 UrlEncode 对链接进行处理。 注：要求redirect_url的域名要跟登记的业务域名一致，且业务域名不能带路径。 业务域名需登录公众号，在设置 - 公众号设置 - 功能设置里面对业务域名设置
+     * @param reserved    用于保持请求和回调的状态，授权请后原样带回给第三方。该参数可用于防止 csrf 攻击（跨站请求伪造攻击），建议第三方带上该参数，可设置为简单的随机数加 session 进行校验，开发者可以填写a-zA-Z0-9的参数值，最多128字节，要求做urlencode
+     * @return 授权链接
+     */
+    static String messageSubscribeMsgUrl(String appId, String scene, String templateId, String redirectUrl, String reserved) {
+        redirectUrl = UrlUtil.encode(redirectUrl);
+        reserved = UrlUtil.encode(reserved);
+        return MessageFormat.format(MESSAGE_SUBSCRIBE_MSG_URL_PATTERN, appId, scene, templateId, redirectUrl, reserved);
+    }
 
 }

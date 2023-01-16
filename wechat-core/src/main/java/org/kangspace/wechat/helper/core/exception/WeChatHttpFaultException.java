@@ -12,10 +12,10 @@ import org.kangspace.wechat.helper.core.request.WeChatResponse;
  */
 @Getter
 public class WeChatHttpFaultException extends WeChatRequestException {
-    private final WeChatResponse<?> weChatResponse;
+    private WeChatResponse<?> weChatResponse;
 
     public <Resp> WeChatHttpFaultException(WeChatResponse<Resp> weChatResponse) {
-        super(weChatResponse.toString());
+        super(weChatResponse != null ? weChatResponse.toString() : "");
         this.weChatResponse = weChatResponse;
     }
 

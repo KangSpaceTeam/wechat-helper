@@ -66,6 +66,12 @@ public enum WeChatMpEvents {
      */
     Location("LOCATION", LocationEvent.class),
 
+    /**
+     * 模板消息发送成功事件推送
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5</a>
+     */
+    TEMPLATE_SEND_JOB_FINISH("TEMPLATESENDJOBFINISH", LocationEvent.class),
+
     ;
     /**
      * 事件值

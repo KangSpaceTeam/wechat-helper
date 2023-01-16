@@ -58,4 +58,15 @@ public class DefaultWeChatMpMessageService extends AbstractWeChatMpService imple
         String url = WeChatMpApiPaths.GET_CURRENT_AUTOREPLY_INFO;
         return get(url, GetCurrentAutoReplyInfoResponse.class);
     }
+
+    @Override
+    public String subscribeMsg(String appId, String scene, String templateId, String redirectUrl, String reserved) {
+        return WeChatMpApiPaths.messageSubscribeMsgUrl(appId, scene, templateId, redirectUrl, reserved);
+    }
+
+    @Override
+    public WeChatMpResponseEntity subscribe(MessageTemplateSubscribeRequest request) {
+        String url = WeChatMpApiPaths.MESSAGE_TEMPLATE_SUBSCRIBE;
+        return post(url, request, WeChatMpResponseEntity.class);
+    }
 }

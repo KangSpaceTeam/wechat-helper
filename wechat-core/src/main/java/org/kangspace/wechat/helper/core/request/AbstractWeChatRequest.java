@@ -178,7 +178,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         }
         log.debug("Request doExecute: response: {}", response);
         // 非200/201时抛出异常
-        if (!HttpUtil.isSuccess(response.status())) {
+        if (response == null || !HttpUtil.isSuccess(response.status())) {
             throw new WeChatHttpFaultException(response);
         }
         Resp resp = response.getContent();

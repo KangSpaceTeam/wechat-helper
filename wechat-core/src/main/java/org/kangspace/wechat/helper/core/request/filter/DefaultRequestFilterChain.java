@@ -99,8 +99,8 @@ public class DefaultRequestFilterChain implements RequestFilterChain {
     private <Req, Resp> Mono<Resp> invokeFilter(RequestFilter current, DefaultRequestFilterChain chain, WeChatRequest<Req, Resp> request) {
         String currentName = current.getClass().getName();
         if (current.isSupported(request)) {
-            return current.doFilter(request, chain).checkpoint(currentName + " [DefaultRequestFilterChain]");
+            return current.doFilter(request, chain);
         }
-        return chain.doFilter(request).checkpoint(currentName + " [DefaultRequestFilterChain]");
+        return chain.doFilter(request);
     }
 }

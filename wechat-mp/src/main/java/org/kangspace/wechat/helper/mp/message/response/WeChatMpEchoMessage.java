@@ -2,6 +2,8 @@ package org.kangspace.wechat.helper.mp.message.response;
 
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 
+import static org.kangspace.wechat.helper.core.constant.WeChatConstant.SUCCESS_FLAG;
+
 /**
  * 微信公众号响应消息
  * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Passive_user_reply_message.html">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Passive_user_reply_message.html</a>
@@ -20,7 +22,7 @@ public interface WeChatMpEchoMessage extends WeChatEchoMessage {
     /**
      * 输出success
      */
-    String ECHO_SUCCESS = "success";
+    String ECHO_SUCCESS = SUCCESS_FLAG;
 
     /**
      * 回复{@link #ECHO_SUCCESS}

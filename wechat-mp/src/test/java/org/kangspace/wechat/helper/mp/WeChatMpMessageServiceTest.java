@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.wechat.helper.core.util.NonceGenerator;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
@@ -136,6 +137,42 @@ public class WeChatMpMessageServiceTest {
     @Test
     public void getCurrentAutoReplyInfoTest() {
         GetCurrentAutoReplyInfoResponse response = messageService.getCurrentAutoReplyInfo();
+        log.info("response: {}", response);
+    }
+
+    /**
+     * 公众号一次性订阅消息: 获取授权链接 测试
+     */
+    @Test
+    public void subscribeMsg() {
+        String scene = "";
+        String templateId = "TEMP";
+        String redirectUrl = "https://kangspace.org/";
+        String reserved = NonceGenerator.numeric();
+        String url = messageService.subscribeMsg(appId, scene, templateId, redirectUrl, reserved);
+        log.info("url: {}", url);
+    }
+
+    /**
+     * 公众号一次性订阅消息: 发送订阅消息 测试
+     */
+    @Test
+    public void subscribe() {
+        String toUser = "";
+        String templateId = "";
+        String title = "";
+        String scene = "1";
+        String url = "https://kangspace.org";
+        MessageTemplateSubscribeRequest.MiniProgram miniProgram = new MessageTemplateSubscribeRequest.MiniProgram("appId", "/path");
+        MessageTemplateSubscribeRequest request = new MessageTemplateSubscribeRequest();
+        request.setToUser(toUser);
+        request.setTemplateId(templateId);
+        request.setUrl(url);
+        request.setMiniProgram(miniProgram);
+        request.setTitle(title);
+        request.setScene(scene);
+        request.setData(new MessageTemplateSubscribeRequest.TemplateData(new MessageTemplateSubscribeRequest.TemplateDataContent("MESSAGE CONTENT")));
+        WeChatMpResponseEntity response = messageService.subscribe(request);
         log.info("response: {}", response);
     }
 }
