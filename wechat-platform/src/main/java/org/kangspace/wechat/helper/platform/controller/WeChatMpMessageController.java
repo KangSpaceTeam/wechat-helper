@@ -7,6 +7,7 @@ import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 import org.kangspace.wechat.helper.platform.config.WeChatMpServiceConfig;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -67,7 +68,7 @@ public class WeChatMpMessageController {
      * @param body 消息内容
      * @return String
      */
-    @PostMapping("")
+    @PostMapping(path = "", produces = MimeTypeUtils.APPLICATION_XML_VALUE)
     public String messageHandle(@RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce,
                                 @RequestParam(value = "msg_signature", required = false) String msgSignature,
                                 @RequestParam(value = "encrypt_type", required = false) String encryptType,

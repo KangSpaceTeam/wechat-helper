@@ -30,7 +30,9 @@
 
 1. 文本消息 明文:
 
-> POST /wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
+> POST
+>
+/wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
 
 ```
 <xml>
@@ -43,7 +45,9 @@
 </xml>
 ```
 
-> POST wechat-platform/message?signature=df7245e129709dfc38a003f029cf2749ff3c0da2&timestamp=1672982088&nonce=1045065514&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
+> POST
+>
+wechat-platform/message?signature=df7245e129709dfc38a003f029cf2749ff3c0da2&timestamp=1672982088&nonce=1045065514&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
 
 ```
 <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
@@ -56,7 +60,9 @@
 ```
 
 混合:
-> POST /wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361
+> POST
+>
+/wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361
 
 ```
 <xml>
@@ -73,7 +79,9 @@
 
 安全模式:
 
-> signature=af0293fa28d9295bbeed7d14682f33b67b40ac11, timestamp=1673663596, nonce=1010515247, encryptType=aes, msgSignature=7cfc35554d3d386235bf953e0d2ce6e9974eca53) 
+> signature=af0293fa28d9295bbeed7d14682f33b67b40ac11, timestamp=1673663596, nonce=1010515247, encryptType=aes,
+> msgSignature=7cfc35554d3d386235bf953e0d2ce6e9974eca53)
+
 ```
 <xml>
 <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
@@ -100,18 +108,32 @@
 
 3. 语音消息
 
-4. 视频消息
-
-> signature=018024858e54cc26566030cd4567a90db161028f, timestamp=1673330366, nonce=1076523229), encryptType=null, msgSignature=null
+> signature=d07daaa80f94ac3c69e3e2510fb7499769701147, timestamp=1673929361, nonce=226823177
 
 ```
 <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
 <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
-<CreateTime>1673330364</CreateTime>
+<CreateTime>1673929361</CreateTime>
+<MsgType><![CDATA[voice]]></MsgType>
+<MediaId><![CDATA[8AFksrG7bKh_RAaz64vffLNS9wCdsMAfrqC3km62GZUtEgHJd-rHJySf7VmPlztQ]]></MediaId>
+<Format><![CDATA[amr]]></Format>
+<MsgId>23964906520257817</MsgId>
+<Recognition><![CDATA[]]></Recognition>
+</xml>
+```   
+
+4. 视频消息
+
+> signature=78ab5abd724c4ecc49d617a4c30570afe7ad4f9f, timestamp=1673930863, nonce=1668497985
+
+``` 
+<xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
+<FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
+<CreateTime>1673930861</CreateTime>
 <MsgType><![CDATA[video]]></MsgType>
-<MediaId><![CDATA[G_-]]></MediaId>
-<ThumbMediaId><![CDATA[G_-]]></ThumbMediaId>
-<MsgId>23956328414742057</MsgId>
+<MediaId><![CDATA[bhdru4vbXsWWVqx-HZifCISSLTCkg96bCI8YqupJeXbBmKQDyRcl_1xIC0k7v7Yipb9DZIlwUAJvUeWMz18ioQ]]></MediaId>
+<ThumbMediaId><![CDATA[bhdru4vbXsWWVqx-HZifCLbrIRhrckYCFgoDewz-5dYcgYACXc6js3yZ8aCxzJmk]]></ThumbMediaId>
+<MsgId>23964928508732800</MsgId>
 </xml>
 ```
 
@@ -152,7 +174,9 @@
 
 ### 事件
 
-> POST /wechat-platform/message?signature=2fa6d6663dc078f7580bf82ba68465e63c5342de&timestamp=1672033304&nonce=966813369&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
+> POST
+>
+/wechat-platform/message?signature=2fa6d6663dc078f7580bf82ba68465e63c5342de&timestamp=1672033304&nonce=966813369&openid=oOIaHt5IOo6rI8BH8IOiG3lA0yHU
 
 ```
 <xml>
@@ -167,7 +191,8 @@
 
 1. CLICK事件
 
-> (signature=fd6a576defb6f521ecc6ee593ea6dbdb31aa04ec, timestamp=1673229375, nonce=493853253), encryptType=null, msgSignature=null)
+> (signature=fd6a576defb6f521ecc6ee593ea6dbdb31aa04ec, timestamp=1673229375, nonce=493853253), encryptType=null,
+> msgSignature=null)
 
 ```
 <xml>

@@ -36,7 +36,7 @@ public class VoiceEchoMessage extends WeChatMpEchoXmlMessage {
 
     @Override
     public MessageConstant.MessageType getMsgType() {
-        return MessageConstant.MessageType.VIDEO;
+        return MessageConstant.MessageType.VOICE;
     }
 
     /**

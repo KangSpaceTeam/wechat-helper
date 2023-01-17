@@ -2,6 +2,7 @@ package org.kangspace.wechat.helper.mp.message.response;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.ToString;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
@@ -15,6 +16,7 @@ import org.kangspace.wechat.helper.mp.constant.MessageConstant;
  */
 @Data
 @ToString(callSuper = true)
+@AllArgsConstructor
 public class MusicEchoMessage extends WeChatMpEchoXmlMessage {
 
     /**
@@ -45,6 +47,7 @@ public class MusicEchoMessage extends WeChatMpEchoXmlMessage {
 
         /**
          * 音乐标题
+         * 必填: 否
          */
         @JacksonXmlProperty(localName = "Title")
         @JacksonXmlCData
@@ -52,6 +55,7 @@ public class MusicEchoMessage extends WeChatMpEchoXmlMessage {
 
         /**
          * 音乐描述
+         * 必填: 否
          */
         @JacksonXmlProperty(localName = "Description")
         @JacksonXmlCData
@@ -59,13 +63,15 @@ public class MusicEchoMessage extends WeChatMpEchoXmlMessage {
 
         /**
          * 音乐链接
+         * 必填: 否
          */
         @JacksonXmlProperty(localName = "MusicURL")
         @JacksonXmlCData
-        private String musicURL;
+        private String musicUrl;
 
         /**
          * 高质量音乐链接，WIFI环境优先使用该链接播放音乐
+         * 必填: 否
          */
         @JacksonXmlProperty(localName = "HQMusicUrl")
         @JacksonXmlCData
@@ -73,9 +79,18 @@ public class MusicEchoMessage extends WeChatMpEchoXmlMessage {
 
         /**
          * 缩略图的媒体id，通过素材管理中的接口上传多媒体文件，得到的id
+         * 必填: 是
          */
         @JacksonXmlProperty(localName = "ThumbMediaId")
         @JacksonXmlCData
         private String thumbMediaId;
+
+        public Music(String title, String description, String musicUrl, String hqMusicUrl, String thumbMediaId) {
+            this.title = title;
+            this.description = description;
+            this.musicUrl = musicUrl;
+            this.hqMusicUrl = hqMusicUrl;
+            this.thumbMediaId = thumbMediaId;
+        }
     }
 }

@@ -94,4 +94,6 @@ public interface WeChatMpMessageService extends WeChatMpService {
      * @return {@link WeChatMpResponseEntity}
      */
     WeChatMpResponseEntity subscribe(MessageTemplateSubscribeRequest request);
+
+// TODO 群发接口
 }

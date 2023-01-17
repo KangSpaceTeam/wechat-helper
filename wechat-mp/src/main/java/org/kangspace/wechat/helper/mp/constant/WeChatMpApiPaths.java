@@ -308,6 +308,161 @@ public interface WeChatMpApiPaths {
      * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/message/template/subscribe?access_token=ACCESS_TOKEN
      */
     String MESSAGE_TEMPLATE_SUBSCRIBE = BASE_PATH + "/message/template/subscribe";
+    /**
+     * 素材管理: 新增临时素材<br>
+     * <pre>
+     * 公众号经常有需要用到一些临时性的多媒体素材的场景，例如在使用接口特别是发送消息时，对多媒体文件、多媒体消息的获取和调用等操作，是通过media_id来进行的。素材管理接口对所有认证的订阅号和服务号开放。通过本接口，公众号可以新增临时素材（即上传临时多媒体文件）。使用接口过程中有任何问题，可以前往微信开放社区 #公众号 专区发帖交流
+     * 注意点：
+     * 1、临时素材media_id是可复用的。
+     * 2、媒体文件在微信后台保存时间为3天，即3天后media_id失效。
+     * 3、上传临时素材的格式、大小限制与公众平台官网一致。
+     * 图片（image）: 10M，支持PNG\JPEG\JPG\GIF格式
+     * 语音（voice）：2M，播放长度不超过60s，支持AMR\MP3格式
+     * 视频（video）：10MB，支持MP4格式
+     * 缩略图（thumb）：64KB，支持 JPG 格式
+     * 4、需使用 https 调用本接口。
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html</a> <br>
+     * HTTP POST/FORM请求: https https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE
+     */
+    String MEDIA_UPLOAD = BASE_PATH + "/media/upload";
+    /**
+     * 素材管理: 获取临时素材<br>
+     * <pre>
+     * 公众号可以使用本接口获取临时素材（即下载临时的多媒体文件）。
+     * 本接口即为原“下载多媒体文件”接口。
+     *
+     *  正确情况下的返回 HTTP 头如下：
+     * HTTP/1.1 200 OK
+     * Connection: close
+     * Content-Type: image/jpeg
+     * Content-disposition: attachment; filename="MEDIA_ID.jpg"
+     * Date: Sun, 06 Jan 2013 10:20:18 GMT
+     * Cache-Control: no-cache, must-revalidate
+     * Content-Length: 339721
+     * curl -G "https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID"
+     * 如果返回的是视频消息素材，则内容如下：
+     * {
+     *  "video_url":DOWN_URL
+     * }
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html</a><br>
+     * HTTP GET请求: https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID
+     */
+    String MEDIA_GET = BASE_PATH + "/media/get";
+    /**
+     * 素材管理: 高清语音素材获取接口<br>
+     * <pre>
+     * 公众号可以使用本接口获取从 JSSDK 的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。
+     * 返回说明:
+     * 正确情况下的返回 HTTP 头如下：
+     * HTTP/1.1 200 OK
+     * Connection: close
+     * Content-Type: voice/speex
+     * Content-disposition: attachment; filename="MEDIA_ID.speex"
+     * Date: Sun, 06 Jan 2016 10:20:18 GMT
+     * Cache-Control: no-cache, must-revalidate
+     * Content-Length: 339721
+     * curl -G "https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=ACCESS_TOKEN&media_id=MEDIA_ID"
+     *
+     * 如果 speex 音频格式不符合业务需求，开发者可在获取后，再自行于本地对该语音素材进行转码。
+     *
+     * 转码请使用 speex 的官方解码库http://speex.org/downloads/ ，并结合微信的解码库（含示例代码：<a href="http://wximg.gtimg.com/shake_tv/mpwiki/declib.zip "speex解码库"" target="_blank">下载地址）
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html</a><br>
+     * HTTP GET请求: https://api.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=ACCESS_TOKEN&media_id=MEDIA_ID
+     */
+    String MEDIA_GET_JS_SDK = BASE_PATH + "/media/get/jssdk";
+    /**
+     * 新增永久素材: 上传图文消息内的图片获取URL<br>
+     * <pre>
+     * 对于常用的素材，开发者可通过本接口上传到微信服务器，永久使用。新增的永久素材也可以在公众平台官网素材管理模块中查询管理。
+     * 请注意：
+     * 1、最近更新：永久图片素材新增后，将带有 URL 返回给开发者，开发者可以在腾讯系域名内使用（腾讯系域名外使用，图片将被屏蔽）。
+     * 2、公众号的素材库保存总数量有上限：图文消息素材、图片素材上限为100000，其他类型为1000。
+     * 3、素材的格式大小等要求与公众平台官网一致：
+     * 图片（image）: 10M，支持bmp/png/jpeg/jpg/gif格式
+     * 语音（voice）：2M，播放长度不超过60s，mp3/wma/wav/amr格式
+     * 视频（video）：10MB，支持MP4格式
+     * 缩略图（thumb）：64KB，支持 JPG 格式
+     * 4、图文消息的具体内容中，微信后台将过滤外部的图片链接，图片 url 需通过"上传图文消息内的图片获取URL"接口上传图片获取。
+     * 5、"上传图文消息内的图片获取URL"接口所上传的图片，不占用公众号的素材库中图片数量的100000个的限制，图片仅支持jpg/png格式，大小必须在1MB以下。
+     * 6、图文消息支持正文中插入自己帐号和其他公众号已群发文章链接的能力。
+     * </pre>
+     * <pre>
+     * 上传图文消息内的图片获取URL
+     * 本接口所上传的图片不占用公众号的素材库中图片数量的100000个的限制。图片仅支持jpg/png格式，大小必须在1MB以下。
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html</a><br>
+     * HTTP POST/FORM请求: https://api.weixin.qq.com/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN
+     */
+    String MEDIA_UPLOAD_IMG = BASE_PATH + "/media/uploadimg";
+    /**
+     * 新增永久素材: 新增其他类型永久素材 <br>
+     * <pre>
+     * 通过 POST 表单来调用接口，表单 id 为media，包含需要上传的素材内容，有filename、filelength、content-type等信息。请注意：图片素材将进入公众平台官网素材管理模块中的默认分组。
+     * 新增永久视频素材需特别注意:
+     * 在上传视频素材时需要 POST 另一个表单，id为description，包含素材的描述信息，内容格式为JSON，格式如下：
+     * {
+     *     "title":VIDEO_TITLE,
+     *     "introduction":INTRODUCTION
+     * }
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Adding_Permanent_Assets.html</a><br>
+     * HTTP POST/FORM请求: https://api.weixin.qq.com/cgi-bin/material/add_material?access_token=ACCESS_TOKEN&type=TYPE
+     */
+    String MATERIAL_ADD_MATERIAL = BASE_PATH + "/material/add_material";
+    /**
+     * 获取永久素材 <br>
+     * <pre>
+     * 在新增了永久素材后，开发者可以根据media_id通过本接口下载永久素材。公众号在公众平台官网素材管理模块中新建的永久素材，可通过"获取素材列表"获知素材的media_id。
+     * 请注意：临时素材无法通过本接口获取
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Getting_Permanent_Assets.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Getting_Permanent_Assets.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/material/get_material?access_token=ACCESS_TOKEN
+     */
+    String MATERIAL_GET_MATERIAL = BASE_PATH + "/material/get_material";
+    /**
+     * 删除永久素材 <br>
+     * <pre>
+     * 在新增了永久素材后，开发者可以根据本接口来删除不再需要的永久素材，节省空间。
+     * 请注意：
+     * 1、请谨慎操作本接口，因为它可以删除公众号在公众平台官网素材管理模块中新建的图文消息、语音、视频等素材（但需要先通过获取素材列表来获知素材的media_id）
+     * 2、临时素材无法通过本接口删除
+     * 3、调用该接口需 https 协议
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Deleting_Permanent_Assets.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Deleting_Permanent_Assets.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/material/del_material?access_token=ACCESS_TOKEN
+     */
+    String MATERIAL_DEL_MATERIAL = BASE_PATH + "/material/del_material";
+    /**
+     * 获取素材总数 <br>
+     * <pre>
+     * 开发者可以根据本接口来获取永久素材的列表，需要时也可保存到本地。
+     *
+     * 请注意：
+     * 1.永久素材的总数，也会计算公众平台官网素材管理中的素材
+     * 2.图片和图文消息素材（包括单图文和多图文）的总数上限为100000，其他素材的总数上限为1000
+     * 3.调用该接口需 https 协议
+     * </pre>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_the_total_of_all_materials.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_the_total_of_all_materials.html</a><br>
+     * HTTP GET请求: https://api.weixin.qq.com/cgi-bin/material/get_materialcount?access_token=ACCESS_TOKEN
+     */
+    String MATERIAL_GET_MATERIAL_COUNT = BASE_PATH + "/material/get_materialcount";
+    /**
+     * 获取素材列表 <br>
+     * <pre>
+     * 在新增了永久素材后，开发者可以分类型获取永久素材的列表。
+     * 请注意：
+     * 1、获取永久素材的列表，也包含公众号在公众平台官网素材管理模块中新建的图文消息、语音、视频等素材
+     * 2、临时素材无法通过本接口获取
+     * 3、调用该接口需 https 协议
+     * </pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_materials_list.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_materials_list.html</a><br>
+     * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN
+     */
+    String MATERIAL_BATCH_GET_MATERIAL = BASE_PATH + "/material/batchget_material";
 
     /**
      * 公众号一次性订阅消息: 获取授权链接
