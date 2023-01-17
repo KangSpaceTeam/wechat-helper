@@ -3,12 +3,15 @@ package org.kangspace.wechat.helper.mp;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
+import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
+
+import javax.annotation.Nonnull;
 
 /**
  * 微信公众号"素材管理"相关Service 默认实现
  *
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2023/1/17
  */
 public class DefaultWeChatMpAssetService extends AbstractWeChatMpService implements WeChatMpAssetService {
@@ -26,48 +29,59 @@ public class DefaultWeChatMpAssetService extends AbstractWeChatMpService impleme
 
     @Override
     public MediaUploadResponse mediaUpload(MediaUploadRequest request) {
-        // TODO post form
-        String url = null;
-        return null;
+        String url = WeChatMpApiPaths.MEDIA_UPLOAD;
+        url += "type=" + request.getType();
+        return post(url, request, MediaUploadResponse.class);
     }
 
     @Override
-    public MediaGetResponse mediaGet(String mediaId) {
-        return null;
+    public MediaGetResponse mediaGet(@Nonnull String mediaId) {
+        String url = WeChatMpApiPaths.MEDIA_GET;
+        url += "media_id=" + mediaId;
+        return get(url, MediaGetResponse.class);
     }
 
     @Override
-    public MediaGetResponse mediaGetJsSdk(String mediaId) {
-        return null;
+    public MediaGetResponse mediaGetJsSdk(@Nonnull String mediaId) {
+        String url = WeChatMpApiPaths.MEDIA_GET_JS_SDK;
+        url += "media_id=" + mediaId;
+        return get(url, MediaGetResponse.class);
     }
 
     @Override
     public MediaUploadImgResponse mediaUploadImg(MediaUploadImgRequest request) {
-        return null;
+        String url = WeChatMpApiPaths.MEDIA_UPLOAD_IMG;
+        return post(url, request, MediaUploadImgResponse.class);
     }
 
     @Override
     public MediaAddResponse materialAdd(MaterialAddRequest request) {
-        return null;
+        String url = WeChatMpApiPaths.MATERIAL_ADD_MATERIAL;
+        url += "type=" + request.getType();
+        return get(url, MediaAddResponse.class);
     }
 
     @Override
-    public MediaAddResponse materialGet(String mediaId) {
-        return null;
+    public MediaGetResponse materialGet(@Nonnull String mediaId) {
+        String url = WeChatMpApiPaths.MEDIA_GET;
+        return get(url, MediaGetResponse.class);
     }
 
     @Override
     public WeChatMpResponseEntity materialDel(MaterialDelRequest request) {
-        return null;
+        String url = WeChatMpApiPaths.MENU_DELETE;
+        return post(url, request, MediaGetResponse.class);
     }
 
     @Override
     public MediaGetCountResponse materialGetCount() {
-        return null;
+        String url = WeChatMpApiPaths.MATERIAL_GET_MATERIAL_COUNT;
+        return get(url, MediaGetCountResponse.class);
     }
 
     @Override
     public MaterialBatchGetResponse materialBatchGet(MaterialBatchGetRequest request) {
-        return null;
+        String url = WeChatMpApiPaths.MATERIAL_BATCH_GET_MATERIAL;
+        return post(url, request, MaterialBatchGetResponse.class);
     }
 }

@@ -2,6 +2,8 @@ package org.kangspace.wechat.helper.mp;
 
 import org.kangspace.wechat.helper.mp.bean.*;
 
+import javax.annotation.Nonnull;
+
 /**
  * 微信公众号"素材管理"相关Service<br>
  * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_materials.html</a><br>
@@ -29,7 +31,7 @@ public interface WeChatMpAssetService extends WeChatMpService {
      * @param mediaId 素材ID
      * @return {@link MediaGetResponse}
      */
-    MediaGetResponse mediaGet(String mediaId);
+    MediaGetResponse mediaGet(@Nonnull String mediaId);
 
     /**
      * 高清语音素材获取接口 <br/>
@@ -39,7 +41,7 @@ public interface WeChatMpAssetService extends WeChatMpService {
      * @param mediaId 素材ID
      * @return {@link MediaGetResponse}
      */
-    MediaGetResponse mediaGetJsSdk(String mediaId);
+    MediaGetResponse mediaGetJsSdk(@Nonnull String mediaId);
 
     /**
      * 新增永久素材,上传图文消息内的图片获取URL<br>
@@ -94,7 +96,7 @@ public interface WeChatMpAssetService extends WeChatMpService {
      * @param mediaId 素材ID
      * @return {@link MediaAddResponse}
      */
-    MediaAddResponse materialGet(String mediaId);
+    MediaGetResponse materialGet(@Nonnull String mediaId);
 
     /**
      * 删除永久素材<br>

@@ -9,6 +9,10 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * @since 2022/12/11
  */
 public interface MediaConstant {
+    /**
+     * 文件上传表单名称
+     */
+    String FILE_FORM_NAME = "media";
 
     /**
      * 消息类型

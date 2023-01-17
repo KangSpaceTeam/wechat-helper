@@ -9,7 +9,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * URL工具类
  *
- * @author kangxuefeng
+ * @author kango2gler@gmail.com
  * @since 2023/1/16
  */
 public class UrlUtil {

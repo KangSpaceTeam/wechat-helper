@@ -95,7 +95,26 @@ public class WeChatRequestFactory {
     }
 
     /**
-     * Post请求
+     * Post请求<br>
+     * 支持Form文件上传(requestBody 实现{@link org.kangspace.wechat.helper.core.bean.MultipartRequest.Multipart})<br>
+     * 如:
+     * <pre>
+     *   public class MediaUploadRequest implements MultipartRequest {
+     *     private MediaConstant.MediaType type;
+     *     private File media;
+     *     private String contentType;
+     *     public List&lt;Multipart&gt; getMultipartList() {
+     *         File file = this.getMedia();
+     *         if (!file.isFile()) {
+     *             throw new IllegalArgumentException("media must be a file!");
+     *         }
+     *         return Arrays.asList(new Multipart(FILE_FORM_NAME, file.getName(), IOStreamUtil.toInputStream(file), this.getContentType()));
+     *     }
+     *     public List&lt;FormData&gt; getFormDataList() {
+     *         return MultipartRequest.super.getFormDataList();
+     *     }
+     *   }
+     * </pre>
      *
      * @param url             url
      * @param requestBody     请求体

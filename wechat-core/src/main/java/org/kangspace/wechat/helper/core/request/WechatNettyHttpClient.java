@@ -8,11 +8,13 @@ import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.bean.MultipartRequest;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializer;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerFactory;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializers;
+import org.kangspace.wechat.helper.core.util.CollectionUtil;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufMono;
 import reactor.netty.http.client.HttpClient;
@@ -59,9 +61,26 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
         HttpClient.RequestSender requestSender = client.request(httpMethod).uri(uri);
         log.debug("HttpClient executeAsync: uri:{}, method: {}, httpHeaders: {}, requestBody: {}, responseClass: {}", uri, httpMethod, httpHeaders, requestBody, responseClass);
         if (requestBody != null) {
-            // 请求序列化类
-            requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(HttpUtil.getContentType(httpHeaders), requestBody));
+            if (requestBody instanceof MultipartRequest) {
+                MultipartRequest request = ((MultipartRequest) requestBody);
+                // 文件上传
+                requestSender = (HttpClient.RequestSender) requestSender.sendForm((req, form) -> {
+                    form.multipart(true);
+                    List<MultipartRequest.Multipart> multipartList;
+                    if (CollectionUtil.isNotEmpty((multipartList = request.getMultipartList()))) {
+                        multipartList.forEach(part -> form.file(part.getName(), part.getStream(), part.getContentType()));
+                    }
+                    List<MultipartRequest.FormData> formDataList;
+                    if (CollectionUtil.isNotEmpty((formDataList = request.getFormDataList()))) {
+                        formDataList.forEach(formData -> form.attr(formData.getName(), formData.getValue()));
+                    }
+                });
+            } else {
+                // 请求序列化类
+                requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(HttpUtil.getContentType(httpHeaders), requestBody));
+            }
         }
+
         return requestSender.responseSingle((response, byteBufMono) ->
                 byteBufMono.asString().map(resp -> new WeChatNettyResponse<>(response.status().code(),
                         responseDataSerialize(response, resp, responseClass),
