@@ -28,7 +28,6 @@ public class WeChatMpEventTest {
     }
 
     public void eventResolveTest() {
-        // TODO xxx
         String message = "";
 //        resolver.addWeChatHandler();
 //        resolver.resolve();

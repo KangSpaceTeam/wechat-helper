@@ -27,12 +27,22 @@ public class MaterialBatchGetRequest {
      */
     @Nonnull
     @JsonProperty("offset")
-    private Integer offset;
+    private Integer offset = 0;
 
     /**
      * 返回素材的数量，取值在1到20之间
      */
     @Nonnull
     @JsonProperty("count")
-    private Integer count;
+    private Integer count = 20;
+
+    public MaterialBatchGetRequest(@Nonnull MediaConstant.MediaType type) {
+        this.type = type;
+    }
+
+    public MaterialBatchGetRequest(@Nonnull MediaConstant.MediaType type, @Nonnull Integer offset, @Nonnull Integer count) {
+        this.type = type;
+        this.offset = offset;
+        this.count = count;
+    }
 }

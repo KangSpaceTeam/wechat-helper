@@ -26,7 +26,7 @@ public class MediaAddResponse extends WeChatMpResponseEntity {
     /**
      * 新增的永久素材的media_id
      */
-    @JsonProperty("mediaId")
+    @JsonProperty("media_id")
     private String mediaId;
 
     /**

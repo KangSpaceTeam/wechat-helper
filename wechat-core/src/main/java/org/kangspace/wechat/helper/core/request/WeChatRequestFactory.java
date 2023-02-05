@@ -73,9 +73,6 @@ public class WeChatRequestFactory {
         if (httpHeaders == null) {
             httpHeaders = new DefaultHttpHeaders();
         }
-        if (HttpUtil.getContentType(httpHeaders) == null) {
-            HttpUtil.setContentType(httpHeaders, HttpConstant.APPLICATION_JSON_UTF8);
-        }
         return new DefaultWeChatRequest<>(url, httpMethod, httpHeaders, requestBody, responseClass, wechatConfig, weChatTokenService, filterChain, needAccessToken);
     }
 

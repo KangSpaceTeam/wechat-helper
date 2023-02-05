@@ -29,7 +29,7 @@ public class MediaUploadResponse extends WeChatMpResponseEntity {
     /**
      * 媒体文件上传后，获取标识
      */
-    @JsonProperty("mediaId")
+    @JsonProperty("media_id")
     private String mediaId;
 
     /**

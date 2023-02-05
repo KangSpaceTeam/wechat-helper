@@ -252,6 +252,7 @@ wechat-platform/message?signature=df7245e129709dfc38a003f029cf2749ff3c0da2&times
 
 1. 自定义菜单事件推送
 2. 基础消息能力事件推送,接收消息,模版消息事件推送,群发接口和原创校验
+3. 文件上传、下载请求
 
 ## 附录
 

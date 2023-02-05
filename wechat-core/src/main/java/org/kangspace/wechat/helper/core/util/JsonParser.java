@@ -1,10 +1,10 @@
 package org.kangspace.wechat.helper.core.util;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import org.kangspace.wechat.helper.core.constant.StringLiteral;
 
 /**
- * Gson工具类
- * // TODO 切换为jackson
+ * Json工具类
  *
  * @author kango2gler@gmail.com
  * @since 2022/9/29
@@ -43,5 +43,19 @@ public class JsonParser {
      */
     public static <T> T parse(String jsonString, TypeReference<T> typeReference) {
         return JacksonParser.getInstance().parse(jsonString, typeReference);
+    }
+
+    /**
+     * 快速检查是否是Json
+     *
+     * @return boolean
+     */
+    public static boolean fastCheckJson(String str) {
+        return str != null &&
+                //{..}
+                ((str.startsWith(StringLiteral.LCB) && str.endsWith(StringLiteral.RCB)) ||
+                        // [{...}]
+                        (str.startsWith(StringLiteral.LSB_LCB) && str.endsWith(StringLiteral.RCB_RSB))
+                );
     }
 }

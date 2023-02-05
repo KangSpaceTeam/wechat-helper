@@ -65,6 +65,7 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <maven.complier.plugin.version>3.8.1</maven.complier.plugin.version>
+        <maven.jar.plugin.version>3.2.0</maven.jar.plugin.version>
         <maven.source.plugin.version>3.2.1</maven.source.plugin.version>
         <maven.javadoc.plugin.version>3.4.0</maven.javadoc.plugin.version>
         <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
@@ -301,6 +302,18 @@
                     <encoding>${project.encoding}</encoding>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven.jar.plugin.version}</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
 
             <!-- Source -->
             <plugin>
@@ -353,7 +366,7 @@
                 </configuration>
             </plugin>
             <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase-->
-            <plugin>
+            <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>${maven.gpg.plugin.version}</version>
@@ -366,7 +379,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
             <!-- mvn release -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

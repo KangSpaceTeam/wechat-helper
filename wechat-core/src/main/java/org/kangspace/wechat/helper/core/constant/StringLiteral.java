@@ -35,4 +35,51 @@ public interface StringLiteral {
      * 逗号
      */
     String COMMA = ",";
+
+    /**
+     * 左小括号(left round bracket)
+     */
+    String LRB = "(";
+
+    /**
+     * 右小括号(right round bracket)
+     */
+    String RRB = ")";
+
+    /**
+     * 左中括号(left square bracket)
+     */
+    String LSB = "[";
+
+    /**
+     * 右中括号(right square bracket)
+     */
+    String RSB = "]";
+
+
+    /**
+     * 左花括号(left curly bracket)
+     */
+    String LCB = "{";
+
+    /**
+     * 右花括号(right curly bracket)
+     */
+    String RCB = "}";
+
+    /**
+     * [{
+     */
+    String LSB_LCB = LSB + LCB;
+
+    /**
+     * }]
+     */
+    String RCB_RSB = RCB + RSB ;
+
+    /**
+     * 点
+     */
+    String DOT = ".";
+
 }

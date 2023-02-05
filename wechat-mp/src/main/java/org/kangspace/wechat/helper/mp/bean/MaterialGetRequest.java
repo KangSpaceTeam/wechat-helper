@@ -6,18 +6,18 @@ import lombok.Data;
 import javax.annotation.Nonnull;
 
 /**
- * 微信公众号素材管理:删除永久素材 参数
- *
+ * 获取永久素材请求类
  * @author kango2gler@gmail.com
- * @since 2023/01/17
+ * @since 2023/02/05 14:27
  */
 @Data
-public class MaterialDelRequest {
+public class MaterialGetRequest {
+
     @Nonnull
     @JsonProperty("media_id")
     private String mediaId;
 
-    public MaterialDelRequest(@Nonnull String mediaId) {
+    public MaterialGetRequest(@Nonnull String mediaId) {
         this.mediaId = mediaId;
     }
 }

@@ -4,9 +4,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
+import org.kangspace.wechat.helper.core.bean.AttachmentResponse;
 import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
+import org.kangspace.wechat.helper.mp.util.MediaUtil;
 
 import java.io.File;
 import java.util.List;
@@ -51,7 +53,7 @@ import java.util.List;
  */
 @Setter
 @Getter
-public class MaterialGetResponse extends WeChatMpResponseEntity {
+public class MaterialGetResponse extends WeChatMpResponseEntity implements AttachmentResponse {
     /**
      * 视频消息素材: 下载地址
      */
@@ -73,13 +75,17 @@ public class MaterialGetResponse extends WeChatMpResponseEntity {
      */
     private MediaConstant.MediaType type;
 
+    @JsonProperty("news_item")
+    private List<NewItem> newItems;
+
+    /**
+     * 其他类型的素材消息: 下载的文件类型
+     */
+    private String contentType;
     /**
      * 其他类型的素材消息: 下载的文件内容
      */
     private File media;
-
-    @JsonProperty("news_item")
-    private List<NewItem> newItems;
 
     @Override
     public String toString() {
@@ -93,6 +99,30 @@ public class MaterialGetResponse extends WeChatMpResponseEntity {
                         ", newItems=" + newItems +
                         "}"
         );
+    }
+
+    @Override
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+        this.type = MediaUtil.contentTypeToMediaType(this.getContentType());
+    }
+
+    @Override
+    public File getFile() {
+        return media;
+    }
+
+    @Override
+    public void setFile(File file) {
+        this.media = file;
+    }
+
+    /**
+     * 是否是文件响应
+     * @return boolean
+     */
+    public boolean isFile() {
+        return this.getFile() != null;
     }
 
     /**

@@ -3,8 +3,10 @@ package org.kangspace.wechat.helper.mp.bean;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.kangspace.wechat.helper.core.bean.AttachmentResponse;
 import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
+import org.kangspace.wechat.helper.mp.util.MediaUtil;
 
 import java.io.File;
 
@@ -21,7 +23,7 @@ import java.io.File;
  */
 @Setter
 @Getter
-public class MediaGetResponse extends WeChatMpResponseEntity {
+public class MediaGetResponse extends WeChatMpResponseEntity implements AttachmentResponse {
     /**
      * 视频消息素材
      */
@@ -38,6 +40,11 @@ public class MediaGetResponse extends WeChatMpResponseEntity {
      */
     private File media;
 
+    /**
+     * 下载的文件类型
+     */
+    private String contentType;
+
     @Override
     public String toString() {
         return super.isError() ? super.toString() : (
@@ -47,6 +54,22 @@ public class MediaGetResponse extends WeChatMpResponseEntity {
                         ", media=" + media +
                         "}"
         );
+    }
+
+    @Override
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+        this.type = MediaUtil.contentTypeToMediaType(this.getContentType());
+    }
+
+    @Override
+    public File getFile() {
+        return media;
+    }
+
+    @Override
+    public void setFile(File file) {
+        this.media = file;
     }
 }
 

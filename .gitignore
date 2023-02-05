@@ -8,7 +8,7 @@
 /httpRequests/
 
 .idea
-.iml
+*.iml
 */*.iml
 target
 */target

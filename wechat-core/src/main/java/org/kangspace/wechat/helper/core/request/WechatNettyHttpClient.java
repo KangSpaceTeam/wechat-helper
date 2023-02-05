@@ -1,13 +1,14 @@
 package org.kangspace.wechat.helper.core.request;
 
+import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelOption;
-import io.netty.handler.codec.http.HttpHeaderNames;
-import io.netty.handler.codec.http.HttpHeaderValues;
+import io.netty.handler.codec.http.DefaultHttpHeaders;
 import io.netty.handler.codec.http.HttpHeaders;
 import io.netty.handler.codec.http.HttpMethod;
 import io.netty.handler.timeout.ReadTimeoutHandler;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.wechat.helper.core.bean.AttachmentResponse;
 import org.kangspace.wechat.helper.core.bean.MultipartRequest;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializer;
@@ -15,15 +16,20 @@ import org.kangspace.wechat.helper.core.request.serialize.DataSerializerFactory;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializers;
 import org.kangspace.wechat.helper.core.util.CollectionUtil;
+import org.kangspace.wechat.helper.core.util.ProjectCore;
 import reactor.core.publisher.Mono;
 import reactor.netty.ByteBufMono;
 import reactor.netty.http.client.HttpClient;
 import reactor.netty.http.client.HttpClientResponse;
 import reactor.netty.resources.ConnectionProvider;
 
+import javax.annotation.Nonnull;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
+import java.util.function.Supplier;
 
 /**
  * 微信HttpClient
@@ -53,13 +59,45 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
         this.dataSerializers = dataSerializers != null ? dataSerializers : new DataSerializers();
     }
 
+    /**
+     * 获取AttachmentResponse文件对象
+     *
+     * @param response      {@link HttpClientResponse}
+     * @param body   文件流
+     * @param responseClass 响应对象类型
+     * @return {@link AttachmentResponse}
+     */
+    private <ResponseBody> ResponseBody fetchAttachmentResponse(HttpClientResponse response, ByteBuf body, Class<ResponseBody> responseClass) {
+        // 文件保存路径
+        String savePath = requestConfig.getDownloadPath();
+        // 文件解析器解析文件内容到指定目录
+        return this.getDataSerializers().getAttachmentResponseSerializer().deserialize(response, savePath, body,responseClass);
+    }
+
+    /**
+     * Http响应处理
+     *
+     * @param response         {@link HttpClientResponse}
+     * @param attachmentHandle 文件响应处理
+     * @param normalHandle     正常请求响应处理
+     * @return Mono&lt;WeChatResponse&gt;
+     */
+    private static <ResponseBody> Mono<WeChatResponse<ResponseBody>> responseHandler(HttpClientResponse response,
+                                                                                     Supplier<Mono<WeChatResponse<ResponseBody>>> attachmentHandle,
+                                                                                     Supplier<Mono<WeChatResponse<ResponseBody>>> normalHandle) {
+        if (HttpUtil.isAttachmentResponse(response)) {
+            return attachmentHandle.get();
+        }
+        return normalHandle.get();
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <RequestBody, ResponseBody> Mono<WeChatResponse<ResponseBody>> executeAsync(String uri, HttpMethod httpMethod, HttpHeaders httpHeaders, RequestBody requestBody, Class<ResponseBody> responseClass) {
-        contentTypeRequestHeaderAutoSet(httpHeaders, requestBody);
+        HttpUtil.contentTypeRequestHeaderAutoSet(httpHeaders, requestBody);
         HttpClient client = newClientWithConfig(httpHeaders);
-        HttpClient.RequestSender requestSender = client.request(httpMethod).uri(uri);
-        log.debug("HttpClient executeAsync: uri:{}, method: {}, httpHeaders: {}, requestBody: {}, responseClass: {}", uri, httpMethod, httpHeaders, requestBody, responseClass);
+        HttpClient.RequestSender requestSender = client.followRedirect(true).request(httpMethod).uri(uri);
+        log.debug("HttpClient executeAsync: uri:{}", uri);
         if (requestBody != null) {
             if (requestBody instanceof MultipartRequest) {
                 MultipartRequest request = ((MultipartRequest) requestBody);
@@ -68,7 +106,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
                     form.multipart(true);
                     List<MultipartRequest.Multipart> multipartList;
                     if (CollectionUtil.isNotEmpty((multipartList = request.getMultipartList()))) {
-                        multipartList.forEach(part -> form.file(part.getName(), part.getStream(), part.getContentType()));
+                        multipartList.forEach(part -> form.file(part.getName(), part.getFileName(), part.getStream(), part.getContentType()));
                     }
                     List<MultipartRequest.FormData> formDataList;
                     if (CollectionUtil.isNotEmpty((formDataList = request.getFormDataList()))) {
@@ -80,29 +118,24 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
                 requestSender = (HttpClient.RequestSender) requestSender.send(requestDataSerialize(HttpUtil.getContentType(httpHeaders), requestBody));
             }
         }
-
-        return requestSender.responseSingle((response, byteBufMono) ->
-                byteBufMono.asString().map(resp -> new WeChatNettyResponse<>(response.status().code(),
-                        responseDataSerialize(response, resp, responseClass),
-                        WeChatNettyResponse.toHeaders(response.responseHeaders()),
-                        WeChatNettyResponse.toCookies(response.cookies()))));
-    }
-
-    /**
-     * ContentType自动设置
-     *
-     * @param httpHeaders 请求头
-     * @param requestBody 请求体
-     */
-    public <RequestBody> void contentTypeRequestHeaderAutoSet(HttpHeaders httpHeaders, RequestBody requestBody) {
-        if (requestBody == null || HttpUtil.getContentType(httpHeaders) == null) {
-            return;
-        }
-        String contentType = HttpHeaderValues.TEXT_PLAIN.toString();
-        if (!(requestBody instanceof String)) {
-            contentType = HttpHeaderValues.APPLICATION_JSON.toString();
-        }
-        httpHeaders.add(HttpHeaderNames.CONTENT_TYPE, contentType);
+        return requestSender.responseSingle((response, byteBufMono) -> {
+                    Map<String, String> responseHeaders = WeChatNettyResponse.toHeaders(response.responseHeaders());
+                    Map<String, Set<String>> cookies = WeChatNettyResponse.toCookies(response.cookies());
+                    return responseHandler(response,
+                            // 文件响应, 解析文件 Content-disposition: attachment; filename=""
+                            () -> byteBufMono.map(byteBuf -> {
+                                ResponseBody responseBody = fetchAttachmentResponse(response, byteBuf, responseClass);
+                                return new WeChatNettyResponse<>(response.status().code(), responseBody, responseHeaders, cookies);
+                            }),
+                            // 普通请求响应
+                            () -> byteBufMono.asString()
+                                    .map(resp -> (WeChatResponse<ResponseBody>) (
+                                            new WeChatNettyResponse<>(response.status().code(), responseDataSerialize(response, resp, responseClass), responseHeaders, cookies)))
+                                    .switchIfEmpty(Mono.just((WeChatResponse<ResponseBody>)
+                                            (new WeChatNettyResponse<>(response.status().code(), null, responseHeaders, cookies))
+                                    )));
+                }
+        );
     }
 
     /**
@@ -113,15 +146,31 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      */
     private HttpClient newClientWithConfig(HttpHeaders httpHeaders) {
         ConnectionProvider connectionProvider = ConnectionProvider.builder("WechatNettyHttpClientPool").build();
-        HttpClient client = HttpClient.create(connectionProvider)
+        HttpHeaders newHeaders = buildDefaultHttpHeaders(httpHeaders);
+        return HttpClient.create(connectionProvider)
                 // socket timeout
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, requestConfig.getConnectionTimeout())
                 // read timeout
-                .doOnConnected(t -> t.addHandlerFirst(new ReadTimeoutHandler(requestConfig.getReadTimeout(), TimeUnit.SECONDS))).compress(this.requestConfig.isCompress()).followRedirect(this.requestConfig.isFollowRedirect()).keepAlive(this.requestConfig.isKeepAlive());
-        if (httpHeaders != null) {
-            client.headers(headers -> headers.add(httpHeaders));
+                .doOnConnected(t -> t.addHandlerFirst(new ReadTimeoutHandler(requestConfig.getReadTimeout(), TimeUnit.SECONDS)))
+                .compress(this.requestConfig.isCompress()).followRedirect(this.requestConfig.isFollowRedirect())
+                .keepAlive(this.requestConfig.isKeepAlive())
+                .headers(headers -> headers.add(newHeaders));
+    }
+
+    /**
+     * 设置默认请求头(如UserAgent等)
+     * @param httpHeaders {@link HttpHeaders}
+     * @return {@link HttpHeaders}
+     */
+    private HttpHeaders buildDefaultHttpHeaders(HttpHeaders httpHeaders) {
+        if (httpHeaders == null) {
+            httpHeaders = new DefaultHttpHeaders();
         }
-        return client;
+        // UserAgent设置 wechat-helper/x.x.x
+        if (!httpHeaders.contains(HttpConstant.USER_AGENT_NAME)) {
+            httpHeaders.set(HttpConstant.USER_AGENT_NAME, ProjectCore.USER_AGENT);
+        }
+        return httpHeaders;
     }
 
     /**
@@ -130,6 +179,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @param requestBody 请求体
      * @return {@link ByteBufMono}
      */
+    @Nonnull
     @SuppressWarnings("unchecked")
     private ByteBufMono requestDataSerialize(String contentType, Object requestBody) {
         List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.REQUEST);
@@ -157,7 +207,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     @SuppressWarnings("unchecked")
     private <ResponseBody> ResponseBody responseDataSerialize(HttpClientResponse response, String responseData, Class<ResponseBody> responseClass) {
         String contentType = HttpUtil.getContentType(response);
-        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.RESPONSE);
+        List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.RESPONSE, responseData);
         log.debug("Response dataSerializes: contentType: {}, serializers: {}, responseData: {}", contentType, serializers, responseData);
         Iterator<DataSerializer<ResponseBody>> iterator = (Iterator<DataSerializer<ResponseBody>>) serializers.iterator();
         ResponseBody data;

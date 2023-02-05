@@ -8,6 +8,7 @@ import org.kangspace.wechat.helper.core.exception.WeChatHttpFaultException;
 import org.kangspace.wechat.helper.core.exception.WeChatServerErrorException;
 import org.kangspace.wechat.helper.core.request.HttpUtil;
 import org.kangspace.wechat.helper.core.request.WeChatRequest;
+import org.kangspace.wechat.helper.core.request.WeChatResponse;
 import org.kangspace.wechat.helper.core.retry.RetryRunner;
 import org.kangspace.wechat.helper.core.util.ThreadUtil;
 import reactor.core.publisher.Mono;
@@ -51,7 +52,8 @@ public class RequestExecuteRetryFilter implements RequestFilter {
             }
             // 2. Http 502,503,504错误重试
             if (exception instanceof WeChatHttpFaultException) {
-                return HttpUtil.isRetryHttpStatus(((WeChatHttpFaultException) exception).getWeChatResponse().status());
+                WeChatResponse<?> response;
+                return (response = ((WeChatHttpFaultException) exception).getWeChatResponse()) !=null && HttpUtil.isRetryHttpStatus(response.status());
             }
             // 3. 微信服务器异常重试
             if (exception instanceof WeChatServerErrorException) {
@@ -72,7 +74,7 @@ public class RequestExecuteRetryFilter implements RequestFilter {
     private boolean isRetryException(Throwable exception) {
         return (exception instanceof UnknownHostException ||
                 exception instanceof ConnectException ||
-                exception instanceof IOException ||
+//                exception instanceof IOException ||
                 exception instanceof TimeoutException);
     }
 

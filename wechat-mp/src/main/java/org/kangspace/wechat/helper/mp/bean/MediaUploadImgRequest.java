@@ -1,12 +1,11 @@
 package org.kangspace.wechat.helper.mp.bean;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.kangspace.wechat.helper.core.bean.MultipartRequest;
-import org.kangspace.wechat.helper.core.util.IOStreamUtil;
+import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 
@@ -19,26 +18,28 @@ import static org.kangspace.wechat.helper.mp.constant.MediaConstant.FILE_FORM_NA
  * @since 2023/01/17
  */
 @Data
-public class MediaUploadImgRequest implements MultipartRequest {
-    /**
-     * form-data中媒体文件标识，有filename、filelength、content-type等信息
-     */
-    @Nonnull
-    @JsonProperty("media")
-    private File media;
+public class MediaUploadImgRequest extends MediaUploadRequest {
 
-    /**
-     * 文件类型
-     */
-    @Nonnull
-    private String contentType;
+    public MediaUploadImgRequest(@Nonnull String fileName, @Nonnull InputStream media, @Nonnull String contentType) {
+        super(fileName, MediaConstant.MediaType.IMAGE, media, contentType);
+    }
+
+    public MediaUploadImgRequest(@Nonnull File media, @Nonnull String contentType) {
+        super(MediaConstant.MediaType.IMAGE, media, contentType);
+    }
 
     @Override
     public List<Multipart> getMultipartList() {
-        File file = this.getMedia();
-        if (!file.isFile()) {
-            throw new IllegalArgumentException("media must be a file!");
+        InputStream inputStream = this.getMedia();
+        if (inputStream == null) {
+            throw new IllegalArgumentException("media must be not null!");
         }
-        return Collections.singletonList(new Multipart(FILE_FORM_NAME, file.getName(), IOStreamUtil.toInputStream(file), this.getContentType()));
+        return Collections.singletonList(new Multipart(FILE_FORM_NAME, getFileName(), inputStream, this.getContentType()));
+    }
+
+    @Nonnull
+    @Override
+    public MediaConstant.MediaType getType() {
+        return MediaConstant.MediaType.IMAGE;
     }
 }

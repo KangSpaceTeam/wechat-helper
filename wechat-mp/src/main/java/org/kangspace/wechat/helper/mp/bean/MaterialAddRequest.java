@@ -10,6 +10,7 @@ import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
@@ -35,6 +36,10 @@ public class MaterialAddRequest extends MediaUploadRequest {
      */
     @JsonProperty(value = VIDEO_DESCRIPTION_FORM_NAME)
     private Description description;
+
+    public MaterialAddRequest(@Nonnull String fileName, @Nonnull MediaConstant.MediaType type, @Nonnull InputStream media, @Nonnull String contentType) {
+        super(fileName, type, media, contentType);
+    }
 
     public MaterialAddRequest(@Nonnull MediaConstant.MediaType type, @Nonnull File media, @Nonnull String contentType) {
         super(type, media, contentType);

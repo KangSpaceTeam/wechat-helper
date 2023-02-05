@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.mp;
 
+import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
@@ -30,21 +31,21 @@ public class DefaultWeChatMpAssetService extends AbstractWeChatMpService impleme
     @Override
     public MediaUploadResponse mediaUpload(MediaUploadRequest request) {
         String url = WeChatMpApiPaths.MEDIA_UPLOAD;
-        url += "type=" + request.getType();
+        url += StringLiteral.QUESTION_MARK + "type=" + request.getType().getValue();
         return post(url, request, MediaUploadResponse.class);
     }
 
     @Override
     public MediaGetResponse mediaGet(@Nonnull String mediaId) {
         String url = WeChatMpApiPaths.MEDIA_GET;
-        url += "media_id=" + mediaId;
+        url += StringLiteral.QUESTION_MARK + "media_id=" + mediaId;
         return get(url, MediaGetResponse.class);
     }
 
     @Override
     public MediaGetResponse mediaGetJsSdk(@Nonnull String mediaId) {
         String url = WeChatMpApiPaths.MEDIA_GET_JS_SDK;
-        url += "media_id=" + mediaId;
+        url += StringLiteral.QUESTION_MARK + "media_id=" + mediaId;
         return get(url, MediaGetResponse.class);
     }
 
@@ -57,20 +58,20 @@ public class DefaultWeChatMpAssetService extends AbstractWeChatMpService impleme
     @Override
     public MediaAddResponse materialAdd(MaterialAddRequest request) {
         String url = WeChatMpApiPaths.MATERIAL_ADD_MATERIAL;
-        url += "type=" + request.getType();
-        return get(url, MediaAddResponse.class);
+        url += StringLiteral.QUESTION_MARK + "type=" + request.getType().getValue();
+        return post(url, request, MediaAddResponse.class);
     }
 
     @Override
-    public MediaGetResponse materialGet(@Nonnull String mediaId) {
-        String url = WeChatMpApiPaths.MEDIA_GET;
-        return get(url, MediaGetResponse.class);
+    public MaterialGetResponse materialGet(@Nonnull MaterialGetRequest request) {
+        String url = WeChatMpApiPaths.MATERIAL_GET_MATERIAL;
+        return post(url,request, MaterialGetResponse.class);
     }
 
     @Override
     public WeChatMpResponseEntity materialDel(MaterialDelRequest request) {
-        String url = WeChatMpApiPaths.MENU_DELETE;
-        return post(url, request, MediaGetResponse.class);
+        String url = WeChatMpApiPaths.MATERIAL_DEL_MATERIAL;
+        return post(url, request, WeChatMpResponseEntity.class);
     }
 
     @Override

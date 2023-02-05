@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.core.request.serialize.json;
 
 import io.netty.handler.codec.http.HttpHeaderValues;
+import org.kangspace.wechat.helper.core.request.HttpConstant;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
 import org.kangspace.wechat.helper.core.request.serialize.RequestResponseDataSerializer;
 import org.kangspace.wechat.helper.core.util.JsonParser;
@@ -23,8 +24,10 @@ public class JsonRequestResponseDataSerializer extends RequestResponseDataSerial
     }
 
     @Override
-    public boolean isSupport(String contentType, DataSerializerScope scope) {
-        return super.isSupport(contentType, scope) && contentType.contains(HttpHeaderValues.APPLICATION_JSON);
+    public boolean isSupport(String contentType, DataSerializerScope scope, Object data) {
+        return super.isSupport(contentType, scope) &&
+                (contentType.contains(HttpHeaderValues.APPLICATION_JSON) ||
+                        (contentType.contains(HttpConstant.TEXT) && JsonParser.fastCheckJson(data.toString())));
     }
 
     @Override

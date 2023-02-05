@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.core.request.serialize;
 
+import org.kangspace.wechat.helper.core.request.serialize.file.AttachmentResponseSerializer;
 import org.kangspace.wechat.helper.core.request.serialize.json.JsonRequestResponseDataSerializer;
 import org.kangspace.wechat.helper.core.request.serialize.string.StringRequestResponseDataSerializer;
 import org.kangspace.wechat.helper.core.request.serialize.xml.XmlRequestResponseDataSerializer;
@@ -23,6 +24,7 @@ public class DataSerializerFactory {
      */
     public static DataSerializers defaultSerializers() {
         List<DataSerializer<?>> list = new ArrayList<>();
+        list.add(new AttachmentResponseSerializer());
         list.add(new JsonRequestResponseDataSerializer());
         list.add(new XmlRequestResponseDataSerializer());
         list.add(new StringRequestResponseDataSerializer());

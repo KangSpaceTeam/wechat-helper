@@ -10,6 +10,6 @@ public class ResponseDataSerializer<FROM> extends AbstractDataSerializer<FROM> {
 
     @Override
     public boolean isSupport(String contentType, DataSerializerScope scope) {
-        return false;
+        return DataSerializerScope.RESPONSE.equals(scope);
     }
 }

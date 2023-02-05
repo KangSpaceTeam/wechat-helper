@@ -1,5 +1,8 @@
 package org.kangspace.wechat.helper.core.request.serialize;
 
+import org.kangspace.wechat.helper.core.request.serialize.file.AttachmentResponseSerializer;
+
+import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -62,6 +65,28 @@ public class DataSerializers implements Iterator<DataSerializer<?>>, Iterable<Da
         return this.dataSerializers.stream().filter(t -> t.isSupport(contentType, scope)).collect(Collectors.toList());
     }
 
+    /**
+     * 获取文件处理解析器
+     *
+     * @return {@link AttachmentResponseSerializer}
+     */
+    public AttachmentResponseSerializer getAttachmentResponseSerializer() {
+        return (AttachmentResponseSerializer) this.dataSerializers.stream().filter(t -> t.getClass().isAssignableFrom(AttachmentResponseSerializer.class))
+                .findFirst().orElseThrow(()->new IllegalArgumentException("AttachmentResponseSerializer was not found!"));
+    }
+
+    /**
+     * 通过contentType,scope,data获取序列化对象
+     *
+     * @param contentType contentType
+     * @param scope       {@link DataSerializerScope}
+     * @param data       data
+     * @return List&lt;{@link DataSerializer}&gt;
+     */
+    public List<DataSerializer<?>> getDataSerializers(String contentType, DataSerializerScope scope, Object data) {
+        return this.dataSerializers.stream().filter(t -> t.isSupport(contentType, scope, data)).collect(Collectors.toList());
+    }
+
 
     /**
      * Stream PropertySources
@@ -81,6 +106,7 @@ public class DataSerializers implements Iterator<DataSerializer<?>>, Iterable<Da
         return this.stream().sorted();
     }
 
+    @Nonnull
     @Override
     public Iterator<DataSerializer<?>> iterator() {
         return this.it;

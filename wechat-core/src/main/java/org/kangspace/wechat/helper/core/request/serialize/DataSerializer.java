@@ -34,6 +34,16 @@ public interface DataSerializer<FROM> {
     boolean isSupport(String contentType, DataSerializerScope scope);
 
     /**
+     * 是否支持该序列化
+     *
+     * @param contentType MIME ContentType类型
+     * @param scope       {@link DataSerializerScope}
+     * @param data data
+     * @return boolean
+     */
+    boolean isSupport(String contentType, DataSerializerScope scope, Object data);
+
+    /**
      * 获取处理顺序
      *
      * @return 顺序

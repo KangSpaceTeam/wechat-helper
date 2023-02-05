@@ -13,9 +13,15 @@ public abstract class AbstractDataSerializer<FROM> implements DataSerializer<FRO
         return (String) data;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public FROM deserialize(String data, Class<FROM> targetClass) {
         return (FROM) data;
+    }
+
+    @Override
+    public boolean isSupport(String contentType, DataSerializerScope scope, Object data) {
+        return isSupport(contentType, scope);
     }
 
     @Override

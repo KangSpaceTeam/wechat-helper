@@ -82,7 +82,9 @@ public class TokenUtil {
      * @return 带access_token的url
      */
     public static String appendAccessToken(String url, String accessToken) {
-        return url + (!url.contains(StringLiteral.QUESTION_MARK) ? "?" : "") + ACCESS_TOKEN_PARAM_EQUAL + accessToken;
+        return url
+                + (!url.contains(StringLiteral.QUESTION_MARK) ? "?" : (!url.endsWith(StringLiteral.QUESTION_MARK)?StringLiteral.AND:""))
+                + ACCESS_TOKEN_PARAM_EQUAL + accessToken;
     }
 
 

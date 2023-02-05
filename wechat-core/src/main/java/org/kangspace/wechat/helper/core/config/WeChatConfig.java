@@ -4,6 +4,7 @@ import lombok.Data;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.WeChatToken;
+import org.kangspace.wechat.helper.core.util.IoStreamUtil;
 import org.redisson.api.RedissonClient;
 
 /**
@@ -11,7 +12,7 @@ import org.redisson.api.RedissonClient;
  * <pre>
  * 1. AppId,AppSecret,由子类实现
  * 2. {@link WeChatTokenStorage} Token存储器
- * 3. {@link org.kangspace.wechat.helper.core.config.WeChatRequestConfig.RequestConfig} Http请求相关配置
+ * 3. {@link WeChatConfig.RequestConfig} Http请求相关配置
  * </pre>
  *
  * @author kango2gler@gmail.com
@@ -117,5 +118,10 @@ public interface WeChatConfig {
          * @see org.kangspace.wechat.helper.core.request.filter.RequestExecuteRetryFilter
          */
         private int maxRetryCount = 3;
+
+        /**
+         * 文件下载路径,默认为文件系统下临时目录中的{@link IoStreamUtil#DEFAULT_WECHAT_HELPER_TEMP_DIR_PROPERTY_NAME}
+         */
+        private String downloadPath = IoStreamUtil.getWeChatHelperTempDir();
     }
 }
