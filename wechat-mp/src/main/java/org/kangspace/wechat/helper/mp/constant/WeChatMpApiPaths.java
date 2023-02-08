@@ -24,6 +24,10 @@ public interface WeChatMpApiPaths {
      */
     String MP_BASE_PATH = "https://mp.weixin.qq.com/mp";
 
+    /**
+     * "wxapi" 接口路径
+     */
+    String WX_API_BASE_PATH = "https://api.weixin.qq.com/wxaapi";
 
     /**
      * 获取Access token
@@ -463,6 +467,62 @@ public interface WeChatMpApiPaths {
      * HTTP POST请求: https://api.weixin.qq.com/cgi-bin/material/batchget_material?access_token=ACCESS_TOKEN
      */
     String MATERIAL_BATCH_GET_MATERIAL = BASE_PATH + "/material/batchget_material";
+
+    /**
+     * 订阅通知接口-addTemplate选用模板 <br>
+     * 从公共模板库中选用模板，到私有模板库中  <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String NEWTMPL_ADDTEMPLATE = WX_API_BASE_PATH + "/newtmpl/addtemplate";
+
+    /**
+     * 订阅通知接口-deleteTemplate删除模板 <br>
+     * 删除私有模板库中的模板 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String NEWTMPL_DELTEMPLATE = WX_API_BASE_PATH + "/newtmpl/deltemplate";
+
+    /**
+     * 订阅通知接口-getCategory获取公众号类目 <br>
+     * 获取公众号所属类目，可用于查询类目下的公共模板 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String NEWTMPL_GETCATEGORY = WX_API_BASE_PATH + "/newtmpl/getcategory";
+
+    /**
+     * 订阅通知接口-getPubTemplateKeyWordsById获取模板中的关键词 <br>
+     * 获取公共模板下的关键词列表 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String NEWTMPL_GETPUBTEMPLATEKEYWORDS = WX_API_BASE_PATH + "/newtmpl/getpubtemplatekeywords";
+
+    /**
+     * 订阅通知接口-getPubTemplateTitleList获取类目下的公共模板 <br>
+     * 获取类目下的公共模板，可从中选用模板使用 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String NEWTMPL_GETPUBTEMPLATETITLES = WX_API_BASE_PATH + "/newtmpl/getpubtemplatetitles";
+
+    /**
+     * 订阅通知接口-getTemplateList获取私有模板列表 <br>
+     * 获取私有的模板列表 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String NEWTMPL_GETTEMPLATE = WX_API_BASE_PATH + "/newtmpl/gettemplate";
+
+    /**
+     * 订阅通知接口-send发送订阅通知 <br>
+     * 发送订阅通知 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     */
+    String MESSAGE_SUBSCRIBE_BIZSEND = BASE_PATH + "/message/subscribe/bizsend";
 
     /**
      * 公众号一次性订阅消息: 获取授权链接

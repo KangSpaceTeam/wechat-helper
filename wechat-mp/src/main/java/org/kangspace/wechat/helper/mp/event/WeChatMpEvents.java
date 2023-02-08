@@ -72,6 +72,32 @@ public enum WeChatMpEvents {
      */
     TEMPLATE_SEND_JOB_FINISH("TEMPLATESENDJOBFINISH", LocationEvent.class),
 
+    // 用户管理订阅通知事件 start
+
+    /**
+     * 用户操作订阅通知弹窗<br>
+     * 场景：用户在图文等场景内订阅通知的操作<br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
+     */
+    SUBSCRIBE_MSG_POPUP_EVENT("subscribe_msg_popup_event", SubscribeMsgPopupEventEvent.class),
+
+    /**
+     * 用户管理订阅通知<br>
+     * 场景：用户在服务通知管理页面做通知管理时的操作<br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
+     */
+    SUBSCRIBE_MSG_CHANGE_EVENT("subscribe_msg_change_event", SubscribeMsgChangeEventEvent.class),
+
+    /**
+     * 发送订阅通知<br>
+     *
+     * 场景：调用 bizsend 接口发送通知<br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
+     */
+    SUBSCRIBE_MSG_SENT_EVENT("subscribe_msg_sent_event", SubscribeMsgChangeEventEvent.class),
+
+    // 用户管理订阅通知事件 end
+
     ;
     /**
      * 事件值
