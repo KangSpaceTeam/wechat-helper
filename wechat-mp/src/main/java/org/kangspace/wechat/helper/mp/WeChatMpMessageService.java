@@ -95,5 +95,14 @@ public interface WeChatMpMessageService extends WeChatMpService {
      */
     WeChatMpResponseEntity subscribe(MessageTemplateSubscribeRequest request);
 
+    /**
+     * 发送订阅通知<br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html#send%E5%8F%91%E9%80%81%E8%AE%A2%E9%98%85%E9%80%9A%E7%9F%A5">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html#send%E5%8F%91%E9%80%81%E8%AE%A2%E9%98%85%E9%80%9A%E7%9F%A5</a>
+     *
+     * @param request {@link MessageTemplateSubscribeRequest}
+     * @return {@link WeChatMpResponseEntity}
+     */
+    WeChatMpResponseEntity subscribeBizSend(MessageTemplateSubscribeRequest request);
+
 // TODO 群发接口
 }

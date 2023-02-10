@@ -37,7 +37,7 @@ public interface SubscriptionMessagesConstant {
     /**
      * 场景
      */
-    enum PopupScene{
+    enum PopupScene {
         /**
          * 弹窗来自 H5 页面
          */
@@ -50,7 +50,7 @@ public interface SubscriptionMessagesConstant {
         /**
          * value
          */
-        private Integer value;
+        private final Integer value;
 
         PopupScene(Integer value) {
             this.value = value;
@@ -59,6 +59,31 @@ public interface SubscriptionMessagesConstant {
         @JsonValue
         public Integer getValue() {
             return value;
+        }
+    }
+
+    /**
+     * 模版类型
+     */
+    enum TemplateType {
+        /**
+         * 一次性订阅
+         */
+        DISPOSABLE(2),
+        /**
+         * 为长期订阅
+         */
+        LONG(3);
+
+        private final Integer type;
+
+        TemplateType(Integer type) {
+            this.type = type;
+        }
+
+        @JsonValue
+        public Integer getType() {
+            return type;
         }
     }
 }
