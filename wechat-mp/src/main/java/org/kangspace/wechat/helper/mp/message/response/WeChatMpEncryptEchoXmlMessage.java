@@ -8,6 +8,7 @@ import lombok.Data;
 /**
  * 公众号响应加密消息 <br>
  * 文档: <a href="https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Technical_Plan.html">https://developers.weixin.qq.com/doc/oplatform/Third-party_Platforms/2.0/api/Before_Develop/Technical_Plan.html</a><br>
+ *
  * @author kango2gler@gmail.com
  * @since 2022/12/29
  */

@@ -122,12 +122,12 @@ public class HttpUtil {
     public static String getContentDispositionFileName(HttpClientResponse response) {
         String contentDisposition = response.responseHeaders().get(HttpConstant.CONTENT_DISPOSITION_NAME);
         if (contentDisposition != null) {
-            return Arrays.stream(contentDisposition.split(StringLiteral.SEMICOLON)).filter(t->t.contains(HttpConstant.FILE_NAME))
-                    .map(t->{
+            return Arrays.stream(contentDisposition.split(StringLiteral.SEMICOLON)).filter(t -> t.contains(HttpConstant.FILE_NAME))
+                    .map(t -> {
                         String[] fileNameBlocks = t.split(StringLiteral.EQUALS);
                         if (fileNameBlocks.length == HttpConstant.CONTENT_DISPOSITION_VALUE_SIZE) {
                             String fileName = fileNameBlocks[1].trim();
-                            return fileName.substring(1,fileName.length()-1);
+                            return fileName.substring(1, fileName.length() - 1);
                         }
                         return t;
                     }).findFirst().orElse(null);

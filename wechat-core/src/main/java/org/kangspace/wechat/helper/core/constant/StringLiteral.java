@@ -75,7 +75,7 @@ public interface StringLiteral {
     /**
      * }]
      */
-    String RCB_RSB = RCB + RSB ;
+    String RCB_RSB = RCB + RSB;
 
     /**
      * 点

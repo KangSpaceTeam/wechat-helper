@@ -38,7 +38,7 @@ public interface DataSerializer<FROM> {
      *
      * @param contentType MIME ContentType类型
      * @param scope       {@link DataSerializerScope}
-     * @param data data
+     * @param data        data
      * @return boolean
      */
     boolean isSupport(String contentType, DataSerializerScope scope, Object data);

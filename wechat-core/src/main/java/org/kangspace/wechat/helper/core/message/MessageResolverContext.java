@@ -1,6 +1,5 @@
 package org.kangspace.wechat.helper.core.message;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;

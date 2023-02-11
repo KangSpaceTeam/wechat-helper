@@ -72,7 +72,7 @@ public class DataSerializers implements Iterator<DataSerializer<?>>, Iterable<Da
      */
     public AttachmentResponseSerializer getAttachmentResponseSerializer() {
         return (AttachmentResponseSerializer) this.dataSerializers.stream().filter(t -> t.getClass().isAssignableFrom(AttachmentResponseSerializer.class))
-                .findFirst().orElseThrow(()->new IllegalArgumentException("AttachmentResponseSerializer was not found!"));
+                .findFirst().orElseThrow(() -> new IllegalArgumentException("AttachmentResponseSerializer was not found!"));
     }
 
     /**
@@ -80,7 +80,7 @@ public class DataSerializers implements Iterator<DataSerializer<?>>, Iterable<Da
      *
      * @param contentType contentType
      * @param scope       {@link DataSerializerScope}
-     * @param data       data
+     * @param data        data
      * @return List&lt;{@link DataSerializer}&gt;
      */
     public List<DataSerializer<?>> getDataSerializers(String contentType, DataSerializerScope scope, Object data) {

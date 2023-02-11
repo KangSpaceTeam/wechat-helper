@@ -44,6 +44,7 @@ public class MediaUploadRequest implements MultipartRequest {
 
     /**
      * 文件类型
+     *
      * @see org.kangspace.wechat.helper.core.util.MimeContentTypes
      * @see org.kangspace.wechat.helper.core.request.HttpConstant
      * @see io.netty.handler.codec.http.HttpHeaderNames

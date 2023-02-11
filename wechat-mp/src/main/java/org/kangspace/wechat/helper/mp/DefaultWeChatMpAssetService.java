@@ -65,7 +65,7 @@ public class DefaultWeChatMpAssetService extends AbstractWeChatMpService impleme
     @Override
     public MaterialGetResponse materialGet(@Nonnull MaterialGetRequest request) {
         String url = WeChatMpApiPaths.MATERIAL_GET_MATERIAL;
-        return post(url,request, MaterialGetResponse.class);
+        return post(url, request, MaterialGetResponse.class);
     }
 
     @Override

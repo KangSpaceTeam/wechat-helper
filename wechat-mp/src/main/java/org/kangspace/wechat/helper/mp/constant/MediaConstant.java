@@ -64,6 +64,7 @@ public interface MediaConstant {
 
         /**
          * 通过contentType获取指定类型
+         *
          * @param contentType contentType
          * @return {@link MediaType}
          */

@@ -90,7 +90,7 @@ public enum WeChatMpEvents {
 
     /**
      * 发送订阅通知<br>
-     *
+     * <p>
      * 场景：调用 bizsend 接口发送通知<br>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
      */

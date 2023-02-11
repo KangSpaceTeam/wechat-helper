@@ -12,32 +12,37 @@ public interface AttachmentResponse {
 
     /**
      * 文件名
+     *
      * @return 文件名
      */
-    default String getFileName(){
+    default String getFileName() {
         return getFile().getName();
     }
 
     /**
      * 文件类型
+     *
      * @return 文件类型
      */
     String getContentType();
 
     /**
      * 设置ContentType
+     *
      * @param contentType contentType
      */
     void setContentType(String contentType);
 
     /**
      * 文件
+     *
      * @return File
      */
     File getFile();
 
     /**
      * 设置文件
+     *
      * @param file file
      */
     void setFile(File file);

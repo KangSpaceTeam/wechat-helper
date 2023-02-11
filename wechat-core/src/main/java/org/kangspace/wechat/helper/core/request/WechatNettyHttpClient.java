@@ -63,7 +63,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * 获取AttachmentResponse文件对象
      *
      * @param response      {@link HttpClientResponse}
-     * @param body   文件流
+     * @param body          文件流
      * @param responseClass 响应对象类型
      * @return {@link AttachmentResponse}
      */
@@ -71,7 +71,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
         // 文件保存路径
         String savePath = requestConfig.getDownloadPath();
         // 文件解析器解析文件内容到指定目录
-        return this.getDataSerializers().getAttachmentResponseSerializer().deserialize(response, savePath, body,responseClass);
+        return this.getDataSerializers().getAttachmentResponseSerializer().deserialize(response, savePath, body, responseClass);
     }
 
     /**
@@ -159,6 +159,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
 
     /**
      * 设置默认请求头(如UserAgent等)
+     *
      * @param httpHeaders {@link HttpHeaders}
      * @return {@link HttpHeaders}
      */

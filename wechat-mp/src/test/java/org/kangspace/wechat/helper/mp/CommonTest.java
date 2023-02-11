@@ -8,6 +8,7 @@ import org.kangspace.wechat.helper.core.util.ProjectCore;
 
 /**
  * 公共测试
+ *
  * @author kango2gler@gmail.com
  * @since 2023/02/05 13:49
  */

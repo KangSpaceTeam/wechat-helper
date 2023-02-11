@@ -7,6 +7,7 @@ import javax.annotation.Nonnull;
 
 /**
  * 获取永久素材请求类
+ *
  * @author kango2gler@gmail.com
  * @since 2023/02/05 14:27
  */

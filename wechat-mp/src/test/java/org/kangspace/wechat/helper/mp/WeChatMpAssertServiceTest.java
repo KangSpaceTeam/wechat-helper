@@ -41,7 +41,7 @@ public class WeChatMpAssertServiceTest {
     public void mediaUploadTest() {
         MediaConstant.MediaType mediaType = MediaConstant.MediaType.IMAGE;
         String fileName = "logo_240.png";
-        String filePath = "files/"+fileName;
+        String filePath = "files/" + fileName;
         InputStream inputStream = ClassLoader.getSystemResourceAsStream(filePath);
         String contentType = "image/png";
         MediaUploadRequest request = new MediaUploadRequest(fileName, mediaType, inputStream, contentType);
@@ -76,7 +76,7 @@ public class WeChatMpAssertServiceTest {
     @Test
     public void mediaUploadImgTest() {
         String fileName = "logo_240.png";
-        String filePath = "files/"+fileName;
+        String filePath = "files/" + fileName;
         InputStream inputStream = ClassLoader.getSystemResourceAsStream(filePath);
         String contentType = MimeContentTypes.IMAGE_PNG;
         MediaUploadImgRequest request = new MediaUploadImgRequest(fileName, inputStream, contentType);
@@ -92,7 +92,7 @@ public class WeChatMpAssertServiceTest {
     public void materialAddTest() {
         MediaConstant.MediaType mediaType = MediaConstant.MediaType.IMAGE;
         String fileName = "logo_240.png";
-        String filePath = "files/"+fileName;
+        String filePath = "files/" + fileName;
         InputStream inputStream = ClassLoader.getSystemResourceAsStream(filePath);
         String contentType = MimeContentTypes.IMAGE_PNG;
         MaterialAddRequest request = new MaterialAddRequest(fileName, mediaType, inputStream, contentType);

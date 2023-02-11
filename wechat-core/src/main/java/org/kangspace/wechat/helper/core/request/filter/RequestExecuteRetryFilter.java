@@ -53,7 +53,7 @@ public class RequestExecuteRetryFilter implements RequestFilter {
             // 2. Http 502,503,504错误重试
             if (exception instanceof WeChatHttpFaultException) {
                 WeChatResponse<?> response;
-                return (response = ((WeChatHttpFaultException) exception).getWeChatResponse()) !=null && HttpUtil.isRetryHttpStatus(response.status());
+                return (response = ((WeChatHttpFaultException) exception).getWeChatResponse()) != null && HttpUtil.isRetryHttpStatus(response.status());
             }
             // 3. 微信服务器异常重试
             if (exception instanceof WeChatServerErrorException) {

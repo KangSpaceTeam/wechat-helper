@@ -119,6 +119,7 @@ public class MaterialGetResponse extends WeChatMpResponseEntity implements Attac
 
     /**
      * 是否是文件响应
+     *
      * @return boolean
      */
     public boolean isFile() {

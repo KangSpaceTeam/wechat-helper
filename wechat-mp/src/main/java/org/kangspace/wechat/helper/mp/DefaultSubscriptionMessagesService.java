@@ -68,7 +68,7 @@ public class DefaultSubscriptionMessagesService extends AbstractWeChatMpService 
     }
 
     @Override
-    public WeChatMpResponseEntity subscribeBizSend(MessageTemplateSubscribeRequest request) {
+    public WeChatMpResponseEntity subscribeBizSend(MessageSubscribeBizSendRequest request) {
         return of(DefaultWeChatMpMessageService.class).subscribeBizSend(request);
     }
 }

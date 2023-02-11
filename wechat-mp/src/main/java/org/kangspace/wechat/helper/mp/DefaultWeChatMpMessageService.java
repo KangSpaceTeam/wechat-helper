@@ -71,8 +71,8 @@ public class DefaultWeChatMpMessageService extends AbstractWeChatMpService imple
     }
 
     @Override
-    public WeChatMpResponseEntity subscribeBizSend(MessageTemplateSubscribeRequest request) {
-        // TODO xxx
-        return null;
+    public WeChatMpResponseEntity subscribeBizSend(MessageSubscribeBizSendRequest request) {
+        String url = WeChatMpApiPaths.MESSAGE_TEMPLATE_SUBSCRIBE;
+        return post(url, request, WeChatMpResponseEntity.class);
     }
 }
