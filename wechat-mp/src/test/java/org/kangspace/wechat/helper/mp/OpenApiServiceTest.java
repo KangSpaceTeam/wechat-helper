@@ -16,15 +16,15 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
  * 微信公众号openApi管理相关Service测试类
  *
  * @author kango2gler@gmail.com
- * @see WeChatMpOpenApiService
+ * @see OpenApiService
  * @since 2022/11/24
  */
 @Slf4j
 @RunWith(JUnit4.class)
-public class WeChatMpOpenApiServiceTest {
+public class OpenApiServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
-    private WeChatMpOpenApiService mpOpenApiService;
+    private OpenApiService mpOpenApiService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     private String mpAccessToken;
@@ -33,7 +33,7 @@ public class WeChatMpOpenApiServiceTest {
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpOpenApiService = new DefaultWeChatMpOpenApiService(weChatMpConfig, weChatMpAccessTokenService);
+        mpOpenApiService = new DefaultOpenApiService(weChatMpConfig, weChatMpAccessTokenService);
         mpAccessToken = mpOpenApiService.getToken();
     }
 

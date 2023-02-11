@@ -69,6 +69,25 @@ public class DigestUtil {
     }
 
     /**
+     * signParam转换为url参数类型再sha1
+     *
+     * @param signParams 签名参数
+     * @return 摘要结果
+     */
+    public static String sha1Url(SortedMap<String, String> signParams) {
+        StringBuilder sb = new StringBuilder();
+        Set<Map.Entry<String, String>> es = signParams.entrySet();
+        for (Map.Entry<String, String> entry : es) {
+            String k = entry.getKey();
+            String v = entry.getValue();
+            sb.append(k).append(StringLiteral.EQUALS).append(v).append(StringLiteral.AND);
+        }
+        String params = sb.substring(0, sb.lastIndexOf(StringLiteral.AND));
+        log.debug("sha1Url raw: {}", params);
+        return sha1(params);
+    }
+
+    /**
      * sha1摘要
      *
      * @param raw 需要摘要的字符串

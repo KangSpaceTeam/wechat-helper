@@ -82,4 +82,9 @@ public interface StringLiteral {
      */
     String DOT = ".";
 
+    /**
+     * #
+     */
+    String HASH_TAG = "#";
+
 }

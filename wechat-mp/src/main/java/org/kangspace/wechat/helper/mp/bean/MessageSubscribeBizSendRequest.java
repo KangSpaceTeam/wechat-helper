@@ -1,9 +1,7 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
 import javax.annotation.Nonnull;
@@ -17,7 +15,9 @@ import java.util.HashMap;
  * @see WeChatMpApiPaths#MESSAGE_SUBSCRIBE_BIZ_SEND
  * @since 2023/02/11 16:25:48
  */
-@Data
+@Getter
+@Setter
+@ToString
 public class MessageSubscribeBizSendRequest {
     /**
      * 接收者openid
@@ -86,8 +86,7 @@ public class MessageSubscribeBizSendRequest {
     /**
      * 模版内容数据
      */
-    @Data
-    @NoArgsConstructor
+    @ToString
     @AllArgsConstructor
     public static class TemplateData extends HashMap<String, TemplateDataValue> {
     }

@@ -73,7 +73,7 @@ public interface SubscriptionMessagesService extends WeChatMpService {
      *
      * @param request {@link MessageSubscribeBizSendRequest}
      * @return {@link WeChatMpResponseEntity}
-     * @see {@link WeChatMpMessageService#subscribeBizSend(MessageSubscribeBizSendRequest)}
+     * @see MessageService#subscribeBizSend(MessageSubscribeBizSendRequest)
      */
     WeChatMpResponseEntity subscribeBizSend(MessageSubscribeBizSendRequest request);
 }

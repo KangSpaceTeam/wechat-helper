@@ -525,6 +525,79 @@ public interface WeChatMpApiPaths {
     String MESSAGE_SUBSCRIBE_BIZ_SEND = BASE_PATH + "/message/subscribe/bizsend";
 
     /**
+     * 网页授权地址 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html">https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/Wechat_webpage_authorization.html</a> <br>
+     * <p>
+     * {0}: appId <br>
+     * {1}: redirect_uri, 授权后重定向的回调链接地址， 请使用 urlEncode 对链接进行处理<br>
+     * {2}: scope, 应用授权作用域，snsapi_base （不弹出授权页面，直接跳转，只能获取用户openid），snsapi_userinfo （弹出授权页面，可通过 openid 拿到昵称、性别、所在地。并且， 即使在未关注的情况下，只要用户授权，也能获取其信息 ）<br>
+     * {3}: state, 重定向后会带上 state 参数，开发者可以填写a-zA-Z0-9的参数值，最多128字节<br>
+     * {4}: forcePopup, 强制此次授权需要用户弹窗确认；默认为false；需要注意的是，若用户命中了特殊场景下的静默授权逻辑，则此参数不生效<br>
+     * </p>
+     */
+    String WEB_APP_AUTHORIZE = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&state={3}&forcePopup={4}#wechat_redirect";
+
+    /**
+     * 通过 code 换取网页授权access_token <br>
+     * 首先请注意，这里通过 code 换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同。公众号可通过下述接口来获取网页授权access_token。如果网页授权的作用域为snsapi_base，则本步骤中获取到网页授权access_token的同时，也获取到了openid，snsapi_base式的网页授权流程即到此为止。
+     * 尤其注意：由于公众号的 secret 和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端。后续刷新access_token、通过access_token获取用户信息等步骤，也必须从服务器发起。<br>
+     *
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * <p>
+     * GET <br>
+     * {0}: appId, 公众号的唯一标识 <br>
+     * {1}: secret, 公众号的appsecret<br>
+     * {2}: code, 填写第一步网页授权获取的 code 参数<br>
+     * </p>
+     */
+    String WEB_APP_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code";
+
+    /**
+     * 刷新access_token <br>
+     * 由于access_token拥有较短的有效期，当access_token超时后，可以使用refresh_token进行刷新，refresh_token有效期为30天，当refresh_token失效之后，需要用户重新授权。<br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * <p>
+     * GET <br>
+     * {0}: appId, 公众号的唯一标识 <br>
+     * {1}: refresh_token, 填写通过access_token获取到的refresh_token参数<br>
+     * </p>
+     */
+    String WEB_APP_REFRESH_TOKEN = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type=refresh_token&refresh_token={1}";
+
+    /**
+     * 检验授权凭证（access_token）是否有效 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * <p>
+     * GET <br>
+     * {0}: access_token, 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同 <br>
+     * {1}: openid, 用户的唯一标识<br>
+     * </p>
+     */
+    String WEB_APP_AUTH = "https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}";
+
+    /**
+     * 拉取用户信息(需 scope 为 snsapi_userinfo) <br>
+     * 如果网页授权作用域为snsapi_userinfo，则此时开发者可以通过access_token和 openid 拉取用户信息了。<br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
+     * <p>
+     * {0}: access_token, 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同 <br>
+     * {1}: openid, 用户的唯一标识<br>
+     * {1}: lang, 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语<br>
+     * </p>
+     */
+    String WEB_APP_USER_INFO = "https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}";
+
+    /**
+     * 获得jsapi_ticket <br>
+     * 有效期7200秒，开发者必须在自己的服务全局缓存jsapi_ticket） <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62">https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/JS-SDK.html#62</a> <br>
+     * <p>
+     * {0}: access_token, 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同 <br>
+     * </p>
+     */
+    String WEB_APP_JS_API_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi";
+
+    /**
      * 公众号一次性订阅消息: 获取授权链接
      *
      * @param appId       公众号的唯一标识

@@ -27,12 +27,12 @@ public class WeChatMpCustomMenusTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
 
-    private WeChatMpCustomMenusService customMenusService;
+    private CustomMenusService customMenusService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-        customMenusService = new DefaultWeChatCustomMenusService(weChatMpConfig);
+        customMenusService = new DefaultCustomMenusService(weChatMpConfig);
     }
 
     /**

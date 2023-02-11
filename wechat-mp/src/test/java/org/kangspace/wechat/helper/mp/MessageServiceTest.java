@@ -18,17 +18,17 @@ import org.kangspace.wechat.helper.mp.constant.MessageConstant;
  */
 @Slf4j
 @RunWith(JUnit4.class)
-public class WeChatMpMessageServiceTest {
+public class MessageServiceTest {
 
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
 
-    private WeChatMpMessageService messageService;
+    private MessageService messageService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-        messageService = new DefaultWeChatMpMessageService(weChatMpConfig);
+        messageService = new DefaultMessageService(weChatMpConfig);
     }
 
     /**

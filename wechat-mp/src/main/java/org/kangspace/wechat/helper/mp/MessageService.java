@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * @author kango2gler@gmail.com
  * @since 2022/12/11
  */
-public interface WeChatMpMessageService extends WeChatMpService {
+public interface MessageService extends WeChatMpService {
     /**
      * 模板消息-设置所属行业
      *

@@ -12,7 +12,7 @@ import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-public interface WeChatMpServerService extends WeChatMpService {
+public interface ServerService extends WeChatMpService {
 
     /**
      * 获取微信 API 接口 IP地址

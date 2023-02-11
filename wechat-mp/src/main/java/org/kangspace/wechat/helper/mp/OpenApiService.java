@@ -10,7 +10,7 @@ import org.kangspace.wechat.helper.mp.bean.WeChatMpResponseEntity;
  * @author kango2gler@gmail.com
  * @since 2022/12/4
  */
-public interface WeChatMpOpenApiService extends WeChatMpService {
+public interface OpenApiService extends WeChatMpService {
 
     /**
      * 清空 api 的调用quota <br>

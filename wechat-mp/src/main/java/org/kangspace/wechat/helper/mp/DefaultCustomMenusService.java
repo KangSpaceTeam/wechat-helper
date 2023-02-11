@@ -14,9 +14,9 @@ import javax.annotation.Nonnull;
  * @author kango2gler@gmail.com
  * @since 2022/11/24
  */
-public class DefaultWeChatCustomMenusService extends AbstractWeChatMpService implements WeChatMpCustomMenusService {
+public class DefaultCustomMenusService extends AbstractWeChatMpService implements CustomMenusService {
 
-    public DefaultWeChatCustomMenusService(WeChatMpConfig weChatConfig) {
+    public DefaultCustomMenusService(WeChatMpConfig weChatConfig) {
         super(weChatConfig);
     }
 

@@ -15,16 +15,16 @@ import javax.annotation.Nonnull;
  * @author kango2gler@gmail.com
  * @since 2023/1/17
  */
-public class DefaultWeChatMpAssetService extends AbstractWeChatMpService implements WeChatMpAssetService {
-    public DefaultWeChatMpAssetService(WeChatMpConfig weChatConfig) {
+public class DefaultAssetService extends AbstractWeChatMpService implements AssetService {
+    public DefaultAssetService(WeChatMpConfig weChatConfig) {
         super(weChatConfig);
     }
 
-    public DefaultWeChatMpAssetService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
+    public DefaultAssetService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
         super(weChatConfig, weChatMpAccessTokenService);
     }
 
-    public DefaultWeChatMpAssetService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+    public DefaultAssetService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
         super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
     }
 

@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * @author kango2gler@gmail.com
  * @since 2022/12/09
  */
-public interface WeChatMpCustomMenusService extends WeChatMpService {
+public interface CustomMenusService extends WeChatMpService {
 
     /**
      * 创建接口

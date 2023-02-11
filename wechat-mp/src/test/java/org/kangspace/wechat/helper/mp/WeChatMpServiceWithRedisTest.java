@@ -28,7 +28,7 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 public class WeChatMpServiceWithRedisTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
-    private WeChatMpServerService mpServerService;
+    private ServerService mpServerService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
@@ -42,7 +42,7 @@ public class WeChatMpServiceWithRedisTest {
         weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
 
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfigWithRedis);
-        mpServerService = new DefaultWeChatMpServerService(weChatMpConfigWithRedis, weChatMpAccessTokenService);
+        mpServerService = new DefaultServerService(weChatMpConfigWithRedis, weChatMpAccessTokenService);
     }
 
     /**

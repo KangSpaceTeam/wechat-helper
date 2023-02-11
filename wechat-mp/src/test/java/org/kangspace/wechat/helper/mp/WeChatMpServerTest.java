@@ -23,14 +23,14 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 public class WeChatMpServerTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
-    private WeChatMpServerService mpServerService;
+    private ServerService mpServerService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpServerService = new DefaultWeChatMpServerService(weChatMpConfig, weChatMpAccessTokenService);
+        mpServerService = new DefaultServerService(weChatMpConfig, weChatMpAccessTokenService);
     }
 
     /**

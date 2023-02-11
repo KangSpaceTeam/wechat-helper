@@ -34,7 +34,7 @@ public interface WeChatMpService extends WeChatService {
         if (!WeChatMpService.class.isAssignableFrom(toWeChatService)) {
             throw new WeChatMpException("toWeChatService must be assignable by WeChatMpService!");
         }
-        if (Objects.equals(this, toWeChatService)) {
+        if (Objects.equals(this.getClass(), toWeChatService)) {
             return (T) this;
         }
         String appId = getWeChatConfig().getAppId();
@@ -48,39 +48,39 @@ public interface WeChatMpService extends WeChatService {
     }
 
     /**
-     * 转换为{@link WeChatMpCustomMenusService}
+     * 转换为{@link CustomMenusService}
      *
-     * @return {@link WeChatMpCustomMenusService}
+     * @return {@link CustomMenusService}
      */
-    default WeChatMpCustomMenusService ofCustomMenusService() {
-        return of(DefaultWeChatCustomMenusService.class);
+    default CustomMenusService ofCustomMenusService() {
+        return of(DefaultCustomMenusService.class);
     }
 
     /**
-     * 转换为{@link WeChatMpMessageService}
+     * 转换为{@link MessageService}
      *
-     * @return {@link WeChatMpMessageService}
+     * @return {@link MessageService}
      */
-    default WeChatMpMessageService ofMessageService() {
-        return of(DefaultWeChatMpMessageService.class);
+    default MessageService ofMessageService() {
+        return of(DefaultMessageService.class);
     }
 
     /**
-     * 转换为{@link WeChatMpOpenApiService}
+     * 转换为{@link OpenApiService}
      *
-     * @return {@link WeChatMpOpenApiService}
+     * @return {@link OpenApiService}
      */
-    default WeChatMpOpenApiService ofOpenApiService() {
-        return of(DefaultWeChatMpOpenApiService.class);
+    default OpenApiService ofOpenApiService() {
+        return of(DefaultOpenApiService.class);
     }
 
     /**
-     * 转换为{@link WeChatMpServerService}
+     * 转换为{@link ServerService}
      *
-     * @return {@link WeChatMpServerService}
+     * @return {@link ServerService}
      */
-    default WeChatMpServerService ofServerService() {
-        return of(DefaultWeChatMpServerService.class);
+    default ServerService ofServerService() {
+        return of(DefaultServerService.class);
     }
 
 }

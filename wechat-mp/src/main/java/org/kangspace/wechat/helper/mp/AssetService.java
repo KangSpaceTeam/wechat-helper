@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
  * @author kango2gler@gmail.com
  * @since 2023/01/17
  */
-public interface WeChatMpAssetService extends WeChatMpService {
+public interface AssetService extends WeChatMpService {
 
     /**
      * 新增临时素材

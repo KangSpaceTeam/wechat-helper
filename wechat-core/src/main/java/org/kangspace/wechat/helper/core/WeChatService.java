@@ -5,6 +5,8 @@ import org.kangspace.wechat.helper.core.request.WeChatRequestFactory;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
 
+import java.text.MessageFormat;
+
 /**
  * WeChat服务接口
  *
@@ -108,5 +110,15 @@ public interface WeChatService {
      */
     default <Req, Resp> Resp post(String url, Req requestBody, Class<Resp> responseClass) {
         return post(url, requestBody, responseClass, true);
+    }
+
+    /**
+     * url转换
+     * @param urlPattern url变量, 如 http://example.com/{0}/{1}
+     * @param params urlPattern对应的变量值
+     * @return 最终url
+     */
+    default String urlTransfer(String urlPattern, Object... params) {
+        return MessageFormat.format(urlPattern, params);
     }
 }

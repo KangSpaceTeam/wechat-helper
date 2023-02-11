@@ -15,16 +15,16 @@ import java.util.Objects;
  * @author kango2gler@gmail.com
  * @since 2022/12/4
  */
-public class DefaultWeChatMpOpenApiService extends AbstractWeChatMpService implements WeChatMpOpenApiService {
-    public DefaultWeChatMpOpenApiService(WeChatMpConfig weChatConfig) {
+public class DefaultOpenApiService extends AbstractWeChatMpService implements OpenApiService {
+    public DefaultOpenApiService(WeChatMpConfig weChatConfig) {
         super(weChatConfig);
     }
 
-    public DefaultWeChatMpOpenApiService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
+    public DefaultOpenApiService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
         super(weChatConfig, weChatMpAccessTokenService);
     }
 
-    public DefaultWeChatMpOpenApiService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+    public DefaultOpenApiService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
         super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
     }
 

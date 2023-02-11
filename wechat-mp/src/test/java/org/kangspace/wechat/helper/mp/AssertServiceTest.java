@@ -21,17 +21,17 @@ import java.io.InputStream;
  */
 @Slf4j
 @RunWith(JUnit4.class)
-public class WeChatMpAssertServiceTest {
+public class AssertServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
-    private WeChatMpAssetService mpAssetService;
+    private AssetService mpAssetService;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpAssetService = new DefaultWeChatMpAssetService(weChatMpConfig, weChatMpAccessTokenService);
+        mpAssetService = new DefaultAssetService(weChatMpConfig, weChatMpAccessTokenService);
     }
 
     /**

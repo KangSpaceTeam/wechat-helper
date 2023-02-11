@@ -12,8 +12,8 @@ import javax.annotation.Nonnull;
  * @author kango2gler@gmail.com
  * @since 2022/12/11
  */
-public class DefaultWeChatMpMessageService extends AbstractWeChatMpService implements WeChatMpMessageService {
-    public DefaultWeChatMpMessageService(WeChatMpConfig weChatConfig) {
+public class DefaultMessageService extends AbstractWeChatMpService implements MessageService {
+    public DefaultMessageService(WeChatMpConfig weChatConfig) {
         super(weChatConfig);
     }
 

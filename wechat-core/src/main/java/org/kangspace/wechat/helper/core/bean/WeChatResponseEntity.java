@@ -36,7 +36,7 @@ public class WeChatResponseEntity {
      * @return boolean
      */
     public boolean isError() {
-        return this.getErrCode() != null || this.getErrMsg() != null;
+        return this.getErrCode() != null && this.getErrCode() != 0;
     }
 
     /**
