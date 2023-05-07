@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Slf4j
 @RunWith(JUnit4.class)
-public class WeChatMpCustomMenusTest {
+public class CustomMenusServiceTest {
 
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;

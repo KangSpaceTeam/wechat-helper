@@ -20,16 +20,15 @@ import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
  */
 @Slf4j
 @RunWith(JUnit4.class)
-public class WeChatMpServerTest {
+public class ServerServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private ServerService mpServerService;
-    private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-        weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+        DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
         mpServerService = new DefaultServerService(weChatMpConfig, weChatMpAccessTokenService);
     }
 
@@ -40,7 +39,7 @@ public class WeChatMpServerTest {
     public void getApiDomainIpTest() {
         log.info("获取微信 API 接口 IP地址: mpServerService.getApiDomainIp()");
         MpServerIpListResponse response = mpServerService.getApiDomainIp();
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 
@@ -51,7 +50,7 @@ public class WeChatMpServerTest {
     public void getCallbackIpTest() {
         log.info("获取微信callback IP地址: mpServerService.getCallbackIp()");
         MpServerIpListResponse response = mpServerService.getCallbackIp();
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 
@@ -64,7 +63,7 @@ public class WeChatMpServerTest {
         log.info("网络检测: mpServerService.callbackCheck()");
         CallbackCheckRequest param = new CallbackCheckRequest(CallbackCheckRequest.Action.ALL, CallbackCheckRequest.CheckOperator.DEFAULT);
         CallbackCheckResponse response = mpServerService.callbackCheck(param);
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 }
