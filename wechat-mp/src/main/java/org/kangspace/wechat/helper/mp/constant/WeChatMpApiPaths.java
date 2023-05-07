@@ -30,6 +30,11 @@ public interface WeChatMpApiPaths {
     String WX_API_BASE_PATH = "https://api.weixin.qq.com/wxaapi";
 
     /**
+     * "sns" 接口路径
+     */
+    String SNS_BASE_PATH = "https://api.weixin.qq.com/sns";
+
+    /**
      * 获取Access token
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html">https://developers.weixin.qq.com/doc/offiaccount/Basic_Information/Get_access_token.html</a>
      * <pre>
@@ -480,7 +485,7 @@ public interface WeChatMpApiPaths {
      * 订阅通知接口-deleteTemplate删除模板 <br>
      * 删除私有模板库中的模板 <br>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
-     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/deltemplate?access_token=ACCESS_TOKEN
      */
     String NEW_TMPL_DEL_TEMPLATE = WX_API_BASE_PATH + "/newtmpl/deltemplate";
 
@@ -488,7 +493,7 @@ public interface WeChatMpApiPaths {
      * 订阅通知接口-getCategory获取公众号类目 <br>
      * 获取公众号所属类目，可用于查询类目下的公共模板 <br>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
-     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/getcategory?access_token=ACCESS_TOKEN
      */
     String NEW_TMPL_GET_CATEGORY = WX_API_BASE_PATH + "/newtmpl/getcategory";
 
@@ -496,7 +501,7 @@ public interface WeChatMpApiPaths {
      * 订阅通知接口-getPubTemplateKeyWordsById获取模板中的关键词 <br>
      * 获取公共模板下的关键词列表 <br>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
-     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/getpubtemplatekeywords?access_token=ACCESS_TOKEN
      */
     String NEW_TMPL_GET_PUB_TEMPLATE_KEYWORDS = WX_API_BASE_PATH + "/newtmpl/getpubtemplatekeywords";
 
@@ -504,7 +509,7 @@ public interface WeChatMpApiPaths {
      * 订阅通知接口-getPubTemplateTitleList获取类目下的公共模板 <br>
      * 获取类目下的公共模板，可从中选用模板使用 <br>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
-     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/getpubtemplatetitles?access_token=ACCESS_TOKEN
      */
     String NEW_TMPL_GET_PUB_TEMPLATE_TITLES = WX_API_BASE_PATH + "/newtmpl/getpubtemplatetitles";
 
@@ -512,7 +517,7 @@ public interface WeChatMpApiPaths {
      * 订阅通知接口-getTemplateList获取私有模板列表 <br>
      * 获取私有的模板列表 <br>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
-     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/gettemplate?access_token=ACCESS_TOKEN
      */
     String NEW_TMPL_GET_TEMPLATE = WX_API_BASE_PATH + "/newtmpl/gettemplate";
 
@@ -520,7 +525,7 @@ public interface WeChatMpApiPaths {
      * 订阅通知接口-send发送订阅通知 <br>
      * 发送订阅通知 <br>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
-     * HTTP POST 请求: https://api.weixin.qq.com/wxaapi/newtmpl/addtemplate?access_token=ACCESS_TOKEN
+     * HTTP POST 请求: https://api.weixin.qq.com/cgi-bin/message/subscribe/bizsend?access_token=ACCESS_TOKEN
      */
     String MESSAGE_SUBSCRIBE_BIZ_SEND = BASE_PATH + "/message/subscribe/bizsend";
 
@@ -541,7 +546,7 @@ public interface WeChatMpApiPaths {
      * 通过 code 换取网页授权access_token <br>
      * 首先请注意，这里通过 code 换取的是一个特殊的网页授权access_token,与基础支持中的access_token（该access_token用于调用其他接口）不同。公众号可通过下述接口来获取网页授权access_token。如果网页授权的作用域为snsapi_base，则本步骤中获取到网页授权access_token的同时，也获取到了openid，snsapi_base式的网页授权流程即到此为止。
      * 尤其注意：由于公众号的 secret 和获取到的access_token安全级别都非常高，必须只保存在服务器，不允许传给客户端。后续刷新access_token、通过access_token获取用户信息等步骤，也必须从服务器发起。<br>
-     *
+     * <p>
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a> <br>
      * <p>
      * GET <br>
@@ -550,7 +555,7 @@ public interface WeChatMpApiPaths {
      * {2}: code, 填写第一步网页授权获取的 code 参数<br>
      * </p>
      */
-    String WEB_APP_ACCESS_TOKEN = "https://api.weixin.qq.com/sns/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code";
+    String WEB_APP_ACCESS_TOKEN = SNS_BASE_PATH + "/oauth2/access_token?appid={0}&secret={1}&code={2}&grant_type=authorization_code";
 
     /**
      * 刷新access_token <br>
@@ -562,7 +567,7 @@ public interface WeChatMpApiPaths {
      * {1}: refresh_token, 填写通过access_token获取到的refresh_token参数<br>
      * </p>
      */
-    String WEB_APP_REFRESH_TOKEN = "https://api.weixin.qq.com/sns/oauth2/refresh_token?appid={0}&grant_type=refresh_token&refresh_token={1}";
+    String WEB_APP_REFRESH_TOKEN = SNS_BASE_PATH + "/sns/oauth2/refresh_token?appid={0}&grant_type=refresh_token&refresh_token={1}";
 
     /**
      * 检验授权凭证（access_token）是否有效 <br>
@@ -573,7 +578,7 @@ public interface WeChatMpApiPaths {
      * {1}: openid, 用户的唯一标识<br>
      * </p>
      */
-    String WEB_APP_AUTH = "https://api.weixin.qq.com/sns/auth?access_token={0}&openid={1}";
+    String WEB_APP_AUTH = SNS_BASE_PATH + "/auth?access_token={0}&openid={1}";
 
     /**
      * 拉取用户信息(需 scope 为 snsapi_userinfo) <br>
@@ -585,7 +590,7 @@ public interface WeChatMpApiPaths {
      * {1}: lang, 返回国家地区语言版本，zh_CN 简体，zh_TW 繁体，en 英语<br>
      * </p>
      */
-    String WEB_APP_USER_INFO = "https://api.weixin.qq.com/sns/userinfo?access_token={0}&openid={1}&lang={2}";
+    String WEB_APP_USER_INFO = SNS_BASE_PATH + "/userinfo?access_token={0}&openid={1}&lang={2}";
 
     /**
      * 获得jsapi_ticket <br>
@@ -595,7 +600,7 @@ public interface WeChatMpApiPaths {
      * {0}: access_token, 网页授权接口调用凭证,注意：此access_token与基础支持的access_token不同 <br>
      * </p>
      */
-    String WEB_APP_JS_API_TICKET = "https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi";
+    String WEB_APP_JS_API_TICKET = BASE_PATH + "/ticket/getticket?access_token={0}&type=jsapi";
 
     /**
      * 公众号一次性订阅消息: 获取授权链接
@@ -612,5 +617,64 @@ public interface WeChatMpApiPaths {
         reserved = UrlUtil.encode(reserved);
         return MessageFormat.format(MESSAGE_SUBSCRIBE_MSG_URL_PATTERN, appId, scene, templateId, redirectUrl, reserved);
     }
+
+    /**
+     * 用户管理-标签管理-创建标签 <br>
+     * 一个公众号，最多可以创建100个标签。<br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: POST <br>
+     */
+    String TAGS_CREATE = BASE_PATH + "/tags/create";
+
+    /**
+     * 用户管理-标签管理-获取公众号已创建的标签 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: GET <br>
+     */
+    String TAGS_GET = BASE_PATH + "/tags/get";
+
+    /**
+     * 用户管理-标签管理-编辑标签 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: POST <br>
+     */
+    String TAGS_UPDATE = BASE_PATH + "/tags/update";
+
+    /**
+     * 用户管理-标签管理-删除标签 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: POST <br>
+     */
+    String TAGS_DELETE = BASE_PATH + "/tags/delete";
+
+    /**
+     * 用户管理-标签管理-获取标签下粉丝列表 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: POST <br>
+     */
+    String USER_TAG_GET = BASE_PATH + "/user/tag/get";
+
+    /**
+     * 用户管理-标签管理-批量为用户打标签 <br>
+     * 标签功能目前支持公众号为用户打上最多20个标签。 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: POST <br>
+     */
+    String TAGS_MEMBERS_BATCH_TAGGING = BASE_PATH + "/tags/members/batchtagging";
+
+    /**
+     * 用户管理-标签管理-批量为用户取消标签 <br>
+     * 标签功能目前支持公众号为用户打上最多20个标签。 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: POST <br>
+     */
+    String TAGS_MEMBERS_BATCH_UNTAGGING = BASE_PATH + "/tags/members/batchuntagging";
+
+    /**
+     * 用户管理-标签管理-获取用户身上的标签列表 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/User_Tag_Management.html</a> <br>
+     * HTTP: GET <br>
+     */
+    String TAGS_GET_ID_LIST = BASE_PATH + "/tags/getidlist";
 
 }

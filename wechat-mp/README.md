@@ -34,7 +34,7 @@
 | 订阅通知             | ✅    | `SubscriptionMessagesService` | 同  [MessageServiceTest](src/test/java/org/kangspace/wechat/helper/mp/MessageServiceTest.java)      |
 | 微信网页开发           | ✅    | `WebAppsService`              | [WebAppsServiceTest](src/test/java/org/kangspace/wechat/helper/mp/WebAppsServiceTest.java)         |
 | 素材管理             | ✅    | `AssetService`                | [AssertServiceTest](src/test/java/org/kangspace/wechat/helper/mp/AssertServiceTest.java)           |
-| 用户管理             | ⛔    |                               |                                                                                                    |
+| 用户管理             | ⏳    |                               |                                                                                                    |
 | 账号管理             | ⛔    |                               |                                                                                                    |
 | 客服消息             | ⛔    |                               |                                                                                                    |
 | 草稿箱              | ⛔    |                               |                                                                                                    |
