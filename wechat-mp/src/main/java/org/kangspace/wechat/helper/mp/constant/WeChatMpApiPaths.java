@@ -677,4 +677,30 @@ public interface WeChatMpApiPaths {
      */
     String TAGS_GET_ID_LIST = BASE_PATH + "/tags/getidlist";
 
+    /**
+     * 用户管理-设置用户备注名 <br>
+     * 开发者可以通过该接口对指定用户设置备注名，该接口暂时开放给微信认证的服务号。 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Configuring_user_notes.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Configuring_user_notes.html</a>
+     * HTTP: POST <br>
+     */
+    String USER_INFO_UPDATE_REMARK = BASE_PATH + "/user/info/updateremark";
+
+    /**
+     * 用户管理-获取用户基本信息(UnionID机制) <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId</a>
+     * HTTP: GET <br>
+     * 0: openId <br>
+     * 1: lang <br>
+     */
+    String USER_INFO = BASE_PATH + "/user/info?openid={0}&lang={1}";
+
+    /**
+     * 用户管理-批量获取用户基本信息 <br>
+     *
+     * 开发者可通过该接口来批量获取用户基本信息。最多支持一次拉取100条。 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Get_users_basic_information_UnionID.html#UinonId</a>
+     * HTTP: POST <br>
+     */
+    String USER_INFO_BATCH_GET = BASE_PATH + "/user/info/batchget";
+
 }

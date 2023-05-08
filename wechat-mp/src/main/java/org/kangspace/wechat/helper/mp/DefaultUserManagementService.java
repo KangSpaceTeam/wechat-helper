@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.mp;
 
+import org.kangspace.wechat.helper.core.constant.WeChatLang;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
@@ -7,6 +8,8 @@ import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
+
+import javax.annotation.Nonnull;
 
 /**
  * <p>
@@ -76,5 +79,23 @@ public class DefaultUserManagementService extends AbstractWeChatMpService implem
     public UserTagsGetIdListResponse tagsGetIdList(UserTagsGetIdListRequest request) {
         String url = WeChatMpApiPaths.TAGS_GET_ID_LIST;
         return post(url, request, UserTagsGetIdListResponse.class);
+    }
+
+    @Override
+    public WeChatMpResponseEntity userInfoUpdateRemark(UserInfoUpdateRemarkRequest request) {
+        String url = WeChatMpApiPaths.USER_INFO_UPDATE_REMARK;
+        return post(url, request, WeChatMpResponseEntity.class);
+    }
+
+    @Override
+    public UserInfoResponse userInfo(@Nonnull String openId, WeChatLang lang) {
+        String url = urlTransfer(WeChatMpApiPaths.USER_INFO, openId, lang.getLang());
+        return get(url, UserInfoResponse.class);
+    }
+
+    @Override
+    public UserInfoBatchGetResponse userInfoBatchGet(UserInfoBatchGetRequest request) {
+        String url = WeChatMpApiPaths.USER_INFO_BATCH_GET;
+        return post(url, request, UserInfoBatchGetResponse.class);
     }
 }

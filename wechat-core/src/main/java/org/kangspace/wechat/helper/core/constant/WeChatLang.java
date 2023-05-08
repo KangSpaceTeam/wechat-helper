@@ -1,5 +1,8 @@
 package org.kangspace.wechat.helper.core.constant;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 /**
  * 微信支持的语言列表
  *
@@ -24,6 +27,12 @@ public enum WeChatLang {
         return lang;
     }
 
+    @JsonCreator
+    public WeChatLang parse(String name) {
+        return WeChatLang.valueOf(name);
+    }
+
+    @JsonValue
     @Override
     public String toString() {
         return this.lang;

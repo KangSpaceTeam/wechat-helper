@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.wechat.helper.core.constant.WeChatLang;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
@@ -108,4 +109,23 @@ public class UserManagementServiceTest {
         log.info("{}", response);
     }
 
+    @Test
+    public void userInfoUpdateRemark() {
+        UserInfoUpdateRemarkRequest request = new UserInfoUpdateRemarkRequest("oOIaHt5IOo6rI8BH8IOiG3lA0yHU","Man~");
+        WeChatMpResponseEntity response = userManagementService.userInfoUpdateRemark(request);
+        log.info("{}", response);
+    }
+
+    @Test
+    public void userInfo() {
+        UserInfoResponse response = userManagementService.userInfo("oOIaHt5IOo6rI8BH8IOiG3lA0yHU", WeChatLang.ZH_CN);
+        log.info("{}", response);
+    }
+
+    @Test
+    public void userInfoBatchGet() {
+        UserInfoBatchGetRequest request = new UserInfoBatchGetRequest(new UserInfoBatchGetRequest.User("oOIaHt5IOo6rI8BH8IOiG3lA0yHU", WeChatLang.ZH_CN));
+        UserInfoBatchGetResponse response = userManagementService.userInfoBatchGet(request);
+        log.info("{}", response);
+    }
 }
