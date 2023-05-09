@@ -155,4 +155,67 @@ public interface UserManagementService extends WeChatMpService {
      * @return {@link UserInfoBatchGetResponse}
      */
     UserInfoBatchGetResponse userInfoBatchGet(UserInfoBatchGetRequest request);
+
+    /**
+     * 用户管理-获取用户列表 <br>
+     * 公众号可通过本接口来获取帐号的关注者列表，关注者列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。一次拉取调用最多拉取10000个关注者的OpenID，可以通过多次拉取的方式来满足需求。<br>
+     * <pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Getting_a_User_List.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Getting_a_User_List.html</a>
+     * </pre>
+     *
+     * @return {@link UserGetResponse}
+     */
+    default UserGetResponse userGet(){
+        return userGet(null);
+    }
+
+    /**
+     * 用户管理-获取用户列表 <br>
+     * 公众号可通过本接口来获取帐号的关注者列表，关注者列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。一次拉取调用最多拉取10000个关注者的OpenID，可以通过多次拉取的方式来满足需求。<br>
+     * <pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Getting_a_User_List.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Getting_a_User_List.html</a>
+     * </pre>
+     *
+     * @param nextOpenId 第一个拉取的OPENID，不填默认从头开始拉取
+     * @return {@link UserGetResponse}
+     */
+    UserGetResponse userGet(String nextOpenId);
+
+    /**
+     * 黑名单管理-获取公众号的黑名单列表 <br>
+     * 公众号可登录微信公众平台，对粉丝进行拉黑的操作。同时，我们也提供了一套黑名单管理API，以便开发者直接利用接口进行操作。<br>
+     * 公众号可通过该接口来获取帐号的黑名单列表，黑名单列表由一串 OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。<br>
+     * 该接口每次调用最多可拉取 1000 个OpenID，当列表数较多时，可以通过多次拉取的方式来满足需求。<br>
+     * <pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_blacklist.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_blacklist.html</a>
+     * </pre>
+     *
+     * @param request {@link UserTagsMembersGetBlackListRequest}
+     * @return {@link UserGetResponse}
+     */
+    UserGetResponse tagsMembersGetBlackList(UserTagsMembersGetBlackListRequest request);
+
+    /**
+     * 黑名单管理-拉黑用户 <br>
+     * 公众号可通过该接口来拉黑一批用户，黑名单列表由一串 OpenID （加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。<br>
+     * <pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_blacklist.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_blacklist.html</a>
+     * </pre>
+     *
+     * @param request {@link UserTagsMembersBatchBlackListRequest}
+     * @return {@link WeChatMpResponseEntity}
+     */
+    WeChatMpResponseEntity tagsMembersBatchBlackList(UserTagsMembersBatchBlackListRequest request);
+
+    /**
+     * 黑名单管理-取消拉黑用户 <br>
+     * 公众号可通过该接口来取消拉黑一批用户，黑名单列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。<br>
+     * <pre>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_blacklist.html">https://developers.weixin.qq.com/doc/offiaccount/User_Management/Manage_blacklist.html</a>
+     * </pre>
+     *
+     * @param request {@link UserTagsMembersBatchBlackListRequest}
+     * @return {@link WeChatMpResponseEntity}
+     */
+    WeChatMpResponseEntity tagsMembersBatchUnBlackList(UserTagsMembersBatchBlackListRequest request);
 }

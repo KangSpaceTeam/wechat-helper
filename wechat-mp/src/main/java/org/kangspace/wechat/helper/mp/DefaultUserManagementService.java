@@ -98,4 +98,28 @@ public class DefaultUserManagementService extends AbstractWeChatMpService implem
         String url = WeChatMpApiPaths.USER_INFO_BATCH_GET;
         return post(url, request, UserInfoBatchGetResponse.class);
     }
+
+    @Override
+    public UserGetResponse userGet(String nextOpenId) {
+        String url = urlTransfer(WeChatMpApiPaths.USER_GET, nextOpenId);
+        return get(url, UserGetResponse.class);
+    }
+
+    @Override
+    public UserGetResponse tagsMembersGetBlackList(UserTagsMembersGetBlackListRequest request) {
+        String url = WeChatMpApiPaths.TAGS_MEMBERS_GET_BLACK_LIST;
+        return post(url, request, UserGetResponse.class);
+    }
+
+    @Override
+    public WeChatMpResponseEntity tagsMembersBatchBlackList(UserTagsMembersBatchBlackListRequest request) {
+        String url = WeChatMpApiPaths.TAGS_MEMBERS_BATCH_BLACK_LIST;
+        return post(url, request, WeChatMpResponseEntity.class);
+    }
+
+    @Override
+    public WeChatMpResponseEntity tagsMembersBatchUnBlackList(UserTagsMembersBatchBlackListRequest request) {
+        String url = WeChatMpApiPaths.TAGS_MEMBERS_BATCH_UNBLACK_LIST;
+        return post(url, request, WeChatMpResponseEntity.class);
+    }
 }

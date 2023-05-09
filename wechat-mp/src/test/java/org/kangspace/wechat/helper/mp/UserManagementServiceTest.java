@@ -128,4 +128,31 @@ public class UserManagementServiceTest {
         UserInfoBatchGetResponse response = userManagementService.userInfoBatchGet(request);
         log.info("{}", response);
     }
+
+    @Test
+    public void userGet() {
+        UserGetResponse response = userManagementService.userGet("oOIaHt5IOo6rI8BH8IOiG3lA0yHU");
+        log.info("{}", response);
+    }
+
+    @Test
+    public void tagsMembersGetBlackList() {
+        UserTagsMembersGetBlackListRequest request = new UserTagsMembersGetBlackListRequest();
+        UserGetResponse response = userManagementService.tagsMembersGetBlackList(request);
+        log.info("{}", response);
+    }
+
+    @Test
+    public void tagsMembersBatchBlackList() {
+        UserTagsMembersBatchBlackListRequest request = new UserTagsMembersBatchBlackListRequest("oOIaHt5IOo6rI8BH8IOiG3lA0yHU");
+        WeChatMpResponseEntity response = userManagementService.tagsMembersBatchBlackList(request);
+        log.info("{}", response);
+    }
+
+    @Test
+    public void tagsMembersBatchUnBlackList() {
+        UserTagsMembersBatchBlackListRequest request = new UserTagsMembersBatchBlackListRequest("oOIaHt5IOo6rI8BH8IOiG3lA0yHU");
+        WeChatMpResponseEntity response = userManagementService.tagsMembersBatchUnBlackList(request);
+        log.info("{}", response);
+    }
 }

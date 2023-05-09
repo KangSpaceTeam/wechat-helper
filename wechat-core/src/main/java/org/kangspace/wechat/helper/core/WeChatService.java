@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.core;
 
+import org.apache.commons.lang3.StringUtils;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.request.WeChatRequestFactory;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
@@ -118,7 +119,11 @@ public interface WeChatService {
      * @param params urlPattern对应的变量值
      * @return 最终url
      */
-    default String urlTransfer(String urlPattern, Object... params) {
-        return MessageFormat.format(urlPattern, params);
+    default String urlTransfer(String urlPattern, String... params) {
+        Object[] vars = new Object[params.length];
+        for (int i = 0; i < params.length; i++) {
+            vars[i] = StringUtils.stripToEmpty(params[i]);
+        }
+        return MessageFormat.format(urlPattern, vars);
     }
 }

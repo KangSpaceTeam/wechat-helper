@@ -70,7 +70,7 @@ public enum WeChatMpEvents {
      * 模板消息发送成功事件推送
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5">https://developers.weixin.qq.com/doc/offiaccount/Message_Management/Template_Message_Interface.html#5</a>
      */
-    TEMPLATE_SEND_JOB_FINISH("TEMPLATESENDJOBFINISH", LocationEvent.class),
+    TemplateSendJobFinish("TEMPLATESENDJOBFINISH", LocationEvent.class),
 
     // 用户管理订阅通知事件 start
 
@@ -79,21 +79,21 @@ public enum WeChatMpEvents {
      * 场景：用户在图文等场景内订阅通知的操作<br>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
      */
-    SUBSCRIBE_MSG_POPUP_EVENT("subscribe_msg_popup_event", SubscribeMsgPopupEventEvent.class),
+    SubscribeMsgPopupEvent("subscribe_msg_popup_event", SubscribeMsgPopupEventEvent.class),
 
     /**
      * 用户管理订阅通知<br>
      * 场景：用户在服务通知管理页面做通知管理时的操作<br>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
      */
-    SUBSCRIBE_MSG_CHANGE_EVENT("subscribe_msg_change_event", SubscribeMsgChangeEventEvent.class),
+    SubscribeMsgChangeEvent("subscribe_msg_change_event", SubscribeMsgChangeEventEvent.class),
 
     /**
      * 发送订阅通知<br>
      * 场景：调用 bizsend 接口发送通知<br>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html">https://developers.weixin.qq.com/doc/offiaccount/Subscription_Messages/api.html</a><br>
      */
-    SUBSCRIBE_MSG_SENT_EVENT("subscribe_msg_sent_event", SubscribeMsgChangeEventEvent.class),
+    SubscribeMsgSentEvent("subscribe_msg_sent_event", SubscribeMsgChangeEventEvent.class),
 
     // 用户管理订阅通知事件 end
 
@@ -110,7 +110,7 @@ public enum WeChatMpEvents {
      * </p>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html">https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html</a><br>
      */
-    USER_INFO_MODIFIED_EVENT("user_info_modified", UserAuthorizationRevokeEvent.class),
+    UserInfoModifiedEvent("user_info_modified", UserAuthorizationRevokeEvent.class),
     /**
      * 授权用户信息变更-授权用户资料撤回<br>
      * <p>
@@ -123,7 +123,7 @@ public enum WeChatMpEvents {
      * </p>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html">https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html</a><br>
      */
-    USER_AUTHORIZATION_REVOKE_EVENT("user_authorization_revoke", UserAuthorizationRevokeEvent.class),
+    UserAuthorizationRevokeEvent("user_authorization_revoke", UserAuthorizationRevokeEvent.class),
 
     /**
      * 授权用户信息变更-授权用户完成注销<br>
@@ -137,7 +137,7 @@ public enum WeChatMpEvents {
      * </p>
      * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html">https://developers.weixin.qq.com/doc/offiaccount/OA_Web_Apps/authorization_change.html</a><br>
      */
-    USER_AUTHORIZATION_CANCELLATION_EVENT("user_authorization_cancellation", UserAuthorizationRevokeEvent.class),
+    UserAuthorizationCancellationEvent("user_authorization_cancellation", UserAuthorizationRevokeEvent.class),
 
     // 授权用户信息变更事件 end
 

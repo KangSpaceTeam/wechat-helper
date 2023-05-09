@@ -6,6 +6,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.kangspace.wechat.helper.core.util.ProjectCore;
 
+import java.text.MessageFormat;
+
 /**
  * 公共测试
  *
@@ -23,5 +25,13 @@ public class CommonTest {
     public void coreVersionTest() {
         log.info("coreVersion: {}", ProjectCore.coreVersion());
         log.info("userAgent: {}", ProjectCore.USER_AGENT);
+    }
+
+    /**
+     * MessageFormat
+     */
+    @Test
+    public void messageFormatTest() {
+        log.info("{}", MessageFormat.format("1{0}{1}",1,null));
     }
 }

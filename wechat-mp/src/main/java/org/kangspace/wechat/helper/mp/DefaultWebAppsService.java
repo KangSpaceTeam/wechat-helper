@@ -40,7 +40,7 @@ public class DefaultWebAppsService extends AbstractWeChatMpService implements We
 
     @Override
     public String authorizeUrl(@Nonnull String appId, @Nonnull String redirectUrl, @Nonnull WebAppConstant.Scope scope, String state, boolean forcePopup) {
-        return urlTransfer(WeChatMpApiPaths.WEB_APP_AUTHORIZE, appId, redirectUrl, scope.getScope(), state, forcePopup);
+        return urlTransfer(WeChatMpApiPaths.WEB_APP_AUTHORIZE, appId, redirectUrl, scope.getScope(), state, Boolean.valueOf(forcePopup).toString());
     }
 
     @Override
