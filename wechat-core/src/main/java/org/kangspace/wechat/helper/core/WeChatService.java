@@ -6,6 +6,9 @@ import org.kangspace.wechat.helper.core.request.WeChatRequestFactory;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
 
 /**
@@ -115,14 +118,20 @@ public interface WeChatService {
 
     /**
      * url转换
+     *
      * @param urlPattern url变量, 如 http://example.com/{0}/{1}
-     * @param params urlPattern对应的变量值
+     * @param params     urlPattern对应的变量值
      * @return 最终url
      */
     default String urlTransfer(String urlPattern, String... params) {
         Object[] vars = new Object[params.length];
         for (int i = 0; i < params.length; i++) {
-            vars[i] = StringUtils.stripToEmpty(params[i]);
+            String var = StringUtils.stripToEmpty(params[i]);
+            try {
+                vars[i] = URLEncoder.encode(var, StandardCharsets.UTF_8.name());
+            } catch (UnsupportedEncodingException e) {
+                vars[i] = var;
+            }
         }
         return MessageFormat.format(urlPattern, vars);
     }

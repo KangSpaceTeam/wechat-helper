@@ -25,30 +25,30 @@
 
 **微信公众平台接入模块**
 
-| 微信公众平台模块         | 接入状态 | 实现类                           | 用法                                                                                                       | 
-|------------------|------|-------------------------------|----------------------------------------------------------------------------------------------------------|
-| 获取微信服务器IP地址、网络检测 | ✅    | `ServerService`               | [ServerServiceTest](src/test/java/org/kangspace/wechat/helper/mp/ServerServiceTest.java)                 |
-| openApi管理        | ✅    | `OpenApiService`              | [OpenApiServiceTest](src/test/java/org/kangspace/wechat/helper/mp/OpenApiServiceTest.java)               |
-| 自定义菜单            | ✅    | `CustomMenusService`          | [CustomMenusServiceTest](src/test/java/org/kangspace/wechat/helper/mp/CustomMenusServiceTest.java)       |
-| 基础消息能力           | ✅    | `MessageService`              | [MessageServiceTest](src/test/java/org/kangspace/wechat/helper/mp/MessageServiceTest.java)               |
-| 订阅通知             | ✅    | `SubscriptionMessagesService` | 同  [MessageServiceTest](src/test/java/org/kangspace/wechat/helper/mp/MessageServiceTest.java)            |
-| 微信网页开发           | ✅    | `WebAppsService`              | [WebAppsServiceTest](src/test/java/org/kangspace/wechat/helper/mp/WebAppsServiceTest.java)               |
-| 素材管理             | ✅    | `AssetService`                | [AssertServiceTest](src/test/java/org/kangspace/wechat/helper/mp/AssertServiceTest.java)                 |
-| 用户管理             | ✅    | `UserManagementService`       | [UserManagementServiceTest](src/test/java/org/kangspace/wechat/helper/mp/UserManagementServiceTest.java) |
-| 账号管理             | ⏳    |                               |                                                                                                          |
-| 客服消息             | ⛔    |                               |                                                                                                          |
-| 草稿箱              | ⛔    |                               |                                                                                                          |
-| 发布能力             | ⛔    |                               |                                                                                                          |
-| 数据统计             | ⛔    |                               |                                                                                                          |
-| 微信卡券             | ⛔    |                               |                                                                                                          |
-| 微信门店             | ⛔    |                               |                                                                                                          |
-| 微信小店             | ⛔    |                               |                                                                                                          |
-| 智能接口             | ⛔    |                               |                                                                                                          |
-| 微信设备功能           | ⛔    |                               |                                                                                                          |
-| 微信"一物一码"         | ⛔    |                               |                                                                                                          |
-| 微信发票             | ⛔    |                               |                                                                                                          |
-| 微信非税缴费           | ⛔    |                               |                                                                                                          |
-| 扫服务号二维码打开小程序     | ⛔    |                               |                                                                                                          |
+| 微信公众平台模块         | 接入状态 | 实现类                           | 用法                                                                                                             | 
+|------------------|------|-------------------------------|----------------------------------------------------------------------------------------------------------------|
+| 获取微信服务器IP地址、网络检测 | ✅    | `ServerService`               | [ServerServiceTest](src/test/java/org/kangspace/wechat/helper/mp/ServerServiceTest.java)                       |
+| openApi管理        | ✅    | `OpenApiService`              | [OpenApiServiceTest](src/test/java/org/kangspace/wechat/helper/mp/OpenApiServiceTest.java)                     |
+| 自定义菜单            | ✅    | `CustomMenusService`          | [CustomMenusServiceTest](src/test/java/org/kangspace/wechat/helper/mp/CustomMenusServiceTest.java)             |
+| 基础消息能力           | ✅    | `MessageService`              | [MessageServiceTest](src/test/java/org/kangspace/wechat/helper/mp/MessageServiceTest.java)                     |
+| 订阅通知             | ✅    | `SubscriptionMessagesService` | 同  [MessageServiceTest](src/test/java/org/kangspace/wechat/helper/mp/MessageServiceTest.java)                  |
+| 微信网页开发           | ✅    | `WebAppsService`              | [WebAppsServiceTest](src/test/java/org/kangspace/wechat/helper/mp/WebAppsServiceTest.java)                     |
+| 素材管理             | ✅    | `AssetService`                | [AssertServiceTest](src/test/java/org/kangspace/wechat/helper/mp/AssertServiceTest.java)                       |
+| 用户管理             | ✅    | `UserManagementService`       | [UserManagementServiceTest](src/test/java/org/kangspace/wechat/helper/mp/UserManagementServiceTest.java)       |
+| 账号管理             | ✅    | `AccountManagementService`    | [AccountManagementServiceTest](src/test/java/org/kangspace/wechat/helper/mp/AccountManagementServiceTest.java) |
+| 客服消息             | ⛔    |                               |                                                                                                                |
+| 草稿箱              | ⛔    |                               |                                                                                                                |
+| 发布能力             | ⛔    |                               |                                                                                                                |
+| 数据统计             | ⛔    |                               |                                                                                                                |
+| 微信卡券             | ⛔    |                               |                                                                                                                |
+| 微信门店             | ⛔    |                               |                                                                                                                |
+| 微信小店             | ⛔    |                               |                                                                                                                |
+| 智能接口             | ⛔    |                               |                                                                                                                |
+| 微信设备功能           | ⛔    |                               |                                                                                                                |
+| 微信"一物一码"         | ⛔    |                               |                                                                                                                |
+| 微信发票             | ⛔    |                               |                                                                                                                |
+| 微信非税缴费           | ⛔    |                               |                                                                                                                |
+| 扫服务号二维码打开小程序     | ⛔    |                               |                                                                                                                |
 
 
 ## 1. 用法
@@ -73,11 +73,11 @@
 
 3. access_token缓存
 
-## 4. 接口扩展
+## 3. 接口扩展
 
-## 5. 消息和事件
+## 4. 消息和事件
 
-### 5.1 消息
+### 4.1 消息
 
 1. 文本消息 
 - 明文:
@@ -213,7 +213,7 @@
     </xml>
     ```
 
-### 5.2 事件
+### 4.2 事件
 
 1. CLICK事件
 

@@ -25,6 +25,11 @@ public interface WeChatMpApiPaths {
     String MP_BASE_PATH = "https://mp.weixin.qq.com/mp";
 
     /**
+     * 公众号MP CGI路径
+     */
+    String MP_CGI_BASE_PATH = "https://mp.weixin.qq.com/cgi-bin";
+
+    /**
      * "wxapi" 接口路径
      */
     String WX_API_BASE_PATH = "https://api.weixin.qq.com/wxaapi";
@@ -738,4 +743,44 @@ public interface WeChatMpApiPaths {
      * HTTP: POST <br>
      */
     String TAGS_MEMBERS_BATCH_UNBLACK_LIST = BASE_PATH + "/tags/members/batchunblacklist";
+
+    /**
+     * 账号管理-生成带参数的二维码 <br>
+     * 目前有2种类型的二维码： <br>
+     * 1、临时二维码，是有过期时间的，最长可以设置为在二维码生成后的30天（即2592000秒）后过期，但能够生成较多数量。临时二维码主要用于帐号绑定等不要求二维码永久保存的业务场景  <br>
+     * 2、永久二维码，是无过期时间的，但数量较少（目前为最多10万个）。永久二维码主要用于适用于帐号绑定、用户来源统计等场景。 <br>
+     * 用户扫描带场景值二维码时，可能推送以下两种事件： <br>
+     * 如果用户还未关注公众号，则用户可以关注公众号，关注后微信会将带场景值关注事件推送给开发者。 <br>
+     * 如果用户已经关注公众号，在用户扫描后会自动进入会话，微信也会将带场景值扫描事件推送给开发者。 <br>
+     * 获取带参数的二维码的过程包括两步，首先创建二维码ticket，然后凭借ticket到指定URL换取二维码。 <br>
+     * <br>
+     * 创建二维码ticket<br>
+     * 每次创建二维码ticket需要提供一个开发者自行设定的参数（scene_id）。<br>
+     * <p>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html</a><br>
+     * HTTP: POST <br>
+     */
+    String QRCODE_CREATE = BASE_PATH + "/qrcode/create";
+
+    /**
+     * 账号管理-通过ticket换取二维码 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html</a><br>
+     * HTTP: GET <br>
+     * 0: ticket <br>
+     */
+    String SHOW_QRCODE = MP_CGI_BASE_PATH + "/showqrcode?ticket={0}";
+
+    /**
+     * 账号管理-短key托管-生成短key <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html</a><br>
+     * HTTP: POST <br>
+     */
+    String SHORTEN_GEN = BASE_PATH + "/shorten/gen";
+
+    /**
+     * 账号管理-短key托管-还原长信息 <br>
+     * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Generating_a_Parametric_QR_Code.html</a><br>
+     * HTTP: POST <br>
+     */
+    String SHORTEN_FETCH = BASE_PATH + "/shorten/fetch";
 }

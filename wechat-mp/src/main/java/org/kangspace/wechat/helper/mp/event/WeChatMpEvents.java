@@ -140,6 +140,45 @@ public enum WeChatMpEvents {
     UserAuthorizationCancellationEvent("user_authorization_cancellation", UserAuthorizationRevokeEvent.class),
 
     // 授权用户信息变更事件 end
+    // 微信认证事件推送 start
+    /**
+     * 微信认证事件推送-资质认证成功 <br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html</a><br>
+     */
+    QualificationVerifySuccess("qualification_verify_success", QualificationVerifySuccessEvent.class),
+
+    /**
+     * 微信认证事件推送-资质认证失败 <br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html</a><br>
+     */
+    QualificationVerifyFail("qualification_verify_fail", QualificationVerifyFailEvent.class),
+
+    /**
+     * 微信认证事件推送-名称认证成功（即命名成功） <br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html</a><br>
+     */
+    NamingVerifySuccess("naming_verify_success", NamingVerifySuccessEvent.class),
+
+    /**
+     * 微信认证事件推送-名称认证失败（这时虽然客户端不打勾，但仍有接口权限） <br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html</a><br>
+     */
+    NamingVerifyFail("naming_verify_fail", NamingVerifyFailEvent.class),
+
+    /**
+     * 微信认证事件推送-年审通知 <br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html</a><br>
+     */
+    AnnualRenew("annual_renew", AnnualRenewEvent.class),
+
+    /**
+     * 微信认证事件推送-认证过期失效通知审通知 <br>
+     * 文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html">https://developers.weixin.qq.com/doc/offiaccount/Account_Management/Wechat_Accreditation_Event_Push.html</a><br>
+     */
+    VerifyExpired("verify_expired", VerifyExpiredEvent.class),
+
+
+    // 微信认证事件推送 end
 
 
     ;
