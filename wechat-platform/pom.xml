@@ -5,7 +5,7 @@
     <parent>
         <artifactId>wechat-helper</artifactId>
         <groupId>org.kangspace.wechat.helper</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,8 +15,8 @@
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <maven.source.skip>true</maven.source.skip>
-        <maven.javadoc.skip>true</maven.javadoc.skip>
+        <maven.source.skip>false</maven.source.skip>
+        <maven.javadoc.skip>false</maven.javadoc.skip>
         <spring.boot.version>2.7.2</spring.boot.version>
     </properties>
 
@@ -103,7 +103,7 @@
                     <execution>
                         <phase>package</phase>
                         <goals>
-                            <goal>jar</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>

@@ -6,13 +6,21 @@
 
     <groupId>org.kangspace.wechat.helper</groupId>
     <artifactId>wechat-helper</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <packaging>pom</packaging>
 
+    <name>wechat-helper</name>
     <url>https://github.com/KangSpaceTeam/wechat-helper</url>
     <description>
         🛠 微信开发助手️，通过整合微信公众号、服务号、微信开放平台和企业微信的开发API，提供统一微信API调用SDK、OPEN-API和微信应用的管理平台。
     </description>
+
+    <licenses>
+        <license>
+            <name>MIT License(MIT)</name>
+            <url>https://github.com/KangSpaceTeam/wechat-helper/blob/main/LICENSE</url>
+        </license>
+    </licenses>
 
     <developers>
         <developer>
@@ -35,18 +43,90 @@
         <url>https://github.com/KangSpaceTeam/wechat-helper</url>
     </issueManagement>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>oss.sonatype.org</id>
-            <name>oss.sonatype.org</name>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>oss.sonatype.org</id>
-            <name>oss.sonatype.org</name>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
-    </distributionManagement>
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!--Compiler-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-compiler-plugin</artifactId>
+                    </plugin>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.2.0</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                             <!--   <configuration>
+                                    <additionalparam>-Xdoclint:none</additionalparam>
+                                    <failOnError>${maven.javadoc.failOnError}</failOnError>
+                                    <encoding>UTF-8</encoding>
+                                </configuration>-->
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase-->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- mvn release -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-release-plugin</artifactId>
+                        <version>2.5.3</version>
+                        <configuration>
+                            <autoVersionSubmodules>true</autoVersionSubmodules>
+                            <tagNameFormat>tag@{project.version}</tagNameFormat>
+                            <generateReleasePoms>false</generateReleasePoms>
+                            <arguments>-DskipTests</arguments>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>sonatype-nexus</id>
+                    <name>Sonatype Nexus Snapshots</name>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>sonatype-nexus</id>
+                    <name>Nexus Release Repository</name>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
     <repositories>
         <repository>

@@ -1,11 +1,12 @@
 # 微信开发助手(wechat-helper)
 
 [![License](http://img.shields.io/:license-mit-brightgreen.svg)](https://github.com/KangSpaceTeam/wechat-helper/blob/main/LICENSE)
+![maven](https://img.shields.io/maven-central/v/org.kangspace.wechat.helper/wechat-helper)
 
 [快速开始](#quick-start) | [文档](https://github.com/KangSpaceTeam/wechat-helper/wiki) | [Changelog](CHANGELOG.md)
 | [Report an issue](https://github.com/KangSpaceTeam/wechat-helper/issues/new)
 
-> 最新版本: 0.0.1-SNAPSHOT
+> 最新版本: 0.0.1
 
 ## 1. 模块
 
@@ -21,17 +22,26 @@
 | [wechat-platform](wechat-platform) | 微信开发相关管理端相关包 | 微信开发相关管理端,web定义包       | ⏳            |
 | [wechat-bom](wechat-bom)           | 依赖管理包        | 包版本管理                  | 📍2022.12.01 |
 
-## 2. 特性
+## [2. 快速开始](#quick-start)
 
-## [3. 快速开始](#quick-start)
-
-### 3.1 微信公众号
+### 2.1 微信公众号
 
 见 [微信公众号(wechat-mp)](wechat-mp/README.md)
 
-### 3.2 企业微信
+### 2.2 企业微信
 
 见 [企微微信(wechat-work)](wechat-work/README.md)
 
+### 3. Maven
+
+> jdk: 1.8+
+
+```
+<dependency>
+    <groupId>org.kangspace.wechat.helper</groupId>
+    <artifactId>wechat-bom</artifactId>
+    <version>${lastest-version}</version>
+</dependency>
+```
 
 
