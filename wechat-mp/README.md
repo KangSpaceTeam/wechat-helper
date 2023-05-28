@@ -1,25 +1,27 @@
 # wechat-mp 微信公众平台模块
 
 <!-- TOC -->
+
 * [wechat-mp 微信公众平台模块](#wechat-mp-)
-  * [1. 用法](#1-)
-    * [1.1 基本用法](#11-)
-    * [1.2 通用接口](#12-)
-      * [1. 获取AccessToken](#1-accesstoken)
-      * [2. 获取微信服务器IP地址](#2-ip)
-      * [3. 网络检测](#3-)
-  * [2. AccessToken 说明](#2-accesstoken-)
-  * [4. 接口扩展](#4-)
-  * [5. 消息和事件](#5-)
-    * [5.1 消息](#51-)
-    * [5.2 事件](#52-)
-  * [附录](#)
-    * [A. 微信公众号官方文档](#a-)
-      * [公众平台开发文档](#)
-      * [公众平台更新日志](#)
-      * [公众平台接入指南](#)
-      * [微信公众平台接口测试帐号系统](#)
-      * [微信公众平台接口调试工具](#)
+    * [1. 用法](#1-)
+        * [1.1 基本用法](#11-)
+        * [1.2 通用接口](#12-)
+            * [1. 获取AccessToken](#1-accesstoken)
+            * [2. 获取微信服务器IP地址](#2-ip)
+            * [3. 网络检测](#3-)
+    * [2. AccessToken 说明](#2-accesstoken-)
+    * [4. 接口扩展](#4-)
+    * [5. 消息和事件](#5-)
+        * [5.1 消息](#51-)
+        * [5.2 事件](#52-)
+    * [附录](#)
+        * [A. 微信公众号官方文档](#a-)
+            * [公众平台开发文档](#)
+            * [公众平台更新日志](#)
+            * [公众平台接入指南](#)
+            * [微信公众平台接口测试帐号系统](#)
+            * [微信公众平台接口调试工具](#)
+
 <!-- TOC -->
 
 
@@ -50,41 +52,149 @@
 | 微信非税缴费           | ⛔    |                               |                                                                                                                |
 | 扫服务号二维码打开小程序     | ⛔    |                               |                                                                                                                |
 
-
 ## 1. 用法
 
 <!-- 罗列各接口的使用API -->
 
 ### 1.1 基本用法
 
+1. **创建Service对象**
+
+所有Service接口的的默认实现都是以DefaultXXXX开头的。如`ServerService的实现类为DefaultServerService`
+
+```
+String appId = "", appSecret = "";
+WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
+DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+ServerService mpServerService = new DefaultServerService(weChatMpConfig, weChatMpAccessTokenService);
+```
+
+2. **通过Service A实例获取Service B的实例**
+
+如通过`ServerService`获取`OpenApiService`实例
+
+- **方式一: 直接通过`ofXXXX`获取对应Service**
+
+```
+OpenApiService openApiService  = serverService.ofOpenApiService();
+```
+
+- **方式二: 通过`<T extends WeChatService> T of(Class<T> toWeChatService)`获取对应Service**
+
+`toWeChatService`为对应Service的实现类, 一般为`DefaultXXXService`
+
+```
+OpenApiService openApiService  = serverService.of(DefaultOpenApiService.class);
+```
+
 ### 1.2 通用接口
 
-#### 1. 获取AccessToken
-
-#### 2. 获取微信服务器IP地址
-
-#### 3. 网络检测
+见 `微信公众平台接入模块` 测试用例用法。
 
 ## 2. AccessToken 说明
 
-1. access_token获取
+AccessToken无需单独获取和指定，调用Api方法时，会自动获取并缓存AccessToken.
+AccessToken由`WeChatMpAccessTokenService`维护，且缓存由`WeChatTokenStorage`维护。
 
-2. access_token刷新
+### 2.1 access_token获取
 
-3. access_token缓存
+- **方式一: 使用`WeChatMpAccessTokenService`获取token**
+
+```
+String appId = "", appSecret = "";
+WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
+WeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+String token = weChatMpAccessTokenService.getToken();
+```
+
+- **方式二: 使用Service实例获取token**
+
+```
+String token = serverService.getToken();
+```
+
+### 2.2 access_token刷新
+
+- **方式一: 自动刷新**
+
+调用Api方法时，若收到微信`40014:不合法的 access_token ，请开发者认真比对 access_token 的有效性（如是否过期），或查看是否正在为恰当的公众号调用接口`
+时,会自动重新请求AccessToken。
+
+- **方式二: 通过`WeChatMpAccessTokenService`刷新AccessToken**
+
+刷新后会自动更新到缓存中。
+
+```
+weChatMpAccessTokenService.tokenRefresh()
+# 或
+weChatMpAccessTokenService.token(true)
+```
+
+### 2.3 access_token缓存
+
+AccessToken缓存由`WeChatTokenStorage`维护，默认实现为`DefaultLocalWeChatTokenStorage`。
+可在实例化`WeChatMpConfig`时指定`WeChatTokenStorage`。
+
+1. **默认缓存`DefaultLocalWeChatTokenStorage`**
+
+AccessToken缓存在当前Jvm中。
+
+```
+WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
+weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+```
+
+2. **指定`WeChatTokenStorage`实现类**
+
+指定为Redis缓存实现类。
+
+```
+String redisAddress = "redis://127.0.0.1:6379";
+Integer database = 0;
+
+WeChatMpConfig weChatMpConfigWithRedis = new WeChatMpConfig(appId, appSecret);
+weChatMpConfigWithRedis.setRedisConfig(WeChatRedisConfigFactory.newConfig(WeChatRedisConfig.ServerType.SingleServer, redisAddress, database));
+RedisWeChatTokenStorage mpServerServiceWithRedisStorage = new RedisWeChatTokenStorage(weChatMpConfigWithRedis);
+weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
+WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
+weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+```
 
 ## 3. 接口扩展
+
+可通过继承`AbstractWeChatMpService`类来快速接入微信公众号API, 并使用其中的`post`,`get`方法。
+调用`post`,`get`方法时，可以指定是否需要AccessToken。
+
+如:
+
+```
+public class DefaultServerService extends AbstractWeChatMpService implements ServerService {
+   public DefaultServerService(WeChatMpConfig weChatConfig) {
+        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+    }
+
+    public DefaultServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    }
+
+    public DefaultServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    }
+}
+```
 
 ## 4. 消息和事件
 
 ### 4.1 消息
 
-1. 文本消息 
+1. 文本消息
+
 - 明文:
-    
-    > POST /wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
-    
-    body:
+
+  > POST
+  /wechat-platform/message?signature=f0b32354a7dbb3a81d6b581ce8630c890c639dc4&timestamp=1672369434&nonce=868403012&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og
+
+  body:
     ```
     <xml>
     <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
@@ -97,9 +207,10 @@
     ```
 
 - 混合
-    > POST /wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361
-    
-    body:
+  > POST
+  /wechat-platform/message?signature=4d63b2865bff0f727b20ab5e7044824bce0c190c&timestamp=1672368683&nonce=1011679778&openid=oMIE-6T2iTOgEdERSg26CU0KL8Og&encrypt_type=aes&msg_signature=228c52a8d86c9dd454240e5fd0b626dcd2abd361
+
+  body:
     ```
     <xml>
     <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
@@ -115,9 +226,10 @@
 
 - 安全模式
 
-    > signature=af0293fa28d9295bbeed7d14682f33b67b40ac11, timestamp=1673663596, nonce=1010515247, encryptType=aes,  msgSignature=7cfc35554d3d386235bf953e0d2ce6e9974eca53)
-    
-    body: 
+  > signature=af0293fa28d9295bbeed7d14682f33b67b40ac11, timestamp=1673663596, nonce=1010515247, encryptType=aes,
+  msgSignature=7cfc35554d3d386235bf953e0d2ce6e9974eca53)
+
+  body:
     ```
     <xml>
     <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>
@@ -127,9 +239,9 @@
 
 2. 图片消息
 
-    > signature=695a62925a7a6fcecbf96c2e593cffd2cf11fe57, timestamp=1673317844, nonce=61743237
-    
-    body: 
+   > signature=695a62925a7a6fcecbf96c2e593cffd2cf11fe57, timestamp=1673317844, nonce=61743237
+
+   body:
     ```
     <xml>
     <ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
@@ -144,10 +256,10 @@
     ```
 
 3. 语音消息
-    
-    > signature=d07daaa80f94ac3c69e3e2510fb7499769701147, timestamp=1673929361, nonce=226823177
-    
-    body: 
+
+   > signature=d07daaa80f94ac3c69e3e2510fb7499769701147, timestamp=1673929361, nonce=226823177
+
+   body:
     ```
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -162,9 +274,9 @@
 
 4. 视频消息
 
-    > signature=78ab5abd724c4ecc49d617a4c30570afe7ad4f9f, timestamp=1673930863, nonce=1668497985
-    
-    body: 
+   > signature=78ab5abd724c4ecc49d617a4c30570afe7ad4f9f, timestamp=1673930863, nonce=1668497985
+
+   body:
     ``` 
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -180,9 +292,9 @@
 
 6. 位置消息
 
-    > signature=dc8716e9b72b8f26d53cafd439dcbce1bf29651a, timestamp=1673229218, nonce=905465750
-    
-    body: 
+   > signature=dc8716e9b72b8f26d53cafd439dcbce1bf29651a, timestamp=1673229218, nonce=905465750
+
+   body:
     ```
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -197,10 +309,10 @@
     ```
 
 7. 链接消息
-    
-    > signature=84cf1fb48628acf727353a94bfcf8df5762545ea, timestamp=1673330846, nonce=915317285
-    
-    body: 
+
+   > signature=84cf1fb48628acf727353a94bfcf8df5762545ea, timestamp=1673330846, nonce=915317285
+
+   body:
     ``` 
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -217,9 +329,10 @@
 
 1. CLICK事件
 
-    > (signature=fd6a576defb6f521ecc6ee593ea6dbdb31aa04ec, timestamp=1673229375, nonce=493853253), encryptType=null, msgSignature=null)
-    
-    body: 
+   > (signature=fd6a576defb6f521ecc6ee593ea6dbdb31aa04ec, timestamp=1673229375, nonce=493853253), encryptType=null,
+   msgSignature=null)
+
+   body:
     ```
     <xml>
     <ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
@@ -233,9 +346,9 @@
 
 2. 点击菜单跳转链接时的事件推送
 
-    > signature=625f3cfc297abbcfb6585d86352312b0fcb4837a, timestamp=1673500355, nonce=589328110
-    
-    body: 
+   > signature=625f3cfc297abbcfb6585d86352312b0fcb4837a, timestamp=1673500355, nonce=589328110
+
+   body:
     ```
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -249,9 +362,9 @@
 
 3. 关注事件
 
-    > signature=a992a0b6be821f557e405d1da614df127d8af938, timestamp=1673501864, nonce=812038915
-    
-    body: 
+   > signature=a992a0b6be821f557e405d1da614df127d8af938, timestamp=1673501864, nonce=812038915
+
+   body:
     ```
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>
@@ -263,10 +376,10 @@
     ```
 
 4. 取消关注事件
-    
-    > signature=17d7519b189b457f93033bd0bdd1d1bc790f6947, timestamp=1673501834, nonce=1093822964
-   
-    body:
+
+   > signature=17d7519b189b457f93033bd0bdd1d1bc790f6947, timestamp=1673501834, nonce=1093822964
+
+   body:
     ```
     <xml><ToUserName><![CDATA[gh_2f7bd96befaf]]></ToUserName>
     <FromUserName><![CDATA[oOIaHt5IOo6rI8BH8IOiG3lA0yHU]]></FromUserName>

@@ -48,6 +48,51 @@ public interface WeChatMpService extends WeChatService {
     }
 
     /**
+     * 转换为{@link AccountManagementService}
+     *
+     * @return {@link AccountManagementService}
+     */
+    default AccountManagementService ofAccountManagementService() {
+        return of(DefaultAccountManagementService.class);
+    }
+
+    /**
+     * 转换为{@link SubscriptionMessagesService}
+     *
+     * @return {@link SubscriptionMessagesService}
+     */
+    default SubscriptionMessagesService ofSubscriptionMessagesService() {
+        return of(DefaultSubscriptionMessagesService.class);
+    }
+
+    /**
+     * 转换为{@link UserManagementService}
+     *
+     * @return {@link UserManagementService}
+     */
+    default UserManagementService ofUserManagementService() {
+        return of(DefaultUserManagementService.class);
+    }
+
+    /**
+     * 转换为{@link AssetService}
+     *
+     * @return {@link AssetService}
+     */
+    default AssetService ofAssetService() {
+        return of(DefaultAssetService.class);
+    }
+
+    /**
+     * 转换为{@link WebAppsService}
+     *
+     * @return {@link WebAppsService}
+     */
+    default WebAppsService ofWebAppsService() {
+        return of(DefaultWebAppsService.class);
+    }
+
+    /**
      * 转换为{@link CustomMenusService}
      *
      * @return {@link CustomMenusService}

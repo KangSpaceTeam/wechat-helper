@@ -11,8 +11,8 @@
 
 | 模块                                 | 说明           | 备注                     | 状态           |
 |------------------------------------|--------------|------------------------|--------------|
-| [wechat-core](wechat-core)         | 核心包          | http,exception,接口统一定义包 | ️⏳           |
-| [wechat-mp](wechat-mp)             | 微信公众号相关包     | 微信公众号接口,响应,错误码统一定义包    | ⏳            |
+| [wechat-core](wechat-core)         | 核心包          | http,exception,接口统一定义包 | ️📍          |
+| [wechat-mp](wechat-mp)             | 微信公众号相关包     | 微信公众号接口,响应,错误码统一定义包    | 📍2023.05.28 |
 | [wechat-miniapp](wechat-miniapp)   | 微信小程序相关包     | 微信小程序接口,响应,错误码统一定义包    | ⏳            |
 | [wechat-open](wechat-open)         | 微信开放平台相关包    | 微信开放平台接口,响应,错误码统一定义包   | ⏳            |
 | [wechat-work](wechat-work)         | 企业微信相关包      | 企业微信接口,响应,错误码统一定义包     | ⏳            |
@@ -32,11 +32,6 @@
 ### 3.2 企业微信
 
 见 [企微微信(wechat-work)](wechat-work/README.md)
-
-## T. TODO
-
-### T1 补充API调用流程关键类图
-
 
 
 
