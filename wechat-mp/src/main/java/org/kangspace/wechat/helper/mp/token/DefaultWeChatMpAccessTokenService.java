@@ -21,7 +21,8 @@ public class DefaultWeChatMpAccessTokenService extends AbstractWeChatMpService i
     private final WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage;
 
     public DefaultWeChatMpAccessTokenService(WeChatMpConfig weChatConfig) {
-        super(weChatConfig, null);
+        super();
+        this.setWeChatConfig(weChatConfig);
         this.weChatTokenStorage = weChatConfig.getWeChatTokenStorage();
     }
 

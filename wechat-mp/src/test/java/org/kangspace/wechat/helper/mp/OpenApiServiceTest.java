@@ -25,15 +25,14 @@ public class OpenApiServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private OpenApiService mpOpenApiService;
-    private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     private String mpAccessToken;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-        weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpOpenApiService = new DefaultOpenApiService(weChatMpConfig, weChatMpAccessTokenService);
+        DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+        mpOpenApiService = new DefaultOpenApiService(weChatMpAccessTokenService);
         mpAccessToken = mpOpenApiService.getToken();
     }
 

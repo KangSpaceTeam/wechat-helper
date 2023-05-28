@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.core.token;
 
+import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 
 /**
@@ -9,6 +10,13 @@ import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
  * @since 2022/11/24
  */
 public interface WeChatTokenService {
+
+    /**
+     * 获取微信配置对象
+     *
+     * @return {@link WeChatConfig}
+     */
+    WeChatConfig getWeChatConfig();
 
     /**
      * 获取Token

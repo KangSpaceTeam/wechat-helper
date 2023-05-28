@@ -66,7 +66,7 @@
 String appId = "", appSecret = "";
 WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
 DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-ServerService mpServerService = new DefaultServerService(weChatMpConfig, weChatMpAccessTokenService);
+ServerService mpServerService = new DefaultServerService(weChatMpAccessTokenService);
 ```
 
 2. **通过Service A实例获取Service B的实例**
@@ -156,8 +156,7 @@ WeChatMpConfig weChatMpConfigWithRedis = new WeChatMpConfig(appId, appSecret);
 weChatMpConfigWithRedis.setRedisConfig(WeChatRedisConfigFactory.newConfig(WeChatRedisConfig.ServerType.SingleServer, redisAddress, database));
 RedisWeChatTokenStorage mpServerServiceWithRedisStorage = new RedisWeChatTokenStorage(weChatMpConfigWithRedis);
 weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
-WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfigWithRedis);
 ```
 
 ## 3. 接口扩展
@@ -169,16 +168,16 @@ weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfi
 
 ```
 public class DefaultServerService extends AbstractWeChatMpService implements ServerService {
-   public DefaultServerService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+    public DefaultServerService(WeChatMpConfig weChatConfig) {
+        super(weChatConfig);
     }
 
-    public DefaultServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    public DefaultServerService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
-    public DefaultServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultServerService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 }
 ```

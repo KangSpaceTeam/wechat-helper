@@ -21,12 +21,12 @@ public class DefaultSubscriptionMessagesService extends AbstractWeChatMpService 
         super(weChatConfig);
     }
 
-    public DefaultSubscriptionMessagesService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        super(weChatConfig, weChatMpAccessTokenService);
+    public DefaultSubscriptionMessagesService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
-    public DefaultSubscriptionMessagesService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultSubscriptionMessagesService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 
     @Override

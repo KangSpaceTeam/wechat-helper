@@ -25,13 +25,12 @@ public class WebAppsServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private WebAppsService webAppsService;
-    private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-        weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        webAppsService = new DefaultWebAppsService(weChatMpConfig, weChatMpAccessTokenService);
+        DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+        webAppsService = new DefaultWebAppsService(weChatMpAccessTokenService);
     }
 
     /**

@@ -8,8 +8,6 @@ import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.constant.WebAppConstant;
-import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
-import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
 
 import javax.annotation.Nonnull;
@@ -27,15 +25,15 @@ import java.util.TreeMap;
 public class DefaultWebAppsService extends AbstractWeChatMpService implements WebAppsService {
 
     public DefaultWebAppsService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+        super(weChatConfig);
     }
 
-    public DefaultWebAppsService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    public DefaultWebAppsService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
-    public DefaultWebAppsService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultWebAppsService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 
     @Override

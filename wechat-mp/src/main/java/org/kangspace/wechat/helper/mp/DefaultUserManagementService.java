@@ -5,8 +5,6 @@ import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
-import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
-import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
 
 import javax.annotation.Nonnull;
@@ -22,15 +20,15 @@ import javax.annotation.Nonnull;
 public class DefaultUserManagementService extends AbstractWeChatMpService implements UserManagementService {
 
     public DefaultUserManagementService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+        super(weChatConfig);
     }
 
-    public DefaultUserManagementService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    public DefaultUserManagementService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
-    public DefaultUserManagementService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultUserManagementService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 
     @Override

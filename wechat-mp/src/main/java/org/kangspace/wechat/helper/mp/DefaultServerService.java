@@ -6,8 +6,6 @@ import org.kangspace.wechat.helper.mp.bean.CallbackCheckResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
-import org.kangspace.wechat.helper.mp.request.filter.WeChatMpRequestFilterChainFactory;
-import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
 import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
 
 import java.util.Objects;
@@ -23,15 +21,15 @@ import java.util.Objects;
 public class DefaultServerService extends AbstractWeChatMpService implements ServerService {
 
     public DefaultServerService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+        super(weChatConfig);
     }
 
-    public DefaultServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    public DefaultServerService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
-    public DefaultServerService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultServerService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 
     @Override

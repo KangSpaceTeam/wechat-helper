@@ -27,7 +27,7 @@ public class UserManagementServiceTest {
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        userManagementService = new DefaultUserManagementService(weChatMpConfig, weChatMpAccessTokenService);
+        userManagementService = new DefaultUserManagementService(weChatMpAccessTokenService);
     }
 
     /**
@@ -111,7 +111,7 @@ public class UserManagementServiceTest {
 
     @Test
     public void userInfoUpdateRemark() {
-        UserInfoUpdateRemarkRequest request = new UserInfoUpdateRemarkRequest("oOIaHt5IOo6rI8BH8IOiG3lA0yHU","Man~");
+        UserInfoUpdateRemarkRequest request = new UserInfoUpdateRemarkRequest("oOIaHt5IOo6rI8BH8IOiG3lA0yHU", "Man~");
         WeChatMpResponseEntity response = userManagementService.userInfoUpdateRemark(request);
         log.info("{}", response);
     }

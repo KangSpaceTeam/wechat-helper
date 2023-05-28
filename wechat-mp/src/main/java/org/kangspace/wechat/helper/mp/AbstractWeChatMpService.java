@@ -18,27 +18,34 @@ import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
  * @since 2022/11/24
  */
 public class AbstractWeChatMpService implements WeChatMpService {
-    private final WeChatMpConfig weChatConfig;
-    private final RequestFilterChain requestFilterChain;
-    private final WeChatMpAccessTokenService weChatMpAccessTokenService;
+    private WeChatMpConfig weChatConfig;
+    private RequestFilterChain requestFilterChain;
+    private WeChatMpAccessTokenService weChatMpAccessTokenService;
+
+    protected AbstractWeChatMpService() {
+    }
 
     public AbstractWeChatMpService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+        this(new DefaultWeChatMpAccessTokenService(weChatConfig));
     }
 
-    public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    public AbstractWeChatMpService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        this(weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
     }
 
-    public AbstractWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        this.weChatConfig = weChatConfig;
+    public AbstractWeChatMpService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        this.weChatConfig = weChatMpAccessTokenService.getWeChatConfig();
         this.requestFilterChain = requestFilterChain;
-        this.weChatMpAccessTokenService = weChatMpAccessTokenService != null && !(this instanceof WeChatTokenService) ? weChatMpAccessTokenService : null;
+        this.weChatMpAccessTokenService = !(this instanceof WeChatTokenService) ? weChatMpAccessTokenService : null;
     }
 
     @Override
     public WeChatMpConfig getWeChatConfig() {
         return weChatConfig;
+    }
+
+    public void setWeChatConfig(WeChatMpConfig weChatConfig) {
+        this.weChatConfig = weChatConfig;
     }
 
     @Override

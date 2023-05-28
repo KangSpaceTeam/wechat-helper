@@ -20,12 +20,12 @@ public class DefaultOpenApiService extends AbstractWeChatMpService implements Op
         super(weChatConfig);
     }
 
-    public DefaultOpenApiService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        super(weChatConfig, weChatMpAccessTokenService);
+    public DefaultOpenApiService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
-    public DefaultOpenApiService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultOpenApiService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class AccountManagementServiceTest {
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        accountManagementService = new DefaultAccountManagementService(weChatMpConfig, weChatMpAccessTokenService);
+        accountManagementService = new DefaultAccountManagementService(weChatMpAccessTokenService);
     }
 
     @Test

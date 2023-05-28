@@ -4,6 +4,7 @@ import org.kangspace.wechat.helper.core.constant.TimeConstant;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.WeChatTokenService;
 import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
+import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 
 /**
  * 微信公众号AccessTokenService
@@ -12,6 +13,15 @@ import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
  * @since 2022/11/24
  */
 public interface WeChatMpAccessTokenService extends WeChatTokenService {
+
+    /**
+     * 获取微信公众号配置对象
+     *
+     * @return {@link WeChatMpConfig}
+     */
+    @Override
+    WeChatMpConfig getWeChatConfig();
+
     /**
      * 微信公众号获取Access token
      *

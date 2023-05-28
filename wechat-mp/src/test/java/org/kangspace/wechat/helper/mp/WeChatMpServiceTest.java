@@ -7,7 +7,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
-import org.kangspace.wechat.helper.core.storage.redis.RedisWeChatTokenStorage;
 import org.kangspace.wechat.helper.mp.bean.AccessTokenRequest;
 import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
@@ -27,14 +26,13 @@ public class WeChatMpServiceTest {
     private final String appId = WeChatMpAppConstant.GLOBAL_APPID;
     private final String appSecret = WeChatMpAppConstant.GLOBAL_APPSECRET;
     private ServerService mpServerService;
-    private RedisWeChatTokenStorage mpServerServiceWithRedisStorage;
     private DefaultWeChatMpAccessTokenService weChatMpAccessTokenService;
 
     @Before
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpServerService = new DefaultServerService(weChatMpConfig, weChatMpAccessTokenService);
+        mpServerService = new DefaultServerService(weChatMpAccessTokenService);
     }
 
     /**
@@ -97,7 +95,7 @@ public class WeChatMpServiceTest {
     @Test
     public void getApiDomainIpTest() {
         MpServerIpListResponse response = mpServerService.getApiDomainIp();
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 }

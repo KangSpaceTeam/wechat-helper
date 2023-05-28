@@ -21,15 +21,15 @@ import javax.annotation.Nonnull;
 public class DefaultAccountManagementService extends AbstractWeChatMpService implements AccountManagementService {
 
     public DefaultAccountManagementService(WeChatMpConfig weChatConfig) {
-        this(weChatConfig, new DefaultWeChatMpAccessTokenService(weChatConfig));
+        this(new DefaultWeChatMpAccessTokenService(weChatConfig));
     }
 
-    public DefaultAccountManagementService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        this(weChatConfig, weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
+    public DefaultAccountManagementService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        this(weChatMpAccessTokenService, WeChatMpRequestFilterChainFactory.defaultRequestFilterChain());
     }
 
-    public DefaultAccountManagementService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+    public DefaultAccountManagementService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 
     @Override

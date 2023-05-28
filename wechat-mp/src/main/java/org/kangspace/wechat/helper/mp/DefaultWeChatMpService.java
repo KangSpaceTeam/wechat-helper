@@ -16,11 +16,11 @@ public class DefaultWeChatMpService extends AbstractWeChatMpService {
         super(weChatConfig);
     }
 
-    public DefaultWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        super(weChatConfig, weChatMpAccessTokenService);
+    public DefaultWeChatMpService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
+        super(weChatMpAccessTokenService);
     }
 
     public DefaultWeChatMpService(WeChatMpConfig weChatConfig, WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatConfig, weChatMpAccessTokenService, requestFilterChain);
+        super(weChatMpAccessTokenService, requestFilterChain);
     }
 }

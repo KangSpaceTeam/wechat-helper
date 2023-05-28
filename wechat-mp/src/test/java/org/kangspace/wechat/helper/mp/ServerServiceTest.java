@@ -29,7 +29,7 @@ public class ServerServiceTest {
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         DefaultWeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpServerService = new DefaultServerService(weChatMpConfig, weChatMpAccessTokenService);
+        mpServerService = new DefaultServerService(weChatMpAccessTokenService);
     }
 
     /**

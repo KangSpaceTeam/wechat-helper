@@ -31,7 +31,7 @@ public class AssertServiceTest {
     public void before() {
         WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-        mpAssetService = new DefaultAssetService(weChatMpConfig, weChatMpAccessTokenService);
+        mpAssetService = new DefaultAssetService(weChatMpAccessTokenService);
     }
 
     /**

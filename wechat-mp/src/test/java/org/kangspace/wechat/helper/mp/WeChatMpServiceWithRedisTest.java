@@ -42,7 +42,7 @@ public class WeChatMpServiceWithRedisTest {
         weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
 
         weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfigWithRedis);
-        mpServerService = new DefaultServerService(weChatMpConfigWithRedis, weChatMpAccessTokenService);
+        mpServerService = new DefaultServerService(weChatMpAccessTokenService);
     }
 
     /**
