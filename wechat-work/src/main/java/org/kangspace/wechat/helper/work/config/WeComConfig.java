@@ -1,4 +1,4 @@
-package org.kangspace.wechat.helper.mp.config;
+package org.kangspace.wechat.helper.work.config;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,15 +11,16 @@ import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.AccessTokenResponse;
 
 /**
- * 微信公众号配置类
+ * 企业微信配置类
  *
  * @author kango2gler@gmail.com
- * @since 2022/11/24
+ * @since 2023/6/22
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
-public class WeChatMpConfig extends AbstractWeChatConfig {
+public class WeComConfig extends AbstractWeChatConfig {
+    // TODO xxx
     /**
      * appId
      */
@@ -44,16 +45,16 @@ public class WeChatMpConfig extends AbstractWeChatConfig {
     private String rawId;
 
 
-    public WeChatMpConfig(String appId, String appSecret) {
+    public WeComConfig(String appId, String appSecret) {
         this(appId, appSecret, new RequestConfig(), null);
         this.setWeChatTokenStorage(new DefaultLocalWeChatTokenStorage<>(this));
     }
 
-    public WeChatMpConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage) {
+    public WeComConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage) {
         this(appId, appSecret, requestConfig, weChatTokenStorage, WeChatHttpClientFactory.defaultHttpClient());
     }
 
-    public WeChatMpConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage, WeChatHttpClient weChatHttpClient) {
+    public WeComConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage, WeChatHttpClient weChatHttpClient) {
         super(requestConfig, weChatTokenStorage, weChatHttpClient);
         this.appId = appId;
         this.appSecret = appSecret;

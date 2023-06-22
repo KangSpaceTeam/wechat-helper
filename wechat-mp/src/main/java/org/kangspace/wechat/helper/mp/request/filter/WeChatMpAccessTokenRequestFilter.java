@@ -1,17 +1,9 @@
 package org.kangspace.wechat.helper.mp.request.filter;
 
 import lombok.extern.slf4j.Slf4j;
-import org.kangspace.wechat.helper.core.request.AbstractWeChatRequest;
-import org.kangspace.wechat.helper.core.request.WeChatRequest;
-import org.kangspace.wechat.helper.core.request.filter.AbstractTokenRequestFilter;
-import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
-import org.kangspace.wechat.helper.core.retry.RetryRunner;
-import org.kangspace.wechat.helper.core.util.TokenUtil;
-import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
+import org.kangspace.wechat.helper.core.request.filter.OAuth2UrlTokenRequestFilter;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpResponseEntity;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpResponseCode;
-import org.kangspace.wechat.helper.mp.token.WeChatMpAccessTokenService;
-import reactor.core.publisher.Mono;
 
 /**
  * 微信公众号AccessToken处理过滤器
@@ -26,53 +18,11 @@ import reactor.core.publisher.Mono;
  * @since 2022/11/24
  */
 @Slf4j
-public class WeChatMpAccessTokenRequestFilter extends AbstractTokenRequestFilter {
-
-    /**
-     * 微信公众号AccessToken处理
-     *
-     * @param request 请求客户端
-     * @param chain   过滤器链
-     * @return Mono&lt;Resp&gt;
-     */
-    @Override
-    public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
-        log.debug("WeChatMpAccessTokenRequestFilter run.");
-        return RetryRunner.runWithMonoResult((isRetry) -> {
-                    tokenCheckAndReplaceInUrl(request, isRetry);
-                    return chain.doFilter(request);
-                }, INVALID_TOKEN_RETRY_COUNT,
-                (monoResp) -> monoResp instanceof WeChatMpResponseEntity
-                        && WeChatMpResponseCode.CODE_40014.getCode().equals(((WeChatMpResponseEntity) monoResp).getErrCode()));
-    }
-
-
-    /**
-     * 检查和替换Url中的token
-     *
-     * @param request           {@link WeChatRequest}
-     * @param forceRefreshToken 强制刷新token
-     */
-    private <Req, Resp> void tokenCheckAndReplaceInUrl(WeChatRequest<Req, Resp> request, boolean forceRefreshToken) {
-        // 检查URL中是否包含Token
-        String url = request.getUrl();
-        log.debug("WeChatMpAccessTokenRequestFilter run: raw url: {}", url);
-        WeChatMpAccessTokenService weChatMpAccessTokenService = (WeChatMpAccessTokenService) request.getWeChatTokenService();
-        // 获取token
-        AccessTokenResponse token = weChatMpAccessTokenService.token(forceRefreshToken);
-        String currAccessToken = token.getAccessToken();
-        String oldAccessToken;
-        if (TokenUtil.containAccessToken(url) && (oldAccessToken = TokenUtil.getAccessToken(url)) != null && !oldAccessToken.equals(currAccessToken)) {
-            url = TokenUtil.replaceAccessToken(url, currAccessToken);
-        } else {
-            url = TokenUtil.appendAccessToken(url, currAccessToken);
-        }
-        ((AbstractWeChatRequest<Req, Resp>) request).setUrl(url);
-        log.debug("WeChatMpAccessTokenRequestFilter run: final url: {}", url);
-    }
+public class WeChatMpAccessTokenRequestFilter extends OAuth2UrlTokenRequestFilter {
 
     @Override
-    public int order() {
-        return Integer.MAX_VALUE - 1;
+    public <T> boolean testToken(T response) {
+        return  response instanceof WeChatMpResponseEntity
+                && WeChatMpResponseCode.isInvalidToken(((WeChatMpResponseEntity) response).getErrCode());
     }
 }

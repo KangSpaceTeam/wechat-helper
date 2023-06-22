@@ -1,9 +1,9 @@
-package org.kangspace.wechat.helper.mp.bean;
+package org.kangspace.wechat.helper.core.token;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
-import org.kangspace.wechat.helper.core.token.WeChatToken;
+import org.kangspace.wechat.helper.core.bean.WeChatResponseEntity;
 
 /**
  * 微信公众号AccessToken响应
@@ -16,9 +16,9 @@ import org.kangspace.wechat.helper.core.token.WeChatToken;
  */
 @Setter
 @Getter
-public class AccessTokenResponse extends WeChatMpResponseEntity implements WeChatToken {
+public class AccessTokenResponse extends WeChatResponseEntity implements WeChatToken {
     /**
-     * AccessToken
+     * AccessToken, 最长为512字节
      */
     @JsonProperty("access_token")
     private String accessToken;

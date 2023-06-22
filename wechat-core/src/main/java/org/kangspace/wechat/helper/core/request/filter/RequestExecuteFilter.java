@@ -14,7 +14,7 @@ import reactor.core.publisher.Mono;
 public class RequestExecuteFilter implements RequestFilter {
     @Override
     public <Req, Resp> Mono<Resp> doFilter(WeChatRequest<Req, Resp> request, RequestFilterChain chain) {
-        log.debug("Request execute filter run.");
+        log.debug("request execute filter run.");
         // 执行Http请求
         return Mono.just(request.doExecute());
     }

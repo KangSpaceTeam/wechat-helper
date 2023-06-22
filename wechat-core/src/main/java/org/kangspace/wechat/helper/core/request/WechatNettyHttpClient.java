@@ -40,6 +40,7 @@ import java.util.function.Supplier;
 @Slf4j
 @Getter
 public class WechatNettyHttpClient implements WeChatHttpClient {
+    private static final ConnectionProvider DEFAULT_CONNECTION_PROVIDER = ConnectionProvider.builder("WechatNettyHttpClientPool").build();
     /**
      * 请求配置
      */
@@ -97,7 +98,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
         HttpUtil.contentTypeRequestHeaderAutoSet(httpHeaders, requestBody);
         HttpClient client = newClientWithConfig(httpHeaders);
         HttpClient.RequestSender requestSender = client.followRedirect(true).request(httpMethod).uri(uri);
-        log.debug("HttpClient executeAsync: uri:{}", uri);
+        log.debug("httpClient executeAsync: uri:{}", uri);
         if (requestBody != null) {
             if (requestBody instanceof MultipartRequest) {
                 MultipartRequest request = ((MultipartRequest) requestBody);
@@ -131,9 +132,9 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
                             () -> byteBufMono.asString()
                                     .map(resp -> (WeChatResponse<ResponseBody>) (
                                             new WeChatNettyResponse<>(response.status().code(), responseDataSerialize(response, resp, responseClass), responseHeaders, cookies)))
-                                    .switchIfEmpty(Mono.just((WeChatResponse<ResponseBody>)
-                                            (new WeChatNettyResponse<>(response.status().code(), null, responseHeaders, cookies))
-                                    )));
+                                    .switchIfEmpty(Mono.defer(() ->
+                                            Mono.just((WeChatResponse<ResponseBody>) (new WeChatNettyResponse<>(response.status().code(), null, responseHeaders, cookies)))))
+                    );
                 }
         );
     }
@@ -145,9 +146,8 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
      * @return {@link HttpClient}
      */
     private HttpClient newClientWithConfig(HttpHeaders httpHeaders) {
-        ConnectionProvider connectionProvider = ConnectionProvider.builder("WechatNettyHttpClientPool").build();
         HttpHeaders newHeaders = buildDefaultHttpHeaders(httpHeaders);
-        return HttpClient.create(connectionProvider)
+        return HttpClient.create(DEFAULT_CONNECTION_PROVIDER)
                 // socket timeout
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, requestConfig.getConnectionTimeout())
                 // read timeout
@@ -184,18 +184,18 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     @SuppressWarnings("unchecked")
     private ByteBufMono requestDataSerialize(String contentType, Object requestBody) {
         List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.REQUEST);
-        log.debug("Request dataSerializes:  contentType: {}, serializers: {}", contentType, serializers);
+        log.debug("request dataSerializes:  contentType: {}, serializers: {}", contentType, serializers);
         Iterator<DataSerializer<Object>> iterator = (Iterator<DataSerializer<Object>>) serializers.iterator();
         String buf;
         while (iterator.hasNext()) {
             DataSerializer<Object> dataSerializer = iterator.next();
             if ((buf = dataSerializer.serialize(requestBody)) != null) {
-                log.debug("Request serializes result: {}", buf);
+                log.debug("request serializes result: {}", buf);
                 return ByteBufMono.fromString(Mono.just(buf));
             }
         }
         buf = requestBody instanceof String ? (String) requestBody : requestBody.toString();
-        log.debug("Request serializes result: {}", buf);
+        log.debug("request serializes result: {}", buf);
         return ByteBufMono.fromString(Mono.just(buf));
     }
 
@@ -209,7 +209,7 @@ public class WechatNettyHttpClient implements WeChatHttpClient {
     private <ResponseBody> ResponseBody responseDataSerialize(HttpClientResponse response, String responseData, Class<ResponseBody> responseClass) {
         String contentType = HttpUtil.getContentType(response);
         List<? extends DataSerializer<?>> serializers = this.dataSerializers.getDataSerializers(contentType, DataSerializerScope.RESPONSE, responseData);
-        log.debug("Response dataSerializes: contentType: {}, serializers: {}, responseData: {}", contentType, serializers, responseData);
+        log.debug("response dataSerializes: contentType: {}, serializers: {}, responseData: {}", contentType, serializers, responseData);
         Iterator<DataSerializer<ResponseBody>> iterator = (Iterator<DataSerializer<ResponseBody>>) serializers.iterator();
         ResponseBody data;
         while (iterator.hasNext()) {

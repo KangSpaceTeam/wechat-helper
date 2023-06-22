@@ -1,6 +1,6 @@
 # wechat-platform 微信开发平台
 
-# 1. 微信公众号Token验证和消息接口
+# 1. 微信公众号消息Token验证和消息接口
 
 ## 1.1 微信公众号Token验证
 

@@ -32,7 +32,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
     /**
      * 请求的类型
      */
-    private HttpMethod httpMethod = HttpMethod.GET;
+    private HttpMethod httpMethod;
 
     /**
      * 请求的请求头
@@ -72,7 +72,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
     /**
      * 是否需要AccessToken
      */
-    private boolean needAccessToken = true;
+    private boolean needAccessToken;
 
     public AbstractWeChatRequest(String url, HttpHeaders httpHeaders, Class<Resp> responseClass, WeChatConfig wechatConfig, WeChatTokenService weChatTokenService, RequestFilterChain filterChain) {
         this(url, httpHeaders, responseClass, wechatConfig, weChatTokenService, filterChain, true);
@@ -151,10 +151,10 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
 
     @Override
     public Resp execute() {
-        log.debug("Request execute: request: {}", this);
+        log.debug("request execute: request: {}", this);
         // http的执行操作,过滤器执行等
         RequestFilterChain requestFilterChain = getRequestFilterChain();
-        log.debug("Request execute filter chain: {}", requestFilterChain);
+        log.debug("request execute filter chain: {}", requestFilterChain);
         if (requestFilterChain != null) {
             Mono<Resp> result = requestFilterChain.doFilter(this);
             return result.block();
@@ -164,7 +164,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
 
     @Override
     public Resp doExecute() {
-        log.debug("Request doExecute: url: {}, method: {}, httpHeader: {}, requestBody: {}, responseClass: {}", getUrl(), getHttpMethod(), getHttpHeaders(), getRequestBody(), getResponseClass());
+        log.debug("request doExecute: url: {}, method: {}, httpHeader: {}, requestBody: {}, responseClass: {}", getUrl(), getHttpMethod(), getHttpHeaders(), getRequestBody(), getResponseClass());
         HttpMethod method = getHttpMethod();
         WeChatResponse<Resp> response;
         if (HttpMethod.GET.equals(method)) {
@@ -176,7 +176,7 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         } else {
             throw new WeChatException("Request HttpMethod: " + method + " not support!");
         }
-        log.debug("Request doExecute: response: {}", response);
+        log.debug("request doExecute: response: {}", response);
         // 非200/201时抛出异常
         if (response == null || !HttpUtil.isSuccess(response.status())) {
             throw new WeChatHttpFaultException(response);
@@ -197,12 +197,12 @@ public abstract class AbstractWeChatRequest<Req, Resp> implements WeChatRequest<
         if (resp instanceof WeChatResponseEntity) {
             boolean isWeChatServerError = WeChatResponseCode.CODE_NE_1.getCode().equals((serverError = (WeChatResponseEntity) resp).getErrCode());
             if (isWeChatServerError) {
-                log.warn("Request response: wechat server error, response: {}", resp);
+                log.warn("request response: wechat server error, response: {}", resp);
                 throw new WeChatServerErrorException(serverError.getErrCode(), serverError.getErrMsg());
             }
             boolean isNotSuccessResponse = !(serverError.getErrCode() == null || WeChatResponseCode.SUCCESS.getCode().equals(serverError.getErrCode()));
             if (isNotSuccessResponse) {
-                log.warn("Request response: wechat request not success, response: {}", resp);
+                log.warn("request response: wechat request not success, response: {}", resp);
                 throw new WeChatRequestException(serverError.getErrCode(), serverError.getErrMsg());
             }
         }

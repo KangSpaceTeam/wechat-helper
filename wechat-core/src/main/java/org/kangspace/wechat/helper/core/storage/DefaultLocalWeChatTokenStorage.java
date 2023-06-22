@@ -28,7 +28,7 @@ public class DefaultLocalWeChatTokenStorage<T extends WeChatToken> implements We
     public void setWeChatToken(T tokenObject, long ttlMillis) {
         synchronized (this) {
             String appId = getWeChatConfig().getAppId();
-            log.debug("Default local wechat token storage: save token: appId:{}, tokenObject: {}, ttlMillis: {}", appId, tokenObject, ttlMillis);
+            log.debug("default local wechat token storage: save token: appId:{}, tokenObject: {}, ttlMillis: {}", appId, tokenObject, ttlMillis);
             tokenCache = new SimpleLocalCache<>(tokenObject, ttlMillis);
         }
     }

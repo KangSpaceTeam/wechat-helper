@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.mp.constant;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * <pre>
@@ -895,5 +896,17 @@ public enum WeChatMpResponseCode {
      */
     WeChatMpResponseCode parse(Integer code) {
         return code != null ? Arrays.stream(values()).filter(e -> e.getCode().equals(code)).findFirst().orElse(null) : null;
+    }
+
+    /**
+     * 是否无效Token
+     * @param code code
+     * @return boolean
+     */
+    public static boolean isInvalidToken(Integer code) {
+        return code != null
+                && (Objects.equals(CODE_41001.getCode(), code)
+                || Objects.equals(CODE_40014.getCode(), code)
+                || Objects.equals(CODE_42001.getCode(), code));
     }
 }

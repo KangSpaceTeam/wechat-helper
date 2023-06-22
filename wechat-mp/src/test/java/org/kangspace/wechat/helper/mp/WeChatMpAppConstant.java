@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.mp;
 
-import java.util.Objects;
+import org.kangspace.devhelper.str.StringHelper;
 
 /**
  * 微信公众号App常量
@@ -29,7 +29,7 @@ public class WeChatMpAppConstant {
     public static String GLOBAL_ENCODING_AES_KEY = "";
 
     static {
-        Objects.requireNonNull(GLOBAL_APPID, "请指定AppId");
-        Objects.requireNonNull(GLOBAL_APPSECRET, "请指定AppSecret");
+        StringHelper.requireNonBlank(GLOBAL_APPID, "请指定AppId");
+        StringHelper.requireNonBlank(GLOBAL_APPSECRET, "请指定AppSecret");
     }
 }

@@ -52,7 +52,7 @@ public class PropertySourcesPropertyResolver extends AbstractPropertyResolver {
                 return val != null ? (T) val : defaultValue;
             }
         }
-        log.trace("Property:{} not found", key);
+        log.trace("property:{} not found", key);
         return null;
     }
 

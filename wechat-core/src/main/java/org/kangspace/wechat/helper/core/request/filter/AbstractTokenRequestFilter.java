@@ -14,4 +14,9 @@ public abstract class AbstractTokenRequestFilter implements RequestFilter {
     public <Req, Resp> boolean isSupported(WeChatRequest<Req, Resp> request) {
         return request != null && request.isNeedAccessToken();
     }
+
+    @Override
+    public int order() {
+        return Integer.MAX_VALUE - 1;
+    }
 }

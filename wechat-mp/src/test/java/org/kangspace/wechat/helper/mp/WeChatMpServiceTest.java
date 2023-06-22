@@ -7,9 +7,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
-import org.kangspace.wechat.helper.mp.bean.AccessTokenRequest;
-import org.kangspace.wechat.helper.mp.bean.AccessTokenResponse;
+import org.kangspace.wechat.helper.core.token.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
+import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenRequest;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 import org.kangspace.wechat.helper.mp.token.DefaultWeChatMpAccessTokenService;
@@ -81,7 +81,7 @@ public class WeChatMpServiceTest {
         } catch (InterruptedException e) {
         }
         // 2. http获取新token
-        String param = AccessTokenRequest.toQueryString(appId, appSecret);
+        String param = WeChatMpAccessTokenRequest.toQueryString(appId, appSecret);
         String newTokenUrl = WeChatMpApiPaths.TOKEN + StringLiteral.QUESTION_MARK + param;
         String result = mpServerService.get(newTokenUrl, String.class, false);
         log.info("http获取新token: token: {}", result);

@@ -37,35 +37,10 @@ public class RetryRunner {
                 if (currRetryCount > maxRetryCount) {
                     throw e;
                 }
-                log.debug("RetryRunner run retry: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
+                log.debug("retryRunner run retry: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
             }
         } while (retryCount++ < maxRetryCount);
         return null;
-    }
-
-    /**
-     * 执行需要重试的方法(基于方法返回值)
-     *
-     * @param execute        需要执行的方法
-     * @param maxRetryCount  最大重试次数
-     * @param retryPredicate 重试条件
-     * @return T
-     */
-    public static <T> T runWithResult(Supplier<T> execute, int maxRetryCount, Predicate<T> retryPredicate) {
-        int retryCount = 0;
-        T runWithResult;
-        do {
-            runWithResult = execute.get();
-            if (!retryPredicate.test(runWithResult)) {
-                return runWithResult;
-            }
-            int currRetryCount = retryCount + 1;
-            if (currRetryCount > maxRetryCount) {
-                return runWithResult;
-            }
-            log.debug("RetryRunner run runWithResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
-        } while (retryCount++ < maxRetryCount);
-        return runWithResult;
     }
 
     /**
@@ -76,7 +51,7 @@ public class RetryRunner {
      * @param retryPredicate 重试条件
      * @return T
      */
-    public static <T> Mono<T> runWithMonoResult(Function<Boolean, Mono<T>> execute, int maxRetryCount, Predicate<T> retryPredicate) {
+    public static <T> Mono<T> run(Function<Boolean, Mono<T>> execute, int maxRetryCount, Predicate<T> retryPredicate) {
         int retryCount = 0;
         Mono<T> resultMono;
         do {
@@ -90,7 +65,7 @@ public class RetryRunner {
             if (currRetryCount > maxRetryCount) {
                 return resultMono;
             }
-            log.debug("RetryRunner run runWithMonoResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
+            log.debug("retryRunner run runWithMonoResult: maxRetryCount: {}, currRetryCount: {}", maxRetryCount, currRetryCount);
         } while (retryCount++ < maxRetryCount);
         return resultMono;
     }
