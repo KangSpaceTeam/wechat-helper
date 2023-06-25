@@ -169,7 +169,7 @@
         <jsr305.version>3.0.2</jsr305.version>
         <redisson.version>3.17.5</redisson.version>
         <jakarta.activation.api.version>1.2.2</jakarta.activation.api.version>
-        <dev-helper.version>0.0.1-SNAPSHOT</dev-helper.version>
+        <dev-helper.version>0.0.1</dev-helper.version>
     </properties>
 
     <modules>
