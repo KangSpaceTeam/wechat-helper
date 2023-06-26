@@ -16,6 +16,17 @@ import org.redisson.api.RedissonClient;
  */
 @Data
 public abstract class AbstractWeChatConfig implements WeChatConfig {
+
+    /**
+     * 签名Token
+     */
+    private String token;
+
+    /**
+     * 公众号第三方平台的 EncodingAESKey
+     */
+    private String encodingAESKey;
+
     /**
      * Http请求配置
      */

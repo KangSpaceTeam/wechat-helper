@@ -20,58 +20,37 @@ import org.kangspace.wechat.helper.core.token.AccessTokenResponse;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class WeComConfig extends AbstractWeChatConfig {
-    // TODO xxx
     /**
-     * appId
+     * 企业ID
      */
-    private String appId;
+    private String corpId;
     /**
-     * appSecret
+     * 应用的凭证密钥
      */
-    private String appSecret;
-    /**
-     * 签名Token
-     */
-    private String token;
+    private String corpSecret;
 
-    /**
-     * 公众号第三方平台的 EncodingAESKey
-     */
-    private String encodingAESKey;
-
-    /**
-     * 原始ID
-     */
-    private String rawId;
-
-
-    public WeComConfig(String appId, String appSecret) {
-        this(appId, appSecret, new RequestConfig(), null);
+    public WeComConfig(String corpId, String corpSecret) {
+        this(corpId, corpSecret, new RequestConfig(), null);
         this.setWeChatTokenStorage(new DefaultLocalWeChatTokenStorage<>(this));
     }
 
-    public WeComConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage) {
-        this(appId, appSecret, requestConfig, weChatTokenStorage, WeChatHttpClientFactory.defaultHttpClient());
+    public WeComConfig(String corpId, String corpSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage) {
+        this(corpId, corpSecret, requestConfig, weChatTokenStorage, WeChatHttpClientFactory.defaultHttpClient());
     }
 
-    public WeComConfig(String appId, String appSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage, WeChatHttpClient weChatHttpClient) {
+    public WeComConfig(String corpId, String corpSecret, RequestConfig requestConfig, WeChatTokenStorage<AccessTokenResponse> weChatTokenStorage, WeChatHttpClient weChatHttpClient) {
         super(requestConfig, weChatTokenStorage, weChatHttpClient);
-        this.appId = appId;
-        this.appSecret = appSecret;
+        this.corpId = corpId;
+        this.corpSecret = corpSecret;
+    }
+
+    @Override
+    public String getAppId() {
+        return corpId;
     }
 
     @Override
     public String getSecret() {
-        return this.appSecret;
-    }
-
-    @Override
-    public String getToken() {
-        return this.token;
-    }
-
-    @Override
-    public String getEncodingAESKey() {
-        return encodingAESKey;
+        return this.corpSecret;
     }
 }

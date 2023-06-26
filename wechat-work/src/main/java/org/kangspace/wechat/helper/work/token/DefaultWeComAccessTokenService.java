@@ -26,8 +26,8 @@ public class DefaultWeComAccessTokenService extends AbstractWeComService impleme
 
     @Override
     public AccessTokenResponse tokenRefresh() {
-        WeComConfig WeComConfig = getWeChatConfig();
-        return token(WeComConfig.getAppId(), WeComConfig.getAppSecret());
+        WeComConfig weComConfig = getWeChatConfig();
+        return token(weComConfig.getAppId(), weComConfig.getCorpSecret());
     }
 
     @Override

@@ -25,4 +25,29 @@ public interface WeComApiPaths {
      * </pre>
      */
     String GET_TOKEN = BASE_PATH + "/gettoken?corpid={0}&corpsecret={1}";
+
+
+    // ----------------获取企业微信服务器 IP 地址接口-------------------
+    /**
+     * <p>
+     * 获取企业微信 API 接口 IP地址
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/92520">https://developer.work.weixin.qq.com/document/path/92520</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/get_api_domain_ip?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String GET_API_DOMAIN_IP = BASE_PATH + "/get_api_domain_ip";
+
+    /**
+     * <p>
+     * 获取企业微信callback IP地址
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/92521">https://developer.work.weixin.qq.com/document/path/92521</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String GET_CALLBACK_IP = BASE_PATH + "/getcallbackip";
+
 }
