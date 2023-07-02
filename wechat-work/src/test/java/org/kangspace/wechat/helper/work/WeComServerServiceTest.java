@@ -21,13 +21,13 @@ import org.kangspace.wechat.helper.work.token.DefaultWeComAccessTokenService;
 public class WeComServerServiceTest {
     private final String corpId = WeComAppConstant.GLOBAL_CORP_ID;
     private final String corpSecret = WeComAppConstant.GLOBAL_CORP_SECRET;
-    private WeComServerService mpServerService;
+    private WeComServerService weComServerService;
 
     @Before
     public void before() {
         WeComConfig weChatMpConfig = new WeComConfig(corpId, corpSecret);
         DefaultWeComAccessTokenService weComAccessTokenService = new DefaultWeComAccessTokenService(weChatMpConfig);
-        mpServerService = new DefaultWeComServerService(weComAccessTokenService);
+        weComServerService = new DefaultWeComServerService(weComAccessTokenService);
     }
 
     /**
@@ -36,7 +36,7 @@ public class WeComServerServiceTest {
     @Test
     public void getApiDomainIpTest() {
         log.info("获取企业微信 API 接口 IP地址: mpServerService.getApiDomainIp()");
-        ServerIpListResponse response = mpServerService.getApiDomainIp();
+        ServerIpListResponse response = weComServerService.getApiDomainIp();
         Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
@@ -47,7 +47,7 @@ public class WeComServerServiceTest {
     @Test
     public void getCallbackIpTest() {
         log.info("获取企业微信callback IP地址: mpServerService.getCallbackIp()");
-        ServerIpListResponse response = mpServerService.getCallbackIp();
+        ServerIpListResponse response = weComServerService.getCallbackIp();
         Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }

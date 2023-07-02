@@ -1,1 +1,10 @@
 # wechat-works 企微微信模块
+
+
+** 企业微信接入模块**
+
+| 企业微信模块        | 接入状态 | 实现类                  | 用法                                                                                              | 
+|---------------|------|----------------------|-------------------------------------------------------------------------------------------------|
+| 获取企微微信服务器IP地址 | ✅    | `WeComServerService` | [ServerServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComServerServiceTest.java) |
+| 基础 ↓          |      |                      |                                                                                                 |
+| 帐号ID          | ✅    | `WeComIDService`     | [WeComIDServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComIDServiceTest.java)    |

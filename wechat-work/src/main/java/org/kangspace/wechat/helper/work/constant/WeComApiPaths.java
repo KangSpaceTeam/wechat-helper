@@ -50,4 +50,47 @@ public interface WeComApiPaths {
      */
     String GET_CALLBACK_IP = BASE_PATH + "/getcallbackip";
 
+    // ----------------帐号ID 接口-------------------
+
+    /**
+     * <p>
+     * 自建应用与第三方应用的对接-userid转换<br>
+     * 将代开发应用或第三方应用获取的密文open_userid转换为明文userid。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/95884">https://developer.work.weixin.qq.com/document/path/95884</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/batch/openuserid_to_userid?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String BATCH_OPEN_USERID_TO_USERID = BASE_PATH + "/batch/openuserid_to_userid";
+
+    /**
+     * <p>
+     * 自建应用与第三方应用的对接-external_userid转换 <br>
+     * 将代开发应用或第三方应用获取的externaluserid转换成自建应用的externaluserid。
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/95884">https://developer.work.weixin.qq.com/document/path/95884</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/externalcontact/from_service_external_userid?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String EXTERNAL_CONTACT_FROM_SERVICE_EXTERNAL_USERID = BASE_PATH + "/externalcontact/from_service_external_userid";
+
+    /**
+     * <p>
+     * tmp_external_userid的转换 <br>
+     * 将应用获取的外部用户临时idtmp_external_userid，转换为external_userid。 <br>
+     * 支持将以下业务类型（business_type）对应接口获取到的tmp_external_userid进行转换： <br>
+     * 业务类型	描述	相关接口  <br>
+     * 1	会议	获取会议详情   <br>
+     * 2	收集表	收集表的统计信息查询  读取收集表答案<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98729">https://developer.work.weixin.qq.com/document/path/98729</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/idconvert/convert_tmp_external_userid?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String ID_CONVERT_CONVERT_TMP_EXTERNAL_USERID = BASE_PATH + "/idconvert/convert_tmp_external_userid";
+
+
 }
