@@ -15,6 +15,7 @@ public class WeComAppConstant {
     public static String GLOBAL_CORP_ID = "";
     /**
      * 全局corpSecret
+     * 通讯录: PkIZcm5zmNK5IFoOLAnD0Uum_xmf3uS2vNB6VOh4swo
      */
     public static String GLOBAL_CORP_SECRET = "";
 
