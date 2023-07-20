@@ -5,10 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.kangspace.wechat.helper.work.bean.UserBatchDeleteRequest;
-import org.kangspace.wechat.helper.work.bean.UserRequest;
-import org.kangspace.wechat.helper.work.bean.UserResponse;
-import org.kangspace.wechat.helper.work.bean.WeComResponseEntity;
+import org.kangspace.wechat.helper.work.bean.*;
 import org.kangspace.wechat.helper.work.config.WeComConfig;
 import org.kangspace.wechat.helper.work.token.DefaultWeComAccessTokenService;
 
@@ -77,6 +74,76 @@ public class UserServiceTest {
     public void userBatchDelete() {
         UserBatchDeleteRequest request = new UserBatchDeleteRequest("kangsapce1");
         WeComResponseEntity response = userService.userBatchDelete(request);
+        log.info("response: {}", response);
+    }
+
+
+    @Test
+    public void userSimpleList() {
+        Long departmentId = 1L;
+        UserSimpleListResponse response = userService.userSimpleList(departmentId);
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userList() {
+        Long departmentId = 1L;
+        UserListResponse response = userService.userList(departmentId);
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userConvertToOpenId() {
+        UserConvertToOpenIdResponse response = userService.userConvertToOpenId(new UserConvertToOpenIdRequest("Kang"));
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userConvertToUserId() {
+        UserConvertToUserIdResponse response = userService.userConvertToUserId(new UserConvertToUserIdRequest("oooxrs5fNoSwDHPAGSq1soo8BHdg"));
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userAuthSucc() {
+        String userId = "Kang";
+        WeComResponseEntity response = userService.userAuthSucc(userId);
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void batchInvite() {
+        BatchInviteRequest batchInviteRequest = BatchInviteRequest.builder()
+                .user(Collections.singletonList("Kang"))
+                .build();
+        BatchInviteResponse response = userService.batchInvite(batchInviteRequest);
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void corpGetJoinQrCode() {
+        Integer sizeType = null;
+        CorpGetJoinQrCodeResponse response = userService.corpGetJoinQrCode(sizeType);
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userGetUserId() {
+        String mobile = "";
+        UserGetUserIdResponse response = userService.userGetUserId(new UserGetUserIdRequest(mobile));
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userGetUserIdByEmail() {
+        String email = "";
+        UserGetUserIdByEmailResponse response = userService.userGetUserIdByEmail(new UserGetUserIdByEmailRequest(email));
+        log.info("response: {}", response);
+    }
+
+    @Test
+    public void userListId() {
+        UserListIdResponse response = userService.userListId(new UserListIdRequest());
         log.info("response: {}", response);
     }
 }
