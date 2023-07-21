@@ -289,4 +289,102 @@ public interface WeComApiPaths {
     String USER_LIST_ID = BASE_PATH + "/user/list_id";
 
 
+    // ----------------通讯录管理-部门管理 接口-------------------
+    /**
+     * <p>
+     * 创建部门<br>
+     * <p>
+     * 权限说明：<br>
+     * 第三方仅通讯录应用可以调用。<br>
+     * 注意，部门的最大层级为15层；部门总数不能超过3万个；每个部门下的节点不能超过3万个。建议保证创建的部门和对应部门成员是串行化处理。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90205">https://developer.work.weixin.qq.com/document/path/90205</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String DEPARTMENT_CREATE = BASE_PATH + "/department/create";
+
+    /**
+     * <p>
+     * 更新部门<br>
+     * <p>
+     * 权限说明：<br>
+     * 第三方仅通讯录应用可以调用。<br>
+     * 应用须拥有指定部门的管理权限。如若要移动部门，需要有新父部门的管理权限。<br>
+     * 注意，部门的最大层级为15层；部门总数不能超过3万个；每个部门下的节点不能超过3万个。建议保证创建的部门和对应部门成员是串行化处理。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90206">https://developer.work.weixin.qq.com/document/path/90206</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String DEPARTMENT_UPDATE = BASE_PATH + "/department/update";
+
+    /**
+     * <p>
+     * 删除部门<br>
+     * <p>
+     * 权限说明：<br>
+     * 第三方仅通讯录应用可以调用。<br>
+     * 应用须拥有指定部门的管理权限。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90207">https://developer.work.weixin.qq.com/document/path/90207</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String DEPARTMENT_DELETE = BASE_PATH + "/department/delete?id={0}";
+
+    /**
+     * <p>
+     * 获取部门列表<br>
+     * 【重要】从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过「获取部门ID列表」接口获取部门ID列表。查看调整详情。<br>
+     * 权限说明：<br>
+     * 只能拉取token对应的应用的权限范围内的部门列表<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90208">https://developer.work.weixin.qq.com/document/path/90208</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String DEPARTMENT_LIST = BASE_PATH + "/department/list?id={0}";
+
+    /**
+     * <p>
+     * 获取子部门ID列表<br>
+     * 权限说明：<br>
+     * 第三方普通应用	若企业授权了“组织架构信息”权限，可获取企业所有部门id; 若未授权“组织架构信息”权限，只能拉取token对应的应用的权限范围内的部门列表<br>
+     * 第三方通讯录应用	可获取企业所有部门id<br>
+     * 代开发自建应用	只能拉取token对应的应用的权限范围内的部门列表<br>
+     * 普通自建应用	只能拉取token对应的应用的权限范围内的部门列表<br>
+     * 通讯录同步助手	可获取企业所有部门id<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/95350">https://developer.work.weixin.qq.com/document/path/95350</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String DEPARTMENT_SIMPLE_LIST = BASE_PATH + "/department/simplelist?id={0}";
+
+    /**
+     * <p>
+     * 获取单个部门详情<br>
+     * 【重要】从2022年8月15日10点开始，“企业管理后台 - 管理工具 - 通讯录同步”的新增IP将不能再调用此接口，企业可通过「获取部门ID列表」接口获取部门ID列表。查看调整详情。<br>
+     * 权限说明：<br>
+     * 第三方普通应用	若企业授权了“组织架构信息”权限，可获取企业所有部门id; 若未授权“组织架构信息”权限，只能拉取token对应的应用的权限范围内的部门列表<br>
+     * 第三方通讯录应用	可获取企业所有部门id<br>
+     * 代开发自建应用	只能拉取token对应的应用的权限范围内的部门列表<br>
+     * 普通自建应用	只能拉取token对应的应用的权限范围内的部门列表<br>
+     * 通讯录同步助手	可获取企业所有部门id<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/95350">https://developer.work.weixin.qq.com/document/path/95350</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String DEPARTMENT_GET = BASE_PATH + "/department/get?id={0}";
+
+    // ----------------通讯录管理- 接口-------------------
+
 }
