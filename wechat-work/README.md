@@ -9,3 +9,4 @@
 | 帐号ID          | ✅    | `WeComIDService`     | [WeComIDServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComIDServiceTest.java)       |
 | 通讯录管理-成员管理    | ✅    | `UserService`        | [UserServiceTest](src/test/java/org/kangspace/wechat/helper/work/UserServiceTest.java)             |
 | 通讯录管理-部门管理    | ✅    | `DepartmentService`  | [DepartmentServiceTest](src/test/java/org/kangspace/wechat/helper/work/DepartmentServiceTest.java) |
+| 通讯录管理-标签管理    | ✅    | `TagService`         | [TagServiceTest](src/test/java/org/kangspace/wechat/helper/work/TagServiceTest.java)               |

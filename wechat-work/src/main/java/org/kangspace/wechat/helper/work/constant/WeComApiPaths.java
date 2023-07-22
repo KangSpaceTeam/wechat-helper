@@ -385,6 +385,99 @@ public interface WeComApiPaths {
      */
     String DEPARTMENT_GET = BASE_PATH + "/department/get?id={0}";
 
-    // ----------------通讯录管理- 接口-------------------
+    // ----------------通讯录管理-标签管理 接口-------------------
+    /**
+     * <p>
+     * 创建标签<br>
+     * 权限说明：<br>
+     * 创建的标签属于该应用，只有该应用的secret才可以增删成员。<br>
+     * 注意，标签总数不能超过3000个。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90210">https://developer.work.weixin.qq.com/document/path/90210</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TAG_CREATE = BASE_PATH + "/tag/create";
 
+    /**
+     * <p>
+     * 更新标签名字<br>
+     * 权限说明：<br>
+     * 调用的应用必须是指定标签的创建者。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90211">https://developer.work.weixin.qq.com/document/path/90211</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TAG_UPDATE = BASE_PATH + "/tag/update";
+
+    /**
+     * <p>
+     * 删除标签<br>
+     * 权限说明：<br>
+     * 调用的应用必须是指定标签的创建者。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90212">https://developer.work.weixin.qq.com/document/path/90212</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token=ACCESS_TOKEN&tagid=TAGID
+     * </p>
+     */
+    String TAG_DELETE = BASE_PATH + "/tag/delete?tagid={0}";
+
+    /**
+     * <p>
+     * 获取标签成员<br>
+     * 权限说明：<br>
+     * 无限制，但返回列表仅包含应用可见范围的成员；第三方可获取自己创建的标签及应用可见范围内的标签详情。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90213">https://developer.work.weixin.qq.com/document/path/90213</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token=ACCESS_TOKEN&tagid=TAGID
+     * </p>
+     */
+    String TAG_GET = BASE_PATH + "/tag/get?tagid={0}";
+
+    /**
+     * <p>
+     * 增加标签成员<br>
+     * 权限说明：<br>
+     * 调用的应用必须是指定标签的创建者；成员属于应用的可见范围。<br>
+     * 注意，每个标签下部门数和人员数总和不能超过3万个。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90214">https://developer.work.weixin.qq.com/document/path/90214</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TAG_ADD_TAG_USERS = BASE_PATH + "/tag/addtagusers";
+
+    /**
+     * <p>
+     * 删除标签成员<br>
+     * 权限说明：<br>
+     * 调用的应用必须是指定标签的创建者；成员属于应用的可见范围。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90215">https://developer.work.weixin.qq.com/document/path/90215</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TAG_DEL_TAG_USERS = BASE_PATH + "/tag/deltagusers";
+
+    /**
+     * <p>
+     * 获取标签成员<br>
+     * 权限说明：<br>
+     * 无限制，但返回列表仅包含应用可见范围的成员；第三方可获取自己创建的标签及应用可见范围内的标签详情。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90216">https://developer.work.weixin.qq.com/document/path/90216</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String TAG_LIST = BASE_PATH + "/tag/list";
+
+    // ----------------通讯录管理- 接口-------------------
 }
