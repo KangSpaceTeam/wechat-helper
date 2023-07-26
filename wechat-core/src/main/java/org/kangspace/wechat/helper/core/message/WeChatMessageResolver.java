@@ -80,7 +80,7 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      */
     default void checkSignatureThrows(BaseMessageSignature signature) {
         if (!checkSignature(signature)) {
-            throw new WeChatSignatureException("signature checked failed!");
+            throw new WeChatSignatureException(signature.getSignature(), "signature checked failed!");
         }
     }
 
@@ -122,6 +122,7 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      *
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
+     * @param context {@link MessageResolverContext}
      */
     default void solve(MessageSignature messageSignature, String message, MessageResolverContext context) {
         this.solve(MessageFormat.XML, messageSignature, message, context);

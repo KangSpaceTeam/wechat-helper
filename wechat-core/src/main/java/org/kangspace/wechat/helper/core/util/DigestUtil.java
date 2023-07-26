@@ -38,7 +38,7 @@ public class DigestUtil {
     public static String getRandomStr(int length) {
         Random random = new Random();
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < length; i++) {
             int number = random.nextInt(ALPHA_NUMERIC_BASE.length());
             sb.append(ALPHA_NUMERIC_BASE.charAt(number));
         }
@@ -63,7 +63,7 @@ public class DigestUtil {
      */
     public static String sha1(String... strings) {
         List<String> rawList = Arrays.asList(strings);
-        String sortedRaw = rawList.stream().sorted().collect(Collectors.joining());
+        String sortedRaw = rawList.stream().filter(Objects::nonNull).sorted().collect(Collectors.joining());
         log.debug("sha1: strings: {}, sortedRaw: {}", strings, sortedRaw);
         return sha1(sortedRaw);
     }
@@ -148,7 +148,8 @@ public class DigestUtil {
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
             cipher.init(Cipher.ENCRYPT_MODE, keySpec, iv);
             return cipher.doFinal(data);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException | InvalidAlgorithmParameterException e) {
             throw new IllegalArgumentException("can not encrypt specified data with aesKey: " + e.getMessage(), e);
         }
     }
@@ -201,7 +202,8 @@ public class DigestUtil {
             IvParameterSpec iv = new IvParameterSpec(Arrays.copyOfRange(aesKey, 0, 16));
             cipher.init(Cipher.DECRYPT_MODE, keySpec, iv);
             return cipher.doFinal(encoded);
-        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException | BadPaddingException | InvalidAlgorithmParameterException e) {
+        } catch (NoSuchAlgorithmException | NoSuchPaddingException | InvalidKeyException | IllegalBlockSizeException |
+                 BadPaddingException | InvalidAlgorithmParameterException e) {
             throw new IllegalArgumentException("can not encrypt specified data with aesKey: " + e.getMessage(), e);
         }
     }

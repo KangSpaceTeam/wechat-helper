@@ -38,8 +38,8 @@ public class WeChatSignatureException extends WeChatException {
 
     @Override
     public String toString() {
-        return "WeChatSignatureException{" +
-                "signature='" + signature + '\'' +
-                "} " + super.toString();
+        return this.getClass().getCanonicalName() + ": " +
+                "signature='" + signature + "', " +
+                "message='" + getMessage() + '\'';
     }
 }

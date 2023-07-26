@@ -15,9 +15,18 @@ public class WeComAppConstant {
     public static String GLOBAL_CORP_ID = "";
     /**
      * 全局corpSecret
-     * 通讯录: PkIZcm5zmNK5IFoOLAnD0Uum_xmf3uS2vNB6VOh4swo
      */
     public static String GLOBAL_CORP_SECRET = "";
+
+    /**
+     * 全局验证TOKEN
+     */
+    public static String GLOBAL_TOKEN = "";
+
+    /**
+     * 全局encodingAESKey
+     */
+    public static String GLOBAL_ENCODING_AES_KEY = "";
 
     static {
         StringHelper.requireNonBlank(GLOBAL_CORP_ID, "请指定corpId");
