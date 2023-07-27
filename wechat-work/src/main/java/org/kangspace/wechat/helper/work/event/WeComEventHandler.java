@@ -2,6 +2,7 @@ package org.kangspace.wechat.helper.work.event;
 
 import org.kangspace.wechat.helper.core.event.WeChatEventHandler;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
+import org.kangspace.wechat.helper.core.message.WeChatMessage;
 import org.kangspace.wechat.helper.work.WeComService;
 import org.kangspace.wechat.helper.work.message.WeComMessageHandler;
 import org.kangspace.wechat.helper.work.message.response.WeComEchoMessage;
@@ -33,6 +34,11 @@ public interface WeComEventHandler<Event extends WeComEvent> extends WeChatEvent
         WeComMessageHandler.super.execute(service, weChatMessage, context);
     }
 
+    /**
+     * 支持的类型
+     *
+     * @return {@link Class}&lt;{@link Event}&gt;
+     */
     @SuppressWarnings("unchecked")
     @Override
     default Class<? extends Event> supportType() {

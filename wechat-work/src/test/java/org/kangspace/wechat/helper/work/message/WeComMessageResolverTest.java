@@ -5,19 +5,25 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.core.message.MessageSignature;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 import org.kangspace.wechat.helper.work.DefaultWeComService;
 import org.kangspace.wechat.helper.work.WeComAppConstant;
 import org.kangspace.wechat.helper.work.WeComService;
 import org.kangspace.wechat.helper.work.config.WeComConfig;
+import org.kangspace.wechat.helper.work.event.ChangeContactCreatePartyEvent;
+import org.kangspace.wechat.helper.work.event.ChangeContactEvent;
+import org.kangspace.wechat.helper.work.event.WeComEventHandler;
+import org.kangspace.wechat.helper.work.message.response.WeComEchoMessage;
+import org.kangspace.wechat.helper.work.message.response.WeComEchoXmlMessage;
 import org.kangspace.wechat.helper.work.token.DefaultWeComAccessTokenService;
 
 /**
  * 企业微信事件测试
  *
  * @author kango2gler@gmail.com
- * @since 2022/12/24
+ * @since 2023/7/27
  */
 @Slf4j
 @RunWith(JUnit4.class)
@@ -31,6 +37,8 @@ public class WeComMessageResolverTest {
     @Before
     public void before() {
         WeComConfig weChatMpConfig = new WeComConfig(corpId, corpSecret);
+        weChatMpConfig.setToken(token);
+        weChatMpConfig.setEncodingAESKey(encodingAesKey);
         DefaultWeComAccessTokenService weComAccessTokenService = new DefaultWeComAccessTokenService(weChatMpConfig);
         WeComService weComService = new DefaultWeComService(weComAccessTokenService);
         resolver = new WeComMessageResolver(weComService);
@@ -43,8 +51,8 @@ public class WeComMessageResolverTest {
      */
     @Test
     public void messageResolveEventTest() {
-//        TODO xxx
-//        addEventResolvers();
+        // TODO xxx
+        addEventResolvers();
         String rawMessage = "<xml>\n" +
                 "    <ToUserName><![CDATA[gh_84671c4da479]]></ToUserName>\n" +
                 "    <FromUserName><![CDATA[oMIE-6T2iTOgEdERSg26CU0KL8Og]]></FromUserName>\n" +
@@ -68,46 +76,30 @@ public class WeComMessageResolverTest {
     /**
      * 添加事件消息解析器
      */
-    // TODO xx
-    /*
     private void addEventResolvers() {
         // 同步消息
-        resolver.addWeChatHandler(new WeComMessageHandler<WeComEvent>() {
+        resolver.addWeChatHandler(new WeComEventHandler<ChangeContactCreatePartyEvent>() {
             @Override
-            public WeComEchoMessage handle(WeComService service, WeComEvent event, MessageResolverContext context) {
-                log.info("同步处理1, 有返回值: message: {}, context: {}", event, context);
-                return new WeComEchoXmlMessage(event.getToUser(), event.getFromUser(), event.getCreateTime(), event.getMsgId(), event.getRaw());
-            }
-
-            @Override
-            public Class<WeComEvent> supportType() {
-                return WeComEvent.class;
-            }
-        });
-        // 同步消息2
-        resolver.addWeChatHandler(new WeComMessageHandler<TextMessage>() {
-            @Override
-            public void execute(WeComService service, TextMessage message, MessageResolverContext context) {
-                log.info("同步处理2, 无返回值: message: {}, context: {}", message, context);
-            }
-
-            @Override
-            public Class<TextMessage> supportType() {
-                return TextMessage.class;
-            }
-        });
-
-        // 异步消息
-        resolver.addWeChatHandler(new WeComMessageHandler<WeChatMpMessage>() {
-            @Override
-            public WeComEchoMessage handle(WeComService service, WeChatMpMessage message, MessageResolverContext context) {
+            public WeComEchoMessage handle(WeComService service, ChangeContactCreatePartyEvent message, MessageResolverContext context) {
                 log.info("异步处理1, 有返回值: message: {}, context: {}", message, context);
-                return new WeChatMpEchoXmlMessage();
+                return new WeComEchoXmlMessage();
             }
 
             @Override
-            public Class<WeChatMpMessage> supportType() {
-                return WeChatMpMessage.class;
+            public Class<ChangeContactCreatePartyEvent> supportType() {
+                return ChangeContactCreatePartyEvent.class;
+            }
+        });
+        // 异步消息
+        resolver.addWeChatHandler(new WeComEventHandler<ChangeContactEvent>() {
+            @Override
+            public void execute(WeComService service, ChangeContactEvent event, MessageResolverContext context) {
+                log.info("异步处理2, 无返回值 message: {}, context: {}", event, context);
+            }
+
+            @Override
+            public Class<ChangeContactEvent> supportType() {
+                return ChangeContactEvent.class;
             }
 
             @Override
@@ -115,23 +107,6 @@ public class WeComMessageResolverTest {
                 return true;
             }
         });
-        // 异步消息2
-        resolver.addWeChatHandler(new WeComMessageHandler<TextMessage>() {
-            @Override
-            public void execute(WeComService service, TextMessage message, MessageResolverContext context) {
-                log.info("异步处理2, 无返回值 message: {}, context: {}", message, context);
-            }
-
-            @Override
-            public Class<TextMessage> supportType() {
-                return TextMessage.class;
-            }
-
-            @Override
-            public boolean isAsync() {
-                return true;
-            }
-        });
-    }*/
+    }
 
 }

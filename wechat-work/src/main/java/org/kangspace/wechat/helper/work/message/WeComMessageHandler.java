@@ -37,6 +37,11 @@ public interface WeComMessageHandler<Message extends WeComMessage> extends WeCha
         WeChatMessageHandler.super.handle(service, message, context);
     }
 
+    /**
+     * 支持的类型
+     *
+     * @return {@link Class}&lt;{@link Message}&gt;
+     */
     @SuppressWarnings("unchecked")
     @Override
     default Class<? extends Message> supportType() {
