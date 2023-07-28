@@ -479,5 +479,74 @@ public interface WeComApiPaths {
      */
     String TAG_LIST = BASE_PATH + "/tag/list";
 
-    // ----------------通讯录管理- 接口-------------------
+    // ----------------通讯录管理-互联企业 接口-------------------
+
+    /**
+     * <p>
+     * 通讯录管理-互联企业-获取应用的可见范围<br>
+     * 本接口只返回互联企业中非本企业内的成员和部门的信息，如果要获取本企业的可见范围，请调用“获取应用”接口<br>
+     * 权限说明：<br>
+     * 仅自建应用可调用。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93172">https://developer.work.weixin.qq.com/document/path/93172</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/agent/get_perm_list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String LINKED_CORP_AGENT_GET_PERM_LIST = BASE_PATH + "/linkedcorp/agent/get_perm_list";
+
+    /**
+     * <p>
+     * 通讯录管理-互联企业-获取互联企业成员详细信息<br>
+     * 权限说明：<br>
+     * 仅自建应用可调用，应用须拥有指定成员的查看权限。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93171">https://developer.work.weixin.qq.com/document/path/93171</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/user/get?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String LINKED_CORP_USER_GET = BASE_PATH + "/linkedcorp/user/get";
+
+    /**
+     * <p>
+     * 通讯录管理-互联企业-获取互联企业部门成员<br>
+     * 权限说明：<br>
+     * 仅自建应用可调用，应用须拥有指定部门的查看权限。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93168">https://developer.work.weixin.qq.com/document/path/93168</a> <br>
+     * http请求方式: POST   https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/user/simplelist?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String LINKED_CORP_USER_SIMPLE_LIST = BASE_PATH + "/linkedcorp/user/simplelist";
+
+    /**
+     * <p>
+     * 通讯录管理-互联企业-获取互联企业部门成员详情<br>
+     * 权限说明：<br>
+     * 仅自建应用可调用，应用须拥有指定部门的查看权限。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93168">https://developer.work.weixin.qq.com/document/path/93168</a> <br>
+     * http请求方式: POST   https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/user/list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String LINKED_CORP_USER_LIST = BASE_PATH + "/linkedcorp/user/list";
+
+    /**
+     * <p>
+     * 通讯录管理-互联企业-获取互联企业部门列表<br>
+     * 权限说明：<br>
+     * 仅自建应用可调用，应用须拥有指定部门的查看权限。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93168">https://developer.work.weixin.qq.com/document/path/93168</a> <br>
+     * http请求方式: POST   https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/department/list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String LINKED_CORP_DEPARTMENT_LIST = BASE_PATH + "/linkedcorp/department/list";
+
+
+    // ---------------- 接口-------------------
 }

@@ -116,7 +116,7 @@ public class User {
      * 扩展属性，代开发自建应用需要管理员授权才返回；第三方仅通讯录应用可获取；对于非第三方创建的成员，第三方通讯录应用也不可获取；上游企业不可获取下游企业成员该字段
      */
     @JsonProperty("extattr")
-    private ExternalAttr extAttr;
+    private ExtAttr extAttr;
 
     /**
      * 激活状态: 1=已激活，2=已禁用，4=未激活，5=退出企业。

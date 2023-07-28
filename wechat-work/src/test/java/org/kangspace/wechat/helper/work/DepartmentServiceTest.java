@@ -9,7 +9,9 @@ import org.kangspace.wechat.helper.work.bean.*;
 import org.kangspace.wechat.helper.work.config.WeComConfig;
 import org.kangspace.wechat.helper.work.token.DefaultWeComAccessTokenService;
 
-
+/**
+ * 企业微信"通讯录管理-部门管理"相关 Service测试
+ */
 @Slf4j
 @RunWith(JUnit4.class)
 public class DepartmentServiceTest {

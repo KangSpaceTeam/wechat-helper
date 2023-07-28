@@ -2,15 +2,16 @@
 
 ** 企业微信接入模块**
 
-| 企业微信模块        | 接入状态 | 实现类                                                                             | 用法                                                                                                               | 
-|---------------|------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| 企业微信模块       | 接入状态 | 实现类                                                                             | 用法                                                                                                               | 
+|--------------|------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
 | 获取企微微信服务器IP地址 | ✅    | `WeComServerService`                                                            | [ServerServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComServerServiceTest.java)                  |
-| 基础 ↓          |      |                                                                                 |                                                                                                                  |
-| 帐号ID          | ✅    | `WeComIDService`                                                                | [WeComIDServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComIDServiceTest.java)                     |
-| 通讯录管理-成员管理    | ✅    | `UserService`                                                                   | [UserServiceTest](src/test/java/org/kangspace/wechat/helper/work/UserServiceTest.java)                           |
-| 通讯录管理-部门管理    | ✅    | `DepartmentService`                                                             | [DepartmentServiceTest](src/test/java/org/kangspace/wechat/helper/work/DepartmentServiceTest.java)               |
-| 通讯录管理-标签管理    | ✅    | `TagService`                                                                    | [TagServiceTest](src/test/java/org/kangspace/wechat/helper/work/TagServiceTest.java)                             |
-| 消息通知          | ✅    | `WeComMessageHandler/WeComMessageResolver,WeComEventHandler/WeComEventResolver` | [WeComMessageResolverTest](src/test/java/org/kangspace/wechat/helper/work/message/WeComMessageResolverTest.java) |
+| 基础 ↓         |      |                                                                                 |                                                                                                                  |
+| 帐号ID         | ✅    | `WeComIDService`                                                                | [WeComIDServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComIDServiceTest.java)                     |
+| 通讯录管理-成员管理   | ✅    | `UserService`                                                                   | [UserServiceTest](src/test/java/org/kangspace/wechat/helper/work/UserServiceTest.java)                           |
+| 通讯录管理-部门管理   | ✅    | `DepartmentService`                                                             | [DepartmentServiceTest](src/test/java/org/kangspace/wechat/helper/work/DepartmentServiceTest.java)               |
+| 通讯录管理-标签管理   | ✅    | `TagService`                                                                    | [TagServiceTest](src/test/java/org/kangspace/wechat/helper/work/TagServiceTest.java)                             |
+| 通讯录管理-互联企业| ✅    | `LinkedCorpService`                                                                    | [LinkedCorpServiceTest](src/test/java/org/kangspace/wechat/helper/work/LinkedCorpServiceTest.java)                             |
+| 消息通知         | ✅    | `WeComMessageHandler/WeComMessageResolver,WeComEventHandler/WeComEventResolver` | [WeComMessageResolverTest](src/test/java/org/kangspace/wechat/helper/work/message/WeComMessageResolverTest.java) |
 
 ### 1.1 基本用法
 
@@ -20,8 +21,8 @@
 
 ```
   String corpId = "", corpSecret = "";
-  WeComConfig weChatMpConfig = new WeComConfig(corpId, corpSecret);
-  DefaultWeComAccessTokenService weComAccessTokenService = new DefaultWeComAccessTokenService(weChatMpConfig);
+  WeComConfig WeComConfig = new WeComConfig(corpId, corpSecret);
+  DefaultWeComAccessTokenService weComAccessTokenService = new DefaultWeComAccessTokenService(WeComConfig);
   WeComServerService weComServerService = new DefaultWeComServerService(weComAccessTokenService);
 ```
 
@@ -48,23 +49,23 @@ UserService openApiService  = weComServerService.of(DefaultUserService.class);
 // TODO xxx
 
 AccessToken无需单独获取和指定，调用Api方法时，会自动获取并缓存AccessToken.
-AccessToken由`WeChatMpAccessTokenService`维护，且缓存由`WeChatTokenStorage`维护。
+AccessToken由`WeComAccessTokenService`维护，且缓存由`WeChatTokenStorage`维护。
 
 ### 2.1 access_token获取
 
-- **方式一: 使用`WeChatMpAccessTokenService`获取token**
+- **方式一: 使用`WeComAccessTokenService`获取token**
 
 ```
 String appId = "", appSecret = "";
-WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-WeChatMpAccessTokenService weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
-String token = weChatMpAccessTokenService.getToken();
+WeComConfig weComConfig = new WeComConfig(appId, appSecret);
+WeComAccessTokenService WeComAccessTokenService = new DefaultWeComAccessTokenService(weComConfig);
+String token = WeComAccessTokenService.getToken();
 ```
 
 - **方式二: 使用Service实例获取token**
 
 ```
-String token = serverService.getToken();
+String token = weComService.getToken();
 ```
 
 ### 2.2 access_token刷新
@@ -74,28 +75,28 @@ String token = serverService.getToken();
 调用Api方法时，若收到微信`40014:不合法的 access_token ，请开发者认真比对 access_token 的有效性（如是否过期），或查看是否正在为恰当的公众号调用接口`
 时,会自动重新请求AccessToken。
 
-- **方式二: 通过`WeChatMpAccessTokenService`刷新AccessToken**
+- **方式二: 通过`WeComAccessTokenService`刷新AccessToken**
 
 刷新后会自动更新到缓存中。
 
 ```
-weChatMpAccessTokenService.tokenRefresh()
+weComAccessTokenService.tokenRefresh()
 # 或
-weChatMpAccessTokenService.token(true)
+weComAccessTokenService.token(true)
 ```
 
 ### 2.3 access_token缓存
 
 AccessToken缓存由`WeChatTokenStorage`维护，默认实现为`DefaultLocalWeChatTokenStorage`。
-可在实例化`WeChatMpConfig`时指定`WeChatTokenStorage`。
+可在实例化`WeComConfig`时指定`WeChatTokenStorage`。
 
 1. **默认缓存`DefaultLocalWeChatTokenStorage`**
 
 AccessToken缓存在当前Jvm中。
 
 ```
-WeChatMpConfig weChatMpConfig = new WeChatMpConfig(appId, appSecret);
-weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfig);
+WeComConfig WeComConfig = new WeComConfig(appId, appSecret);
+WeComAccessTokenService weComAccessTokenService = new DefaultWeComAccessTokenService(WeComConfig);
 ```
 
 2. **指定`WeChatTokenStorage`实现类**
@@ -106,32 +107,33 @@ weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfi
 String redisAddress = "redis://127.0.0.1:6379";
 Integer database = 0;
 
-WeChatMpConfig weChatMpConfigWithRedis = new WeChatMpConfig(appId, appSecret);
-weChatMpConfigWithRedis.setRedisConfig(WeChatRedisConfigFactory.newConfig(WeChatRedisConfig.ServerType.SingleServer, redisAddress, database));
-RedisWeChatTokenStorage mpServerServiceWithRedisStorage = new RedisWeChatTokenStorage(weChatMpConfigWithRedis);
-weChatMpConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
-weChatMpAccessTokenService = new DefaultWeChatMpAccessTokenService(weChatMpConfigWithRedis);
+WeComConfig weComConfigWithRedis = new WeComConfig(appId, appSecret);
+weComConfigWithRedis.setRedisConfig(WeChatRedisConfigFactory.newConfig(WeChatRedisConfig.ServerType.SingleServer, redisAddress, database));
+RedisWeChatTokenStorage mpServerServiceWithRedisStorage = new RedisWeChatTokenStorage(WeComConfigWithRedis);
+weComConfigWithRedis.setWeChatTokenStorage(mpServerServiceWithRedisStorage);
+weComAccessTokenService = new DefaultWeComAccessTokenService(WeComConfigWithRedis);
 ```
 
 ## 3. 接口扩展
 
-可通过继承`AbstractWeChatMpService`类来快速接入微信公众号API, 并使用其中的`post`,`get`方法。
+可通过继承`AbstractWeComService`类来快速接入微信公众号API, 并使用其中的`post`,`get`方法。
 调用`post`,`get`方法时，可以指定是否需要AccessToken。
 
 如:
 
 ```
-public class DefaultServerService extends AbstractWeChatMpService implements ServerService {
-    public DefaultServerService(WeChatMpConfig weChatConfig) {
+public class DefaultWeComServerService extends AbstractWeComService implements WeComServerService {
+
+    public DefaultWeComServerService(WeComConfig weChatConfig) {
         super(weChatConfig);
     }
 
-    public DefaultServerService(WeChatMpAccessTokenService weChatMpAccessTokenService) {
-        super(weChatMpAccessTokenService);
+    public DefaultWeComServerService(WeComAccessTokenService weComAccessTokenService) {
+        super(weComAccessTokenService);
     }
 
-    public DefaultServerService(WeChatMpAccessTokenService weChatMpAccessTokenService, RequestFilterChain requestFilterChain) {
-        super(weChatMpAccessTokenService, requestFilterChain);
+    public DefaultWeComServerService(WeComAccessTokenService weComAccessTokenService, RequestFilterChain requestFilterChain) {
+        super(weComAccessTokenService, requestFilterChain);
     }
 }
 ```

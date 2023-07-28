@@ -125,7 +125,7 @@ public class UserRequest {
      * 自定义字段。自定义字段需要先在WEB管理端添加，见扩展属性添加方法，否则忽略未知属性的赋值。
      */
     @JsonProperty("extattr")
-    private ExternalAttr extAttr;
+    private ExtAttr extAttr;
 
     /**
      * 对外职务，如果设置了该值，则以此作为对外展示的职务，否则以position来展示。长度12个汉字内
