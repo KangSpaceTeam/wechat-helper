@@ -13,7 +13,12 @@ public interface WeComApiPaths {
     /**
      * 接口基础路径
      */
-    String BASE_PATH = "https://qyapi.weixin.qq.com/cgi-bin";
+    String QYAPI_BASE_PATH = "https://qyapi.weixin.qq.com/cgi-bin";
+
+    /**
+     * 开放平台-接口基础路径
+     */
+    String OPEN_BASE_PATH = "https://open.weixin.qq.com";
 
     /**
      * 获取Access token
@@ -24,7 +29,7 @@ public interface WeComApiPaths {
      * corpsecret	是	应用的凭证密钥，注意应用需要是启用状态，获取方式参考：<a href="https://developer.work.weixin.qq.com/document/path/90665#secret">术语说明-secret</a>
      * </pre>
      */
-    String GET_TOKEN = BASE_PATH + "/gettoken?corpid={0}&corpsecret={1}";
+    String GET_TOKEN = QYAPI_BASE_PATH + "/gettoken?corpid={0}&corpsecret={1}";
 
 
     // ----------------获取企业微信服务器 IP 地址接口-------------------
@@ -37,7 +42,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/get_api_domain_ip?access_token=ACCESS_TOKEN
      * </p>
      */
-    String GET_API_DOMAIN_IP = BASE_PATH + "/get_api_domain_ip";
+    String GET_API_DOMAIN_IP = QYAPI_BASE_PATH + "/get_api_domain_ip";
 
     /**
      * <p>
@@ -48,7 +53,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/getcallbackip?access_token=ACCESS_TOKEN
      * </p>
      */
-    String GET_CALLBACK_IP = BASE_PATH + "/getcallbackip";
+    String GET_CALLBACK_IP = QYAPI_BASE_PATH + "/getcallbackip";
 
     // ----------------帐号ID 接口-------------------
 
@@ -62,7 +67,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/batch/openuserid_to_userid?access_token=ACCESS_TOKEN
      * </p>
      */
-    String BATCH_OPEN_USERID_TO_USERID = BASE_PATH + "/batch/openuserid_to_userid";
+    String BATCH_OPEN_USERID_TO_USERID = QYAPI_BASE_PATH + "/batch/openuserid_to_userid";
 
     /**
      * <p>
@@ -74,7 +79,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/externalcontact/from_service_external_userid?access_token=ACCESS_TOKEN
      * </p>
      */
-    String EXTERNAL_CONTACT_FROM_SERVICE_EXTERNAL_USERID = BASE_PATH + "/externalcontact/from_service_external_userid";
+    String EXTERNAL_CONTACT_FROM_SERVICE_EXTERNAL_USERID = QYAPI_BASE_PATH + "/externalcontact/from_service_external_userid";
 
     /**
      * <p>
@@ -90,7 +95,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/idconvert/convert_tmp_external_userid?access_token=ACCESS_TOKEN
      * </p>
      */
-    String ID_CONVERT_CONVERT_TMP_EXTERNAL_USERID = BASE_PATH + "/idconvert/convert_tmp_external_userid";
+    String ID_CONVERT_CONVERT_TMP_EXTERNAL_USERID = QYAPI_BASE_PATH + "/idconvert/convert_tmp_external_userid";
 
     // ----------------通讯录管理-成员管理 接口-------------------
     /**
@@ -105,7 +110,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&userid=USERID
      * </p>
      */
-    String USER_GET = BASE_PATH + "/user/get?userid={0}";
+    String USER_GET = QYAPI_BASE_PATH + "/user/get?userid={0}";
 
     /**
      * <p>
@@ -116,7 +121,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/create?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_CREATE = BASE_PATH + "/user/create";
+    String USER_CREATE = QYAPI_BASE_PATH + "/user/create";
 
     /**
      * <p>
@@ -127,7 +132,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_UPDATE = BASE_PATH + "/user/update";
+    String USER_UPDATE = QYAPI_BASE_PATH + "/user/update";
 
     /**
      * <p>
@@ -138,7 +143,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/user/update?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_DELETE = BASE_PATH + "/user/delete?&userid={0}";
+    String USER_DELETE = QYAPI_BASE_PATH + "/user/delete?&userid={0}";
 
     /**
      * <p>
@@ -149,7 +154,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/user/batchdelete?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_BATCH_DELETE = BASE_PATH + "/user/batchdelete";
+    String USER_BATCH_DELETE = QYAPI_BASE_PATH + "/user/batchdelete";
 
     /**
      * <p>
@@ -161,7 +166,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/user/simplelist?access_token=ACCESS_TOKEN&department_id=DEPARTMENT_ID
      * </p>
      */
-    String USER_SIMPLE_LIST = BASE_PATH + "/user/simplelist?department_id={0}";
+    String USER_SIMPLE_LIST = QYAPI_BASE_PATH + "/user/simplelist?department_id={0}";
 
     /**
      * <p>
@@ -175,7 +180,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=ACCESS_TOKEN&department_id=DEPARTMENT_ID
      * </p>
      */
-    String USER_LIST = BASE_PATH + "/user/list?department_id={0}";
+    String USER_LIST = QYAPI_BASE_PATH + "/user/list?department_id={0}";
 
     /**
      * <p>
@@ -189,7 +194,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_openid?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_CONVERT_TO_OPEN_ID = BASE_PATH + "/user/convert_to_openid";
+    String USER_CONVERT_TO_OPEN_ID = QYAPI_BASE_PATH + "/user/convert_to_openid";
 
     /**
      * <p>
@@ -202,7 +207,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/convert_to_userid?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_CONVERT_TO_USER_ID = BASE_PATH + "/user/convert_to_userid";
+    String USER_CONVERT_TO_USER_ID = QYAPI_BASE_PATH + "/user/convert_to_userid";
 
     /**
      * <p>
@@ -214,7 +219,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/user/authsucc?access_token=ACCESS_TOKEN&userid=USERID
      * </p>
      */
-    String USER_AUTH_SUCC = BASE_PATH + "/user/authsucc?userid={0}";
+    String USER_AUTH_SUCC = QYAPI_BASE_PATH + "/user/authsucc?userid={0}";
 
     /**
      * <p>
@@ -229,7 +234,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/batch/invite?access_token=ACCESS_TOKEN
      * </p>
      */
-    String BATCH_INVITE = BASE_PATH + "/batch/invite";
+    String BATCH_INVITE = QYAPI_BASE_PATH + "/batch/invite";
 
     /**
      * <p>
@@ -244,7 +249,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/corp/get_join_qrcode?access_token=ACCESS_TOKEN&size_type=SIZE_TYPE
      * </p>
      */
-    String CORP_GET_JOIN_QRCODE = BASE_PATH + "/corp/get_join_qrcode?size_type={0}";
+    String CORP_GET_JOIN_QRCODE = QYAPI_BASE_PATH + "/corp/get_join_qrcode?size_type={0}";
 
     /**
      * <p>
@@ -258,7 +263,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/getuserid?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_GET_USER_ID = BASE_PATH + "/user/getuserid";
+    String USER_GET_USER_ID = QYAPI_BASE_PATH + "/user/getuserid";
 
     /**
      * <p>
@@ -272,7 +277,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/get_userid_by_email?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_GET_USER_ID_BY_EMAIL = BASE_PATH + "/user/get_userid_by_email";
+    String USER_GET_USER_ID_BY_EMAIL = QYAPI_BASE_PATH + "/user/get_userid_by_email";
 
     /**
      * <p>
@@ -286,7 +291,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/user/list_id?access_token=ACCESS_TOKEN
      * </p>
      */
-    String USER_LIST_ID = BASE_PATH + "/user/list_id";
+    String USER_LIST_ID = QYAPI_BASE_PATH + "/user/list_id";
 
 
     // ----------------通讯录管理-部门管理 接口-------------------
@@ -303,7 +308,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/department/create?access_token=ACCESS_TOKEN
      * </p>
      */
-    String DEPARTMENT_CREATE = BASE_PATH + "/department/create";
+    String DEPARTMENT_CREATE = QYAPI_BASE_PATH + "/department/create";
 
     /**
      * <p>
@@ -319,7 +324,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/department/update?access_token=ACCESS_TOKEN
      * </p>
      */
-    String DEPARTMENT_UPDATE = BASE_PATH + "/department/update";
+    String DEPARTMENT_UPDATE = QYAPI_BASE_PATH + "/department/update";
 
     /**
      * <p>
@@ -334,7 +339,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/delete?access_token=ACCESS_TOKEN
      * </p>
      */
-    String DEPARTMENT_DELETE = BASE_PATH + "/department/delete?id={0}";
+    String DEPARTMENT_DELETE = QYAPI_BASE_PATH + "/department/delete?id={0}";
 
     /**
      * <p>
@@ -348,7 +353,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/list?access_token=ACCESS_TOKEN
      * </p>
      */
-    String DEPARTMENT_LIST = BASE_PATH + "/department/list?id={0}";
+    String DEPARTMENT_LIST = QYAPI_BASE_PATH + "/department/list?id={0}";
 
     /**
      * <p>
@@ -365,7 +370,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN
      * </p>
      */
-    String DEPARTMENT_SIMPLE_LIST = BASE_PATH + "/department/simplelist?id={0}";
+    String DEPARTMENT_SIMPLE_LIST = QYAPI_BASE_PATH + "/department/simplelist?id={0}";
 
     /**
      * <p>
@@ -383,7 +388,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/department/simplelist?access_token=ACCESS_TOKEN
      * </p>
      */
-    String DEPARTMENT_GET = BASE_PATH + "/department/get?id={0}";
+    String DEPARTMENT_GET = QYAPI_BASE_PATH + "/department/get?id={0}";
 
     // ----------------通讯录管理-标签管理 接口-------------------
     /**
@@ -398,7 +403,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/create?access_token=ACCESS_TOKEN
      * </p>
      */
-    String TAG_CREATE = BASE_PATH + "/tag/create";
+    String TAG_CREATE = QYAPI_BASE_PATH + "/tag/create";
 
     /**
      * <p>
@@ -411,7 +416,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/update?access_token=ACCESS_TOKEN
      * </p>
      */
-    String TAG_UPDATE = BASE_PATH + "/tag/update";
+    String TAG_UPDATE = QYAPI_BASE_PATH + "/tag/update";
 
     /**
      * <p>
@@ -424,7 +429,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/tag/delete?access_token=ACCESS_TOKEN&tagid=TAGID
      * </p>
      */
-    String TAG_DELETE = BASE_PATH + "/tag/delete?tagid={0}";
+    String TAG_DELETE = QYAPI_BASE_PATH + "/tag/delete?tagid={0}";
 
     /**
      * <p>
@@ -437,7 +442,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/tag/get?access_token=ACCESS_TOKEN&tagid=TAGID
      * </p>
      */
-    String TAG_GET = BASE_PATH + "/tag/get?tagid={0}";
+    String TAG_GET = QYAPI_BASE_PATH + "/tag/get?tagid={0}";
 
     /**
      * <p>
@@ -451,7 +456,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/addtagusers?access_token=ACCESS_TOKEN
      * </p>
      */
-    String TAG_ADD_TAG_USERS = BASE_PATH + "/tag/addtagusers";
+    String TAG_ADD_TAG_USERS = QYAPI_BASE_PATH + "/tag/addtagusers";
 
     /**
      * <p>
@@ -464,7 +469,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/tag/deltagusers?access_token=ACCESS_TOKEN
      * </p>
      */
-    String TAG_DEL_TAG_USERS = BASE_PATH + "/tag/deltagusers";
+    String TAG_DEL_TAG_USERS = QYAPI_BASE_PATH + "/tag/deltagusers";
 
     /**
      * <p>
@@ -477,7 +482,7 @@ public interface WeComApiPaths {
      * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/tag/list?access_token=ACCESS_TOKEN
      * </p>
      */
-    String TAG_LIST = BASE_PATH + "/tag/list";
+    String TAG_LIST = QYAPI_BASE_PATH + "/tag/list";
 
     // ----------------通讯录管理-互联企业 接口-------------------
 
@@ -493,7 +498,7 @@ public interface WeComApiPaths {
      * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/agent/get_perm_list?access_token=ACCESS_TOKEN
      * </p>
      */
-    String LINKED_CORP_AGENT_GET_PERM_LIST = BASE_PATH + "/linkedcorp/agent/get_perm_list";
+    String LINKED_CORP_AGENT_GET_PERM_LIST = QYAPI_BASE_PATH + "/linkedcorp/agent/get_perm_list";
 
     /**
      * <p>
@@ -506,7 +511,7 @@ public interface WeComApiPaths {
      * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/user/get?access_token=ACCESS_TOKEN
      * </p>
      */
-    String LINKED_CORP_USER_GET = BASE_PATH + "/linkedcorp/user/get";
+    String LINKED_CORP_USER_GET = QYAPI_BASE_PATH + "/linkedcorp/user/get";
 
     /**
      * <p>
@@ -519,7 +524,7 @@ public interface WeComApiPaths {
      * http请求方式: POST   https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/user/simplelist?access_token=ACCESS_TOKEN
      * </p>
      */
-    String LINKED_CORP_USER_SIMPLE_LIST = BASE_PATH + "/linkedcorp/user/simplelist";
+    String LINKED_CORP_USER_SIMPLE_LIST = QYAPI_BASE_PATH + "/linkedcorp/user/simplelist";
 
     /**
      * <p>
@@ -532,7 +537,7 @@ public interface WeComApiPaths {
      * http请求方式: POST   https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/user/list?access_token=ACCESS_TOKEN
      * </p>
      */
-    String LINKED_CORP_USER_LIST = BASE_PATH + "/linkedcorp/user/list";
+    String LINKED_CORP_USER_LIST = QYAPI_BASE_PATH + "/linkedcorp/user/list";
 
     /**
      * <p>
@@ -545,8 +550,55 @@ public interface WeComApiPaths {
      * http请求方式: POST   https://qyapi.weixin.qq.com/cgi-bin/linkedcorp/department/list?access_token=ACCESS_TOKEN
      * </p>
      */
-    String LINKED_CORP_DEPARTMENT_LIST = BASE_PATH + "/linkedcorp/department/list";
+    String LINKED_CORP_DEPARTMENT_LIST = QYAPI_BASE_PATH + "/linkedcorp/department/list";
 
 
-    // ---------------- 接口-------------------
+    // ----------------身份验证 接口-------------------
+
+    /**
+     * <p>
+     * 身份验证-网页授权登录<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/91022">https://developer.work.weixin.qq.com/document/path/91022</a> <br>
+     * http请求方式: GET https://open.weixin.qq.com/connect/oauth2/authorize?appid=CORPID&redirect_uri=REDIRECT_URI&response_type=code&scope=snsapi_base&state=STATE&agentid=AGENTID#wechat_redirect<br>
+     * 参数: <br>
+     * 0: CORPID, 企业的CorpID <br>
+     * 1: REDIRECT_URI, 授权后重定向的回调链接地址，请使用urlencode对链接进行处理<br>
+     * 2: scope, 应用授权作用域。<br>
+     * snsapi_base：静默授权，可获取成员的基础信息（UserId与DeviceId）；<br>
+     * snsapi_privateinfo：手动授权，可获取成员的详细信息，包含头像、二维码等敏感信息。<br>
+     * 3: STATE, 重定向后会带上state参数，企业可以填写a-zA-Z0-9的参数值，长度不可超过128个字节<br>
+     * 4: AGENTID, 应用agentid，建议填上该参数（对于第三方应用和代开发自建应用，在填写该参数的情况下或者在工作台、聊天工具栏、应用会话内发起oauth2请求的场景中，会触发接口许可的自动激活）。snsapi_privateinfo时必填否则报错；<br>
+     * </p>
+     */
+    String CONNECT_OAUTH2_AUTHORIZE = OPEN_BASE_PATH + "/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&state={3}&agentid={4}#wechat_redirect";
+
+    /**
+     * <p>
+     * 身份验证-获取访问用户身份<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/91023">https://developer.work.weixin.qq.com/document/path/91023</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/auth/getuserinfo?access_token=ACCESS_TOKEN&code=CODE <br>
+     * 参数: <br>
+     * 0: CODE, 通过成员授权获取到的code，最大为512字节。每次成员授权带上的code将不一样，code只能使用一次，5分钟未被使用自动过期。 <br>
+     * </p>
+     */
+    String AUTH_GET_USER_INFO = QYAPI_BASE_PATH + "/auth/getuserinfo?code={0}";
+
+    /**
+     * <p>
+     * 身份验证-获取访问用户敏感信息<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/91033">https://developer.work.weixin.qq.com/document/path/91033</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/auth/getuserdetail?access_token=ACCESS_TOKEN <br>
+     * </p>
+     */
+    String AUTH_GET_USER_DETAIL = QYAPI_BASE_PATH + "/auth/getuserdetail";
+
+
+
+    // ----------------身份验证 接口-------------------
 }
