@@ -13,6 +13,7 @@
 | 通讯录管理-互联企业    | ✅    | `LinkedCorpService`                                                             | [LinkedCorpServiceTest](src/test/java/org/kangspace/wechat/helper/work/LinkedCorpServiceTest.java)               |
 | 消息通知          | ✅    | `WeComMessageHandler/WeComMessageResolver,WeComEventHandler/WeComEventResolver` | [WeComMessageResolverTest](src/test/java/org/kangspace/wechat/helper/work/message/WeComMessageResolverTest.java) |
 | 身份验证          | ✅    | `AuthService`                                                                   | [AuthServiceTest](src/test/java/org/kangspace/wechat/helper/work/AuthServiceTest.java)                           |
+| 企业互联          | ✅    | `CorpGroupService`                                                              | [CorpGroupServiceTest](src/test/java/org/kangspace/wechat/helper/work/CorpGroupServiceTest.java)                 |
 
 ### 1.1 基本用法
 

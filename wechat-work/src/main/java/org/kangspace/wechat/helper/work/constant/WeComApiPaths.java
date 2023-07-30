@@ -598,7 +598,42 @@ public interface WeComApiPaths {
      */
     String AUTH_GET_USER_DETAIL = QYAPI_BASE_PATH + "/auth/getuserdetail";
 
+    // ----------------企业互联 接口-------------------
 
+    /**
+     * <p>
+     * 企业互联-获取应用共享信息<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93403">https://developer.work.weixin.qq.com/document/path/93403</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/corpgroup/corp/list_app_share_info?access_token=ACCESS_TOKEN <br>
+     * </p>
+     */
+    String CORP_GROUP_CORP_LIST_APP_SHARE_INFO = QYAPI_BASE_PATH + "/corpgroup/corp/list_app_share_info";
 
-    // ----------------身份验证 接口-------------------
+    /**
+     * <p>
+     * 企业互联-获取下级/下游企业的access_token <br>
+     * 获取应用可见范围内下级/下游企业的access_token，该access_token可用于调用下级/下游企业通讯录的只读接口。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93359">https://developer.work.weixin.qq.com/document/path/93359</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/corpgroup/corp/gettoken?access_token=ACCESS_TOKEN <br>
+     * </p>
+     */
+    String CORP_GROUP_CORP_GET_TOKEN = QYAPI_BASE_PATH + "/corpgroup/corp/gettoken";
+
+    /**
+     * <p>
+     * 企业互联-获取下级/下游企业小程序session <br>
+     * 上级/上游企业通过该接口转换为下级/下游企业的小程序session<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/93355">https://developer.work.weixin.qq.com/document/path/93355</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/miniprogram/transfer_session?access_token=ACCESS_TOKEN <br>
+     * </p>
+     */
+    String MINI_PROGRAM_TRANSFER_SESSION = QYAPI_BASE_PATH + "/miniprogram/transfer_session";
+
+    // ---------------- 接口-------------------
 }
