@@ -635,5 +635,102 @@ public interface WeComApiPaths {
      */
     String MINI_PROGRAM_TRANSFER_SESSION = QYAPI_BASE_PATH + "/miniprogram/transfer_session";
 
+    // ---------------- 安全管理-接口-------------------
+
+    /**
+     * <p>
+     * 安全管理-文件防泄漏 <br>
+     * 启用了 “文件防泄漏”的企业可以通过本接口查询文件上传、下载、转发等操作记录。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98079">https://developer.work.weixin.qq.com/document/path/98079</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/get_file_oper_record?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_GET_FILE_OPER_RECORD = QYAPI_BASE_PATH + "/security/get_file_oper_record";
+
+    /**
+     * <p>
+     * 安全管理-设备管理-导入可信企业设备 <br>
+     * 调用说明<br>
+     * 仅「设备管理」可调用<br>
+     * 每次调用最多导入100条可信企业设备记录<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98920">https://developer.work.weixin.qq.com/document/path/98920</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/trustdevice/import?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_TRUST_DEVICE_IMPORT = QYAPI_BASE_PATH + "/security/trustdevice/import";
+
+    /**
+     * <p>
+     * 安全管理-设备管理-获取设备信息 <br>
+     * 调用说明<br>
+     * 仅「设备管理」可调用<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98920">https://developer.work.weixin.qq.com/document/path/98920</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/trustdevice/list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_TRUST_DEVICE_LIST = QYAPI_BASE_PATH + "/security/trustdevice/list";
+
+    /**
+     * <p>
+     * 安全管理-设备管理-获取成员使用设备 <br>
+     * 调用说明<br>
+     * 仅「设备管理」可调用<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98920">https://developer.work.weixin.qq.com/document/path/98920</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/trustdevice/get_by_user?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_TRUST_DEVICE_GET_BY_USER = QYAPI_BASE_PATH + "/security/trustdevice/get_by_user";
+
+    /**
+     * <p>
+     * 安全管理-设备管理-删除设备信息 <br>
+     * 调用说明<br>
+     * 仅「设备管理」可调用<br>
+     * 每次调用可删除100个设备<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98920">https://developer.work.weixin.qq.com/document/path/98920</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/trustdevice/delete?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_TRUST_DEVICE_DELETE = QYAPI_BASE_PATH + "/security/trustdevice/delete";
+
+    /**
+     * <p>
+     * 安全管理-设备管理-确认为可信设备 <br>
+     * 调用说明<br>
+     * 仅「设备管理」可调用<br>
+     * 每次调用可删除100个设备<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98920">https://developer.work.weixin.qq.com/document/path/98920</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/trustdevice/approve?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_TRUST_DEVICE_APPROVE = QYAPI_BASE_PATH + "/security/trustdevice/approve";
+
+    /**
+     * <p>
+     * 安全管理-设备管理-驳回可信设备申请 <br>
+     * 调用说明<br>
+     * 仅「设备管理」可调用<br>
+     * 每次调用可删除100个设备<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98920">https://developer.work.weixin.qq.com/document/path/98920</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/security/trustdevice/approve?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String SECURITY_TRUST_DEVICE_REJECT = QYAPI_BASE_PATH + "/security/trustdevice/reject";
+
+
     // ---------------- 接口-------------------
 }
