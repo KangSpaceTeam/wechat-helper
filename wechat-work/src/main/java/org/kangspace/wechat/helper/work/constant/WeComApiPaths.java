@@ -731,6 +731,44 @@ public interface WeComApiPaths {
      */
     String SECURITY_TRUST_DEVICE_REJECT = QYAPI_BASE_PATH + "/security/trustdevice/reject";
 
+    // ----------------消息推送 接口-------------------
+    /**
+     * <p>
+     * 消息推送-发送应用消息 <br>
+     * 应用支持推送文本、图片、视频、文件、图文等类型。 <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90236">https://developer.work.weixin.qq.com/document/path/90236</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String MESSAGE_SEND = QYAPI_BASE_PATH + "/message/send";
+
+    /**
+     * <p>
+     * 消息推送-更新模版卡片消息 <br>
+     * 请注意，当应用调用发送模版卡片消息后，接口会返回一个response_code，通过response_code用户可以调用本接口一次。后续如果有用户点击任务卡片，回调接口也会带上response_code，开发者通过该code也可以调用本接口一次，注意response_code的有效期是72小时，超过72小时后将无法使用 <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/94888">https://developer.work.weixin.qq.com/document/path/94888</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/message/update_template_card?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String MESSAGE_UPDATE_TEMPLATE_CARD = QYAPI_BASE_PATH + "/message/update_template_card";
+
+
+    /**
+     * <p>
+     * 消息推送-撤回应用消息 <br>
+     * 本接口可以撤回24小时内通过发送应用消息接口推送的消息，仅可撤回企业微信端的数据，微信插件端的数据不支持撤回。 <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/94867">https://developer.work.weixin.qq.com/document/path/94867</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/message/recall?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String MESSAGE_RECALL = QYAPI_BASE_PATH + "/message/recall";
+
 
     // ---------------- 接口-------------------
 }

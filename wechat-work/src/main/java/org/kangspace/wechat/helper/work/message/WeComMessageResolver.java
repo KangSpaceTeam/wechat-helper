@@ -42,37 +42,82 @@ public class WeComMessageResolver
         this.messageCipher = new MessageCipher(wechatService.getWeChatConfig());
     }
 
+    @Override
+    public <T extends BaseMessageSignature> boolean checkSignature(T signature) {
+        if (signature instanceof GetMessageSignature) {
+            return this.checkSignature((GetMessageSignature) signature);
+        }
+        throw new IllegalArgumentException("不支持该类型对象的签名校验");
+    }
 
     /**
      * 企业微信微信服务器消息签名校验<br>
-     * // TODO xxx
-     * 接口文档: <a href=""></a><br>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/10514">https://developer.work.weixin.qq.com/document/10514</a><br>
+     * <a href="https://developer.work.weixin.qq.com/document/path/90238#%E4%BD%BF%E7%94%A8%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF">https://developer.work.weixin.qq.com/document/path/90238#%E4%BD%BF%E7%94%A8%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF</a><br>
+     * <a href="https://developer.work.weixin.qq.com/document/path/90968#%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C">https://developer.work.weixin.qq.com/document/path/90968#%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C</a><br>
      * 说明:
      * <pre>
      * 原样返回 echostr 参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：
-     * 1）将token、timestamp、nonce三个参数进行字典序排序
-     * 2）将三个参数字符串拼接成一个字符串进行sha1加密
-     * 3）开发者获得加密后的字符串可与 signature 对比，标识该请求来源于微信
+     * 1）第一步：准备相关参数，
+     * 2） 将token、timestamp、nonce、msg_encrypt 4个参数进行字典序排序
+     * 3）将4个参数字符串拼接成一个字符串进行sha1加密
+     * 4）开发者获得加密后的字符串可与 msg_encrypt 对比，标识该请求来源于企业微信
      * </pre>
      *
      * @param signature {@link BaseMessageSignature}
      * @return 验证成功后返回echoStr, 验证失败抛出 {@link WeChatSignatureException}
      */
-    @Override
-    public boolean checkSignature(BaseMessageSignature signature) {
+    public boolean checkSignature(GetMessageSignature signature) {
         log.debug("checkSignature: signature: {}", signature);
         WeChatConfig config = getWeChatService().getWeChatConfig();
         String signatureStr = signature.getSignature();
         String nonce = signature.getNonce();
         String timestamp = signature.getTimestamp();
+        String echoStr = signature.getEchoStr();
         String token = config.getToken();
-        String sha1 = DigestUtil.sha1(token, timestamp, nonce);
+        String sha1 = DigestUtil.sha1(token, timestamp, nonce, echoStr);
         log.debug("checkSignature: sha1: {}", sha1);
         if (!signatureStr.equals(sha1)) {
             log.debug("checkSignature: checkSignature failed, sha1: {}", sha1);
             return false;
         }
         return true;
+    }
+
+    /**
+     * 企业微信微信服务器消息签名校验<br>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/10514">https://developer.work.weixin.qq.com/document/10514</a><br>
+     * <a href="https://developer.work.weixin.qq.com/document/path/90238#%E4%BD%BF%E7%94%A8%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF">https://developer.work.weixin.qq.com/document/path/90238#%E4%BD%BF%E7%94%A8%E6%8E%A5%E6%94%B6%E6%B6%88%E6%81%AF</a><br>
+     * <a href="https://developer.work.weixin.qq.com/document/path/90968#%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C">https://developer.work.weixin.qq.com/document/path/90968#%E6%B6%88%E6%81%AF%E4%BD%93%E7%AD%BE%E5%90%8D%E6%A0%A1%E9%AA%8C</a><br>
+     * 说明:
+     * <pre>
+     * 原样返回 echostr 参数内容，则接入生效，成为开发者成功，否则接入失败。加密/校验流程如下：
+     * 1）第一步：准备相关参数，
+     * 2） 将token、timestamp、nonce、msg_encrypt 4个参数进行字典序排序
+     * 3）将4个参数字符串拼接成一个字符串进行sha1加密
+     * 4）开发者获得加密后的字符串可与 msg_encrypt 对比，标识该请求来源于企业微信
+     * </pre>
+     *
+     * @param signature {@link BaseMessageSignature}
+     * @return 验证成功后返回echoStr, 验证失败抛出 {@link WeChatSignatureException}
+     */
+    public String checkSignatureWithReplyEchoStr(GetMessageSignature signature) {
+        if (checkSignature(signature)) {
+            return decodeMsgSignature(signature.getEchoStr());
+        }
+        return null;
+    }
+
+    /**
+     * 解密MsgSignature中的消息
+     *
+     * @param echoStr URL中的 echoStr
+     * @return 响应消息 echoStr中的msg
+     */
+    public String decodeMsgSignature(String echoStr) {
+        String msg = getMessageCipher().decrypt(echoStr);
+        log.debug("decodeMsgSignature: msg: {}", msg);
+        return msg;
     }
 
     @SuppressWarnings("unchecked")
@@ -176,7 +221,7 @@ public class WeComMessageResolver
     }
 
     /**
-     * 提取消息中的ToUserName
+     * 提取消息中的 ToUserName
      *
      * @param messageFormat 消息格式{@link MessageFormat}
      * @param message       消息内容
@@ -191,6 +236,21 @@ public class WeComMessageResolver
     }
 
     /**
+     * 提取消息中的 AgentID
+     *
+     * @param messageFormat 消息格式{@link MessageFormat}
+     * @param message       消息内容
+     * @return toUserName
+     */
+    public static String extractAgentId(MessageFormat messageFormat, String message) {
+        if (MessageFormat.XML.equals(messageFormat)) {
+            WeComXmlMessage xmlMessage = XmlParser.parse(message, WeComXmlMessage.class);
+            return xmlMessage.getAgentId();
+        }
+        return null;
+    }
+
+    /**
      * 提取消息中的ToUserName
      *
      * @param message 消息内容
@@ -198,5 +258,15 @@ public class WeComMessageResolver
      */
     public static String extractToUserName(String message) {
         return extractToUserName(MessageFormat.XML, message);
+    }
+
+    /**
+     * 提取消息中的AgentId
+     *
+     * @param message 消息内容
+     * @return toUserName
+     */
+    public static String extractToAgentId(String message) {
+        return extractAgentId(MessageFormat.XML, message);
     }
 }

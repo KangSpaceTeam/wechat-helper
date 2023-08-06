@@ -32,6 +32,11 @@
         </dependency>
 
         <dependency>
+            <groupId>org.kangspace.wechat.helper</groupId>
+            <artifactId>wechat-work</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
         </dependency>

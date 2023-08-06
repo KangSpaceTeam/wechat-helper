@@ -31,7 +31,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Slf4j
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "wechat.config")
+@ConfigurationProperties(prefix = "wechat.mp")
 public class WeChatMpServiceConfig implements InitializingBean {
     /**
      * 应用和WeChatMpService的map <br>
@@ -46,14 +46,14 @@ public class WeChatMpServiceConfig implements InitializingBean {
     /**
      * 公众号配置列表
      */
-    private List<MpServiceConfig> mps = new ArrayList<>(0);
+    private List<MpServiceConfig> configs = new ArrayList<>(0);
 
     @Resource
     private List<WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers;
     @Resource
-    private List<WeChatMpEventHandler> eventHandlers;
+    private List<WeChatMpEventHandler<?>> eventHandlers;
     @Resource
-    private List<WeChatMpMessageHandler> allMessageHandlers;
+    private List<WeChatMpMessageHandler<?>> allMessageHandlers;
 
     /**
      * 配置信息
@@ -76,7 +76,7 @@ public class WeChatMpServiceConfig implements InitializingBean {
      * 配置初始化
      */
     public void initConfig() {
-        this.mps.forEach(config -> {
+        this.configs.forEach(config -> {
             String rawId = config.getRawId();
             WeChatMpConfig mpConfig = new WeChatMpConfig(config.getAppId(), config.getAppSecret());
             mpConfig.setToken(config.getToken());

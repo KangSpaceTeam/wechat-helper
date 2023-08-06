@@ -71,7 +71,7 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      * @param signature {@link BaseMessageSignature}
      * @return boolean
      */
-    boolean checkSignature(BaseMessageSignature signature);
+    <T extends BaseMessageSignature> boolean checkSignature(T signature);
 
     /**
      * 签名检查(不通过时抛出异常)
@@ -122,7 +122,7 @@ public interface WeChatMessageResolver<Service extends WeChatService,
      *
      * @param messageSignature {@link MessageSignature}
      * @param message          消息
-     * @param context {@link MessageResolverContext}
+     * @param context          {@link MessageResolverContext}
      */
     default void solve(MessageSignature messageSignature, String message, MessageResolverContext context) {
         this.solve(MessageFormat.XML, messageSignature, message, context);

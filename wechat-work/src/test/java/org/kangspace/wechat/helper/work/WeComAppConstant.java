@@ -19,6 +19,11 @@ public class WeComAppConstant {
     public static String GLOBAL_CORP_SECRET = "";
 
     /**
+     * 应用ID
+     */
+    public static String GLOBAL_AGENT_ID = "";
+
+    /**
      * 全局验证TOKEN
      */
     public static String GLOBAL_TOKEN = "";

@@ -4,15 +4,17 @@ server:
     context-path: /wechat-platform
 
 wechat:
-  config:
-    mps:
+  mp:
+    configs:
       - rawId:
         appId:
         appSecret:
         encodingAESKey:
         token:
-      - rawId:
-        appId:
+  wecom:
+    configs:
+      - agentId:
+        corpId:
         appSecret:
         encodingAESKey:
         token:

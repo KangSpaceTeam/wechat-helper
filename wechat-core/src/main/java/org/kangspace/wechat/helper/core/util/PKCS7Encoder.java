@@ -8,8 +8,8 @@ import java.util.Arrays;
  * 提供基于PKCS7算法的加解密接口.
  */
 public class PKCS7Encoder {
-    private static Charset CHARSET = StandardCharsets.UTF_8;
-    private static int BLOCK_SIZE = 32;
+    private static final Charset CHARSET = StandardCharsets.UTF_8;
+    private static final int BLOCK_SIZE = 32;
 
     /**
      * 获得对明文进行补位填充的字节.
@@ -38,7 +38,7 @@ public class PKCS7Encoder {
      * @param decrypted 解密后的明文
      * @return 删除补位字符后的明文
      */
-    static byte[] decode(byte[] decrypted) {
+    public static byte[] decode(byte[] decrypted) {
         int pad = decrypted[decrypted.length - 1];
         if (pad < 1 || pad > 32) {
             pad = 0;

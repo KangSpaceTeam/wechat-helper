@@ -1,4 +1,4 @@
-package org.kangspace.wechat.helper.platform.message;
+package org.kangspace.wechat.helper.platform.message.mp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
@@ -31,7 +31,7 @@ public class EventHandler implements WeChatMpEventHandler<WeChatMpXmlEvent> {
 
     @Override
     public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpXmlEvent event, MessageResolverContext context) {
-        log.info("消息解析器: message: {}, context: {}", event, context);
+        log.info("公众号事件解析器: message: {}, context: {}", event, context);
         TextEchoMessage xmlMessage = null;
         String eventType = event.getEvent();
         String content = null;
@@ -63,7 +63,7 @@ public class EventHandler implements WeChatMpEventHandler<WeChatMpXmlEvent> {
             xmlMessage.setFromUser(toUser);
             xmlMessage.setToUser(fromUser);
         }
-        log.info("消息解析器: 响应消息: {}", xmlMessage);
+        log.info("公众号事件解析器: 响应消息: {}", xmlMessage);
         return xmlMessage;
     }
 

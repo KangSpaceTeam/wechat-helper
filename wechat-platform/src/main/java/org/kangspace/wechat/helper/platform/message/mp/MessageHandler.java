@@ -1,4 +1,4 @@
-package org.kangspace.wechat.helper.platform.message;
+package org.kangspace.wechat.helper.platform.message.mp;
 
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
@@ -35,7 +35,7 @@ public class MessageHandler implements WeChatMpMessageHandler<WeChatMpMessage> {
 
     @Override
     public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpMessage message, MessageResolverContext context) {
-        log.info("消息解析器: message: {}, context: {}", message, context);
+        log.info("公众号消息解析器: message: {}, context: {}", message, context);
         MessageConstant.MessageType messageType = message.getMsgType();
         Class<?> mappingClassByMsgType = WeChatMpEchoMessages.getMappingClassByMsgType(messageType);
         WeChatMpEchoXmlMessage xmlMessage;
@@ -47,10 +47,10 @@ public class MessageHandler implements WeChatMpMessageHandler<WeChatMpMessage> {
                 xmlMessage = newEchoMessageInstance(message, MusicEchoMessage.class);
                 String title = "虞兮叹-闻人听書_";
                 String description = "所属专辑：虞兮叹";
-                String musicURL = "https://m804.music.126.net/20230117144505/e39315b2f7e7a4442c7c9f725cad1cfc/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/14096461130/e462/cd92/f6a4/22c75e4f49c1efd8f956d590727ee7e3.m4a?authSecret=00000185be628285071d0aaba61aa868";
-                String hqMusicUrl = musicURL;
+                String musicUrl = "https://m804.music.126.net/20230117144505/e39315b2f7e7a4442c7c9f725cad1cfc/jdyyaac/obj/w5rDlsOJwrLDjj7CmsOj/14096461130/e462/cd92/f6a4/22c75e4f49c1efd8f956d590727ee7e3.m4a?authSecret=00000185be628285071d0aaba61aa868";
+                String hqMusicUrl = musicUrl;
                 String thumbMediaId = "bhdru4vbXsWWVqx-HZifCLbrIRhrckYCFgoDewz-5dYcgYACXc6js3yZ8aCxzJmk";
-                ((MusicEchoMessage) xmlMessage).setMusic(new MusicEchoMessage.Music(title, description, musicURL, hqMusicUrl, thumbMediaId));
+                ((MusicEchoMessage) xmlMessage).setMusic(new MusicEchoMessage.Music(title, description, musicUrl, hqMusicUrl, thumbMediaId));
             } else if (NEWS_KEY_LIST.contains(content)) {
                 xmlMessage = newEchoMessageInstance(message, NewsEchoMessage.class);
                 String title = "KangSpace";
@@ -104,7 +104,7 @@ public class MessageHandler implements WeChatMpMessageHandler<WeChatMpMessage> {
         String fromUser = message.getFromUser();
         xmlMessage.setFromUser(toUser);
         xmlMessage.setToUser(fromUser);
-        log.info("消息解析器: 响应消息: {}", xmlMessage);
+        log.info("公众号消息解析器: 响应消息: {}", xmlMessage);
         return xmlMessage;
     }
 

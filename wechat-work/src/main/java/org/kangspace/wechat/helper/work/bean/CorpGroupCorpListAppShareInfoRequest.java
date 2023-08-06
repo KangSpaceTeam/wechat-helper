@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.work.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
@@ -13,6 +14,7 @@ import lombok.Data;
  * @since 2023/7/30
  */
 @Data
+@AllArgsConstructor
 @Builder
 public class CorpGroupCorpListAppShareInfoRequest {
 

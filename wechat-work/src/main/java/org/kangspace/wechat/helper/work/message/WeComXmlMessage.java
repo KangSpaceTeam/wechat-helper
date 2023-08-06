@@ -45,6 +45,13 @@ public class WeComXmlMessage implements WeComMessage, WeChatXmlMessage {
     private String toUser;
 
     /**
+     * 接收的应用id，可在应用的设置页面获取
+     */
+    @JacksonXmlProperty(localName = "AgentID")
+    @JacksonXmlCData
+    private String agentId;
+
+    /**
      * 发送方帐号（一个OpenID）
      */
     @JacksonXmlProperty(localName = "FromUserName")
