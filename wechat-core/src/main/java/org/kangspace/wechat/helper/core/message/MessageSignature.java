@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.core.message;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.ToString;
+import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 
 /**
  * POST消息签名信息 <br>
@@ -57,6 +58,18 @@ public class MessageSignature extends BaseMessageSignature {
      * @return boolean
      */
     public boolean isEncrypt() {
-        return this.getEncryptType() != null && this.getMsgSignature() != null;
+        return this.getEncryptType() != null || this.getMsgSignature() != null;
+    }
+
+    /**
+     * 构建msgSignature类型的消息签名对象
+     *
+     * @param msgSignature 消息签名字符串
+     * @param timestamp    时间戳
+     * @param nonce        随机数
+     * @return {@link MessageSignature}
+     */
+    public static MessageSignature buildMsgSignature(String msgSignature, String timestamp, String nonce) {
+        return new MessageSignature(msgSignature, timestamp, nonce, WeChatConstant.EncryptType.AES.getValue());
     }
 }

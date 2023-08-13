@@ -53,7 +53,8 @@ public class WeComMessageController {
      * @return string
      */
     @GetMapping("")
-    public String checkSignature(GetMessageSignature messageSignature, @RequestParam("echostr") String echoStr,
+    public String checkSignature(GetMessageSignature messageSignature,
+                                 @RequestParam("echostr") String echoStr,
                                  @RequestParam("msg_signature") String msgSignature) {
         messageSignature.setEchoStr(echoStr);
         messageSignature.setSignature(msgSignature);
@@ -72,12 +73,11 @@ public class WeComMessageController {
      * @return String
      */
     @PostMapping(path = "", produces = MimeTypeUtils.APPLICATION_XML_VALUE)
-    public String messageHandle(@RequestParam("signature") String signature, @RequestParam("timestamp") String timestamp, @RequestParam("nonce") String nonce,
-                                @RequestParam(value = "msg_signature", required = false) String msgSignature,
-                                @RequestParam(value = "encrypt_type", required = false) String encryptType,
-                                @RequestParam(value = "openid", required = false) String openId,
+    public String messageHandle(@RequestParam("timestamp") String timestamp,
+                                @RequestParam("nonce") String nonce,
+                                @RequestParam("msg_signature") String msgSignature,
                                 @RequestBody String body) {
-        MessageSignature messageSignature = new MessageSignature(signature, timestamp, nonce, encryptType, msgSignature);
+        MessageSignature messageSignature = MessageSignature.buildMsgSignature(msgSignature, timestamp, nonce);
         log.info("微信消息: messageSignature:{} \n{}\n", messageSignature, body);
         String corpId = WeComMessageResolver.extractToUserName(body);
         String agentId = WeComMessageResolver.extractToAgentId(body);

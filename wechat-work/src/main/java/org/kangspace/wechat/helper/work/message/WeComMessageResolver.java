@@ -1,5 +1,6 @@
 package org.kangspace.wechat.helper.work.message;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatMessageResolverException;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  * @author kango2gler@gmail.com
  * @since 2023/7/25
  */
+@Getter
 @Slf4j
 public class WeComMessageResolver
         extends AbstractWeChatMessageResolver<WeComService, WeComMessage, WeComEchoMessage> {
@@ -199,15 +201,11 @@ public class WeComMessageResolver
                 }
             }
         });
-        if (completableFutures.size() > 0) {
+        if (!completableFutures.isEmpty()) {
             CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).join();
         }
         // 取第一条结果数据
-        return resultMap.size() > 0 ? resultMap.values().stream().findFirst().orElse(null) : null;
-    }
-
-    public MessageCipher getMessageCipher() {
-        return messageCipher;
+        return !resultMap.isEmpty() ? resultMap.values().stream().findFirst().orElse(null) : null;
     }
 
     @SuppressWarnings("unchecked")

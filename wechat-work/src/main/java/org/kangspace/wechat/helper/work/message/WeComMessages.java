@@ -1,5 +1,7 @@
 package org.kangspace.wechat.helper.work.message;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 
 /**
@@ -9,8 +11,33 @@ import java.util.Arrays;
  * @author kango2gler@gmail.com
  * @since 2023/7/25
  */
+@Getter
 public enum WeComMessages {
 
+    /**
+     * 文本消息
+     */
+    Text(MessageConstant.MessageType.TEXT, TextMessage.class),
+    /**
+     * 图片消息
+     */
+    Image(MessageConstant.MessageType.IMAGE, ImageMessage.class),
+    /**
+     * 语音消息
+     */
+    Voice(MessageConstant.MessageType.VOICE, VoiceMessage.class),
+    /**
+     * 视频消息
+     */
+    Video(MessageConstant.MessageType.VIDEO, VideoMessage.class),
+    /**
+     * 地理位置消息
+     */
+    Location(MessageConstant.MessageType.LOCATION, LocationMessage.class),
+    /**
+     * 链接消息
+     */
+    Link(MessageConstant.MessageType.LINK, LinkMessage.class),
     ;
 
     /**
@@ -36,13 +63,5 @@ public enum WeComMessages {
     public static Class<? extends WeComXmlMessage> getMappingClassByMsgType(MessageConstant.MessageType msgType) {
         Class<? extends WeComXmlMessage> mappingClass = Arrays.stream(values()).filter(t -> t.getMsgType().equals(msgType)).map(WeComMessages::getMappingClass).findFirst().orElse(null);
         return mappingClass != null ? mappingClass : WeComXmlMessage.class;
-    }
-
-    public MessageConstant.MessageType getMsgType() {
-        return msgType;
-    }
-
-    public Class<? extends WeComXmlMessage> getMappingClass() {
-        return mappingClass;
     }
 }

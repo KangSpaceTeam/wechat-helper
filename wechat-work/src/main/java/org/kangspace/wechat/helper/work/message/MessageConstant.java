@@ -1,7 +1,11 @@
 package org.kangspace.wechat.helper.work.message;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
+
+import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * 基础消息能力-常量
@@ -95,6 +99,14 @@ public interface MessageConstant {
          * 模版卡片消息
          */
         TEMPLATE_CARD("template_card"),
+        /**
+         * 地理位置
+         */
+        LOCATION("location"),
+        /**
+         * 链接消息
+         */
+        LINK("link"),
         ;
 
         private final String type;
@@ -106,6 +118,11 @@ public interface MessageConstant {
         @JsonValue
         public String getType() {
             return this.type;
+        }
+
+        @JsonCreator
+        public MessageType parse(String type) {
+            return Arrays.stream(values()).filter(t -> Objects.equals(t.getType(), type)).findFirst().orElse(null);
         }
     }
 
