@@ -1,11 +1,13 @@
 package org.kangspace.wechat.helper.work.event;
 
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * 菜单事件-点击菜单拉取消息的事件推送 <br>
+ * 菜单事件-通用模板卡片右上角菜单事件推送 <br>
  * 接口文档:
  * <a href="https://developer.work.weixin.qq.com/document/path/90240">https://developer.work.weixin.qq.com/document/path/90240</a> <br>
  * <p>
@@ -22,6 +24,25 @@ import lombok.ToString;
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class TemplateCardMenuEventEvent extends WeComXmlEvent {
-    public static final String EVENT = "click";
+    public static final String EVENT = "template_card_menu_event";
+
+    /**
+     * 与发送模板卡片消息时指定的task_id相同
+     */
+    @JacksonXmlProperty(localName = "TaskId")
+    @JacksonXmlCData
+    private String taskId;
+    /**
+     * 通用模板卡片的类型，类型有"text_notice", "news_notice", "button_interaction", "vote_interaction", "multiple_interaction"五种
+     */
+    @JacksonXmlProperty(localName = "CardType")
+    @JacksonXmlCData
+    private String cardType;
+    /**
+     * 用于调用更新卡片接口的ResponseCode，72小时内有效，且只能使用一次
+     */
+    @JacksonXmlProperty(localName = "ResponseCode")
+    @JacksonXmlCData
+    private String responseCode;
 
 }

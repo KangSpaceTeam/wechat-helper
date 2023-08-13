@@ -98,6 +98,11 @@ public enum WeComEvents {
     TEMPLATE_CARD_EVENT(TemplateCardEventEvent.EVENT, TemplateCardEventEvent.class),
 
     /**
+     * 通用模板卡片右上角菜单事件推送
+     */
+    TEMPLATE_CARD_MENU_EVENT(TemplateCardMenuEventEvent.EVENT, TemplateCardMenuEventEvent.class),
+
+    /**
      * 长期未使用应用临时停用事件
      */
     CLOSE_INACTIVE_AGENT(CloseInactiveAgentEvent.EVENT, CloseInactiveAgentEvent.class),

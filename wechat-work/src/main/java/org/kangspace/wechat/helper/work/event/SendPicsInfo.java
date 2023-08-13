@@ -8,6 +8,8 @@ import lombok.Data;
 import java.util.List;
 
 /**
+ * 发送的图片信息
+ *
  * @author kango2gler@gmail.com
  * @since 2023/8/13
  */

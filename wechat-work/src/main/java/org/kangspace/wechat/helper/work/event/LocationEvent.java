@@ -7,12 +7,12 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
- * 进入应用 <br>
+ * 上报地理位置 <br>
  * 接口文档:
  * <a href="https://developer.work.weixin.qq.com/document/path/90240">https://developer.work.weixin.qq.com/document/path/90240</a> <br>
  * <p>
- * 本事件触发时机为：<br>
- * 1. 本事件在成员进入企业微信的应用时触发<br>
+ * 成员同意上报地理位置后，每次在进入应用会话时都会上报一次地理位置。<br>
+ * 企业可以在管理端修改应用是否需要获取地理位置权限。<br>
  * </p>
  *
  * @author kango2gler@gmail.com
