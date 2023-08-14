@@ -1,4 +1,4 @@
 /**
- * 推送消息和响应输出消息报
+ * 推送消息和响应输出消息包
  */
 package org.kangspace.wechat.helper.work.message;

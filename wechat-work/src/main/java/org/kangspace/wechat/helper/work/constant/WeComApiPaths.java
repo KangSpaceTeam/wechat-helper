@@ -770,5 +770,61 @@ public interface WeComApiPaths {
     String MESSAGE_RECALL = QYAPI_BASE_PATH + "/message/recall";
 
 
+    // ----------------应用发送消息到群聊会话 接口-------------------
+    /**
+     * <p>
+     * 应用发送消息到群聊会话-创建群聊会话 <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90245">https://developer.work.weixin.qq.com/document/path/90245</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/appchat/create?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String APP_CHAT_CREATE = QYAPI_BASE_PATH + "/appchat/create";
+
+    /**
+     * <p>
+     * 应用发送消息到群聊会话-修改群聊会话 <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98913">https://developer.work.weixin.qq.com/document/path/98913</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/appchat/update?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String APP_CHAT_UPDATE = QYAPI_BASE_PATH + "/appchat/update";
+
+    /**
+     * <p>
+     * 应用发送消息到群聊会话-获取群聊会话 <br>
+     * 权限说明：<br>
+     * 只允许企业自建应用调用，且应用的可见范围必须是根部门；<br>
+     * chatid所代表的群必须是该应用所创建；<br>
+     * 第三方不可调用
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/98914">https://developer.work.weixin.qq.com/document/path/98914</a> <br>
+     * http请求方式: GET  https://qyapi.weixin.qq.com/cgi-bin/appchat/get?access_token=ACCESS_TOKEN&chatid=CHATID
+     * </p>
+     */
+    String APP_CHAT_GET = QYAPI_BASE_PATH + "/appchat/get?chatid={0}";
+
+
+    /**
+     * <p>
+     * 应用发送消息到群聊会话-应用推送消息 <br>
+     * 权限说明：<br>
+     * 只允许企业自建应用调用，且应用的可见范围必须是根部门；<br>
+     * chatid所代表的群必须是该应用所创建；<br>
+     * 每企业消息发送量不可超过2万人次/分，不可超过30万人次/小时（若群有100人，每发一次消息算100人次）。<br>
+     * 每个成员在群中收到的应用消息不可超过200条/分，1万条/天，超过会被丢弃（接口不会报错）。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90248">https://developer.work.weixin.qq.com/document/path/90248</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/appchat/send?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String APP_CHAT_SEND = QYAPI_BASE_PATH + "/appchat/send";
+
+
     // ---------------- 接口-------------------
 }
