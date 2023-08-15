@@ -826,5 +826,39 @@ public interface WeComApiPaths {
     String APP_CHAT_SEND = QYAPI_BASE_PATH + "/appchat/send";
 
 
+    // ----------------群机器人 接口-------------------
+
+    /**
+     * <p>
+     * 群机器人-应用推送消息 <br>
+     * 当前自定义机器人支持文本（text）、markdown（markdown）、图片（image）、图文（news）、文件（file）、语音（voice）、模板卡片（template_card）七种消息类型。<br>
+     * 机器人的text/markdown类型消息支持在content中使用<@userid>扩展语法来@群成员<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/99110">https://developer.work.weixin.qq.com/document/path/99110</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa
+     * </p>
+     * 参数: <br>
+     * 0: key 调用接口凭证, 机器人webhookurl中的key参数 <br>
+     */
+    String WEBHOOK_SEND = QYAPI_BASE_PATH + "/webhook/send?key={0}";
+
+    /**
+     * <p>
+     * 群机器人-文件上传接口 <br>
+     * 素材上传得到media_id，该media_id仅三天内有效<br>
+     * media_id只能是对应上传文件的机器人可以使用<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/99110">https://developer.work.weixin.qq.com/document/path/99110</a> <br>
+     * http请求方式: POST  https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=693a91f6-7xxx-4bc4-97a0-0ec2sifa5aaa
+     * </p>
+     * 参数: <br>
+     * 0: key 调用接口凭证, 机器人webhookurl中的key参数 <br>
+     * 1: type 文件类型，分别有语音(voice)和普通文件(file) <br>
+     */
+    String WEBHOOK_UPLOAD_MEDIA = QYAPI_BASE_PATH + "/webhook/upload_media?key={0}&type={1}";
+
+
     // ---------------- 接口-------------------
 }
