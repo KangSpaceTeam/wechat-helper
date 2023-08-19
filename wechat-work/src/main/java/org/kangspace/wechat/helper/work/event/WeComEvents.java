@@ -112,6 +112,11 @@ public enum WeComEvents {
      */
     REOPEN_INACTIVE_AGENT(ReopenInactiveAgentEvent.EVENT, ReopenInactiveAgentEvent.class),
 
+    /**
+     * 应用管理-修改设置工作台自定义开关事件推送
+     */
+    SWITCH_WORKBENCH_MODE(SwitchWorkbenchModeEvent.EVENT, SwitchWorkbenchModeEvent.class),
+
     ;
 
     /**

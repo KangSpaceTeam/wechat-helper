@@ -17,6 +17,7 @@
 | 安全管理             | ✅    | `SecurityService`                                                               | [SecurityServiceTest](src/test/java/org/kangspace/wechat/helper/work/SecurityServiceTest.java)                   |
 | 消息推送-应用发送消息到群聊会话 | ✅    | `AppChatService`                                                                | [AppChatServiceTest](src/test/java/org/kangspace/wechat/helper/work/AppChatServiceTest.java)                     |
 | 群机器人             | ✅    | `WebHookService`                                                                | [WebHookServiceTest](src/test/java/org/kangspace/wechat/helper/work/WebHookServiceTest.java)                     |
+| 应用管理             | ✅    | `AgentService`                                                                  | [AgentServiceTest](src/test/java/org/kangspace/wechat/helper/work/AgentServiceTest.java)                         |
 
 ### 1.1 基本用法
 

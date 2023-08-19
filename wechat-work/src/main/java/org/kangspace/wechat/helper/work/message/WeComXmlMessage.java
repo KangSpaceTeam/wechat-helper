@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
+import lombok.experimental.SuperBuilder;
 import org.kangspace.wechat.helper.core.message.WeChatXmlMessage;
 
 /**
@@ -14,6 +15,7 @@ import org.kangspace.wechat.helper.core.message.WeChatXmlMessage;
  * @since 2023/7/25
  */
 @Data
+@SuperBuilder
 @JacksonXmlRootElement(localName = "xml")
 public class WeComXmlMessage implements WeComMessage, WeChatXmlMessage {
     /**

@@ -860,5 +860,91 @@ public interface WeComApiPaths {
     String WEBHOOK_UPLOAD_MEDIA = QYAPI_BASE_PATH + "/webhook/upload_media?key={0}&type={1}";
 
 
+    // ----------------应用管理 接口-------------------
+
+    /**
+     * <p>
+     * 应用管理-获取指定的应用详情 <br>
+     * <br>
+     * 对于互联企业的应用，如果需要获取应用可见范围内其他互联企业的部门与成员，请调用互联企业-获取应用可见范围接口<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90227">https://developer.work.weixin.qq.com/document/path/90227</a> <br>
+     * http请求方式: GET  https://qyapi.weixin.qq.com/cgi-bin/agent/get?access_token=ACCESS_TOKEN&agentid=AGENTID
+     * </p>
+     * 参数: <br>
+     * 0: agentid 应用id <br>
+     */
+    String AGENT_GET = QYAPI_BASE_PATH + "/agent/get?agentid={0}";
+
+    /**
+     * <p>
+     * 应用管理-获取access_token对应的应用列表 <br>
+     * <br>
+     * 权限说明：<br>
+     * 企业仅可获取当前凭证对应的应用；第三方仅可获取被授权的应用。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90227">https://developer.work.weixin.qq.com/document/path/90227</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/agent/list?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String AGENT_LIST = QYAPI_BASE_PATH + "/agent/list";
+
+    /**
+     * <p>
+     * 应用管理-设置应用 <br>
+     * <br>
+     * 权限说明：<br>
+     * 仅企业可调用，可设置当前凭证对应的应用；第三方以及代开发自建应用不可调用。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90228">https://developer.work.weixin.qq.com/document/path/90228</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/agent/set?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String AGENT_SET = QYAPI_BASE_PATH + "/agent/set";
+
+    /**
+     * <p>
+     * 应用管理-设置应用在工作台展示的模版 <br>
+     * <br>
+     * 该接口指定应用自定义模版类型。同时也支持设置企业默认模版数据。若type指定为 "normal" 则为取消自定义模式，改为普通展示模式<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/92535">https://developer.work.weixin.qq.com/document/path/92535</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/agent/set_workbench_template?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String AGENT_SET_WORKBENCH_TEMPLATE = QYAPI_BASE_PATH + "/agent/set_workbench_template";
+
+    /**
+     * <p>
+     * 应用管理-获取应用在工作台展示的模版 <br>
+     * <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/92535">https://developer.work.weixin.qq.com/document/path/92535</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/agent/get_workbench_template?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String AGENT_GET_WORKBENCH_TEMPLATE = QYAPI_BASE_PATH + "/agent/get_workbench_template";
+
+    /**
+     * <p>
+     * 应用管理-设置应用在用户工作台展示的数据 <br>
+     * <br>
+     * 权限说明：<br>
+     * 可设置当前凭证对应的应用；设置的userid必须在应用可见范围<br>
+     * 每个用户每个应用接口限制10次/分钟<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/92535">https://developer.work.weixin.qq.com/document/path/92535</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/agent/set_workbench_data?access_token=ACCESS_TOKEN
+     * </p>
+     */
+    String AGENT_SET_WORKBENCH_DATA = QYAPI_BASE_PATH + "/agent/set_workbench_data";
+
+
     // ---------------- 接口-------------------
 }
