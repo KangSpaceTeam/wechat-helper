@@ -63,7 +63,7 @@ public class DefaultAgentService extends AbstractWeComService implements AgentSe
 
     @Override
     public WeComResponseEntity agentSetWorkbenchData(@Nonnull AgentSetWorkbenchDataRequest request) {
-        String url = WeComApiPaths.AGENT_SET_WORKBENCH_DATA + "?debug=1";
+        String url = WeComApiPaths.AGENT_SET_WORKBENCH_DATA;
         return post(url, request, WeComResponseEntity.class);
     }
 }

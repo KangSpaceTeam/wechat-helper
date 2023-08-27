@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.Objects;
 
 /**
  * WeChat服务接口
@@ -123,10 +124,14 @@ public interface WeChatService {
      * @param params     urlPattern对应的变量值
      * @return 最终url
      */
-    default String urlTransfer(String urlPattern, String... params) {
+    default String urlTransfer(String urlPattern, Object... params) {
         Object[] vars = new Object[params.length];
         for (int i = 0; i < params.length; i++) {
-            String var = StringUtils.stripToEmpty(params[i]);
+            if (Objects.isNull(params[i])) {
+                vars[i] = "";
+                continue;
+            }
+            String var = StringUtils.stripToEmpty(params[i].toString());
             try {
                 vars[i] = URLEncoder.encode(var, StandardCharsets.UTF_8.name());
             } catch (UnsupportedEncodingException e) {

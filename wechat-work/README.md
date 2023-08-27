@@ -1,23 +1,30 @@
 # wechat-works 企微微信模块
 
-** 企业微信接入模块**
+**企业微信接入模块**
 
-| 企业微信模块           | 接入状态 | 实现类                                                                             | 用法                                                                                                               | 
-|------------------|------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
-| 获取企微微信服务器IP地址    | ✅    | `WeComServerService`                                                            | [ServerServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComServerServiceTest.java)                  |
-| 基础 ↓             |      |                                                                                 |                                                                                                                  |
-| 帐号ID             | ✅    | `WeComIDService`                                                                | [WeComIDServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComIDServiceTest.java)                     |
-| 通讯录管理-成员管理       | ✅    | `UserService`                                                                   | [UserServiceTest](src/test/java/org/kangspace/wechat/helper/work/UserServiceTest.java)                           |
-| 通讯录管理-部门管理       | ✅    | `DepartmentService`                                                             | [DepartmentServiceTest](src/test/java/org/kangspace/wechat/helper/work/DepartmentServiceTest.java)               |
-| 通讯录管理-标签管理       | ✅    | `TagService`                                                                    | [TagServiceTest](src/test/java/org/kangspace/wechat/helper/work/TagServiceTest.java)                             |
-| 通讯录管理-互联企业       | ✅    | `LinkedCorpService`                                                             | [LinkedCorpServiceTest](src/test/java/org/kangspace/wechat/helper/work/LinkedCorpServiceTest.java)               |
-| 消息通知             | ✅    | `WeComMessageHandler/WeComMessageResolver,WeComEventHandler/WeComEventResolver` | [WeComMessageResolverTest](src/test/java/org/kangspace/wechat/helper/work/message/WeComMessageResolverTest.java) |
-| 身份验证             | ✅    | `AuthService`                                                                   | [AuthServiceTest](src/test/java/org/kangspace/wechat/helper/work/AuthServiceTest.java)                           |
-| 企业互联             | ✅    | `CorpGroupService`                                                              | [CorpGroupServiceTest](src/test/java/org/kangspace/wechat/helper/work/CorpGroupServiceTest.java)                 |
-| 安全管理             | ✅    | `SecurityService`                                                               | [SecurityServiceTest](src/test/java/org/kangspace/wechat/helper/work/SecurityServiceTest.java)                   |
-| 消息推送-应用发送消息到群聊会话 | ✅    | `AppChatService`                                                                | [AppChatServiceTest](src/test/java/org/kangspace/wechat/helper/work/AppChatServiceTest.java)                     |
-| 群机器人             | ✅    | `WebHookService`                                                                | [WebHookServiceTest](src/test/java/org/kangspace/wechat/helper/work/WebHookServiceTest.java)                     |
-| 应用管理             | ✅    | `AgentService`                                                                  | [AgentServiceTest](src/test/java/org/kangspace/wechat/helper/work/AgentServiceTest.java)                         |
+| 企业微信模块  <div style="width: 170px"/> | 接入状态 <div style="width: 40px"/> | 实现类  <div style="width: 150px"/>                                                | 用法         <div style="width: 100px"/>                                                                           | 
+|-------------------------------------|---------------------------------|---------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------|
+| 获取企微微信服务器IP地址                       | ✅                               | `WeComServerService`                                                            | [ServerServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComServerServiceTest.java)                  |
+| 基础 ↓                                |                                 |                                                                                 |                                                                                                                  |
+| 帐号ID                                | ✅                               | `WeComIDService`                                                                | [WeComIDServiceTest](src/test/java/org/kangspace/wechat/helper/work/WeComIDServiceTest.java)                     |
+| 通讯录管理-成员管理                          | ✅                               | `UserService`                                                                   | [UserServiceTest](src/test/java/org/kangspace/wechat/helper/work/UserServiceTest.java)                           |
+| 通讯录管理-部门管理                          | ✅                               | `DepartmentService`                                                             | [DepartmentServiceTest](src/test/java/org/kangspace/wechat/helper/work/DepartmentServiceTest.java)               |
+| 通讯录管理-标签管理                          | ✅                               | `TagService`                                                                    | [TagServiceTest](src/test/java/org/kangspace/wechat/helper/work/TagServiceTest.java)                             |
+| 通讯录管理-互联企业                          | ✅                               | `LinkedCorpService`                                                             | [LinkedCorpServiceTest](src/test/java/org/kangspace/wechat/helper/work/LinkedCorpServiceTest.java)               |
+| 消息通知                                | ✅                               | `WeComMessageHandler/WeComMessageResolver,WeComEventHandler/WeComEventResolver` | [WeComMessageResolverTest](src/test/java/org/kangspace/wechat/helper/work/message/WeComMessageResolverTest.java) |
+| 身份验证                                | ✅                               | `AuthService`                                                                   | [AuthServiceTest](src/test/java/org/kangspace/wechat/helper/work/AuthServiceTest.java)                           |
+| 企业互联                                | ✅                               | `CorpGroupService`                                                              | [CorpGroupServiceTest](src/test/java/org/kangspace/wechat/helper/work/CorpGroupServiceTest.java)                 |
+| 安全管理                                | ✅                               | `SecurityService`                                                               | [SecurityServiceTest](src/test/java/org/kangspace/wechat/helper/work/SecurityServiceTest.java)                   |
+| 消息推送-应用发送消息到群聊会话                    | ✅                               | `AppChatService`                                                                | [AppChatServiceTest](src/test/java/org/kangspace/wechat/helper/work/AppChatServiceTest.java)                     |
+| 群机器人                                | ✅                               | `WebHookService`                                                                | [WebHookServiceTest](src/test/java/org/kangspace/wechat/helper/work/WebHookServiceTest.java)                     |
+| 应用管理                                | ✅                               | `AgentService`                                                                  | [AgentServiceTest](src/test/java/org/kangspace/wechat/helper/work/AgentServiceTest.java)                         |
+| 应用管理-自定义菜单                          | ✅                               | `MenuService`                                                                   | [MenuServiceTest](src/test/java/org/kangspace/wechat/helper/work/MenuServiceTest.java)                           |
+
+> Service名称一般取自 API 第一个URL目录, 如
+>
+> URL: https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&userid=USERID
+>
+> Service: UserService
 
 ### 1.1 基本用法
 

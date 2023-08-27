@@ -945,6 +945,56 @@ public interface WeComApiPaths {
      */
     String AGENT_SET_WORKBENCH_DATA = QYAPI_BASE_PATH + "/agent/set_workbench_data";
 
+    // ---------------- 应用菜单 接口-------------------
+
+    /**
+     * <p>
+     * 应用管理-自定义菜单-创建菜单 <br>
+     * <br>
+     * 权限说明：<br>
+     * 仅企业可调用；第三方不可调用。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90231">https://developer.work.weixin.qq.com/document/path/90231</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/menu/create?access_token=ACCESS_TOKEN&agentid=AGENTID <br>
+     * 参数: <br>
+     * 0: agentid 应用id
+     * </p>
+     */
+    String MENU_CREATE = QYAPI_BASE_PATH + "/menu/create?agentid={0}";
+
+    /**
+     * <p>
+     * 应用管理-自定义菜单-获取菜单 <br>
+     * <br>
+     * 权限说明：<br>
+     * 仅企业可调用；第三方不可调用。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90232">https://developer.work.weixin.qq.com/document/path/90232</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/menu/get?access_token=ACCESS_TOKEN&agentid=AGENTID <br>
+     * 参数: <br>
+     * 0: agentid 应用id
+     * </p>
+     */
+    String MENU_GET = QYAPI_BASE_PATH + "/menu/get?agentid={0}";
+
+    /**
+     * <p>
+     * 应用管理-自定义菜单-删除菜单 <br>
+     * <br>
+     * 权限说明：<br>
+     * 仅企业可调用；第三方不可调用。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90233">https://developer.work.weixin.qq.com/document/path/90233</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/menu/delete?access_token=ACCESS_TOKEN&agentid=AGENTID <br>
+     * 参数: <br>
+     * 0: agentid 应用id
+     * </p>
+     */
+    String MENU_DELETE = QYAPI_BASE_PATH + "/menu/delete?agentid={0}";
 
     // ---------------- 接口-------------------
+
 }
