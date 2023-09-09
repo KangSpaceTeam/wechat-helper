@@ -55,7 +55,7 @@ public interface WeComService extends WeChatService {
      * @return {@link WeComServerService}
      */
     default WeComServerService ofWeComServerService() {
-        return of(WeComServerService.class);
+        return of(DefaultWeComServerService.class);
     }
 
     /**
@@ -64,7 +64,7 @@ public interface WeComService extends WeChatService {
      * @return {@link WeComIDService}
      */
     default WeComIDService ofWeComIDService() {
-        return of(WeComIDService.class);
+        return of(DefaultWeComIDService.class);
     }
 
     /**
@@ -73,7 +73,7 @@ public interface WeComService extends WeChatService {
      * @return {@link UserService}
      */
     default UserService ofUserService() {
-        return of(UserService.class);
+        return of(DefaultUserService.class);
     }
 
     /**
@@ -82,7 +82,7 @@ public interface WeComService extends WeChatService {
      * @return {@link DepartmentService}
      */
     default DepartmentService ofDepartmentService() {
-        return of(DepartmentService.class);
+        return of(DefaultDepartmentService.class);
     }
 
     /**
@@ -91,7 +91,7 @@ public interface WeComService extends WeChatService {
      * @return {@link TagService}
      */
     default TagService ofTagService() {
-        return of(TagService.class);
+        return of(DefaultTagService.class);
     }
 
     /**
@@ -100,7 +100,7 @@ public interface WeComService extends WeChatService {
      * @return {@link LinkedCorpService}
      */
     default LinkedCorpService ofLinkedCorpService() {
-        return of(LinkedCorpService.class);
+        return of(DefaultLinkedCorpService.class);
     }
 
     /**
@@ -109,7 +109,7 @@ public interface WeComService extends WeChatService {
      * @return {@link AuthService}
      */
     default AuthService ofAuthService() {
-        return of(AuthService.class);
+        return of(DefaultAuthService.class);
     }
 
     /**
@@ -118,7 +118,7 @@ public interface WeComService extends WeChatService {
      * @return {@link CorpGroupService}
      */
     default CorpGroupService ofCorpGroupService() {
-        return of(CorpGroupService.class);
+        return of(DefaultCorpGroupService.class);
     }
 
     /**
@@ -127,7 +127,7 @@ public interface WeComService extends WeChatService {
      * @return {@link SecurityService}
      */
     default SecurityService ofSecurityService() {
-        return of(SecurityService.class);
+        return of(DefaultSecurityService.class);
     }
 
     /**
@@ -136,7 +136,7 @@ public interface WeComService extends WeChatService {
      * @return {@link AppChatService}
      */
     default AppChatService ofAppChatService() {
-        return of(AppChatService.class);
+        return of(DefaultAppChatService.class);
     }
 
     /**
@@ -145,7 +145,7 @@ public interface WeComService extends WeChatService {
      * @return {@link WebHookService}
      */
     default WebHookService ofWebHookService() {
-        return of(WebHookService.class);
+        return of(DefaultWebHookService.class);
     }
 
     /**
@@ -154,7 +154,7 @@ public interface WeComService extends WeChatService {
      * @return {@link AgentService}
      */
     default AgentService ofAgentService() {
-        return of(AgentService.class);
+        return of(DefaultAgentService.class);
     }
 
     /**
@@ -163,7 +163,16 @@ public interface WeComService extends WeChatService {
      * @return {@link MenuService}
      */
     default MenuService ofMenuService() {
-        return of(MenuService.class);
+        return of(DefaultMenuService.class);
+    }
+
+    /**
+     * 转换为{@link MediaService}
+     *
+     * @return {@link MediaService}
+     */
+    default MediaService ofMediaService() {
+        return of(DefaultMediaService.class);
     }
 
 }

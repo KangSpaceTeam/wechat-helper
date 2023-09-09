@@ -1,6 +1,5 @@
 package org.kangspace.wechat.helper.work.bean;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,31 +13,14 @@ import lombok.Setter;
  */
 @Setter
 @Getter
-public class WebHookUploadMediaResponse extends WeComResponseEntity {
-
-    /**
-     * 文件类型，分别有语音(voice)和普通文件(file)
-     */
-    @JsonProperty("type")
-    private String type;
-    /**
-     * 媒体文件上传后获取的唯一标识，3天内有效
-     */
-    @JsonProperty("media_id")
-    private String mediaId;
-    /**
-     * 媒体文件上传时间戳
-     */
-    @JsonProperty("created_at")
-    private Long createdAt;
-
+public class WebHookUploadMediaResponse extends MediaUploadResponse {
     @Override
     public String toString() {
         return super.isError() ? super.toString() : (
-                "WebHookUploadMediaResponse{" +
-                        "type='" + type + '\'' +
-                        ", mediaId='" + mediaId + '\'' +
-                        ", createdAt=" + createdAt +
+                "WebHookMediaUploadResponse{" +
+                        "type='" + this.getType() + '\'' +
+                        ", mediaId='" + this.getMediaId() + '\'' +
+                        ", createdAt=" + this.getCreatedAt() +
                         "}"
         );
     }

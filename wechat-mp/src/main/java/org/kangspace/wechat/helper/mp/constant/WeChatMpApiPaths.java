@@ -340,6 +340,7 @@ public interface WeChatMpApiPaths {
      * HTTP POST/FORM请求: https https://api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE
      */
     String MEDIA_UPLOAD = BASE_PATH + "/media/upload";
+
     /**
      * 素材管理: 获取临时素材<br>
      * <pre>
@@ -363,7 +364,7 @@ public interface WeChatMpApiPaths {
      * 接口文档: <a href="https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html">https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/Get_temporary_materials.html</a><br>
      * HTTP GET请求: https://api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID
      */
-    String MEDIA_GET = BASE_PATH + "/media/get";
+    String MEDIA_GET = BASE_PATH + "/media/get?media_id:{0}";
     /**
      * 素材管理: 高清语音素材获取接口<br>
      * <pre>

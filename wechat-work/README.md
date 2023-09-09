@@ -19,6 +19,7 @@
 | 群机器人                                | ✅                               | `WebHookService`                                                                | [WebHookServiceTest](src/test/java/org/kangspace/wechat/helper/work/WebHookServiceTest.java)                     |
 | 应用管理                                | ✅                               | `AgentService`                                                                  | [AgentServiceTest](src/test/java/org/kangspace/wechat/helper/work/AgentServiceTest.java)                         |
 | 应用管理-自定义菜单                          | ✅                               | `MenuService`                                                                   | [MenuServiceTest](src/test/java/org/kangspace/wechat/helper/work/MenuServiceTest.java)                           |
+| 素材管理                                |                                 | `MediaService`                                                                  | [MediaServiceTest](src/test/java/org/kangspace/wechat/helper/work/MediaServiceTest.java)                         |
 
 > Service名称一般取自 API 第一个URL目录, 如
 >

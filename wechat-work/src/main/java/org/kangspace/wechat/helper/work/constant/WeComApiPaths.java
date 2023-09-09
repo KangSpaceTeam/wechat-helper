@@ -995,6 +995,114 @@ public interface WeComApiPaths {
      */
     String MENU_DELETE = QYAPI_BASE_PATH + "/menu/delete?agentid={0}";
 
-    // ---------------- 接口-------------------
+    // ---------------- 素材管理 接口-------------------
+
+    /**
+     * <p>
+     * 素材管理-上传临时素材  <br>
+     * <br>
+     * 上传的媒体文件限制 <br>
+     * 所有文件size必须大于5个字节 <br>
+     * <p>
+     * 图片（image）：10MB，支持JPG,PNG格式 <br>
+     * 语音（voice） ：2MB，播放长度不超过60s，仅支持AMR格式 <br>
+     * 视频（video） ：10MB，支持MP4格式 <br>
+     * 普通文件（file）：20MB <br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90253">https://developer.work.weixin.qq.com/document/path/90253</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE <br>
+     * 参数: <br>
+     * 0: TYPE 媒体文件类型，分别有图片（image）、语音（voice）、视频（video），普通文件（file）
+     * </p>
+     */
+    String MEDIA_UPLOAD = QYAPI_BASE_PATH + "/media/upload?type={0}";
+
+    /**
+     * <p>
+     * 素材管理-上传图片  <br>
+     * <br>
+     * 上传图片得到图片URL，该URL永久有效<br>
+     * 返回的图片URL，仅能用于图文消息正文中的图片展示，或者给客户发送欢迎语等；若用于非企业微信环境下的页面，图片将被屏蔽。<br>
+     * 每个企业每月最多可上传3000张图片，每天最多可上传1000张图片<br>
+     * 上传的图片大小限制<br>
+     * 图片文件大小应在 5B ~ 2MB 之间<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90256">https://developer.work.weixin.qq.com/document/path/90256</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/media/uploadimg?access_token=ACCESS_TOKEN <br>
+     * </p>
+     */
+    String MEDIA_UPLOAD_IMG = QYAPI_BASE_PATH + "/media/uploadimg";
+
+    /**
+     * <p>
+     * 素材管理-获取临时素材  <br>
+     * <br>
+     * 权限说明：
+     * 完全公开，media_id在同一企业内所有应用之间可以共享。<br>
+     * media_id有效期只有3天，注意要及时获取，以免过期。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90254">https://developer.work.weixin.qq.com/document/path/90254</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID <br>
+     * 参数:<br/>
+     * 0: media_id	是	媒体文件id，见上传临时素材，以及异步上传临时素材（超过20M需使用Range分块下载，且分块大小不超过20M，否则返回错误码830002）<br/>
+     * </p>
+     */
+    String MEDIA_GET = QYAPI_BASE_PATH + "/media/get?media_id={0}";
+
+    /**
+     * <p>
+     * 素材管理-获取高清语音素材  <br>
+     * <br>
+     * 可以使用本接口获取从JSSDK的uploadVoice接口上传的临时语音素材，格式为speex，16K采样率。该音频比上文的临时素材获取接口（格式为amr，8K采样率）更加清晰，适合用作语音识别等对音质要求较高的业务。<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/90255">https://developer.work.weixin.qq.com/document/path/90255</a> <br>
+     * http请求方式: GET https://qyapi.weixin.qq.com/cgi-bin/media/get/jssdk?access_token=ACCESS_TOKEN&media_id=MEDIA_ID<br>
+     * 参数:<br/>
+     * 0: media_id	是	媒体文件id，见上传临时素材，以及异步上传临时素材（超过20M需使用Range分块下载，且分块大小不超过20M，否则返回错误码830002）<br/>
+     * </p>
+     */
+    String MEDIA_GET_JS_SDK = QYAPI_BASE_PATH + "/media/get/jssdk?media_id={0}";
+
+    /**
+     * <p>
+     * 素材管理-异步上传临时素材  <br>
+     * <br>
+     * 为了满足临时素材的大文件诉求（最高支持200M），支持指定文件的CDN链接（必须支持Range分块下载），由企微微信后台异步下载和处理，处理完成后回调通知任务完成，再通过接口主动查询任务结果。 <br>
+     * 跟普通临时素材一样，media_id仅三天内有效，media_id在同一企业内应用之间可以共享。 <br>
+     * <br>
+     * 上传的媒体文件限制<br>
+     * 所有文件size必须大于5个字节<br>
+     * <br>
+     * 图片（image）：暂不支持<br>
+     * 语音（voice） ：暂不支持<br>
+     * 视频（video） ：200MB，仅支持MP4格式<br>
+     * 普通文件（file）：200MB<br>
+     * </p>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/96219">https://developer.work.weixin.qq.com/document/path/96219</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/media/upload_by_url?access_token=ACCESS_TOKEN<br>
+     * </p>
+     */
+    String MEDIA_UPLOAD_BY_URL = QYAPI_BASE_PATH + "/media/upload_by_url";
+
+    /**
+     * <p>
+     * 素材管理-查询异步任务结果  <br>
+     * <br>
+     * 为了满足临时素材的大文件诉求（最高支持200M），支持指定文件的CDN链接（必须支持Range分块下载），由企微微信后台异步下载和处理，处理完成后回调通知任务完成，再通过接口主动查询任务结果。 <br>
+     * 跟普通临时素材一样，media_id仅三天内有效，media_id在同一企业内应用之间可以共享。 <br>
+     * <br>
+     * <p>
+     * 接口文档: <a href="https://developer.work.weixin.qq.com/document/path/96219">https://developer.work.weixin.qq.com/document/path/96219</a> <br>
+     * http请求方式: POST https://qyapi.weixin.qq.com/cgi-bin/media/get_upload_by_url_result?access_token=ACCESS_TOKEN<br>
+     * </p>
+     */
+    String MEDIA_GET_UPLOAD_BY_URL_RESULT = QYAPI_BASE_PATH + "/media/get_upload_by_url_result";
+
+    // ----------------  接口-------------------
 
 }
