@@ -38,6 +38,13 @@
 | 素材管理             | ✅    | `AssetService`                | [AssertServiceTest](src/test/java/org/kangspace/wechat/helper/mp/AssertServiceTest.java)                       |
 | 用户管理             | ✅    | `UserManagementService`       | [UserManagementServiceTest](src/test/java/org/kangspace/wechat/helper/mp/UserManagementServiceTest.java)       |
 | 账号管理             | ✅    | `AccountManagementService`    | [AccountManagementServiceTest](src/test/java/org/kangspace/wechat/helper/mp/AccountManagementServiceTest.java) |
+
+<details>
+
+<summary>未接入模块</summary>
+
+| 微信公众平台模块         | 接入状态 | 实现类                           | 用法                                                                                                             | 
+|------------------|------|-------------------------------|----------------------------------------------------------------------------------------------------------------|
 | 客服消息             | ⛔    |                               |                                                                                                                |
 | 草稿箱              | ⛔    |                               |                                                                                                                |
 | 发布能力             | ⛔    |                               |                                                                                                                |
@@ -51,6 +58,8 @@
 | 微信发票             | ⛔    |                               |                                                                                                                |
 | 微信非税缴费           | ⛔    |                               |                                                                                                                |
 | 扫服务号二维码打开小程序     | ⛔    |                               |                                                                                                                |
+
+</details>
 
 ## 1. 用法
 
@@ -183,12 +192,51 @@ public class DefaultServerService extends AbstractWeChatMpService implements Ser
 ```
 
 ## 4. 消息和事件
+消息和事件 由 `WeChatMpMessageResolver` 处理, 需先创建 `WeChatMpMessageResolver`实例, 实现”消息处理器`WeChatMpMessageHandler<?>`“、”事件处理器`WeChatMpEventHandler<?> `“,
+并将处理器添加到`WeChatMpMessageResolver`中。
 
-// TODO xxx
+> 可参见[wechat-platform/WeChatMpServiceConfig.java](../wechat-platform/src/main/java/org/kangspace/wechat/helper/platform/config/WeChatMpServiceConfig.java)
+
+*创建`WeChatMpMessageResolver`并添加消息处理器*
+```java
+@Resource
+private List<WeChatMpMessageHandler<WeChatMpMessage>> messageHandlers;
+    
+WeChatMpService mpService = new DefaultWeChatMpService(mpConfig);
+WeChatMpMessageResolver mpMessageResolver = new WeChatMpMessageResolver(mpService);
+mpMessageResolver.addWeChatHandlers(messageHandlers);
+```
 
 ### 4.1 消息
+实现`WeChatMpMessageHandler<?>`消息处理器, 并重写handle方法, `?`为需要处理的具体消息类型。
+
+> 可参见[wechat-platform/MessageHandler.java](../wechat-platform/src/main/java/org/kangspace/wechat/helper/platform/message/mp/MessageHandler.java)
+
+```
+@Component(")
+@Slf4j
+public class MessageHandler implements WeChatMpMessageHandler<WeChatMpMessage> {
+    @Override
+    public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpMessage message, MessageResolverContext context) {
+    }
+}
+```
 
 ### 4.2 事件
+实现`WeChatMpEventHandler<?>`消息处理器, 并重写handle方法, `?`为需要处理的具体事件类型。
+
+> 可参见[wechat-platform/EventHandler.java](../wechat-platform/src/main/java/org/kangspace/wechat/helper/platform/message/mp/EventHandler.java)
+
+```java
+@Component(")
+@Slf4j
+public class EventHandler implements WeChatMpEventHandler<WeChatMpXmlEvent> {
+    @Override
+    public WeChatMpEchoMessage handle(WeChatMpService service, WeChatMpXmlEvent event, MessageResolverContext context) {
+    }
+}
+```
+
 
 ## 附录
 
