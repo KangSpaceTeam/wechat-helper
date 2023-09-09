@@ -2,7 +2,7 @@ package org.kangspace.wechat.helper.core.request;
 
 import io.netty.handler.codec.http.HttpHeaderNames;
 import io.netty.handler.codec.http.HttpHeaderValues;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
+import org.kangspace.devhelper.str.StringLiteral;
 
 /**
  * @author kango2gler@gmail.com

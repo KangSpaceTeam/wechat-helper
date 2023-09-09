@@ -2,8 +2,8 @@ package org.kangspace.wechat.helper.core.request;
 
 import io.netty.handler.codec.http.HttpHeaders;
 import org.apache.commons.lang3.StringUtils;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.bean.MultipartRequest;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.util.MimeContentTypes;
 import reactor.netty.http.client.HttpClientResponse;
 

@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.mp.token;
 
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.AbstractWeChatMpService;

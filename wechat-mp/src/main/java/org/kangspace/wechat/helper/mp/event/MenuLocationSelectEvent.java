@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.event;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * location_select：弹出地理位置选择器的事件 <br>
@@ -12,6 +13,7 @@ import lombok.Data;
  * @since 2022/12/31
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MenuLocationSelectEvent extends WeChatMpXmlEvent {
     /**
      * 发送的位置信息

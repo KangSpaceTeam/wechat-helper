@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.core.request.filter;
 import io.netty.channel.ConnectTimeoutException;
 import io.netty.handler.timeout.TimeoutException;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.devhelper.thread.ThreadUtil;
 import org.kangspace.wechat.helper.core.constant.TimeConstant;
 import org.kangspace.wechat.helper.core.exception.WeChatHttpFaultException;
 import org.kangspace.wechat.helper.core.exception.WeChatServerErrorException;
@@ -10,7 +11,6 @@ import org.kangspace.wechat.helper.core.request.HttpUtil;
 import org.kangspace.wechat.helper.core.request.WeChatRequest;
 import org.kangspace.wechat.helper.core.request.WeChatResponse;
 import org.kangspace.wechat.helper.core.retry.RetryRunner;
-import org.kangspace.wechat.helper.core.util.ThreadUtil;
 import reactor.core.publisher.Mono;
 
 import java.io.IOException;

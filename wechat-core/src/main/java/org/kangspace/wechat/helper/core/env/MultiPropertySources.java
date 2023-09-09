@@ -1,7 +1,7 @@
 package org.kangspace.wechat.helper.core.env;
 
 import lombok.Getter;
-import org.kangspace.wechat.helper.core.util.CollectionUtil;
+import org.kangspace.devhelper.CollectionUtil;
 
 import java.util.Arrays;
 import java.util.Iterator;
@@ -34,7 +34,7 @@ public class MultiPropertySources implements PropertySources {
     public MultiPropertySources(List<PropertySource<?>> propertySources) {
         this();
         if (CollectionUtil.isNotEmpty(propertySources)) {
-            propertySources.forEach(this.propertySources::add);
+            this.propertySources.addAll(propertySources);
         }
     }
 

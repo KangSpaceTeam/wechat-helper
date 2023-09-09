@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.event;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.kangspace.wechat.helper.mp.constant.WebAppConstant;
 
@@ -20,6 +21,7 @@ import org.kangspace.wechat.helper.mp.constant.WebAppConstant;
  * @since 2023/02/14 22:39:15
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class UserAuthorizationRevokeEvent extends WeChatMpXmlEvent {
 
@@ -40,6 +42,7 @@ public class UserAuthorizationRevokeEvent extends WeChatMpXmlEvent {
 
     /**
      * 用户撤回的H5授权信息，201:地址,202:发票信息,203:卡券信息,204:麦克风,205:昵称和头像,206:位置信息,207:选中的图片或视频
+     *
      * @see WebAppConstant.RevokeInfo
      */
     @JacksonXmlProperty(localName = "RevokeInfo")

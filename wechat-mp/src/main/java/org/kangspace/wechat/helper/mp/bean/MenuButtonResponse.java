@@ -2,6 +2,7 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 import org.kangspace.wechat.helper.mp.constant.CustomMenuConstant;
@@ -22,6 +23,7 @@ public class MenuButtonResponse {
      * sub_button是对象
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     @ToString(callSuper = true)
     public static class CurrentSelfMenuButton extends Button {
         /**
@@ -35,6 +37,7 @@ public class MenuButtonResponse {
      * 普通sub_button是数组
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     @ToString(callSuper = true)
     public static class MenuButton extends Button {
         /**

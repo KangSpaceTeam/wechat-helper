@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.work;
 
+import org.kangspace.devhelper.ReflectUtil;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.WeChatService;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
-import org.kangspace.wechat.helper.core.util.ReflectUtil;
 import org.kangspace.wechat.helper.work.config.WeComConfig;
 import org.kangspace.wechat.helper.work.exception.WeComException;
 

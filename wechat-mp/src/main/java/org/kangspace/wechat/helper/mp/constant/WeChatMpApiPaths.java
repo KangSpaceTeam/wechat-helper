@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.mp.constant;
 
-import org.kangspace.wechat.helper.core.util.UrlUtil;
+import org.kangspace.devhelper.http.UrlHelper;
 
 import java.text.MessageFormat;
 
@@ -619,8 +619,8 @@ public interface WeChatMpApiPaths {
      * @return 授权链接
      */
     static String messageSubscribeMsgUrl(String appId, String scene, String templateId, String redirectUrl, String reserved) {
-        redirectUrl = UrlUtil.encode(redirectUrl);
-        reserved = UrlUtil.encode(reserved);
+        redirectUrl = UrlHelper.encode(redirectUrl);
+        reserved = UrlHelper.encode(reserved);
         return MessageFormat.format(MESSAGE_SUBSCRIBE_MSG_URL_PATTERN, appId, scene, templateId, redirectUrl, reserved);
     }
 

@@ -1,13 +1,14 @@
 package org.kangspace.wechat.helper.mp.message;
 
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.devhelper.digest.DigestUtil;
+import org.kangspace.devhelper.xml.XmlParser;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatMessageResolverException;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.*;
 import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
-import org.kangspace.wechat.helper.core.util.DigestUtil;
-import org.kangspace.wechat.helper.core.util.XmlParser;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.event.WeChatMpEventHandler;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
@@ -25,6 +26,7 @@ import java.util.stream.Collectors;
  * @author kango2gler@gmail.com
  * @since 2022/12/24
  */
+@Getter
 @Slf4j
 public class WeChatMpMessageResolver
         extends AbstractWeChatMessageResolver<WeChatMpService, WeChatMpMessage, WeChatMpEchoMessage> {
@@ -158,10 +160,6 @@ public class WeChatMpMessageResolver
         }
         // 取第一条结果数据
         return resultMap.size() > 0 ? resultMap.values().stream().findFirst().orElse(null) : null;
-    }
-
-    public MessageCipher getMessageCipher() {
-        return messageCipher;
     }
 
     @SuppressWarnings("unchecked")

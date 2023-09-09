@@ -3,11 +3,9 @@ package org.kangspace.wechat.helper.work.bean;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
+import org.kangspace.devhelper.IoStreamUtil;
 import org.kangspace.wechat.helper.core.bean.MultipartRequest;
-import org.kangspace.wechat.helper.core.constant.WeChatConstant;
-import org.kangspace.wechat.helper.core.util.IoStreamUtil;
 import org.kangspace.wechat.helper.work.constant.MediaConstant;
-import org.kangspace.wechat.helper.work.constant.WeComConstant;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -34,6 +32,7 @@ public class MediaUploadRequest implements MultipartRequest {
 
     /**
      * 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
+     *
      * @see MediaConstant.MediaUploadMediaType
      */
     @Nonnull

@@ -2,6 +2,7 @@ package org.kangspace.wechat.helper.mp.message.response;
 
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoXmlMessage;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
@@ -14,6 +15,7 @@ import org.kangspace.wechat.helper.mp.message.WeChatMpXmlMessage;
  * @since 2022/12/29
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @JacksonXmlRootElement(localName = "xml")
 public class WeChatMpEchoXmlMessage extends WeChatMpXmlMessage implements WeChatMpEchoMessage, WeChatEchoXmlMessage {

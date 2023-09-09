@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 
 import javax.annotation.Nonnull;
@@ -18,6 +19,7 @@ import static org.kangspace.wechat.helper.mp.constant.MediaConstant.FILE_FORM_NA
  * @since 2023/01/17
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 public class MediaUploadImgRequest extends MediaUploadRequest {
 
     public MediaUploadImgRequest(@Nonnull String fileName, @Nonnull InputStream media, @Nonnull String contentType) {

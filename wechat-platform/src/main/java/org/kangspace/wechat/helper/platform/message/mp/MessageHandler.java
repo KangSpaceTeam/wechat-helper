@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.platform.message.mp;
 
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.devhelper.ReflectUtil;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
-import org.kangspace.wechat.helper.core.util.ReflectUtil;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 import org.kangspace.wechat.helper.mp.message.*;

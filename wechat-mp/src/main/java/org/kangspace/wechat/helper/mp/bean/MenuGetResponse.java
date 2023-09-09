@@ -1,10 +1,7 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.List;
 
@@ -55,6 +52,7 @@ public class MenuGetResponse extends WeChatMpResponseEntity {
      * 全部个性化菜单信息
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     @ToString(callSuper = true)
     public static class ConditionalMenu extends Menu {
         /**

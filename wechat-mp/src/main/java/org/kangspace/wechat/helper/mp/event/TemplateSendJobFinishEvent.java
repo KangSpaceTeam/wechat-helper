@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.event;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import static org.kangspace.wechat.helper.core.constant.WeChatConstant.SUCCESS_FLAG;
@@ -17,6 +18,7 @@ import static org.kangspace.wechat.helper.core.constant.WeChatConstant.SUCCESS_F
  * @since 2023/01/016
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class TemplateSendJobFinishEvent extends WeChatMpXmlEvent {
 

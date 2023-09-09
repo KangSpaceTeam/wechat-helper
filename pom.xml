@@ -77,11 +77,11 @@
                                 <goals>
                                     <goal>jar</goal>
                                 </goals>
-                             <!--   <configuration>
-                                    <additionalparam>-Xdoclint:none</additionalparam>
-                                    <failOnError>${maven.javadoc.failOnError}</failOnError>
-                                    <encoding>UTF-8</encoding>
-                                </configuration>-->
+                                <!--   <configuration>
+                                       <additionalparam>-Xdoclint:none</additionalparam>
+                                       <failOnError>${maven.javadoc.failOnError}</failOnError>
+                                       <encoding>UTF-8</encoding>
+                                   </configuration>-->
                             </execution>
                         </executions>
                     </plugin>
@@ -169,7 +169,7 @@
         <jsr305.version>3.0.2</jsr305.version>
         <redisson.version>3.17.5</redisson.version>
         <jakarta.activation.api.version>1.2.2</jakarta.activation.api.version>
-        <dev-helper.version>0.0.1</dev-helper.version>
+        <dev-helper.version>0.0.2-SNAPSHOT</dev-helper.version>
     </properties>
 
     <modules>

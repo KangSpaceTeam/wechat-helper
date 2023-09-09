@@ -2,10 +2,14 @@ package org.kangspace.wechat.helper.core.message;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.kangspace.devhelper.ByteGroup;
+import org.kangspace.devhelper.NonceGenerator;
+import org.kangspace.devhelper.ReflectUtil;
+import org.kangspace.devhelper.digest.DigestUtil;
+import org.kangspace.devhelper.xml.XmlParser;
 import org.kangspace.wechat.helper.core.config.WeChatConfig;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
-import org.kangspace.wechat.helper.core.util.*;
 
 import javax.annotation.Nonnull;
 import java.nio.ByteBuffer;

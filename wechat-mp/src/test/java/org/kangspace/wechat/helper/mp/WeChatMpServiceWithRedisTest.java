@@ -6,9 +6,9 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.config.WeChatRedisConfig;
 import org.kangspace.wechat.helper.core.config.WeChatRedisConfigFactory;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.storage.redis.RedisWeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
@@ -72,7 +72,7 @@ public class WeChatMpServiceWithRedisTest {
     @Test
     public void getApiDomainIpTest() {
         MpServerIpListResponse response = mpServerService.getApiDomainIp();
-        Assert.assertTrue("获取失败!", response != null);
+        Assert.assertNotNull("获取失败!", response);
         log.info("response: {}", response);
     }
 }

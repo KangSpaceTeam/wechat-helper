@@ -1,10 +1,7 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
 import javax.annotation.Nonnull;
@@ -125,6 +122,7 @@ public class MessageTemplateSendRequest {
      * 模板数据
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     public static class MessageData extends HashMap<String, MessageDataValue> {
     }
 

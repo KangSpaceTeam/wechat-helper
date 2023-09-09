@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.mp;
 
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.request.filter.RequestFilterChain;
 import org.kangspace.wechat.helper.mp.bean.*;
 import org.kangspace.wechat.helper.mp.config.WeChatMpConfig;

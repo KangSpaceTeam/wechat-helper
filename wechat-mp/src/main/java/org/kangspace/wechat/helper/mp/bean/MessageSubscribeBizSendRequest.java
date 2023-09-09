@@ -95,6 +95,7 @@ public class MessageSubscribeBizSendRequest {
      * 模版内容Value值
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     public static class TemplateDataValue extends HashMap<String, String> {
         @JsonProperty("value")
         private String value;

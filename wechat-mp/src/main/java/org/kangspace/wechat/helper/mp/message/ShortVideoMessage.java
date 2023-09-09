@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.mp.message;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 /**
@@ -11,6 +12,7 @@ import lombok.ToString;
  * @since 2023/01/01
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class ShortVideoMessage extends VideoMessage {
 

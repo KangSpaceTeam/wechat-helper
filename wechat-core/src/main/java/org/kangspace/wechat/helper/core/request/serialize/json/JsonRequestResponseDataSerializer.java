@@ -1,10 +1,10 @@
 package org.kangspace.wechat.helper.core.request.serialize.json;
 
 import io.netty.handler.codec.http.HttpHeaderValues;
+import org.kangspace.devhelper.json.JsonParser;
 import org.kangspace.wechat.helper.core.request.HttpConstant;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
 import org.kangspace.wechat.helper.core.request.serialize.RequestResponseDataSerializer;
-import org.kangspace.wechat.helper.core.util.JsonParser;
 
 /**
  * JSON 请求序列化

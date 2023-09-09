@@ -2,8 +2,8 @@ package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import org.kangspace.devhelper.IoStreamUtil;
 import org.kangspace.wechat.helper.core.bean.MultipartRequest;
-import org.kangspace.wechat.helper.core.util.IoStreamUtil;
 import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 
 import javax.annotation.Nonnull;

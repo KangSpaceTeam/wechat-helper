@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.mp.message;
 
-import org.kangspace.wechat.helper.core.util.XmlParser;
+import org.kangspace.devhelper.xml.XmlParser;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 import org.kangspace.wechat.helper.mp.event.WeChatMpEvents;
 import org.kangspace.wechat.helper.mp.event.WeChatMpXmlEvent;

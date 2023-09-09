@@ -1,13 +1,13 @@
 package org.kangspace.wechat.helper.core.request.serialize.file;
 
 import io.netty.buffer.ByteBuf;
+import org.kangspace.devhelper.IoStreamUtil;
+import org.kangspace.devhelper.ReflectUtil;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.bean.AttachmentResponse;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.request.HttpUtil;
 import org.kangspace.wechat.helper.core.request.serialize.DataSerializerScope;
 import org.kangspace.wechat.helper.core.request.serialize.ResponseDataSerializer;
-import org.kangspace.wechat.helper.core.util.IoStreamUtil;
-import org.kangspace.wechat.helper.core.util.ReflectUtil;
 import reactor.netty.http.client.HttpClientResponse;
 
 import java.io.File;

@@ -1,10 +1,10 @@
 package org.kangspace.wechat.helper.core.message;
 
+import org.kangspace.devhelper.xml.XmlParser;
 import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.exception.WeChatSignatureException;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
 import org.kangspace.wechat.helper.core.message.response.WeChatEncryptEchoMessage;
-import org.kangspace.wechat.helper.core.util.XmlParser;
 
 import java.util.Collection;
 import java.util.List;

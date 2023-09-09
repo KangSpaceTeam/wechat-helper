@@ -3,10 +3,7 @@ package org.kangspace.wechat.helper.mp.message.response;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlCData;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper;
 import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import org.kangspace.wechat.helper.mp.constant.MessageConstant;
 
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.List;
  * @since 2023/1/1
  */
 @Data
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class NewsEchoMessage extends WeChatMpEchoXmlMessage {
 

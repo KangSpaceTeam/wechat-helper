@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-import org.kangspace.wechat.helper.core.util.CollectionUtil;
+import org.kangspace.devhelper.CollectionUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;

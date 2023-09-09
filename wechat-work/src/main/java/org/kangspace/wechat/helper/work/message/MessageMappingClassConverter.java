@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.work.message;
 
-import org.kangspace.wechat.helper.core.util.XmlParser;
+import org.kangspace.devhelper.xml.XmlParser;
 import org.kangspace.wechat.helper.work.event.WeComChangeTypeEvents;
 import org.kangspace.wechat.helper.work.event.WeComEvents;
 import org.kangspace.wechat.helper.work.event.WeComXmlEvent;

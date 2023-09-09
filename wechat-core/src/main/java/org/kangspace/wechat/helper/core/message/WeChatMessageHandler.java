@@ -1,8 +1,8 @@
 package org.kangspace.wechat.helper.core.message;
 
+import org.kangspace.devhelper.thread.NamedThreadFactory;
 import org.kangspace.wechat.helper.core.WeChatService;
 import org.kangspace.wechat.helper.core.message.response.WeChatEchoMessage;
-import org.kangspace.wechat.helper.core.util.NamedThreadFactory;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.LinkedBlockingQueue;

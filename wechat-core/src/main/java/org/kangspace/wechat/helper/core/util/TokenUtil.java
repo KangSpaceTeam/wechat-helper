@@ -1,6 +1,6 @@
 package org.kangspace.wechat.helper.core.util;
 
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
+import org.kangspace.devhelper.str.StringLiteral;
 
 /**
  * Token相关工具类

@@ -1,6 +1,7 @@
 package org.kangspace.wechat.helper.mp.constant;
 
 import com.fasterxml.jackson.annotation.JsonValue;
+import lombok.Getter;
 
 import java.util.Arrays;
 
@@ -19,6 +20,7 @@ public interface MediaConstant {
     /**
      * 消息类型
      */
+    @Getter
     enum MediaType {
         /**
          * 图片（image）: 10M，支持PNG\JPEG\JPG\GIF格式
@@ -56,10 +58,6 @@ public interface MediaConstant {
         @Override
         public String toString() {
             return getValue();
-        }
-
-        public String[] getSupportTypes() {
-            return supportTypes;
         }
 
         /**

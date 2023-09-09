@@ -1,10 +1,7 @@
 package org.kangspace.wechat.helper.mp.bean;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 import org.kangspace.wechat.helper.mp.constant.WeChatMpApiPaths;
 
@@ -253,6 +250,7 @@ public class GetCurrentAutoReplyInfoResponse extends WeChatMpResponseEntity {
      * 关键字自动回复信息
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     @ToString(callSuper = true)
     public static class KeywordListInfo extends BaseAutoReplyInfo {
         /**
@@ -266,6 +264,7 @@ public class GetCurrentAutoReplyInfoResponse extends WeChatMpResponseEntity {
      * 关键字自动回复信息
      */
     @Data
+    @EqualsAndHashCode(callSuper = true)
     @ToString(callSuper = true)
     public static class ReplyListInfo extends BaseAutoReplyInfo {
         /**

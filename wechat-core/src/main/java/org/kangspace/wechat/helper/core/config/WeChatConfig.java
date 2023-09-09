@@ -1,10 +1,10 @@
 package org.kangspace.wechat.helper.core.config;
 
 import lombok.Data;
+import org.kangspace.devhelper.IoStreamUtil;
 import org.kangspace.wechat.helper.core.request.WeChatHttpClient;
 import org.kangspace.wechat.helper.core.storage.WeChatTokenStorage;
 import org.kangspace.wechat.helper.core.token.WeChatToken;
-import org.kangspace.wechat.helper.core.util.IoStreamUtil;
 import org.redisson.api.RedissonClient;
 
 /**

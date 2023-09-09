@@ -5,6 +5,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.kangspace.devhelper.digest.DigestUtil;
 
 /**
  * DigestUtil测试类
@@ -30,7 +31,7 @@ public class DigestUtilTest {
         log.info("rawGroup:{}, sha1A: {}", rawGroup, sha1A);
         String sha1B = DigestUtil.sha1(raw2, raw3, raw1);
         log.info("sha1B: {}", sha1B);
-        Assert.assertTrue(sha1A.equals(sha1B));
+        Assert.assertEquals(sha1A, sha1B);
     }
 
 }

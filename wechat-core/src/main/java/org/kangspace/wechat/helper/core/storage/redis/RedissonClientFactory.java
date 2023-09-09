@@ -1,7 +1,7 @@
 package org.kangspace.wechat.helper.core.storage.redis;
 
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.config.WeChatRedisConfig;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.*;
@@ -28,7 +28,7 @@ public class RedissonClientFactory {
         Objects.requireNonNull(redisConfig, "redisConfig must be not null!");
         Config config = new Config();
         WeChatRedisConfig.ServerType serverType = redisConfig.getServerType();
-        BaseConfig serverConfig = serverType.getServerConfigFunction().apply(config);
+        BaseConfig<?> serverConfig = serverType.getServerConfigFunction().apply(config);
         serverConfig.setConnectTimeout(redisConfig.getConnectTimeout());
         serverConfig.setIdleConnectionTimeout(redisConfig.getIdleConnectionTimeout());
         serverConfig.setTimeout(redisConfig.getTimeout());
@@ -42,13 +42,13 @@ public class RedissonClientFactory {
         int connectionPoolSize = redisConfig.getConnectionPoolSize();
         int connectionMinimumIdleSize = redisConfig.getConnectionMinimumIdleSize();
         // 公共主从Server配置
-        Consumer<BaseConfig> commonMasterSlaveServersConfig = (t) -> ((MasterSlaveServersConfig) t)
+        Consumer<BaseConfig<?>> commonMasterSlaveServersConfig = (t) -> ((MasterSlaveServersConfig) t)
                 .setMasterConnectionPoolSize(connectionPoolSize)
                 .setSlaveConnectionPoolSize(connectionPoolSize)
                 .setMasterConnectionMinimumIdleSize(connectionMinimumIdleSize)
                 .setSlaveConnectionMinimumIdleSize(connectionMinimumIdleSize);
         // 带有DataBase的主从Server配置
-        Consumer<BaseConfig> commonMasterSlaveServersConfigWithDataBase = (t) -> {
+        Consumer<BaseConfig<?>> commonMasterSlaveServersConfigWithDataBase = (t) -> {
             ((MasterSlaveServersConfig) t).setDatabase(database);
             commonMasterSlaveServersConfig.accept(t);
         };

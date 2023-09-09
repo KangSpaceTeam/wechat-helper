@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.kangspace.wechat.helper.core.constant.StringLiteral;
+import org.kangspace.devhelper.str.StringLiteral;
 import org.kangspace.wechat.helper.core.token.AccessTokenResponse;
 import org.kangspace.wechat.helper.mp.bean.MpServerIpListResponse;
 import org.kangspace.wechat.helper.mp.bean.WeChatMpAccessTokenRequest;

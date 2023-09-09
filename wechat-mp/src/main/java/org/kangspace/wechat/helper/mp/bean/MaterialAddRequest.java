@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.kangspace.wechat.helper.core.util.JsonParser;
+import org.kangspace.devhelper.json.JsonParser;
 import org.kangspace.wechat.helper.mp.constant.MediaConstant;
 
 import javax.annotation.Nonnull;
