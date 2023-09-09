@@ -60,7 +60,7 @@ public class MediaServiceTest extends TestCase {
 
     @Test
     public void testMediaGet() {
-        String mediaId = "";
+        String mediaId = "3524VJe_MOku-86xIs3hLuXYtpDMF1SnbPFrP3LiCy3BCaK7_I5L0Gf_sKpitt-Cc";
         MediaGetResponse response = mediaService.mediaGet(mediaId);
         log.info("response: {}", response);
     }
@@ -74,7 +74,13 @@ public class MediaServiceTest extends TestCase {
 
     @Test
     public void testMediaUploadByUrl() {
-        MediaUploadByUrlRequest request = MediaUploadByUrlRequest.builder().build();
+        MediaUploadByUrlRequest request = MediaUploadByUrlRequest.builder()
+                .scene(1)
+                .type(MediaConstant.MediaUploadMediaType.FILE.getType())
+                .fileName("")
+                .url("")
+                .md5("")
+                .build();
         MediaUploadByUrlResponse response = mediaService.mediaUploadByUrl(request);
         log.info("response: {}", response);
     }

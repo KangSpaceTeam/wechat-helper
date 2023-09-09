@@ -1,12 +1,15 @@
 package org.kangspace.wechat.helper.core.request;
 
 import io.netty.handler.codec.http.HttpHeaders;
+import org.apache.commons.lang3.StringUtils;
 import org.kangspace.wechat.helper.core.bean.MultipartRequest;
 import org.kangspace.wechat.helper.core.constant.StringLiteral;
 import org.kangspace.wechat.helper.core.util.MimeContentTypes;
 import reactor.netty.http.client.HttpClientResponse;
 
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Http工具类
@@ -122,16 +125,41 @@ public class HttpUtil {
     public static String getContentDispositionFileName(HttpClientResponse response) {
         String contentDisposition = response.responseHeaders().get(HttpConstant.CONTENT_DISPOSITION_NAME);
         if (contentDisposition != null) {
-            return Arrays.stream(contentDisposition.split(StringLiteral.SEMICOLON)).filter(t -> t.contains(HttpConstant.FILE_NAME))
-                    .map(t -> {
-                        String[] fileNameBlocks = t.split(StringLiteral.EQUALS);
-                        if (fileNameBlocks.length == HttpConstant.CONTENT_DISPOSITION_VALUE_SIZE) {
-                            String fileName = fileNameBlocks[1].trim();
-                            return fileName.substring(1, fileName.length() - 1);
-                        }
-                        return t;
-                    }).findFirst().orElse(null);
+            return headerValues(contentDisposition).get(HttpConstant.FILE_NAME);
         }
         return null;
+    }
+
+    /**
+     * Http响应头值转换为key=Value <br>
+     * 传入参数格式: a=b;c=d
+     *
+     * @param headValue 响应头值
+     * @return Map
+     */
+    public static Map<String, String> headerValues(String headValue) {
+        if (StringUtils.isBlank(headValue)) {
+            return Collections.emptyMap();
+        }
+        String[] parts = headValue.split(StringLiteral.SEMICOLON);
+        Map<String, String> valueMap = new HashMap<>(parts.length);
+        for (String entry : parts) {
+            entry = entry.trim();
+            int firstEqualsIndex = entry.indexOf(StringLiteral.EQUALS);
+            String key = entry, value = null;
+            if (firstEqualsIndex > -1) {
+                key = entry.substring(0, firstEqualsIndex);
+                if (firstEqualsIndex < entry.length() - 1) {
+                    value = entry.substring(firstEqualsIndex + 1);
+                }
+            }
+            if (value != null
+                    && value.startsWith(StringLiteral.DOUBLE_QUOTE)
+                    && value.endsWith(StringLiteral.DOUBLE_QUOTE)) {
+                value = value.substring(1, value.length() - 1);
+            }
+            valueMap.put(key, value);
+        }
+        return valueMap;
     }
 }

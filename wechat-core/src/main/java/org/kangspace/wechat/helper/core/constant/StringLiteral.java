@@ -87,4 +87,14 @@ public interface StringLiteral {
      */
     String HASH_TAG = "#";
 
+    /**
+     * 双引号 "
+     */
+    String DOUBLE_QUOTE = "\"";
+
+    /**
+     * 单引号 '
+     */
+    String SINGLE_QUOTE = "'";
+
 }

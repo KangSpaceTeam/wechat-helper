@@ -58,6 +58,7 @@ public interface MediaService extends WeComService {
      *
      * @param request {@link MediaUploadByUrlResponse}
      * @return {@link MediaGetResponse}
+     * @see MediaConstant.MediaUploadMediaType
      */
     MediaUploadByUrlResponse mediaUploadByUrl(@Nonnull MediaUploadByUrlRequest request);
 
