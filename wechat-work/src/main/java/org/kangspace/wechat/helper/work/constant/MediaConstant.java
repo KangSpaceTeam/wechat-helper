@@ -73,4 +73,30 @@ public interface MediaConstant {
             return Arrays.stream(values()).filter(t -> Arrays.stream(t.getSupportTypes()).anyMatch(contentType::contains)).findFirst().orElse(null);
         }
     }
+
+
+
+    /**
+     * 群机器人-文件上传接口: 文件类型，分别有语音(voice)和普通文件(file)
+     */
+    enum WebHookUploadMediaType {
+        VOICE, FILE;
+
+        public String getType() {
+            return this.name().toLowerCase();
+        }
+
+    }
+
+    /**
+     * 素材管理-上传临时素材: 文件类型，图片（image）、语音（voice）、视频（video），普通文件(file)
+     */
+    enum MediaUploadMediaType {
+        IMAGE, VOICE, VIDEO, FILE;
+
+        public String getType() {
+            return this.name().toLowerCase();
+        }
+
+    }
 }

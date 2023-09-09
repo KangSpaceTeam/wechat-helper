@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 import lombok.Data;
 import org.kangspace.wechat.helper.core.bean.MultipartRequest;
+import org.kangspace.wechat.helper.core.constant.WeChatConstant;
 import org.kangspace.wechat.helper.core.util.IoStreamUtil;
 import org.kangspace.wechat.helper.work.constant.MediaConstant;
+import org.kangspace.wechat.helper.work.constant.WeComConstant;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -32,10 +34,11 @@ public class MediaUploadRequest implements MultipartRequest {
 
     /**
      * 媒体文件类型，分别有图片（image）、语音（voice）、视频（video）和缩略图（thumb）
+     * @see MediaConstant.MediaUploadMediaType
      */
     @Nonnull
     @JsonProperty("type")
-    private MediaConstant.MediaType type;
+    private String type;
 
     /**
      * form-data中媒体文件标识，有filename、filelength、content-type等信息
@@ -57,14 +60,14 @@ public class MediaUploadRequest implements MultipartRequest {
     public MediaUploadRequest() {
     }
 
-    public MediaUploadRequest(@Nonnull String fileName, @Nonnull MediaConstant.MediaType type, @Nonnull InputStream media, @Nonnull String contentType) {
+    public MediaUploadRequest(@Nonnull String fileName, @Nonnull String type, @Nonnull InputStream media, @Nonnull String contentType) {
         this.fileName = fileName;
         this.type = type;
         this.media = media;
         this.contentType = contentType;
     }
 
-    public MediaUploadRequest(@Nonnull MediaConstant.MediaType type, @Nonnull File media, @Nonnull String contentType) {
+    public MediaUploadRequest(@Nonnull String type, @Nonnull File media, @Nonnull String contentType) {
         this.fileName = media.getName();
         this.type = type;
         this.media = IoStreamUtil.toInputStream(media);

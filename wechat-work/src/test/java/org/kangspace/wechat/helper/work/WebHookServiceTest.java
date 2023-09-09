@@ -67,13 +67,13 @@ public class WebHookServiceTest {
     @Test
     public void webhookUploadMedia() {
         MediaConstant.MediaType mediaType = MediaConstant.MediaType.IMAGE;
-        String type = WeComConstant.WebHookUploadMediaType.FILE.getType();
+        String type = MediaConstant.WebHookUploadMediaType.FILE.getType();
         String fileName = "logo_240.png";
         String filePath = "files/" + fileName;
         InputStream inputStream = ClassLoader.getSystemResourceAsStream(filePath);
         String contentType = "image/png";
         assert inputStream != null;
-        MediaUploadRequest request = new MediaUploadRequest(fileName, mediaType, inputStream, contentType);
+        MediaUploadRequest request = new MediaUploadRequest(fileName, mediaType.getValue(), inputStream, contentType);
         WebHookUploadMediaResponse response = webHookService.webhookUploadMedia(KEY, type, request);
         log.info("response: {}", response);
     }
