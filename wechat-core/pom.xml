@@ -5,12 +5,12 @@
     <parent>
         <groupId>org.kangspace.wechat.helper</groupId>
         <artifactId>wechat-helper</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>wechat-core</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.1.0</version>
     <description>微信开发助手-公共代码模块</description>
 
     <dependencies>

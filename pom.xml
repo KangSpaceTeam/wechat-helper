@@ -6,7 +6,7 @@
 
     <groupId>org.kangspace.wechat.helper</groupId>
     <artifactId>wechat-helper</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.1.0</version>
     <packaging>pom</packaging>
 
     <name>wechat-helper</name>
@@ -43,91 +43,6 @@
         <url>https://github.com/KangSpaceTeam/wechat-helper</url>
     </issueManagement>
 
-    <profiles>
-        <profile>
-            <id>release</id>
-            <build>
-                <plugins>
-                    <!--Compiler-->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                    </plugin>
-                    <!-- Source -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- Javadoc -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>3.2.0</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                                <!--   <configuration>
-                                       <additionalparam>-Xdoclint:none</additionalparam>
-                                       <failOnError>${maven.javadoc.failOnError}</failOnError>
-                                       <encoding>UTF-8</encoding>
-                                   </configuration>-->
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase-->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>sign-artifacts</id>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- mvn release -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>2.5.3</version>
-                        <configuration>
-                            <autoVersionSubmodules>true</autoVersionSubmodules>
-                            <tagNameFormat>tag@{project.version}</tagNameFormat>
-                            <generateReleasePoms>false</generateReleasePoms>
-                            <arguments>-DskipTests</arguments>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
-            <distributionManagement>
-                <snapshotRepository>
-                    <id>sonatype-nexus</id>
-                    <name>Sonatype Nexus Snapshots</name>
-                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-                </snapshotRepository>
-                <repository>
-                    <id>sonatype-nexus</id>
-                    <name>Nexus Release Repository</name>
-                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-                </repository>
-            </distributionManagement>
-        </profile>
-    </profiles>
-
     <repositories>
         <repository>
             <id>aliyunmaven</id>
@@ -151,6 +66,7 @@
         <maven.surefire.plugin.version>3.0.0-M7</maven.surefire.plugin.version>
         <maven.gpg.plugin.version>3.0.1</maven.gpg.plugin.version>
         <maven.release.plugin>2.5.3</maven.release.plugin>
+        <maven.nexus-staging-maven-plugin.plugin>1.6.7</maven.nexus-staging-maven-plugin.plugin>
 
         <java.version>1.8</java.version>
         <project.encoding>UTF-8</project.encoding>
@@ -169,7 +85,7 @@
         <jsr305.version>3.0.2</jsr305.version>
         <redisson.version>3.17.5</redisson.version>
         <jakarta.activation.api.version>1.2.2</jakarta.activation.api.version>
-        <dev-helper.version>0.0.2-SNAPSHOT</dev-helper.version>
+        <dev-helper.version>0.0.2</dev-helper.version>
     </properties>
 
     <modules>
@@ -358,6 +274,19 @@
         </dependencies>
     </dependencyManagement>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus</id>
+            <name>Nexus Release Repository</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
     <build>
         <plugins>
             <plugin>
@@ -370,6 +299,7 @@
                     <encoding>${project.encoding}</encoding>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
@@ -434,7 +364,7 @@
                 </configuration>
             </plugin>
             <!-- GPG mvn clean deploy -P release -Dgpg.passphrase=YourPassphase-->
-            <!--<plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
                 <version>${maven.gpg.plugin.version}</version>
@@ -445,9 +375,17 @@
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <configuration>
+                            <!-- Prevent gpg from using pinentry programs -->
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </execution>
                 </executions>
-            </plugin>-->
+            </plugin>
+
             <!-- mvn release -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -458,6 +396,19 @@
                     <tagNameFormat>tag@{project.version}</tagNameFormat>
                     <generateReleasePoms>false</generateReleasePoms>
                     <arguments>-DskipTests</arguments>
+                </configuration>
+            </plugin>
+
+
+            <plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>${maven.nexus-staging-maven-plugin.plugin}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>sonatype-nexus</serverId>
+                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
                 </configuration>
             </plugin>
         </plugins>

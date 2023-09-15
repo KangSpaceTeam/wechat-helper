@@ -5,19 +5,19 @@
     <parent>
         <groupId>org.kangspace.wechat.helper</groupId>
         <artifactId>wechat-helper</artifactId>
-        <version>0.0.2-SNAPSHOT</version>
+        <version>0.1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>pom</packaging>
 
     <artifactId>wechat-bom</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
+    <version>0.1.0</version>
     <description>微信开发助手-SDK模块集合</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
-        <wechat-helper.version>0.0.2-SNAPSHOT</wechat-helper.version>
+        <wechat-helper.version>0.1.0</wechat-helper.version>
     </properties>
 
     <dependencyManagement>
@@ -35,21 +35,6 @@
             <dependency>
                 <groupId>org.kangspace.wechat.helper</groupId>
                 <artifactId>wechat-work</artifactId>
-                <version>${wechat-helper.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.kangspace.wechat.helper</groupId>
-                <artifactId>wechat-open</artifactId>
-                <version>${wechat-helper.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.kangspace.wechat.helper</groupId>
-                <artifactId>wechat-pay</artifactId>
-                <version>${wechat-helper.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.kangspace.wechat.helper</groupId>
-                <artifactId>wechat-monitor</artifactId>
                 <version>${wechat-helper.version}</version>
             </dependency>
         </dependencies>
