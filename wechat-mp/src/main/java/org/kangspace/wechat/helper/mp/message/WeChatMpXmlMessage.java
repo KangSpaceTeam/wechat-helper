@@ -88,4 +88,13 @@ public class WeChatMpXmlMessage implements WeChatMpMessage, WeChatXmlMessage {
     public String getRaw() {
         return this.raw;
     }
+
+    /**
+     * 获取默认创建时间
+     *
+     * @return 默认创建时间
+     */
+    public Long fetchDefaultCreateTime() {
+        return System.currentTimeMillis() / 1000;
+    }
 }

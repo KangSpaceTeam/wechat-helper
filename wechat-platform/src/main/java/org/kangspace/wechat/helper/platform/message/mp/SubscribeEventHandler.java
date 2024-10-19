@@ -25,7 +25,7 @@ public class SubscribeEventHandler implements WeChatMpEventHandler<SubscribeEven
     public WeChatMpEchoMessage handle(WeChatMpService service, SubscribeEvent event, MessageResolverContext context) {
         log.info("公众号事件解析器: event: {}, context: {}", event, context);
         return subscribeReplyMessage(event, context);
-    }  
+    }
 
     /**
      * 订阅响应信息
@@ -38,7 +38,7 @@ public class SubscribeEventHandler implements WeChatMpEventHandler<SubscribeEven
         message.append("\uD83D\uDCE3 欢迎关注「极谷小站」！\n");
         message.append("(").append(context.getOpenId()).append(")\n\n");
         message.append("路漫漫其修远，吾将上下而求索\n");
-        
+
         // 如果是扫描二维码关注，添加额外信息
         if (event.getEventKey() != null && event.getEventKey().startsWith(SubscribeEvent.SUBSCRIPT_EVENT_KEY_PREFIX)) {
             String sceneId = event.getEventKey().substring(SubscribeEvent.SUBSCRIPT_EVENT_KEY_PREFIX.length());
@@ -53,6 +53,11 @@ public class SubscribeEventHandler implements WeChatMpEventHandler<SubscribeEven
         xmlMessage.setFromUser(toUser);
         xmlMessage.setToUser(fromUser);
         return xmlMessage;
+    }
+
+    @Override
+    public Class<? extends SubscribeEvent> supportType() {
+        return SubscribeEvent.class;
     }
 
     @Override

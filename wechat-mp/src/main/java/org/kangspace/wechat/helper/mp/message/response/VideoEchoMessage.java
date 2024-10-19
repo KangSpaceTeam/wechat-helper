@@ -27,6 +27,11 @@ public class VideoEchoMessage extends WeChatMpEchoXmlMessage {
     public VideoEchoMessage() {
     }
 
+    public VideoEchoMessage(String toUser, String fromUser, Video video) {
+        this(toUser, fromUser, null, null, video);
+        this.setCreateTime(fetchDefaultCreateTime());
+    }
+
     public VideoEchoMessage(String toUser, String fromUser, Long createTime, Long msgId, Video video) {
         super(toUser, fromUser, createTime, msgId);
         this.video = video;

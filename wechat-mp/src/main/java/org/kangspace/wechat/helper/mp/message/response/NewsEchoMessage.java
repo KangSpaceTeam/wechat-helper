@@ -37,6 +37,11 @@ public class NewsEchoMessage extends WeChatMpEchoXmlMessage {
     public NewsEchoMessage() {
     }
 
+    public NewsEchoMessage(String toUser, String fromUser, Integer articleCount, List<Article> articles) {
+        this(toUser, fromUser, null, null, articleCount, articles);
+        this.setCreateTime(fetchDefaultCreateTime());
+    }
+
     public NewsEchoMessage(String toUser, String fromUser, Long createTime, Long msgId, Integer articleCount, List<Article> articles) {
         super(toUser, fromUser, createTime, msgId);
         this.articleCount = articleCount;

@@ -38,7 +38,6 @@ public interface WeChatMpMessageHandler<Message extends WeChatMpMessage> extends
     }
 
     @SuppressWarnings("unchecked")
-    @Override
     default Class<? extends Message> supportType() {
         return (Class<? extends Message>) WeChatMpMessage.class;
     }

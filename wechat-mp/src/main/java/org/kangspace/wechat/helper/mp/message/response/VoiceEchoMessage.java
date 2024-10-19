@@ -27,6 +27,11 @@ public class VoiceEchoMessage extends WeChatMpEchoXmlMessage {
     public VoiceEchoMessage() {
     }
 
+    public VoiceEchoMessage(String toUser, String fromUser, Voice voice) {
+        this(toUser, fromUser, null, null, voice);
+        this.setCreateTime(fetchDefaultCreateTime());
+    }
+
     public VoiceEchoMessage(String toUser, String fromUser, Long createTime, Long msgId, Voice voice) {
         super(toUser, fromUser, createTime, msgId);
         this.voice = voice;

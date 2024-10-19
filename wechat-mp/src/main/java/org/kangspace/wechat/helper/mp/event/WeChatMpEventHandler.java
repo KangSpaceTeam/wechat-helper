@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.mp.event;
 import org.kangspace.wechat.helper.core.event.WeChatEventHandler;
 import org.kangspace.wechat.helper.core.message.MessageResolverContext;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
+import org.kangspace.wechat.helper.mp.message.WeChatMpMessage;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageHandler;
 import org.kangspace.wechat.helper.mp.message.response.WeChatMpEchoMessage;
 
@@ -33,9 +34,10 @@ public interface WeChatMpEventHandler<Event extends WeChatMpEvent> extends WeCha
         WeChatMpMessageHandler.super.execute(service, weChatMessage, context);
     }
 
+    Class<? extends Event> supportType();
+
     @SuppressWarnings("unchecked")
-    @Override
-    default Class<? extends Event> supportType() {
+    default Class<? extends Event> defaultSupportType() {
         return (Class<? extends Event>) WeChatMpEvent.class;
     }
 }

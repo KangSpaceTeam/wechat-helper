@@ -29,6 +29,12 @@ public class TextEchoMessage extends WeChatMpEchoXmlMessage {
     public TextEchoMessage() {
     }
 
+
+    public TextEchoMessage(String toUser, String fromUser, String content) {
+        this(toUser, fromUser, null, null, content);
+        this.setCreateTime(fetchDefaultCreateTime());
+    }
+
     public TextEchoMessage(String toUser, String fromUser, Long createTime, Long msgId, String content) {
         super(toUser, fromUser, createTime, msgId);
         this.content = content;

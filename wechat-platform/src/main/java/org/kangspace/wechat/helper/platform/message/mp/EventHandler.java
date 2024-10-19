@@ -68,6 +68,11 @@ public class EventHandler implements WeChatMpEventHandler<WeChatMpXmlEvent> {
         return xmlMessage;
     }
 
+    @Override
+    public Class<? extends WeChatMpXmlEvent> supportType() {
+        return WeChatMpXmlEvent.class;
+    }
+
     /**
      * 随机emoji
      *

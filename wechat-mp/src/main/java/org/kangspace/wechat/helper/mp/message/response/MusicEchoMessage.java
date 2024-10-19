@@ -35,6 +35,10 @@ public class MusicEchoMessage extends WeChatMpEchoXmlMessage {
         super(toUser, fromUser, createTime, msgId);
         this.music = music;
     }
+    public MusicEchoMessage(String toUser, String fromUser, Music music) {
+        this(toUser, fromUser, null, null, music);
+        this.setCreateTime(fetchDefaultCreateTime());
+    }
 
     @Override
     public MessageConstant.MessageType getMsgType() {
