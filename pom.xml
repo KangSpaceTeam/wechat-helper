@@ -6,7 +6,7 @@
 
     <groupId>org.kangspace.wechat.helper</groupId>
     <artifactId>wechat-helper</artifactId>
-    <version>0.1.1-SNAPSHOT</version>
+    <version>0.1.1</version>
     <packaging>pom</packaging>
 
     <name>wechat-helper</name>
