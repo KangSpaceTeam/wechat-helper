@@ -18,6 +18,7 @@
         <maven.source.skip>false</maven.source.skip>
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <spring.boot.version>2.7.2</spring.boot.version>
+        <spring.profiles.active>default</spring.profiles.active>
     </properties>
     <profiles>
         <profile>
