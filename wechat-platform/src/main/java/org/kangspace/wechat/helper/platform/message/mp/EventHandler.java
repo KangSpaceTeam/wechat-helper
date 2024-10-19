@@ -48,7 +48,8 @@ public class EventHandler implements WeChatMpEventHandler<WeChatMpXmlEvent> {
                     "扫描结果: " + scanCodeInfo.getScanResult();
         } else if (WeChatMpEvents.Subscribe.getEvent().equals(eventType)) {
             // 订阅
-            content = "\uD83D\uDCE3感谢关注公众号！(" + context.getOpenId() + ")";
+            content = "\uD83D\uDCE3 欢迎关注「极谷小站」！\n(" + context.getOpenId() + ")"+"\n\n"+
+            "路漫漫其修远，吾将上下而求索";
         } else {
             log.info("event: " + event.getEvent() + ", eventKey: " + event.getEventKey());
         }

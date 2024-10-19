@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.platform.config;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.mp.message.WeChatMpMessageResolver;
 import org.kangspace.wechat.helper.work.DefaultWeComService;
@@ -68,8 +69,11 @@ public class WeComServiceConfig implements InitializingBean {
         @Nonnull
         private String corpId;
         @Nonnull
+        @ToString.Exclude
         private String appSecret;
+        @ToString.Exclude
         private String encodingAESKey;
+        @ToString.Exclude
         private String token;
     }
 

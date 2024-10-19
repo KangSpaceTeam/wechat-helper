@@ -3,6 +3,7 @@ package org.kangspace.wechat.helper.platform.config;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 import org.kangspace.wechat.helper.mp.DefaultWeChatMpService;
 import org.kangspace.wechat.helper.mp.WeChatMpService;
@@ -65,8 +66,11 @@ public class WeChatMpServiceConfig implements InitializingBean {
         @Nonnull
         private String appId;
         @Nonnull
+        @ToString.Exclude
         private String appSecret;
+        @ToString.Exclude
         private String encodingAESKey;
+        @ToString.Exclude
         private String token;
         @Nonnull
         private String rawId;

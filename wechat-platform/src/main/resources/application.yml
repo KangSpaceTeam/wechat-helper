@@ -3,6 +3,10 @@ server:
   servlet:
     context-path: /wechat-platform
 
+spring:
+  profiles:
+    active: @spring.profiles.active@
+
 wechat:
   mp:
     configs:

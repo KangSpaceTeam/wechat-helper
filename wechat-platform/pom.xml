@@ -19,6 +19,22 @@
         <maven.javadoc.skip>false</maven.javadoc.skip>
         <spring.boot.version>2.7.2</spring.boot.version>
     </properties>
+    <profiles>
+        <profile>
+            <id>wechat-ban-check</id>
+            <properties>
+                <spring.profiles.active>wechat-ban-check</spring.profiles.active>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.kangspace.wechat.helper</groupId>
+                    <artifactId>ban-helper</artifactId>
+                    <version>1.0.0</version>
+                    <scope>compile</scope>
+                </dependency>
+            </dependencies>
+        </profile>
+    </profiles>
 
     <dependencies>
         <dependency>
@@ -61,6 +77,14 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- 微信封禁助手, 未公开, 需要手动添加 -->
+        <dependency>
+            <groupId>org.kangspace.wechat.helper</groupId>
+            <artifactId>ban-helper</artifactId>
+            <version>1.0.0</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 
