@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
  * @since 0.1.1
  */
 @Slf4j
-@Order(1)
 @Profile("wechat-ban-check")
 @Component
 public class WaBanCheckMessageHandler implements WeChatMpMessageHandler<WeChatMpMessage> {
@@ -82,5 +81,10 @@ public class WaBanCheckMessageHandler implements WeChatMpMessageHandler<WeChatMp
         public WaBanChecker waBanChecker() {
             return new WaBanChecker();
         }
+    }
+
+    @Override
+    public Integer getOrder() {
+        return 1;
     }
 }

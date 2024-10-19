@@ -54,4 +54,9 @@ public class SubscribeEventHandler implements WeChatMpEventHandler<SubscribeEven
         xmlMessage.setToUser(fromUser);
         return xmlMessage;
     }
+
+    @Override
+    public Integer getOrder() {
+        return 1;
+    }
 }

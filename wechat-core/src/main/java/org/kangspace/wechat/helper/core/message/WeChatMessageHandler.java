@@ -56,11 +56,12 @@ public interface WeChatMessageHandler<Service extends WeChatService, Message ext
 
     /**
      * 获取排序值
+     * (值越小越先执行)
      *
      * @return 排序值
      */
     default Integer getOrder() {
-        return Integer.MIN_VALUE;
+        return Integer.MAX_VALUE;
     }
 
     /**

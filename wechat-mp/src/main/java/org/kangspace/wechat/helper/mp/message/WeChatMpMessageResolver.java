@@ -135,7 +135,7 @@ public class WeChatMpMessageResolver
         // 若同一个消息存在多个处理器, 返回第一个有返回值的处理器的返回值; 若存在异步执行器,则返回所有执行器中最先执行完的有返回值的处理器的返回值.
         List<CompletableFuture<WeChatMpEchoMessage>> completableFutures = new ArrayList<>();
         ConcurrentHashMap<Long, WeChatMpEchoMessage> resultMap = new ConcurrentHashMap<>(16);
-        messageHandlers.forEach(handler -> {
+        for (WeChatMpMessageHandler<WeChatMpMessage> handler : messageHandlers) {
             if (handler.isAsync()) {
                 // 异步执行器处理
                 CompletableFuture<WeChatMpEchoMessage> echoMessageFeature = CompletableFuture.supplyAsync(() -> handler.handle(getWeChatService(), message, context), handler.getExecutor());
@@ -152,14 +152,15 @@ public class WeChatMpMessageResolver
                 // 同步执行器-记录执行结果
                 if (echoMessage != null) {
                     resultMap.put(System.nanoTime(), echoMessage);
+                    break;
                 }
             }
-        });
-        if (completableFutures.size() > 0) {
+        }
+        if (!completableFutures.isEmpty()) {
             CompletableFuture.allOf(completableFutures.toArray(new CompletableFuture[0])).join();
         }
         // 取第一条结果数据
-        return resultMap.size() > 0 ? resultMap.values().stream().findFirst().orElse(null) : null;
+        return !resultMap.isEmpty() ? resultMap.values().stream().findFirst().orElse(null) : null;
     }
 
     @SuppressWarnings("unchecked")
